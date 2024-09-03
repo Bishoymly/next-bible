@@ -66,12 +66,14 @@ export function BibleBookHome() {
           </div>
         </div>
         {bookInfo.introText.map((text, i) => (
-          <p className="text-lg sub leading-relaxed mb-6">{text}</p>
+          <p key={i} className="text-lg sub leading-relaxed mb-6">
+            {text}
+          </p>
         ))}
 
         <h2 className="text-xl font-semibold my-4">Sections</h2>
         {chapterGroups.map((group) => (
-          <Button variant="outline" className="mr-2 mb-2" size="lg" asChild>
+          <Button key={group.title} variant="outline" className="mr-2 mb-2" size="lg" asChild>
             <Link href={`/asv/genesis/${group.startChapter}`}>{group.title}</Link>
           </Button>
         ))}
