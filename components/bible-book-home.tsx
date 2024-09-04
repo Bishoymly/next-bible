@@ -32,7 +32,7 @@ export function BibleBookHome({ book, curation, bookInfo }) {
 
       <div className="max-w-5xl mx-auto p-4">
         <div className="float-right ml-4 mb-4 max-w-xs">
-          <Image src="/img/genesis.webp" alt="Descriptive Alt Text" width={300} height={300} className="rounded shadow-md mb-6" />
+          <img src={curation.imageUrl} alt="Descriptive Alt Text" width={300} height={300} className="rounded shadow-md mb-6" />
           <div className="hidden aspect-w-16 aspect-h-9 mb-6">
             <iframe
               src="https://www.youtube.com/embed/GQI72THyO5I"
