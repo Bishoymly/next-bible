@@ -1,13 +1,17 @@
 "use client";
-
+import localFont from "next/font/local";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 
+const titleFont = localFont({
+  src: "./../public/game-of-thrones.ttf",
+  display: "swap",
+});
+
 export function BibleBookHome({ book, curation, bookInfo }) {
-  console.log(bookInfo);
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-8">
@@ -17,7 +21,7 @@ export function BibleBookHome({ book, curation, bookInfo }) {
             {bookInfo.previousBook}
           </Link>
         </Button>
-        <h1 className="text-4xl font-bold text-center">{bookInfo.n}</h1>
+        <h1 className={`text-5xl font-bold text-center ${titleFont.className}`}>{bookInfo.n.replace(/1/g, "I ").replace(/2/g, "II ")}</h1>
         <Button variant="ghost" asChild>
           <Link href={`/books/${bookInfo.nextBook?.toLowerCase()}`}>
             {bookInfo.nextBook}
@@ -55,7 +59,9 @@ export function BibleBookHome({ book, curation, bookInfo }) {
         <h2 className="text-xl font-semibold my-6">Sections</h2>
         {curation.sections.map((group) => (
           <Button key={group.title} variant="outline" className="mr-2 mb-2" size="lg" asChild>
-            <Link href={`/asv/${book}/${group.startChapter}`}>{group.title}</Link>
+            <Link href={`/asv/${book}/${group.fromChapter}`}>
+              {group.fromChapter ? (group.fromChapter === group.toChapter ? `${group.title} (${group.fromChapter})` : `${group.title} (${group.fromChapter}-${group.toChapter})`) : group.title}
+            </Link>
           </Button>
         ))}
 

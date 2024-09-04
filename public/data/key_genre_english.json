@@ -1,1 +1,42 @@
-[{"g": 1,"n": "Law"}, {"g": 2,"n": "History"}, {"g": 3,"n": "Wisdom"}, {"g": 4,"n": "Prophets"}, {"g": 5,"n": "Gospels"}, {"g": 6,"n": "Acts"}, {"g": 7,"n": "Epistles"}, {"g": 8,"n": "Apocalyptic"}]
+[
+    {
+        "g": 1,
+        "n": "Law",
+        "testament": "Old Testament"
+    },
+    {
+        "g": 2,
+        "n": "History",
+        "testament": "Old Testament"
+    },
+    {
+        "g": 3,
+        "n": "Wisdom",
+        "testament": "Old Testament"
+    },
+    {
+        "g": 4,
+        "n": "Prophets",
+        "testament": "Old Testament"
+    },
+    {
+        "g": 5,
+        "n": "Gospels",
+        "testament": "New Testament"
+    },
+    {
+        "g": 6,
+        "n": "Acts",
+        "testament": "New Testament"
+    },
+    {
+        "g": 7,
+        "n": "Epistles",
+        "testament": "New Testament"
+    },
+    {
+        "g": 8,
+        "n": "Apocalyptic",
+        "testament": "New Testament"
+    }
+]

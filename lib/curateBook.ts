@@ -17,7 +17,7 @@ export default async function curateBook(book) {
     model: openai("gpt-4o-mini"),
     schema: z.object({
       overviewParagraphs: z.array(z.string()),
-      sections: z.array(z.object({ title: z.string(), startChapter: z.number() })),
+      sections: z.array(z.object({ title: z.string(), fromChapter: z.number(), toChapter: z.number() })),
       sketchPrompt: z.string(),
     }),
     prompt: `As a reformed baptist scholar talking to an average bible student. Give me an introduction to the book of ${book} that will help me understand the book, the writer, the setting and how to split its chapters into useful sections. Don't included chapter numbers in section titles. Also please give me a prompt that will generate a drawing sketch that represents this book.`,
