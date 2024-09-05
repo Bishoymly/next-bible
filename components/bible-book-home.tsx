@@ -1,10 +1,9 @@
 "use client";
 import localFont from "next/font/local";
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
-import { Card, CardContent } from "@/components/ui/card";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
+import { BookImage } from "./generated-image";
 
 const titleFont = localFont({
   src: "./../public/game-of-thrones.ttf",
@@ -16,14 +15,14 @@ export function BibleBookHome({ book, curation, bookInfo }) {
     <div className="container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-8">
         <Button variant="ghost" asChild>
-          <Link href={`/books/${bookInfo.previousBook?.toLowerCase()}`}>
+          <Link href={`/asv/${bookInfo.previousBook?.toLowerCase().replace(/ /g, "-")}`}>
             <ChevronLeft className="mr-2 h-4 w-4" />
             {bookInfo.previousBook}
           </Link>
         </Button>
         <h1 className={`text-4xl font-bold text-center ${titleFont.className}`}>{bookInfo.n.replace(/1/g, "I ").replace(/2/g, "II ")}</h1>
         <Button variant="ghost" asChild>
-          <Link href={`/books/${bookInfo.nextBook?.toLowerCase()}`}>
+          <Link href={`/asv/${bookInfo.nextBook?.toLowerCase()}.replace(/ /g, "-")`}>
             {bookInfo.nextBook}
             <ChevronRight className="ml-2 h-4 w-4" />
           </Link>
@@ -32,7 +31,6 @@ export function BibleBookHome({ book, curation, bookInfo }) {
 
       <div className="max-w-5xl mx-auto p-4">
         <div className="float-right ml-4 mb-4 max-w-xs">
-          <img src={curation.imageUrl} alt="Descriptive Alt Text" width={300} height={300} className="rounded shadow-md mb-6" />
           <div className="hidden aspect-w-16 aspect-h-9 mb-6">
             <iframe
               src="https://www.youtube.com/embed/GQI72THyO5I"
