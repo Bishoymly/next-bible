@@ -1,16 +1,12 @@
 "use server";
 import { BibleBookHome } from "@/components/bible-book-home";
 import curateBook from "@/lib/curateBook";
-import GenerateImage from "@/lib/generateImage";
-import fs from "fs";
-import path from "path";
+import getBooks from "@/lib/getBooks";
 
 export default async function BookPage({ params }) {
   const book = params.book;
-  const filePath = path.join(process.cwd(), "public", "data", "key_english.json");
-  const fileContents = fs.readFileSync(filePath, "utf-8");
-  const books = JSON.parse(fileContents);
-  const bookInfo = books.resultset.keys.filter((b) => b.n.toLowerCase() === book.replace(/-/g, " "))[0];
+  const books = getBooks();
+  const bookInfo = books.filter((b) => b.n.toLowerCase() === book.replace(/-/g, " "))[0];
   const curation = await curateBook(book);
 
   return <BibleBookHome book={book} curation={curation} bookInfo={bookInfo} />;

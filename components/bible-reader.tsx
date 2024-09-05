@@ -9,7 +9,6 @@ import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTr
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Book, ChevronLeft, ChevronRight, Globe, Menu, Search, Share2, Facebook, Twitter, Linkedin, ChevronFirst, ChevronLast } from "lucide-react";
-import Image from "next/image";
 
 const translations = {
   en: {
@@ -134,31 +133,12 @@ const SocialShareButtons = ({ language, verseKey, verseText }) => {
   );
 };
 
-export function BibleReader() {
+export function BibleReader({ data, book, chapter, version, bookInfo }) {
   const [showCommentary, setShowCommentary] = useState(false);
   const [language, setLanguage] = useState("en");
   const [selectedTranslations, setSelectedTranslations] = useState(["KJV", "NIV"]);
   const [selectedVerse, setSelectedVerse] = useState(null);
   const [sidebarExpanded, setSidebarExpanded] = useState(true);
-  const [data, setData] = useState(null);
-
-  useEffect(() => {
-    fetch("/data/t_asv.json")
-      .then((response) => response.json())
-      .then((jsonData) => {
-        setData(jsonData);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-  }, []);
-
-  if (!data) {
-    return <div>Loading...</div>;
-  }
-
-  //const translations = data.translations;
-  //const uiText = data.uiText;
 
   const handleLanguageChange = (newLanguage) => {
     setLanguage(newLanguage);
@@ -275,7 +255,9 @@ export function BibleReader() {
                 </ScrollArea>
               </SheetContent>
             </Sheet>
-            <h1 className="text-2xl font-bold ml-4">Genesis 1</h1>
+            <h1 className="text-2xl font-bold ml-4">
+              {bookInfo.n} {chapter}
+            </h1>
           </div>
           <div className="flex items-center space-x-2">
             <Select value={language} onValueChange={handleLanguageChange}>
@@ -316,22 +298,20 @@ export function BibleReader() {
               {Object.entries(translations[language]).map(([translation, verses]) => (
                 <TabsContent key={translation} value={translation}>
                   <div className="text-lg leading-relaxed">
-                    {data?.resultset.row
-                      .filter((row) => row.field[1] === 1 && row.field[2] === 1)
-                      .map((row, index, array) => (
-                        <span
-                          key={row.field[1]}
-                          className={`inline ${row.field[1] === "Genesis 1:3" ? "bg-primary/10 px-1 rounded cursor-pointer" : ""}`}
-                          onClick={() => {
-                            if (row.field[1] === "Genesis 1:3") setShowCommentary(true);
-                            setSelectedVerse({ key: row.field[1], text: row.field[4] });
-                          }}
-                        >
-                          <sup className="text-xs font-semibold text-muted-foreground mr-1">{row.field[3]}</sup>
-                          {row.field[4]}
-                          {index < array.length - 1 && " "}
-                        </span>
-                      ))}
+                    {data.map((row, index, array) => (
+                      <span
+                        key={row.field[1]}
+                        className={`inline ${row.field[1] === "Genesis 1:3" ? "bg-primary/10 px-1 rounded cursor-pointer" : ""}`}
+                        onClick={() => {
+                          if (row.field[1] === "Genesis 1:3") setShowCommentary(true);
+                          setSelectedVerse({ key: row.field[1], text: row.field[4] });
+                        }}
+                      >
+                        <sup className="text-xs font-semibold text-muted-foreground mr-1">{row.field[3]}</sup>
+                        {row.field[4]}
+                        {index < array.length - 1 && " "}
+                      </span>
+                    ))}
                   </div>
                   {selectedVerse && <SocialShareButtons language={language} verseKey={selectedVerse.key} verseText={selectedVerse.text} />}
                 </TabsContent>
