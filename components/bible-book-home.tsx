@@ -21,7 +21,7 @@ export function BibleBookHome({ book, curation, bookInfo }) {
             {bookInfo.previousBook}
           </Link>
         </Button>
-        <h1 className={`text-5xl font-bold text-center ${titleFont.className}`}>{bookInfo.n.replace(/1/g, "I ").replace(/2/g, "II ")}</h1>
+        <h1 className={`text-4xl font-bold text-center ${titleFont.className}`}>{bookInfo.n.replace(/1/g, "I ").replace(/2/g, "II ")}</h1>
         <Button variant="ghost" asChild>
           <Link href={`/books/${bookInfo.nextBook?.toLowerCase()}`}>
             {bookInfo.nextBook}

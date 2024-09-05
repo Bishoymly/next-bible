@@ -338,10 +338,6 @@ export function BibleReader() {
               ))}
             </Tabs>
           </div>
-          <div className="mt-8">
-            <Image src="/placeholder.svg?height=400&width=600" alt="Illustration of Creation" className="rounded-lg mx-auto" width={600} height={400}></Image>
-            <p className="text-center text-sm text-muted-foreground mt-2">Illustration: The Creation of Light</p>
-          </div>
         </ScrollArea>
       </main>
 
