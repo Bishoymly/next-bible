@@ -25,7 +25,7 @@ export default async function curateBook(book) {
   });
 
   //object.imageUrl = `/img/${book}.webp`;
-  object.imageUrl = await GenerateImage({ key: book, prompt: `generate a sketch drawing for the book of ${book}` });
+  object.imageUrl = await GenerateImage({ prompt: `generate a sketch drawing for the book of ${book}` });
 
   await kv.set(key, object);
   return object;
