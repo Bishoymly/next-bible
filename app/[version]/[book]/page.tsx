@@ -1,12 +1,11 @@
 "use server";
 import { BibleBookHome } from "@/components/bible-book-home";
 import { BibleBooksList } from "@/components/bible-books-list";
-import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import curateBook from "@/lib/curateBook";
+import GenerateImage, { GetCachedImage } from "@/lib/generateImage";
 import getBooks from "@/lib/getBooks";
 import getBooksCategorized from "@/lib/getBooksCategorized";
-import { ChevronFirst, ChevronLast } from "lucide-react";
 
 export default async function BookPage({ params }) {
   const book = params.book;
@@ -17,6 +16,7 @@ export default async function BookPage({ params }) {
   bookInfo.nextBook = bookInfo.b === books.length ? books[0].n : books[books.indexOf(bookInfo) + 1].n;
 
   const curation = await curateBook(book);
+  const imageUrl = await GetCachedImage(book + "-intro");
 
   return (
     <div className="flex h-screen bg-background">
@@ -32,7 +32,7 @@ export default async function BookPage({ params }) {
       {/* Main Content */}
       <main className="flex-1 flex flex-col overflow-hidden">
         <ScrollArea className="flex-1">
-          <BibleBookHome book={book} curation={curation} bookInfo={bookInfo} />
+          <BibleBookHome book={book} curation={curation} bookInfo={bookInfo} imageUrl={imageUrl} />
         </ScrollArea>
       </main>
     </div>

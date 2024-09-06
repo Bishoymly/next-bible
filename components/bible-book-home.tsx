@@ -3,14 +3,13 @@ import localFont from "next/font/local";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight, Home, Menu, Search } from "lucide-react";
 import Link from "next/link";
-import { BookImage } from "./generated-image";
 
 const titleFont = localFont({
   src: "./../public/game-of-thrones.ttf",
   display: "swap",
 });
 
-export function BibleBookHome({ book, curation, bookInfo }) {
+export function BibleBookHome({ book, curation, bookInfo, imageUrl }) {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-8">
@@ -41,24 +40,7 @@ export function BibleBookHome({ book, curation, bookInfo }) {
       </div>
 
       <div className="max-w-5xl mx-auto p-4">
-        <div className="float-right ml-4 mb-4 max-w-xs">
-          <div className="hidden aspect-w-16 aspect-h-9 mb-6">
-            <iframe
-              src="https://www.youtube.com/embed/GQI72THyO5I"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              className="rounded-lg"
-            ></iframe>
-          </div>
-          <div className="hidden aspect-w-16 aspect-h-9 mb-6">
-            <iframe
-              src="https://www.youtube.com/embed/F4isSyennFo"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              className="rounded-lg"
-            ></iframe>
-          </div>
-        </div>
+        {imageUrl ? <img src={imageUrl} alt={book} width={300} height={300} className="rounded shadow-md mb-6 ml-6 float-right" /> : <></>}
         {curation.overviewParagraphs.map((text, i) => (
           <p key={i} className="text-lg sub leading-relaxed mb-6">
             {text}
