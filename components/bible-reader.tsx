@@ -7,7 +7,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { Book, ChevronLeft, ChevronRight, Globe, Menu, Search, Share2, Facebook, Twitter, Linkedin, ChevronFirst, ChevronLast } from "lucide-react";
+import { Book, ChevronLeft, ChevronRight, Globe, Menu, Search, Share2, Facebook, Twitter, Linkedin, ChevronFirst, ChevronLast, Home } from "lucide-react";
 import Link from "next/link";
 
 const uiText = {
@@ -120,59 +120,20 @@ export function BibleReader({ data, book, chapter, version, bookInfo }) {
       {/* Collapsible Sidebar */}
       <aside className={`hidden md:flex flex-col border-r transition-all duration-300 ${sidebarExpanded ? "w-64" : "w-16"}`}>
         <div className={`p-4 border-b flex items-center ${sidebarExpanded ? "justify-between" : "justify-center"}`}>
-          {sidebarExpanded && (
-            <Select>
-              <SelectTrigger>
-                <SelectValue placeholder={uiText[language].selectBook} />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="genesis">Genesis</SelectItem>
-                <SelectItem value="exodus">Exodus</SelectItem>
-                <SelectItem value="leviticus">Leviticus</SelectItem>
-                {/* Add more books here */}
-              </SelectContent>
-            </Select>
-          )}
           <Button variant="ghost" size="icon" onClick={() => setSidebarExpanded(!sidebarExpanded)} aria-label={sidebarExpanded ? uiText[language].collapseSidebar : uiText[language].expandSidebar}>
             {sidebarExpanded ? <ChevronFirst /> : <ChevronLast />}
           </Button>
         </div>
         <ScrollArea className="flex-1">
           <div className={`p-4 space-y-2 ${sidebarExpanded ? "" : "flex flex-col items-center"}`}>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button variant="ghost" className={`w-full justify-start ${sidebarExpanded ? "" : "px-2"}`}>
-                    <Book className="h-4 w-4" />
-                    {sidebarExpanded && <span className="ml-2">{uiText[language].selectChapter} 1</span>}
+            <div className="grid grid-cols-5 gap-2">
+              {sidebarExpanded &&
+                Array.from({ length: bookInfo.c }, (_, i) => i + 1).map((c) => (
+                  <Button key={c} variant={chapter == c ? "default" : "outline"} size="sm" asChild>
+                    <Link href={`/asv/${book}/${c}`}>{c}</Link>
                   </Button>
-                </TooltipTrigger>
-                {!sidebarExpanded && <TooltipContent side="right">{uiText[language].selectChapter} 1</TooltipContent>}
-              </Tooltip>
-            </TooltipProvider>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button variant="ghost" className={`w-full justify-start ${sidebarExpanded ? "" : "px-2"}`}>
-                    <Book className="h-4 w-4" />
-                    {sidebarExpanded && <span className="ml-2">{uiText[language].selectChapter} 2</span>}
-                  </Button>
-                </TooltipTrigger>
-                {!sidebarExpanded && <TooltipContent side="right">{uiText[language].selectChapter} 2</TooltipContent>}
-              </Tooltip>
-            </TooltipProvider>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button variant="ghost" className={`w-full justify-start ${sidebarExpanded ? "" : "px-2"}`}>
-                    <Book className="h-4 w-4" />
-                    {sidebarExpanded && <span className="ml-2">{uiText[language].selectChapter} 3</span>}
-                  </Button>
-                </TooltipTrigger>
-                {!sidebarExpanded && <TooltipContent side="right">{uiText[language].selectChapter} 3</TooltipContent>}
-              </Tooltip>
-            </TooltipProvider>
-            {/* Add more chapters here */}
+                ))}
+            </div>
           </div>
         </ScrollArea>
       </aside>
@@ -193,39 +154,21 @@ export function BibleReader({ data, book, chapter, version, bookInfo }) {
                   <SheetTitle>{uiText[language].bibleNavigation}</SheetTitle>
                   <SheetDescription>{uiText[language].selectBookOrChapter}</SheetDescription>
                 </SheetHeader>
-                <div className="py-4">
-                  <Select>
-                    <SelectTrigger>
-                      <SelectValue placeholder={uiText[language].selectBook} />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="genesis">Genesis</SelectItem>
-                      <SelectItem value="exodus">Exodus</SelectItem>
-                      <SelectItem value="leviticus">Leviticus</SelectItem>
-                      {/* Add more books here */}
-                    </SelectContent>
-                  </Select>
-                </div>
                 <ScrollArea className="h-[calc(100vh-10rem)]">
                   <div className="space-y-2">
-                    <Button variant="ghost" className="w-full justify-start">
-                      <Book className="mr-2 h-4 w-4" />
-                      {uiText[language].selectChapter} 1
-                    </Button>
-                    <Button variant="ghost" className="w-full justify-start">
-                      <Book className="mr-2 h-4 w-4" />
-                      {uiText[language].selectChapter} 2
-                    </Button>
-                    <Button variant="ghost" className="w-full justify-start">
-                      <Book className="mr-2 h-4 w-4" />
-                      {uiText[language].selectChapter} 3
-                    </Button>
-                    {/* Add more chapters here */}
+                    {Array.from({ length: bookInfo.c }, (_, i) => i + 1).map((c) => (
+                      <Button key={c} variant={chapter == c ? "default" : "outline"} size="sm" asChild>
+                        <Link href={`/asv/${book}/${c}`}>{c}</Link>
+                      </Button>
+                    ))}
                   </div>
                 </ScrollArea>
               </SheetContent>
             </Sheet>
-            <h1 className="text-2xl font-bold ml-4">
+            <h1 className="text-2xl font-bold ml-4 flex flex-row space-x-2">
+              <Link href={`/asv`}>
+                <Home className="h-6 w-6 mt-1 text-gray-500" />
+              </Link>
               <Link href={`/asv/${book}`}>
                 {bookInfo.n} {chapter}
               </Link>
@@ -242,7 +185,7 @@ export function BibleReader({ data, book, chapter, version, bookInfo }) {
                 <ChevronRight />
               </Link>
             </Button>
-            <Select value={language} onValueChange={handleLanguageChange}>
+            {/* <Select value={language} onValueChange={handleLanguageChange}>
               <SelectTrigger className="w-[130px]">
                 <Globe className="mr-2 h-4 w-4" />
                 <SelectValue placeholder="Language" />
@@ -251,12 +194,12 @@ export function BibleReader({ data, book, chapter, version, bookInfo }) {
                 <SelectItem value="en">English</SelectItem>
                 <SelectItem value="es">Español</SelectItem>
               </SelectContent>
-            </Select>
+            </Select> 
 
             <div className="relative">
               <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 text-muted-foreground" />
               <Input className="pl-8" placeholder={uiText[language].search} />
-            </div>
+            </div>*/}
           </div>
         </header>
 

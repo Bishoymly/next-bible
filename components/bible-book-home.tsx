@@ -1,7 +1,7 @@
 "use client";
 import localFont from "next/font/local";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Home, Menu, Search } from "lucide-react";
 import Link from "next/link";
 import { BookImage } from "./generated-image";
 
@@ -14,17 +14,28 @@ export function BibleBookHome({ book, curation, bookInfo }) {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-8">
-        <Button variant="ghost" asChild>
+        <Button variant="ghost" size="icon" className="md:hidden">
+          <Link href={`/asv`}>
+            <Menu />
+          </Link>
+        </Button>
+
+        <Button variant="ghost" asChild className="invisible md:visible">
           <Link href={`/asv/${bookInfo.previousBook?.toLowerCase().replace(/ /g, "-")}`}>
             <ChevronLeft className="mr-2 h-4 w-4" />
             {bookInfo.previousBook}
           </Link>
         </Button>
         <h1 className={`text-4xl font-bold text-center ${titleFont.className}`}>{bookInfo.n.replace(/1/g, "I ").replace(/2/g, "II ")}</h1>
-        <Button variant="ghost" asChild>
+        <Button variant="ghost" asChild className="invisible md:visible">
           <Link href={`/asv/${bookInfo.nextBook?.toLowerCase().replace(/ /g, "-")}`}>
             {bookInfo.nextBook}
             <ChevronRight className="ml-2 h-4 w-4" />
+          </Link>
+        </Button>
+        <Button variant="ghost" size="icon" className="md:hidden">
+          <Link href={`/asv`}>
+            <Search />
           </Link>
         </Button>
       </div>
