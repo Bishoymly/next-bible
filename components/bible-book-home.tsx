@@ -22,7 +22,7 @@ export function BibleBookHome({ book, curation, bookInfo }) {
         </Button>
         <h1 className={`text-4xl font-bold text-center ${titleFont.className}`}>{bookInfo.n.replace(/1/g, "I ").replace(/2/g, "II ")}</h1>
         <Button variant="ghost" asChild>
-          <Link href={`/asv/${bookInfo.nextBook?.toLowerCase()}.replace(/ /g, "-")`}>
+          <Link href={`/asv/${bookInfo.nextBook?.toLowerCase().replace(/ /g, "-")}`}>
             {bookInfo.nextBook}
             <ChevronRight className="ml-2 h-4 w-4" />
           </Link>

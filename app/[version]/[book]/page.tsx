@@ -12,7 +12,10 @@ export default async function BookPage({ params }) {
   const book = params.book;
   const booksCategorized = getBooksCategorized();
   const books = getBooks();
-  const bookInfo = books.filter((b) => b.n.toLowerCase() === book.replace(/-/g, " "))[0];
+  let bookInfo = books.filter((b) => b.n.toLowerCase() === book.replace(/-/g, " "))[0];
+  bookInfo.previousBook = bookInfo.b === 1 ? books[books.length - 1].n : books[books.indexOf(bookInfo) - 1].n;
+  bookInfo.nextBook = bookInfo.b === books.length ? books[0].n : books[books.indexOf(bookInfo) + 1].n;
+
   const curation = await curateBook(book);
 
   return (
