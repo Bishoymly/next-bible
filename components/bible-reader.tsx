@@ -108,13 +108,11 @@ const SocialShareButtons = ({ language, verseKey, verseText }) => {
 export function BibleReader({ data, book, chapter, version, bookInfo }) {
   const [showCommentary, setShowCommentary] = useState(false);
   const [language, setLanguage] = useState("en");
-  const [selectedTranslations, setSelectedTranslations] = useState(["KJV", "NIV"]);
   const [selectedVerse, setSelectedVerse] = useState(null);
   const [sidebarExpanded, setSidebarExpanded] = useState(true);
 
   const handleLanguageChange = (newLanguage) => {
     setLanguage(newLanguage);
-    setSelectedTranslations(Object.keys(translations[newLanguage]).slice(0, 2));
   };
 
   return (
