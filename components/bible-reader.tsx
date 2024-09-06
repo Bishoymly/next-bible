@@ -105,7 +105,7 @@ const SocialShareButtons = ({ language, verseKey, verseText }) => {
   );
 };
 
-export function BibleReader({ data, book, chapter, version, bookInfo }) {
+export function BibleReader({ data, book, chapter, version, bookInfo, imageUrl }) {
   const [showCommentary, setShowCommentary] = useState(false);
   const [language, setLanguage] = useState("en");
   const [selectedVerse, setSelectedVerse] = useState(null);
@@ -207,6 +207,7 @@ export function BibleReader({ data, book, chapter, version, bookInfo }) {
         <ScrollArea className="flex-1 p-6">
           <div className="max-w-4xl mx-auto space-y-4">
             <div className="text-lg leading-relaxed">
+              {imageUrl ? <img src={imageUrl} alt={book} width={300} height={300} className="rounded shadow-md mb-6 ml-6 float-right" /> : <></>}
               {data.map((row, index, array) => (
                 <span
                   key={row.field[1]}
