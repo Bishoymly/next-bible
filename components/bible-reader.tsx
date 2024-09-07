@@ -41,6 +41,14 @@ const uiText = {
   },
 };
 
+const commentaries = {
+  3: [
+    "\"Let there be light\" - This phrase marks the beginning of God's creative work in forming the universe. The command demonstrates God's power to bring order out of chaos through His spoken word.",
+    "The nature of this light has been debated, as the sun and stars are not created until the fourth day. Some interpret this as the creation of energy itself, while others see it as God's presence illuminating the darkness.",
+    "This verse is often seen as a metaphor for spiritual illumination, with God's light piercing the darkness of human understanding and sin.",
+  ],
+};
+
 const SocialShareButtons = ({ language, verseKey, verseText }) => {
   const [linkCopied, setLinkCopied] = useState(false);
 
@@ -209,18 +217,27 @@ export function BibleReader({ data, book, chapter, version, bookInfo, imageUrl }
             <div className="text-lg leading-relaxed">
               {imageUrl ? <img src={imageUrl} alt={book} width={300} height={300} className="rounded shadow-md mb-6 ml-6 float-right" /> : <></>}
               {data.map((row, index, array) => (
-                <span
-                  key={row.field[1]}
-                  className={`inline ${row.field[1] === "Genesis 1:3" ? "bg-primary/10 px-1 rounded cursor-pointer" : ""}`}
-                  onClick={() => {
-                    if (row.field[1] === "Genesis 1:3") setShowCommentary(true);
-                    setSelectedVerse({ key: row.field[1], text: row.field[4] });
-                  }}
-                >
-                  <sup className="text-xs font-semibold text-muted-foreground mr-1">{row.field[3]}</sup>
-                  {row.field[4]}
-                  {index < array.length - 1 && " "}
-                </span>
+                <TooltipProvider key={row.field[3]}>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <span className={`${commentaries[row.field[3]] ? "bg-yellow-50" : ""} hover:bg-yellow-100 inline cursor-pointer transition-colors`}>
+                        <sup className="text-xs font-semibold text-muted-foreground mr-1">{row.field[3]}</sup>
+                        {row.field[4]}
+                        {index < array.length - 1 && " "}
+                      </span>
+                    </TooltipTrigger>
+                    {commentaries[row.field[3]] && (
+                      <TooltipContent side="top" align="start" className="max-w-sm">
+                        <h3 className="font-semibold mb-2">Commentary</h3>
+                        {commentaries[row.field[3]].map((comment, i) => (
+                          <p key={i} className="mb-2 last:mb-0">
+                            {comment}
+                          </p>
+                        ))}
+                      </TooltipContent>
+                    )}
+                  </Tooltip>
+                </TooltipProvider>
               ))}
             </div>
             {selectedVerse && <SocialShareButtons language={language} verseKey={selectedVerse.key} verseText={selectedVerse.text} />}
