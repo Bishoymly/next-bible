@@ -226,7 +226,7 @@ export function BibleReader({ book, chapter, version, bookInfo, imageUrl, json }
                       .filter((s) => s.fromVerse == key)
                       .map((section) => (
                         <div key={`s${section.fromVerse}`} className="mt-4">
-                          <div className="p-4 mb-4 space-y-2 ml-20">
+                          <div className="p-4 mb-4 space-y-2 ml-20 border-l-gray-200 border-l-4">
                             {section.commentary.map((l, index) => (
                               <p key={index} className="text-sm text-muted-foreground">
                                 {l}
