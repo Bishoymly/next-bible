@@ -1,14 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { Book, ChevronLeft, ChevronRight, Globe, Menu, Search, Share2, Facebook, Twitter, Linkedin, ChevronFirst, ChevronLast, Home } from "lucide-react";
+import { ChevronLeft, ChevronRight, Menu, Share2, Facebook, Twitter, Linkedin, ChevronFirst, ChevronLast, Home, BookIcon } from "lucide-react";
 import Link from "next/link";
+import { Card } from "./ui/card";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 
 const uiText = {
   en: {
@@ -119,9 +120,27 @@ export function BibleReader({ book, chapter, version, bookInfo, imageUrl, json }
   const [selectedVerse, setSelectedVerse] = useState(null);
   const [sidebarExpanded, setSidebarExpanded] = useState(true);
 
+  const [commentary, setCommentary] = useState(null);
+
+  useEffect(() => {
+    const fetchCommentary = async () => {
+      try {
+        const response = await fetch(`/api/${book}/${chapter}/commentary`);
+        const data = await response.json();
+        setCommentary(data);
+      } catch (error) {
+        console.error("Error fetching commentary:", error);
+      }
+    };
+
+    fetchCommentary();
+  }, [book, chapter]);
+
   const handleLanguageChange = (newLanguage) => {
     setLanguage(newLanguage);
   };
+
+  console.log(commentary);
 
   return (
     <div className="flex h-screen bg-background">
@@ -175,7 +194,7 @@ export function BibleReader({ book, chapter, version, bookInfo, imageUrl, json }
             </Sheet>
             <h1 className="text-2xl font-bold ml-4 flex flex-row space-x-2">
               <Link href={`/asv`}>
-                <Home className="h-6 w-6 mt-1 text-gray-500" />
+                <BookIcon className="h-6 w-6 mt-1 text-gray-500" />
               </Link>
               <Link href={`/asv/${book}`}>
                 {bookInfo.n} {chapter}
@@ -193,45 +212,62 @@ export function BibleReader({ book, chapter, version, bookInfo, imageUrl, json }
                 <ChevronRight />
               </Link>
             </Button>
-            {/* <Select value={language} onValueChange={handleLanguageChange}>
-              <SelectTrigger className="w-[130px]">
-                <Globe className="mr-2 h-4 w-4" />
-                <SelectValue placeholder="Language" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="en">English</SelectItem>
-                <SelectItem value="es">Español</SelectItem>
-              </SelectContent>
-            </Select> 
-
-            <div className="relative">
-              <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 text-muted-foreground" />
-              <Input className="pl-8" placeholder={uiText[language].search} />
-            </div>*/}
           </div>
         </header>
 
         {/* Bible Content */}
         <ScrollArea className="flex-1 p-6">
-          <div className="max-w-4xl mx-auto space-y-4">
+          <div className="max-w-4xl mx-auto space-y-4 mb-20">
             <div className="text-lg leading-relaxed">
               {imageUrl ? <img src={imageUrl} alt={book} width={300} height={300} className="rounded shadow-md mb-6 ml-6 float-right" /> : <></>}
 
               {Object.entries(json).map(([key, verse]) =>
                 key != "front" ? (
-                  <span key={key} className={`hover:bg-yellow-100 inline cursor-pointer transition-colors`}>
-                    <sup className="text-xs font-semibold text-muted-foreground mr-1">{key}</sup>
-                    {(verse as { verseObjects: { text: string; type: string }[] }).verseObjects.map((verseObject, index, array) =>
-                      verseObject.type == "paragraph" ? (
-                        <>
-                          <br />
-                          <br />
-                        </>
-                      ) : (
-                        <>{verseObject.text}</>
-                      )
-                    )}
-                  </span>
+                  <>
+                    {commentary?.sections
+                      .filter((s) => s.fromVerse == key)
+                      .map((section) => (
+                        <div key={`s${section.fromVerse}`} className="mt-4">
+                          <div className="p-4 mb-4 space-y-2 ml-20">
+                            {section.commentary.map((l) => (
+                              <p className="text-sm text-muted-foreground">{l}</p>
+                            ))}
+                          </div>
+                          <h3 className="text-xl font-semibold mb-2 mt-4">{section.title}</h3>
+                        </div>
+                      ))}
+                    <Popover key={key}>
+                      <PopoverTrigger asChild>
+                        <span className={commentary?.importantVerses.filter((v) => v.verse == key).length > 0 ? "bg-slate-100 -m-1 p-1 cursor-pointer" : ""}>
+                          <sup className="text-xs font-semibold text-muted-foreground mr-1">{key}</sup>
+                          {(verse as { verseObjects: { text: string; tag: string; type: string }[] }).verseObjects.map((verseObject, index, array) =>
+                            verseObject.tag == "p" ? (
+                              <>
+                                <br />
+                                <br />
+                              </>
+                            ) : (
+                              <>{verseObject.text}</>
+                            )
+                          )}
+                        </span>
+                      </PopoverTrigger>
+
+                      {commentary?.importantVerses
+                        .filter((v) => v.verse == key)
+                        .map((important) => (
+                          <PopoverContent className="max-w-2xl space-y-2 flex flex-wrap text-sm">
+                            <h3 className="font-semibold mb-2">Commentary</h3>
+                            <span className="pb-4">{important.commentary}</span>
+                            {important.crossReferences?.map((ref, index) => (
+                              <Button key={index} variant="outline" className="mr-1 mb-1">
+                                <Link href={`/asv/${ref.book.toLowerCase().replace(/ /g, "-")}/${ref.chapter}#${ref.verse}`}>{`${ref.book} ${ref.chapter}:${ref.verse}`}</Link>
+                              </Button>
+                            ))}
+                          </PopoverContent>
+                        ))}
+                    </Popover>
+                  </>
                 ) : (
                   <></>
                 )
@@ -262,30 +298,16 @@ export function BibleReader({ book, chapter, version, bookInfo, imageUrl, json }
             </div>
             {selectedVerse && <SocialShareButtons language={language} verseKey={selectedVerse.key} verseText={selectedVerse.text} />}
           </div>
+          <div className="max-w-4xl mx-auto mt-8">
+            {commentary?.questions?.length > 0 && <h3 className="text-xl font-semibold mb-2">Questions</h3>}
+            {commentary?.questions?.map((question) => (
+              <Button key={`q${question}`} variant="outline" className="mr-1 mb-1">
+                {question}
+              </Button>
+            ))}
+          </div>
         </ScrollArea>
       </main>
-
-      {/* Commentary Sidebar */}
-      <Sheet open={showCommentary} onOpenChange={setShowCommentary}>
-        <SheetContent>
-          <SheetHeader>
-            <SheetTitle>{uiText[language].commentary} Genesis 1:3</SheetTitle>
-          </SheetHeader>
-          <ScrollArea className="h-[calc(100vh-8rem)] mt-4">
-            <div className="space-y-4">
-              <p>
-                &quot;Let there be light&quot; - This phrase marks the beginning of God&apos;s creative work in forming the universe. The command demonstrates God&apos;s power to bring order out of
-                chaos through His spoken word.
-              </p>
-              <p>
-                The nature of this light has been debated, as the sun and stars are not created until the fourth day. Some interpret this as the creation of energy itself, while others see it as
-                God&apos;s presence illuminating the darkness.
-              </p>
-              <p>This verse is often seen as a metaphor for spiritual illumination, with God&apos;s light piercing the darkness of human understanding and sin.</p>
-            </div>
-          </ScrollArea>
-        </SheetContent>
-      </Sheet>
     </div>
   );
 }
