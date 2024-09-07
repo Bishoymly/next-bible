@@ -219,7 +219,7 @@ export function BibleReader({ book, chapter, version, bookInfo, imageUrl, json }
 
               {Object.entries(json).map(([key, verse]) =>
                 key != "front" ? (
-                  <span className={`hover:bg-yellow-100 inline cursor-pointer transition-colors`}>
+                  <span key={key} className={`hover:bg-yellow-100 inline cursor-pointer transition-colors`}>
                     <sup className="text-xs font-semibold text-muted-foreground mr-1">{key}</sup>
                     {(verse as { verseObjects: { text: string; type: string }[] }).verseObjects.map((verseObject, index, array) =>
                       verseObject.type == "paragraph" ? (
