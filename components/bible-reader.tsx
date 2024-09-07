@@ -113,7 +113,7 @@ const SocialShareButtons = ({ language, verseKey, verseText }) => {
   );
 };
 
-export function BibleReader({ data, book, chapter, version, bookInfo, imageUrl }) {
+export function BibleReader({ book, chapter, version, bookInfo, imageUrl, json }) {
   const [showCommentary, setShowCommentary] = useState(false);
   const [language, setLanguage] = useState("en");
   const [selectedVerse, setSelectedVerse] = useState(null);
@@ -216,7 +216,27 @@ export function BibleReader({ data, book, chapter, version, bookInfo, imageUrl }
           <div className="max-w-4xl mx-auto space-y-4">
             <div className="text-lg leading-relaxed">
               {imageUrl ? <img src={imageUrl} alt={book} width={300} height={300} className="rounded shadow-md mb-6 ml-6 float-right" /> : <></>}
-              {data.map((row, index, array) => (
+
+              {Object.entries(json).map(([key, verse]) =>
+                key != "front" ? (
+                  <span className={`hover:bg-yellow-100 inline cursor-pointer transition-colors`}>
+                    <sup className="text-xs font-semibold text-muted-foreground mr-1">{key}</sup>
+                    {(verse as { verseObjects: { text: string; type: string }[] }).verseObjects.map((verseObject, index, array) =>
+                      verseObject.type == "paragraph" ? (
+                        <>
+                          <br />
+                          <br />
+                        </>
+                      ) : (
+                        <>{verseObject.text}</>
+                      )
+                    )}
+                  </span>
+                ) : (
+                  <></>
+                )
+              )}
+              {/*{data.map((row, index, array) => (
                 <TooltipProvider key={row.field[3]}>
                   <Tooltip>
                     <TooltipTrigger asChild>
@@ -238,7 +258,7 @@ export function BibleReader({ data, book, chapter, version, bookInfo, imageUrl }
                     )}
                   </Tooltip>
                 </TooltipProvider>
-              ))}
+              ))}*/}
             </div>
             {selectedVerse && <SocialShareButtons language={language} verseKey={selectedVerse.key} verseText={selectedVerse.text} />}
           </div>
