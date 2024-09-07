@@ -17,7 +17,6 @@ export async function GetCachedImage(key) {
 }
 
 export default async function GenerateImage({ key, prompt }) {
-  //console.log(prompt);
   // Generate a unique key for the image based on the prompt
   //const imageKey = `${crypto.createHash("md5").update(prompt).digest("hex")}.png`;
   const imageKey = `${key}.png`;

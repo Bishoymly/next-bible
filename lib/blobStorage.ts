@@ -12,9 +12,7 @@ export const uploadImage = async (key, buffer) => {
 
 // Function to fetch an image from Vercel Blob
 export async function imageExists(key) {
-  console.log(key);
   const response = await head("https://ltfwyq7brtlu1mhp.public.blob.vercel-storage.com/" + key);
-  console.log(response);
   return response;
 }
 

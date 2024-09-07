@@ -140,8 +140,6 @@ export function BibleReader({ book, chapter, version, bookInfo, imageUrl, json }
     setLanguage(newLanguage);
   };
 
-  console.log(commentary);
-
   return (
     <div className="flex h-screen bg-background">
       {/* Collapsible Sidebar */}
@@ -229,8 +227,10 @@ export function BibleReader({ book, chapter, version, bookInfo, imageUrl, json }
                       .map((section) => (
                         <div key={`s${section.fromVerse}`} className="mt-4">
                           <div className="p-4 mb-4 space-y-2 ml-20">
-                            {section.commentary.map((l) => (
-                              <p className="text-sm text-muted-foreground">{l}</p>
+                            {section.commentary.map((l, index) => (
+                              <p key={index} className="text-sm text-muted-foreground">
+                                {l}
+                              </p>
                             ))}
                           </div>
                           <h3 className="text-xl font-semibold mb-2 mt-4">{section.title}</h3>
@@ -255,8 +255,8 @@ export function BibleReader({ book, chapter, version, bookInfo, imageUrl, json }
 
                       {commentary?.importantVerses
                         .filter((v) => v.verse == key)
-                        .map((important) => (
-                          <PopoverContent className="max-w-2xl space-y-2 flex flex-wrap text-sm">
+                        .map((important, index) => (
+                          <PopoverContent key={index} className="max-w-2xl space-y-2 flex flex-wrap text-sm">
                             <h3 className="font-semibold mb-2">Commentary</h3>
                             <span className="pb-4">{important.commentary}</span>
                             {important.crossReferences?.map((ref, index) => (
