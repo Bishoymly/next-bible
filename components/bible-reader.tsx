@@ -215,7 +215,7 @@ export function BibleReader({ book, chapter, version, bookInfo, imageUrl, json }
 
         {/* Bible Content */}
         <ScrollArea className="flex-1 p-6">
-          <div className="max-w-4xl mx-auto space-y-4 mb-20">
+          <div className="max-w-full mx-auto space-y-4 mb-20">
             <div className="text-lg leading-relaxed">
               {imageUrl ? <img src={imageUrl} alt={book} width={300} height={300} className="rounded shadow-md mb-6 ml-6 float-right" /> : <></>}
 
@@ -299,12 +299,18 @@ export function BibleReader({ book, chapter, version, bookInfo, imageUrl, json }
             {selectedVerse && <SocialShareButtons language={language} verseKey={selectedVerse.key} verseText={selectedVerse.text} />}
           </div>
           <div className="max-w-4xl mx-auto mt-8">
-            {commentary?.questions?.length > 0 && <h3 className="text-xl font-semibold mb-2">Questions</h3>}
-            {commentary?.questions?.map((question) => (
-              <Button key={`q${question}`} variant="outline" className="mr-1 mb-1">
-                {question}
-              </Button>
-            ))}
+            {commentary?.questions?.length > 0 && (
+              <>
+                <h3 className="text-xl font-semibold mb-2">Questions</h3>
+                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  {commentary?.questions?.map((question) => (
+                    <li key={`q${question}`} className="mb-1 border-solid border border-gray-300 rounded-md p-2 shadow-md">
+                      {question}
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
           </div>
         </ScrollArea>
       </main>
