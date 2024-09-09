@@ -19,20 +19,20 @@ export function BibleBookHome({ book, curation, bookInfo, imageUrl }) {
           </Link>
         </Button>
 
-        <Button variant="ghost" asChild className="invisible md:visible">
+        <Button variant="ghost" asChild className="hidden md:inline-flex">
           <Link href={`/asv/${bookInfo.previousBook?.toLowerCase().replace(/ /g, "-")}`}>
             <ChevronLeft className="mr-2 h-4 w-4" />
             {bookInfo.previousBook}
           </Link>
         </Button>
         <h1 className={`text-4xl font-bold text-center ${titleFont.className}`}>{bookInfo.n.replace(/1/g, "I ").replace(/2/g, "II ")}</h1>
-        <Button variant="ghost" asChild className="invisible md:visible">
+        <Button variant="ghost" asChild className="hidden md:inline-flex">
           <Link href={`/asv/${bookInfo.nextBook?.toLowerCase().replace(/ /g, "-")}`}>
             {bookInfo.nextBook}
             <ChevronRight className="ml-2 h-4 w-4" />
           </Link>
         </Button>
-        <Button variant="ghost" size="icon" className="md:hidden">
+        <Button variant="ghost" size="icon" className="invisible md:hidden">
           <Link href={`/asv`}>
             <Search />
           </Link>
@@ -49,7 +49,7 @@ export function BibleBookHome({ book, curation, bookInfo, imageUrl }) {
 
         <h2 className="text-xl font-semibold my-6">Sections</h2>
         {curation.sections.map((group) => (
-          <Button key={group.title} variant="outline" className="mr-2 mb-2" size="lg" asChild>
+          <Button key={group.title} variant="outline" className="mr-2 mb-2 text-wrap h-auto py-2" asChild>
             <Link href={`/asv/${book}/${group.fromChapter}`}>
               {group.fromChapter ? (group.fromChapter === group.toChapter ? `${group.title} (${group.fromChapter})` : `${group.title} (${group.fromChapter}-${group.toChapter})`) : group.title}
             </Link>

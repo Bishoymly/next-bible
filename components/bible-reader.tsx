@@ -180,7 +180,7 @@ export function BibleReader({ book, chapter, version, bookInfo, imageUrl, json }
                   <SheetDescription>{uiText[language].selectBookOrChapter}</SheetDescription>
                 </SheetHeader>
                 <ScrollArea className="h-[calc(100vh-10rem)]">
-                  <div className="space-y-2">
+                  <div className="grid grid-cols-5 gap-2">
                     {Array.from({ length: bookInfo.c }, (_, i) => i + 1).map((c) => (
                       <Button key={c} variant={chapter == c ? "default" : "outline"} size="sm" asChild>
                         <Link href={`/asv/${book}/${c}`}>{c}</Link>
@@ -214,65 +214,66 @@ export function BibleReader({ book, chapter, version, bookInfo, imageUrl, json }
         </header>
 
         {/* Bible Content */}
-        <ScrollArea className="flex-1 p-6">
-          <div className="max-w-full mx-auto space-y-4 mb-20">
-            <div className="text-lg leading-relaxed">
-              {imageUrl ? <img src={imageUrl} alt={book} width={300} height={300} className="rounded shadow-md mb-6 ml-6 float-right" /> : <></>}
+        <ScrollArea className="flex-1">
+          <div className="p-6">
+            <div className="max-w-full mx-auto space-y-4 mb-20">
+              <div className="text-lg leading-relaxed">
+                {imageUrl ? <img src={imageUrl} alt={book} width={300} height={300} className="rounded shadow-md mb-6 ml-6 float-right" /> : <></>}
 
-              {Object.entries(json).map(([key, verse]) =>
-                key != "front" ? (
-                  <>
-                    {commentary?.sections
-                      .filter((s) => s.fromVerse == key)
-                      .map((section) => (
-                        <div key={`s${section.fromVerse}`} className="mt-4">
-                          <div className="p-4 mb-4 space-y-2 ml-20 border-l-gray-200 border-l-4">
-                            {section.commentary.map((l, index) => (
-                              <p key={index} className="text-sm text-muted-foreground">
-                                {l}
-                              </p>
-                            ))}
+                {Object.entries(json).map(([key, verse]) =>
+                  key != "front" ? (
+                    <>
+                      {commentary?.sections
+                        .filter((s) => s.fromVerse == key)
+                        .map((section) => (
+                          <div key={`s${section.fromVerse}`} className="mt-4">
+                            <div className="p-4 mb-4 space-y-2 ml-20 border-l-gray-200 border-l-4">
+                              {section.commentary.map((l, index) => (
+                                <p key={index} className="text-sm text-muted-foreground">
+                                  {l}
+                                </p>
+                              ))}
+                            </div>
+                            <h3 className="text-xl font-semibold mb-2 mt-4">{section.title}</h3>
                           </div>
-                          <h3 className="text-xl font-semibold mb-2 mt-4">{section.title}</h3>
-                        </div>
-                      ))}
-                    <Popover key={key}>
-                      <PopoverTrigger asChild>
-                        <span className={commentary?.importantVerses.filter((v) => v.verse == key).length > 0 ? "bg-slate-100 -m-1 p-1 cursor-pointer" : ""}>
-                          <sup className="text-xs font-semibold text-muted-foreground mr-1">{key}</sup>
-                          {(verse as { verseObjects: { text: string; tag: string; type: string }[] }).verseObjects.map((verseObject, index, array) =>
-                            verseObject.tag == "p" ? (
-                              <>
-                                <br />
-                                <br />
-                              </>
-                            ) : (
-                              <>{verseObject.text}</>
-                            )
-                          )}
-                        </span>
-                      </PopoverTrigger>
-
-                      {commentary?.importantVerses
-                        .filter((v) => v.verse == key)
-                        .map((important, index) => (
-                          <PopoverContent key={index} className="max-w-2xl space-y-2 flex flex-wrap text-sm">
-                            <h3 className="font-semibold mb-2">Commentary</h3>
-                            <span className="pb-4">{important.commentary}</span>
-                            {important.crossReferences?.map((ref, index) => (
-                              <Button key={index} variant="outline" className="mr-1 mb-1">
-                                <Link href={`/asv/${ref.book.toLowerCase().replace(/ /g, "-")}/${ref.chapter}#${ref.verse}`}>{`${ref.book} ${ref.chapter}:${ref.verse}`}</Link>
-                              </Button>
-                            ))}
-                          </PopoverContent>
                         ))}
-                    </Popover>
-                  </>
-                ) : (
-                  <></>
-                )
-              )}
-              {/*{data.map((row, index, array) => (
+                      <Popover key={key}>
+                        <PopoverTrigger asChild>
+                          <span className={commentary?.importantVerses.filter((v) => v.verse == key).length > 0 ? "bg-slate-100 -m-1 p-1 cursor-pointer" : ""}>
+                            <sup className="text-xs font-semibold text-muted-foreground mr-1">{key}</sup>
+                            {(verse as { verseObjects: { text: string; tag: string; type: string }[] }).verseObjects.map((verseObject, index, array) =>
+                              verseObject.tag == "p" ? (
+                                <>
+                                  <br />
+                                  <br />
+                                </>
+                              ) : (
+                                <>{verseObject.text}</>
+                              )
+                            )}
+                          </span>
+                        </PopoverTrigger>
+
+                        {commentary?.importantVerses
+                          .filter((v) => v.verse == key)
+                          .map((important, index) => (
+                            <PopoverContent key={index} className="max-w-2xl space-y-2 flex flex-wrap text-sm">
+                              <h3 className="font-semibold mb-2">Commentary</h3>
+                              <span className="pb-4">{important.commentary}</span>
+                              {important.crossReferences?.map((ref, index) => (
+                                <Button key={index} variant="outline" className="mr-1 mb-1">
+                                  <Link href={`/asv/${ref.book.toLowerCase().replace(/ /g, "-")}/${ref.chapter}#${ref.verse}`}>{`${ref.book} ${ref.chapter}:${ref.verse}`}</Link>
+                                </Button>
+                              ))}
+                            </PopoverContent>
+                          ))}
+                      </Popover>
+                    </>
+                  ) : (
+                    <></>
+                  )
+                )}
+                {/*{data.map((row, index, array) => (
                 <TooltipProvider key={row.field[3]}>
                   <Tooltip>
                     <TooltipTrigger asChild>
@@ -295,12 +296,12 @@ export function BibleReader({ book, chapter, version, bookInfo, imageUrl, json }
                   </Tooltip>
                 </TooltipProvider>
               ))}*/}
+              </div>
+              {selectedVerse && <SocialShareButtons language={language} verseKey={selectedVerse.key} verseText={selectedVerse.text} />}
             </div>
-            {selectedVerse && <SocialShareButtons language={language} verseKey={selectedVerse.key} verseText={selectedVerse.text} />}
-          </div>
-          <div className="max-w-4xl mx-auto mt-8">
+
             {commentary?.questions?.length > 0 && (
-              <>
+              <div className="max-w-4xl mx-auto mt-8">
                 <h3 className="text-xl font-semibold mb-2">Questions</h3>
                 <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   {commentary?.questions?.map((question) => (
@@ -309,7 +310,7 @@ export function BibleReader({ book, chapter, version, bookInfo, imageUrl, json }
                     </li>
                   ))}
                 </ul>
-              </>
+              </div>
             )}
           </div>
         </ScrollArea>
