@@ -216,7 +216,7 @@ export function BibleReader({ book, chapter, version, bookInfo, imageUrl, json }
         {/* Bible Content */}
         <ScrollArea className="flex-1">
           <div className="p-6">
-            <div className="max-w-full mx-auto space-y-4 mb-20">
+            <div className="max-w-3xl mx-auto space-y-4 mb-20">
               <div className="text-lg leading-relaxed">
                 {imageUrl ? <img src={imageUrl} alt={book} width={300} height={300} className="rounded shadow-md mb-6 ml-6 float-right" /> : <></>}
 
