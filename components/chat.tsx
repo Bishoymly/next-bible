@@ -1,11 +1,12 @@
 "use client";
 
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { CardDescription } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useChat } from "ai/react";
 import { ScrollArea } from "./ui/scroll-area";
+import React, { useEffect } from "react";
 
 function formatChatResponseToHTML(response) {
   // Escape any HTML special characters to avoid XSS attacks
@@ -46,10 +47,16 @@ function formatChatResponseToHTML(response) {
   return formattedHtml;
 }
 
-export function Chats() {
+export function Chats({ book, chapter, question }) {
   const { messages, input, handleInputChange, handleSubmit } = useChat({
-    api: "/api/chat",
+    api: "/api/chat?book=" + book + "&chapter=" + chapter,
   });
+
+  useEffect(() => {
+    if (question) {
+      handleInputChange({ target: { value: question } } as React.ChangeEvent<HTMLInputElement>);
+    }
+  }, [question]); // Only run this effect when the question prop changes
 
   return (
     <div className="flex flex-col h-full w-full border-0 shadow-none space-y-4 p-4">

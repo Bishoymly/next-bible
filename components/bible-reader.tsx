@@ -10,6 +10,7 @@ import { ChevronLeft, ChevronRight, Menu, Share2, Facebook, Twitter, Linkedin, C
 import Link from "next/link";
 import { Card } from "./ui/card";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import ChatSupport from "./chat-support";
 
 const uiText = {
   en: {
@@ -119,7 +120,7 @@ export function BibleReader({ book, chapter, version, bookInfo, imageUrl, json }
   const [language, setLanguage] = useState("en");
   const [selectedVerse, setSelectedVerse] = useState(null);
   const [sidebarExpanded, setSidebarExpanded] = useState(true);
-
+  const [question, setQuestion] = useState(null);
   const [commentary, setCommentary] = useState(null);
 
   useEffect(() => {
@@ -273,29 +274,6 @@ export function BibleReader({ book, chapter, version, bookInfo, imageUrl, json }
                     <></>
                   )
                 )}
-                {/*{data.map((row, index, array) => (
-                <TooltipProvider key={row.field[3]}>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <span className={`${commentaries[row.field[3]] ? "bg-yellow-50" : ""} hover:bg-yellow-100 inline cursor-pointer transition-colors`}>
-                        <sup className="text-xs font-semibold text-muted-foreground mr-1">{row.field[3]}</sup>
-                        {row.field[4]}
-                        {index < array.length - 1 && " "}
-                      </span>
-                    </TooltipTrigger>
-                    {commentaries[row.field[3]] && (
-                      <TooltipContent side="top" align="start" className="max-w-sm">
-                        <h3 className="font-semibold mb-2">Commentary</h3>
-                        {commentaries[row.field[3]].map((comment, i) => (
-                          <p key={i} className="mb-2 last:mb-0">
-                            {comment}
-                          </p>
-                        ))}
-                      </TooltipContent>
-                    )}
-                  </Tooltip>
-                </TooltipProvider>
-              ))}*/}
               </div>
               {selectedVerse && <SocialShareButtons language={language} verseKey={selectedVerse.key} verseText={selectedVerse.text} />}
             </div>
@@ -305,15 +283,16 @@ export function BibleReader({ book, chapter, version, bookInfo, imageUrl, json }
                 <h3 className="text-xl font-semibold mb-2">Questions</h3>
                 <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   {commentary?.questions?.map((question) => (
-                    <li key={`q${question}`} className="mb-1 border-solid border border-gray-300 rounded-md p-2 shadow-md">
+                    <Button key={question} variant="outline" className="mr-2 mb-2 text-wrap h-auto py-2 text-left" onClick={() => setQuestion(question)}>
                       {question}
-                    </li>
+                    </Button>
                   ))}
                 </ul>
               </div>
             )}
           </div>
         </ScrollArea>
+        <ChatSupport book={book} chapter={chapter} question={question} />
       </main>
     </div>
   );
