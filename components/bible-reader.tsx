@@ -11,6 +11,7 @@ import Link from "next/link";
 import { Card } from "./ui/card";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import ChatSupport from "./chat-support";
+import { BibleBooksList } from "./bible-books-list";
 
 const uiText = {
   en: {
@@ -115,7 +116,7 @@ const SocialShareButtons = ({ language, verseKey, verseText }) => {
   );
 };
 
-export function BibleReader({ book, chapter, version, bookInfo, imageUrl, json }) {
+export function BibleReader({ book, chapter, version, bookInfo, imageUrl, json, booksCategorized }) {
   const [showCommentary, setShowCommentary] = useState(false);
   const [language, setLanguage] = useState("en");
   const [selectedVerse, setSelectedVerse] = useState(null);
@@ -144,25 +145,7 @@ export function BibleReader({ book, chapter, version, bookInfo, imageUrl, json }
   return (
     <div className="flex h-screen bg-background">
       {/* Collapsible Sidebar */}
-      <aside className={`hidden md:flex flex-col border-r transition-all duration-300 ${sidebarExpanded ? "w-64" : "w-16"}`}>
-        <div className={`p-4 border-b flex items-center ${sidebarExpanded ? "justify-between" : "justify-center"}`}>
-          <Button variant="ghost" size="icon" onClick={() => setSidebarExpanded(!sidebarExpanded)} aria-label={sidebarExpanded ? uiText[language].collapseSidebar : uiText[language].expandSidebar}>
-            {sidebarExpanded ? <ChevronFirst /> : <ChevronLast />}
-          </Button>
-        </div>
-        <ScrollArea className="flex-1">
-          <div className={`p-4 space-y-2 ${sidebarExpanded ? "" : "flex flex-col items-center"}`}>
-            <div className="grid grid-cols-5 gap-2">
-              {sidebarExpanded &&
-                Array.from({ length: bookInfo.c }, (_, i) => i + 1).map((c) => (
-                  <Button key={c} variant={chapter == c ? "default" : "outline"} size="sm" asChild>
-                    <Link href={`/asv/${book}/${c}`}>{c}</Link>
-                  </Button>
-                ))}
-            </div>
-          </div>
-        </ScrollArea>
-      </aside>
+      <aside className={`hidden md:flex flex-col border-r p-4 transition-all duration-300 ${sidebarExpanded ? "w-72" : "w-16"}`}>{Sidebar(bookInfo, chapter, book, booksCategorized)}</aside>
 
       {/* Main Content */}
       <main className="flex-1 flex flex-col overflow-hidden">
@@ -175,29 +158,10 @@ export function BibleReader({ book, chapter, version, bookInfo, imageUrl, json }
                   <Menu />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="left">
-                <SheetHeader>
-                  <SheetTitle>{uiText[language].bibleNavigation}</SheetTitle>
-                  <SheetDescription>{uiText[language].selectBookOrChapter}</SheetDescription>
-                </SheetHeader>
-                <ScrollArea className="h-[calc(100vh-10rem)]">
-                  <div className="grid grid-cols-5 gap-2">
-                    {Array.from({ length: bookInfo.c }, (_, i) => i + 1).map((c) => (
-                      <Button key={c} variant={chapter == c ? "default" : "outline"} size="sm" asChild>
-                        <Link href={`/asv/${book}/${c}`}>{c}</Link>
-                      </Button>
-                    ))}
-                  </div>
-                </ScrollArea>
-              </SheetContent>
+              <SheetContent side="left">{Sidebar(bookInfo, chapter, book, booksCategorized)}</SheetContent>
             </Sheet>
             <h1 className="text-2xl font-bold ml-4 flex flex-row space-x-2">
-              <Link href={`/asv`}>
-                <BookIcon className="h-6 w-6 mt-1 text-gray-500" />
-              </Link>
-              <Link href={`/asv/${book}`}>
-                {bookInfo.n} {chapter}
-              </Link>
+              {bookInfo.n} {chapter}
             </h1>
           </div>
           <div className="flex items-center space-x-2">
@@ -295,5 +259,21 @@ export function BibleReader({ book, chapter, version, bookInfo, imageUrl, json }
         <ChatSupport book={book} chapter={chapter} question={question} />
       </main>
     </div>
+  );
+}
+function Sidebar(bookInfo: any, chapter: any, book: any, booksCategorized: any) {
+  return (
+    <ScrollArea className="h-full mt-4 pr-3">
+      <h2 className="text-xl font-semibold mb-4">Chapters</h2>
+      <div className="grid grid-cols-5 gap-2">
+        {Array.from({ length: bookInfo.c }, (_, i) => i + 1).map((c) => (
+          <Button key={c} variant={chapter == c ? "default" : "outline"} size="sm" asChild>
+            <Link href={`/asv/${book}/${c}`}>{c}</Link>
+          </Button>
+        ))}
+      </div>
+      <h2 className="text-xl font-semibold mb-4 mt-6">Books</h2>
+      <BibleBooksList booksCategorized={booksCategorized} aside={true} />
+    </ScrollArea>
   );
 }
