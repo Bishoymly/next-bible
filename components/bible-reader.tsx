@@ -116,7 +116,7 @@ const SocialShareButtons = ({ language, verseKey, verseText }) => {
   );
 };
 
-export function BibleReader({ book, chapter, version, bookInfo, imageUrl, json, booksCategorized }) {
+export function BibleReader({ book, chapter, version, bookInfo, json, booksCategorized }) {
   const [showCommentary, setShowCommentary] = useState(false);
   const [language, setLanguage] = useState("en");
   const [selectedVerse, setSelectedVerse] = useState(null);
@@ -183,8 +183,6 @@ export function BibleReader({ book, chapter, version, bookInfo, imageUrl, json, 
           <div className="p-6">
             <div className="max-w-3xl mx-auto space-y-4 mb-20">
               <div className="text-lg leading-relaxed">
-                {imageUrl ? <img src={imageUrl} alt={book} width={300} height={300} className="rounded shadow-md mb-6 ml-6 float-right" /> : <></>}
-
                 {Object.entries(json).map(([key, verse]) =>
                   key != "front" ? (
                     <>

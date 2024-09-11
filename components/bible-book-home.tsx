@@ -5,14 +5,14 @@ import { ChevronLeft, ChevronRight, Home, Menu, Search } from "lucide-react";
 import Link from "next/link";
 import { BibleBooksList } from "@/components/bible-books-list";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 const titleFont = localFont({
   src: "./../public/game-of-thrones.ttf",
   display: "swap",
 });
 
-export function BibleBookHome({ book, curation, bookInfo, imageUrl, booksCategorized }) {
+export function BibleBookHome({ book, curation, bookInfo, booksCategorized }) {
   return (
     <div className="flex h-screen bg-background">
       {/* Collapsible Sidebar */}
@@ -65,7 +65,6 @@ export function BibleBookHome({ book, curation, bookInfo, imageUrl, booksCategor
             </div>
 
             <div className="max-w-5xl mx-auto p-4">
-              {imageUrl ? <img src={imageUrl} alt={book} width={300} height={300} className="rounded shadow-md mb-6 ml-6 float-right" /> : <></>}
               {curation.overviewParagraphs.map((text, i) => (
                 <p key={i} className="text-lg sub leading-relaxed mb-6">
                   {text}
