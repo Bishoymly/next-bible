@@ -131,6 +131,38 @@ export function BibleReader({ book, chapter, version, bookInfo, json, booksCateg
     }
   };
 
+  function Sidebar(bookInfo: any, chapter: any, book: any, booksCategorized: any) {
+    return (
+      <ScrollArea className="h-full mt-4 pr-3">
+        {commentary && (
+          <div className="mb-10">
+            <h2 className="text-xl font-semibold mb-2">On this page</h2>
+            <ul className="space-y-1">
+              {commentary?.sections.map((section) => (
+                <li className="inline-block">
+                  <Link className="text-sm hover:text-blue-600" href={`#s${section.fromVerse}`}>
+                    {section.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        <h2 className="text-xl font-semibold mb-4">Chapters</h2>
+        <div className="grid grid-cols-5 gap-2 mb-8">
+          {Array.from({ length: bookInfo.c }, (_, i) => i + 1).map((c) => (
+            <Button key={c} variant={chapter == c ? "default" : "outline"} size="sm" asChild>
+              <Link href={`/asv/${book}/${c}`}>{c}</Link>
+            </Button>
+          ))}
+        </div>
+        <h2 className="text-xl font-semibold mt-6">Books</h2>
+        <BibleBooksList booksCategorized={booksCategorized} aside={true} />
+      </ScrollArea>
+    );
+  }
+
   return (
     <div className="flex h-screen bg-background">
       {/* Collapsible Sidebar */}
@@ -178,17 +210,19 @@ export function BibleReader({ book, chapter, version, bookInfo, json, booksCateg
                       {commentary?.sections
                         .filter((s) => s.fromVerse == key)
                         .map((section) => (
-                          <div key={`s${section.fromVerse}`} className="mt-20">
-                            <div className="border-l-gray-200 border-b-2 mb-4">
-                              <div className="p-4 space-y-2 ml-20 bg-slate-100 rounded-2xl rounded-b-none">
+                          <div id={`s${section.fromVerse}`} key={`s${section.fromVerse}`} className="snap-y scroll-my-10 mt-10">
+                            <Popover key={key}>
+                              <PopoverTrigger asChild>
+                                <h3 className="text-xl font-semibold mb-2 mt-4 cursor-pointer">{section.title}</h3>
+                              </PopoverTrigger>
+                              <PopoverContent className="max-w-2xl space-y-2 flex flex-wrap text-sm">
                                 {section.commentary.map((l, index) => (
                                   <p key={index} className="text-sm">
                                     {l}
                                   </p>
                                 ))}
-                              </div>
-                            </div>
-                            <h3 className="text-xl font-semibold mb-2 mt-4">{section.title}</h3>
+                              </PopoverContent>
+                            </Popover>
                           </div>
                         ))}
                       <Popover key={key}>
@@ -206,7 +240,7 @@ export function BibleReader({ book, chapter, version, bookInfo, json, booksCateg
                               text: (verse as { verseObjects: { text: string; tag: string; type: string }[] }).verseObjects.map((vo) => vo.text).join(" "),
                             })}
                           >
-                            <sup id={key} className="scroll-my-2 text-xs font-semibold text-blue-600 mr-1">
+                            <sup id={key} className="scroll-my-4 text-xs font-semibold text-blue-600 mr-1">
                               {key}
                             </sup>
                             {(verse as { verseObjects: { text: string; tag: string; type: string }[] }).verseObjects.map((verseObject, index, array) =>
@@ -268,21 +302,5 @@ export function BibleReader({ book, chapter, version, bookInfo, json, booksCateg
         <ChatSupport book={book} chapter={chapter} question={question} />
       </main>
     </div>
-  );
-}
-function Sidebar(bookInfo: any, chapter: any, book: any, booksCategorized: any) {
-  return (
-    <ScrollArea className="h-full mt-4 pr-3">
-      <h2 className="text-xl font-semibold mb-4">Chapters</h2>
-      <div className="grid grid-cols-5 gap-2">
-        {Array.from({ length: bookInfo.c }, (_, i) => i + 1).map((c) => (
-          <Button key={c} variant={chapter == c ? "default" : "outline"} size="sm" asChild>
-            <Link href={`/asv/${book}/${c}`}>{c}</Link>
-          </Button>
-        ))}
-      </div>
-      <h2 className="text-xl font-semibold mb-4 mt-6">Books</h2>
-      <BibleBooksList booksCategorized={booksCategorized} aside={true} />
-    </ScrollArea>
   );
 }
