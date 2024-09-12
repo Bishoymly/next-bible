@@ -223,9 +223,10 @@ export function BibleReader({ book, chapter, version, bookInfo, json, booksCateg
                         </PopoverTrigger>
 
                         <PopoverContent className="max-w-2xl space-y-2 flex flex-wrap text-sm">
-                          <h3 className="text-lg font-semibold mb-2">
+                          <h3 className="text-lg font-semibold">
                             {bookInfo.n} {chapter}:{key}
                           </h3>
+                          <span className="pb-4 block">"{(verse as { verseObjects: { text: string; tag: string; type: string }[] }).verseObjects.map((vo) => vo.text).join(" ")}"</span>
                           {commentary?.importantVerses
                             .filter((v) => v.verse == key)
                             .map((important, index) => (
