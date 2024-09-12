@@ -10,7 +10,7 @@ export default async function curateBook(book) {
 
   // Check if we have a cached response
   const cached = (await kv.get(key)) as { overviewParagraphs?: string[]; sections?: { title: string; fromChapter: number; toChapter: number }[] };
-  if (cached && cached.overviewParagraphs) {
+  if (cached && cached.overviewParagraphs && cached.sections && cached.sections[0].fromChapter) {
     return cached;
   }
 
