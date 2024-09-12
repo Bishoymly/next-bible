@@ -52,11 +52,11 @@ const commentaries = {
   ],
 };
 
-const SocialShareButtons = ({ language, verseKey, verseText }) => {
+const SocialShareButtons = ({ language, version, book, chapter, verse, verseText }) => {
   const [linkCopied, setLinkCopied] = useState(false);
 
-  const shareUrl = `https://biblestudy.com/verse/${verseKey}`;
-  const shareText = `${verseKey}: ${verseText}`;
+  const shareUrl = window.location.href;
+  const shareText = `${book} ${chapter}:${verse} ${verseText}`;
 
   const handleCopyLink = () => {
     navigator.clipboard.writeText(shareUrl);
@@ -66,51 +66,23 @@ const SocialShareButtons = ({ language, verseKey, verseText }) => {
 
   return (
     <TooltipProvider>
-      <div className="flex space-x-2 mt-2">
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button variant="outline" size="icon" onClick={() => window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`, "_blank")}>
-              <Facebook className="h-4 w-4" />
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>Share on Facebook</p>
-          </TooltipContent>
-        </Tooltip>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button variant="outline" size="icon" onClick={() => window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`, "_blank")}>
-              <Twitter className="h-4 w-4" />
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>Share on Twitter</p>
-          </TooltipContent>
-        </Tooltip>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={() => window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(shareUrl)}&title=${encodeURIComponent(shareText)}`, "_blank")}
-            >
-              <Linkedin className="h-4 w-4" />
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>Share on LinkedIn</p>
-          </TooltipContent>
-        </Tooltip>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button variant="outline" size="icon" onClick={handleCopyLink}>
-              {linkCopied ? <span className="text-xs">{uiText[language].linkCopied}</span> : <Share2 className="h-4 w-4" />}
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>{uiText[language].copyLink}</p>
-          </TooltipContent>
-        </Tooltip>
+      <div className="flex space-x-2">
+        <Button variant="outline" size="icon" onClick={() => window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`, "_blank")}>
+          <Facebook className="h-4 w-4" />
+        </Button>
+        <Button variant="outline" size="icon" onClick={() => window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`, "_blank")}>
+          <Twitter className="h-4 w-4" />
+        </Button>
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={() => window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(shareUrl)}&title=${encodeURIComponent(shareText)}`, "_blank")}
+        >
+          <Linkedin className="h-4 w-4" />
+        </Button>
+        <Button variant="outline" size="icon" onClick={handleCopyLink}>
+          {linkCopied ? <span className="text-xs">{uiText[language].linkCopied}</span> : <Share2 className="h-4 w-4" />}
+        </Button>
       </div>
     </TooltipProvider>
   );
@@ -123,6 +95,13 @@ export function BibleReader({ book, chapter, version, bookInfo, json, booksCateg
   const [sidebarExpanded, setSidebarExpanded] = useState(true);
   const [question, setQuestion] = useState(null);
   const [commentary, setCommentary] = useState(null);
+
+  useEffect(() => {
+    const hash = window.location.hash.substring(1);
+    if (hash) {
+      setSelectedVerse({ key: hash, text: json[hash]?.verseObjects.map((vo) => vo.text).join(" ") });
+    }
+  }, [json]);
 
   useEffect(() => {
     const fetchCommentary = async () => {
@@ -140,6 +119,16 @@ export function BibleReader({ book, chapter, version, bookInfo, json, booksCateg
 
   const handleLanguageChange = (newLanguage) => {
     setLanguage(newLanguage);
+  };
+
+  const handleSelectVerse = (verse) => {
+    if (selectedVerse?.key != verse.key) {
+      setSelectedVerse(verse);
+      history.replaceState({}, "", window.location.href.split("#")[0] + "#" + verse.key);
+    } else {
+      setSelectedVerse(null);
+      history.replaceState({}, "", window.location.href.split("#")[0]);
+    }
   };
 
   return (
@@ -179,7 +168,7 @@ export function BibleReader({ book, chapter, version, bookInfo, json, booksCateg
         </header>
 
         {/* Bible Content */}
-        <ScrollArea className="flex-1">
+        <ScrollArea className="flex-1 scroll-smooth">
           <div className="p-6">
             <div className="max-w-3xl mx-auto space-y-4 mb-20">
               <div className="text-lg leading-relaxed">
@@ -189,21 +178,37 @@ export function BibleReader({ book, chapter, version, bookInfo, json, booksCateg
                       {commentary?.sections
                         .filter((s) => s.fromVerse == key)
                         .map((section) => (
-                          <div key={`s${section.fromVerse}`} className="mt-4">
-                            <div className="p-4 mb-4 space-y-2 ml-20 border-l-gray-200 border-l-4">
-                              {section.commentary.map((l, index) => (
-                                <p key={index} className="text-sm text-muted-foreground">
-                                  {l}
-                                </p>
-                              ))}
+                          <div key={`s${section.fromVerse}`} className="mt-20">
+                            <div className="border-l-gray-200 border-b-2 mb-4">
+                              <div className="p-4 space-y-2 ml-20 bg-slate-100 rounded-2xl rounded-b-none">
+                                {section.commentary.map((l, index) => (
+                                  <p key={index} className="text-sm">
+                                    {l}
+                                  </p>
+                                ))}
+                              </div>
                             </div>
                             <h3 className="text-xl font-semibold mb-2 mt-4">{section.title}</h3>
                           </div>
                         ))}
                       <Popover key={key}>
                         <PopoverTrigger asChild>
-                          <span className={commentary?.importantVerses.filter((v) => v.verse == key).length > 0 ? "bg-slate-100 -m-1 p-1 cursor-pointer" : ""}>
-                            <sup className="text-xs font-semibold text-muted-foreground mr-1">{key}</sup>
+                          <span
+                            className={
+                              selectedVerse?.key == key
+                                ? "bg-yellow-200 -m-1 p-1 cursor-pointer"
+                                : commentary?.importantVerses.filter((v) => v.verse == key).length > 0
+                                ? "bg-blue-100 -m-1 p-1 cursor-pointer"
+                                : ""
+                            }
+                            onClick={handleSelectVerse.bind(this, {
+                              key,
+                              text: (verse as { verseObjects: { text: string; tag: string; type: string }[] }).verseObjects.map((vo) => vo.text).join(" "),
+                            })}
+                          >
+                            <sup id={key} className="scroll-my-2 text-xs font-semibold text-blue-600 mr-1">
+                              {key}
+                            </sup>
                             {(verse as { verseObjects: { text: string; tag: string; type: string }[] }).verseObjects.map((verseObject, index, array) =>
                               verseObject.tag == "p" ? (
                                 <>
@@ -217,19 +222,25 @@ export function BibleReader({ book, chapter, version, bookInfo, json, booksCateg
                           </span>
                         </PopoverTrigger>
 
-                        {commentary?.importantVerses
-                          .filter((v) => v.verse == key)
-                          .map((important, index) => (
-                            <PopoverContent key={index} className="max-w-2xl space-y-2 flex flex-wrap text-sm">
-                              <h3 className="font-semibold mb-2">Commentary</h3>
-                              <span className="pb-4">{important.commentary}</span>
-                              {important.crossReferences?.map((ref, index) => (
-                                <Button key={index} variant="outline" className="mr-1 mb-1">
-                                  <Link href={`/asv/${ref.book.toLowerCase().replace(/ /g, "-")}/${ref.chapter}#${ref.verse}`}>{`${ref.book} ${ref.chapter}:${ref.verse}`}</Link>
-                                </Button>
-                              ))}
-                            </PopoverContent>
-                          ))}
+                        <PopoverContent className="max-w-2xl space-y-2 flex flex-wrap text-sm">
+                          <h3 className="text-lg font-semibold mb-2">
+                            {bookInfo.n} {chapter}:{key}
+                          </h3>
+                          {commentary?.importantVerses
+                            .filter((v) => v.verse == key)
+                            .map((important, index) => (
+                              <div key={index}>
+                                <h3 className="font-semibold mb-2">Commentary</h3>
+                                <span className="pb-4 block">{important.commentary}</span>
+                                {important.crossReferences?.map((ref, index) => (
+                                  <Button key={index} variant="outline" className="mr-1 mb-1">
+                                    <Link href={`/asv/${ref.book.toLowerCase().replace(/ /g, "-")}/${ref.chapter}#${ref.verse}`}>{`${ref.book} ${ref.chapter}:${ref.verse}`}</Link>
+                                  </Button>
+                                ))}
+                              </div>
+                            ))}
+                          {selectedVerse && <SocialShareButtons language={language} version={version} book={bookInfo.n} chapter={chapter} verse={selectedVerse.key} verseText={selectedVerse.text} />}
+                        </PopoverContent>
                       </Popover>
                     </>
                   ) : (
@@ -237,7 +248,6 @@ export function BibleReader({ book, chapter, version, bookInfo, json, booksCateg
                   )
                 )}
               </div>
-              {selectedVerse && <SocialShareButtons language={language} verseKey={selectedVerse.key} verseText={selectedVerse.text} />}
             </div>
 
             {commentary?.questions?.length > 0 && (
