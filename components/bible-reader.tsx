@@ -138,8 +138,8 @@ export function BibleReader({ book, chapter, version, bookInfo, json, booksCateg
           <div className="mb-10">
             <h2 className="text-xl font-semibold mb-2">On this page</h2>
             <ul className="space-y-1">
-              {commentary?.sections.map((section) => (
-                <li className="inline-block">
+              {commentary?.sections.map((section, index) => (
+                <li key={index} className="inline-block">
                   <Link className="text-sm hover:text-blue-600" href={`#s${section.fromVerse}`}>
                     {section.title}
                   </Link>
@@ -260,7 +260,7 @@ export function BibleReader({ book, chapter, version, bookInfo, json, booksCateg
                           <h3 className="text-lg font-semibold">
                             {bookInfo.n} {chapter}:{key}
                           </h3>
-                          <span className="pb-4 block">"{(verse as { verseObjects: { text: string; tag: string; type: string }[] }).verseObjects.map((vo) => vo.text).join(" ")}"</span>
+                          <span className="pb-4 block">&ldquo;{(verse as { verseObjects: { text: string; tag: string; type: string }[] }).verseObjects.map((vo) => vo.text).join(" ")}&rdquo;</span>
                           {commentary?.importantVerses
                             .filter((v) => v.verse == key)
                             .map((important, index) => (
