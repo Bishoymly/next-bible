@@ -82,9 +82,9 @@ export function GospelGuide() {
               <li>Start from the top and read through in order.</li>
               <li>Take time to understand each passage.</li>
               <li>Reflect on how each chapter contributes to the Gospel message.</li>
-              <li>Use the "Read Now" links to access the full text.</li>
+              <li>Use the &quot;Read Now&quot; links to access the full text.</li>
               <li>Consider journaling your thoughts and questions.</li>
-              <li>Discuss what you're learning with others.</li>
+              <li>Discuss what you&apos;re learning with others.</li>
             </ol>
           </div>
 
