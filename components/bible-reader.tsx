@@ -277,14 +277,27 @@ export function BibleReader({ book, chapter, version, bookInfo, json, booksCateg
                             <sup id={key} className="scroll-my-4 text-xs font-semibold text-blue-600 mr-1">
                               {key}
                             </sup>
-                            {(verse as { verseObjects: { text: string; tag: string; type: string }[] }).verseObjects.map((verseObject, index, array) =>
-                              verseObject.tag == "p" ? (
+                            {(verse as { verseObjects: { text: string; tag: string; type: string; content: string }[] }).verseObjects.map((verseObject, index, array) =>
+                              verseObject.type == "text" || verseObject.type == "word" ? (
+                                <>{verseObject.text}</>
+                              ) : verseObject.type == "paragraph" ? (
                                 <>
                                   <br />
                                   <br />
                                 </>
+                              ) : verseObject.tag == "add" ? (
+                                <span className="italic">{verseObject.text}</span>
+                              ) : verseObject.tag == "f" ? (
+                                <span className="italic text-muted-foreground">{verseObject.content.replace(/\+\s\\fr\s*\d+:\d+\s*\\ft|[^a-zA-Z0-9\s]/g, "").replace(/fqa/g, ":")}</span>
+                              ) : verseObject.tag == "q1" ? (
+                                <br />
+                              ) : verseObject.tag == "qs" ? (
+                                <>
+                                  <span className="italic float-end">{verseObject.text}</span>
+                                  <br />
+                                </>
                               ) : (
-                                <>{verseObject.text}</>
+                                <>{JSON.stringify(verseObject)}</>
                               )
                             )}
                           </span>
