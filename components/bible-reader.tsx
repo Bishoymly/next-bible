@@ -1,17 +1,16 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { ChevronLeft, ChevronRight, Menu, Share2, Facebook, Twitter, Linkedin, ChevronFirst, ChevronLast, Home, BookIcon } from "lucide-react";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { ChevronLeft, ChevronRight, Menu, Share2, Facebook, Linkedin } from "lucide-react";
 import Link from "next/link";
-import { Card } from "./ui/card";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import ChatSupport from "./chat-support";
 import { BibleBooksList } from "./bible-books-list";
+import { TwitterLogoIcon } from "@radix-ui/react-icons";
 
 const uiText = {
   en: {
@@ -44,14 +43,6 @@ const uiText = {
   },
 };
 
-const commentaries = {
-  3: [
-    "\"Let there be light\" - This phrase marks the beginning of God's creative work in forming the universe. The command demonstrates God's power to bring order out of chaos through His spoken word.",
-    "The nature of this light has been debated, as the sun and stars are not created until the fourth day. Some interpret this as the creation of energy itself, while others see it as God's presence illuminating the darkness.",
-    "This verse is often seen as a metaphor for spiritual illumination, with God's light piercing the darkness of human understanding and sin.",
-  ],
-};
-
 const SocialShareButtons = ({ language, version, book, chapter, verse, verseText }) => {
   const [linkCopied, setLinkCopied] = useState(false);
 
@@ -71,7 +62,7 @@ const SocialShareButtons = ({ language, version, book, chapter, verse, verseText
           <Facebook className="h-4 w-4" />
         </Button>
         <Button variant="outline" size="icon" onClick={() => window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`, "_blank")}>
-          <Twitter className="h-4 w-4" />
+          <TwitterLogoIcon className="h-4 w-4" />
         </Button>
         <Button
           variant="outline"
@@ -95,6 +86,45 @@ export function BibleReader({ book, chapter, version, bookInfo, json, booksCateg
   const [sidebarExpanded, setSidebarExpanded] = useState(true);
   const [question, setQuestion] = useState(null);
   const [commentary, setCommentary] = useState(null);
+
+  // scroll spy
+  const [activeId, setActiveId] = useState<string | undefined>();
+  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
+
+  // handling scroll spy
+  useEffect(() => {
+    const scrollContainer = scrollContainerRef.current;
+
+    const handleScroll = () => {
+      if (scrollContainer && commentary) {
+        const sectionElements = commentary.sections.map(({ fromVerse }) => document.getElementById(`s${fromVerse}`));
+
+        const sectionInView = sectionElements.find((section) => {
+          if (section) {
+            const rect = section.getBoundingClientRect();
+            return rect.top <= 150 && rect.bottom >= 150;
+          }
+          return false;
+        });
+
+        if (sectionInView) {
+          setActiveId(sectionInView.id);
+        }
+      }
+    };
+
+    if (scrollContainer) {
+      scrollContainer.addEventListener("scroll", handleScroll);
+      handleScroll();
+    }
+
+    // Cleanup the event listener on unmount
+    return () => {
+      if (scrollContainer) {
+        scrollContainer.removeEventListener("scroll", handleScroll);
+      }
+    };
+  }, [commentary]);
 
   useEffect(() => {
     const hash = window.location.hash.substring(1);
@@ -139,8 +169,12 @@ export function BibleReader({ book, chapter, version, bookInfo, json, booksCateg
             <h2 className="text-xl font-semibold mb-2">On this page</h2>
             <ul className="space-y-1">
               {commentary?.sections.map((section, index) => (
-                <li key={index} className="inline-block">
-                  <Link className="text-sm hover:text-blue-600" href={`#s${section.fromVerse}`}>
+                <li key={index} className="block">
+                  <Link
+                    className={`text-sm  hover:text-blue-600 ${activeId === `s${section.fromVerse}` ? "text-blue-600 font-bold" : "text-gray-500"}`}
+                    href={`#s${section.fromVerse}`}
+                    onClick={() => setActiveId(`s${section.fromVerse}`)}
+                  >
                     {section.title}
                   </Link>
                 </li>
@@ -164,7 +198,7 @@ export function BibleReader({ book, chapter, version, bookInfo, json, booksCateg
   }
 
   return (
-    <div className="flex h-screen bg-background">
+    <div className="flex h-screen bg-background transition-all">
       {/* Collapsible Sidebar */}
       <aside className={`hidden md:flex flex-col border-r p-4 transition-all duration-300 ${sidebarExpanded ? "w-72" : "w-16"}`}>{Sidebar(bookInfo, chapter, book, booksCategorized)}</aside>
 
@@ -200,7 +234,7 @@ export function BibleReader({ book, chapter, version, bookInfo, json, booksCateg
         </header>
 
         {/* Bible Content */}
-        <ScrollArea className="flex-1 scroll-smooth">
+        <div className="flex-1 scroll-smooth overflow-y-scroll" ref={scrollContainerRef}>
           <div className="p-6">
             <div className="max-w-3xl mx-auto space-y-4 mb-20">
               <div className="text-lg leading-relaxed">
@@ -298,7 +332,7 @@ export function BibleReader({ book, chapter, version, bookInfo, json, booksCateg
               </div>
             )}
           </div>
-        </ScrollArea>
+        </div>
         <ChatSupport book={book} chapter={chapter} question={question} />
       </main>
     </div>
