@@ -11,7 +11,7 @@ export default function getBibleText() {
 }
 
 export function getBibleJson(b, version) {
-  const filePath = path.join(process.cwd(), "public", "data", `${b}-${version}.usfm`);
+  const filePath = path.join(process.cwd(), "public", "data", version, `${b}.usfm`);
   const fileContents = fs.readFileSync(filePath, "utf-8");
   const text = usfm.toJSON(fileContents);
   return text;

@@ -5,7 +5,7 @@ import getBooks from "@/lib/getBooks";
 import getBooksCategorized from "@/lib/getBooksCategorized";
 
 export default async function BookPage({ params }) {
-  const book = params.book;
+  const { version, book } = params;
   const booksCategorized = getBooksCategorized();
   const books = getBooks();
   let bookInfo = books.filter((b) => b.n.toLowerCase() === book.replace(/-/g, " "))[0];
@@ -13,5 +13,5 @@ export default async function BookPage({ params }) {
   bookInfo.nextBook = bookInfo.b === books.length ? books[0].n : books[books.indexOf(bookInfo) + 1].n;
   const curation = await curateBook(book);
 
-  return <BibleBookHome book={book} curation={curation} bookInfo={bookInfo} booksCategorized={booksCategorized} />;
+  return <BibleBookHome version={version} book={book} curation={curation} bookInfo={bookInfo} booksCategorized={booksCategorized} />;
 }

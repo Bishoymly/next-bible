@@ -92,7 +92,7 @@ export function GospelGuide() {
             {essentialChapters.map((chapter, index) => (
               <li key={index} className="border-b border-gray-200 pb-4 last:border-b-0">
                 <Button variant="link" className="p-0 h-auto" asChild>
-                  <Link href={`/asv/${chapter.book.toLowerCase()}/${chapter.chapter}`} className="flex items-center text-blue-500 hover:text-blue-700">
+                  <Link href={`/${version}/${chapter.book.toLowerCase()}/${chapter.chapter}`} className="flex items-center text-blue-500 hover:text-blue-700">
                     <div className="flex items-center mb-2">
                       <BookOpen className="mr-2 h-4 w-4 text-blue-500" />
                       <h2 className="text-lg font-semibold text-gray-800">

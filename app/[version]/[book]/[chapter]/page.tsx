@@ -8,6 +8,12 @@ export default async function Read({ params }) {
   const books = getBooks();
   const bookInfo = books.filter((b) => b.n.toLowerCase() === book.replace(/-/g, " "))[0];
   const json = getBibleJson(bookInfo.b, version)["chapters"][parseInt(chapter)];
+  if (json["front"]) {
+    json["0"] = json["front"];
+    delete json.front;
+  }
+
   const booksCategorized = getBooksCategorized();
-  return <BibleReader book={book} bookInfo={bookInfo} chapter={chapter} version={version} json={json} booksCategorized={booksCategorized} />;
+  const language = version == "asv" ? "en" : "ar";
+  return <BibleReader language={language} book={book} bookInfo={bookInfo} chapter={chapter} version={version} json={json} booksCategorized={booksCategorized} />;
 }

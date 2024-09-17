@@ -8,7 +8,7 @@ import { useChat } from "ai/react";
 import { ScrollArea } from "./ui/scroll-area";
 import React, { useEffect } from "react";
 
-function formatChatResponseToHTML(response) {
+function formatChatResponseToHTML(version, response) {
   // Escape any HTML special characters to avoid XSS attacks
   const escapeHtml = (text) => {
     return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
@@ -29,7 +29,7 @@ function formatChatResponseToHTML(response) {
   // Function to format a detected verse to a Next.js Link component
   const formatVerse = (match, book, chapter, verse) => {
     // Construct the path for the verse link with an anchor to the verse
-    const path = `/asv/${book.toLowerCase().trim().replace(/ /g, "-")}/${chapter}#${verse}`;
+    const path = `/${version}/${book.toLowerCase().trim().replace(/ /g, "-")}/${chapter}#${verse}`;
 
     // Return an anchor link component as a string for use in dangerouslySetInnerHTML
     return `<a class="underline" href="${path}">${escapeHtml(match)}</a>`;
@@ -47,9 +47,9 @@ function formatChatResponseToHTML(response) {
   return formattedHtml;
 }
 
-export function Chats({ book, chapter, question }) {
+export function Chats({ version, book, chapter, question }) {
   const { messages, input, handleInputChange, handleSubmit } = useChat({
-    api: "/api/chat?book=" + book + "&chapter=" + chapter,
+    api: "/api/chat?version=" + version + "book=" + book + "&chapter=" + chapter,
   });
 
   useEffect(() => {
@@ -85,7 +85,7 @@ export function Chats({ book, chapter, question }) {
 
               <p className="leading-relaxed">
                 <span className="block font-bold text-slate-700">{message.role === "user" ? "User" : "AI"}</span>
-                <span dangerouslySetInnerHTML={{ __html: formatChatResponseToHTML(message.content) }}></span>
+                <span dangerouslySetInnerHTML={{ __html: formatChatResponseToHTML(version, message.content) }}></span>
               </p>
             </div>
           );

@@ -79,9 +79,8 @@ const SocialShareButtons = ({ language, version, book, chapter, verse, verseText
   );
 };
 
-export function BibleReader({ book, chapter, version, bookInfo, json, booksCategorized }) {
+export function BibleReader({ language, book, chapter, version, bookInfo, json, booksCategorized }) {
   const [showCommentary, setShowCommentary] = useState(false);
-  const [language, setLanguage] = useState("en");
   const [selectedVerse, setSelectedVerse] = useState(null);
   const [sidebarExpanded, setSidebarExpanded] = useState(true);
   const [question, setQuestion] = useState(null);
@@ -144,12 +143,10 @@ export function BibleReader({ book, chapter, version, bookInfo, json, booksCateg
       }
     };
 
-    fetchCommentary();
+    if (language == "en") {
+      fetchCommentary();
+    }
   }, [book, chapter]);
-
-  const handleLanguageChange = (newLanguage) => {
-    setLanguage(newLanguage);
-  };
 
   const handleSelectVerse = (verse) => {
     if (selectedVerse?.key != verse.key) {
@@ -187,12 +184,12 @@ export function BibleReader({ book, chapter, version, bookInfo, json, booksCateg
         <div className="grid grid-cols-5 gap-2 mb-8">
           {Array.from({ length: bookInfo.c }, (_, i) => i + 1).map((c) => (
             <Button key={c} variant={chapter == c ? "default" : "outline"} size="sm" asChild>
-              <Link href={`/asv/${book}/${c}`}>{c}</Link>
+              <Link href={`/${version}/${book}/${c}`}>{c}</Link>
             </Button>
           ))}
         </div>
         <h2 className="text-xl font-semibold mt-6">Books</h2>
-        <BibleBooksList booksCategorized={booksCategorized} aside={true} />
+        <BibleBooksList version={version} booksCategorized={booksCategorized} aside={true} />
       </ScrollArea>
     );
   }
@@ -221,12 +218,12 @@ export function BibleReader({ book, chapter, version, bookInfo, json, booksCateg
           </div>
           <div className="flex items-center space-x-2">
             <Button variant="ghost" size="icon" disabled={parseInt(chapter) === 1}>
-              <Link href={`/asv/${book}/${parseInt(chapter) - 1}`}>
+              <Link href={`/${version}/${book}/${parseInt(chapter) - 1}`}>
                 <ChevronLeft />
               </Link>
             </Button>
             <Button variant="ghost" size="icon" disabled={parseInt(chapter) === bookInfo.c}>
-              <Link href={`/asv/${book}/${parseInt(chapter) + 1}`}>
+              <Link href={`/${version}/${book}/${parseInt(chapter) + 1}`}>
                 <ChevronRight />
               </Link>
             </Button>
@@ -234,101 +231,101 @@ export function BibleReader({ book, chapter, version, bookInfo, json, booksCateg
         </header>
 
         {/* Bible Content */}
-        <div className="flex-1 scroll-smooth overflow-y-scroll" ref={scrollContainerRef}>
+        <div className={`flex-1 scroll-smooth overflow-y-scroll ${language == "ar" ? "text-right [direction:rtl]" : ""}`} ref={scrollContainerRef}>
           <div className="p-6">
             <div className="max-w-3xl mx-auto space-y-4 mb-20">
-              <div className="text-lg leading-relaxed">
-                {Object.entries(json).map(([key, verse]) =>
-                  key != "front" ? (
-                    <>
-                      {commentary?.sections
-                        .filter((s) => s.fromVerse == key)
-                        .map((section) => (
-                          <div id={`s${section.fromVerse}`} key={`s${section.fromVerse}`} className="snap-y scroll-my-10 mt-10">
-                            <Popover key={key}>
-                              <PopoverTrigger asChild>
-                                <h3 className="text-xl font-semibold mb-2 mt-4 cursor-pointer">{section.title}</h3>
-                              </PopoverTrigger>
-                              <PopoverContent className="max-w-2xl space-y-2 flex flex-wrap text-sm">
-                                {section.commentary.map((l, index) => (
-                                  <p key={index} className="text-sm">
-                                    {l}
-                                  </p>
-                                ))}
-                              </PopoverContent>
-                            </Popover>
-                          </div>
-                        ))}
-                      <Popover key={key}>
-                        <PopoverTrigger asChild>
-                          <span
-                            className={
-                              selectedVerse?.key == key
-                                ? "bg-yellow-200 -m-1 p-1 cursor-pointer"
-                                : commentary?.importantVerses.filter((v) => v.verse == key).length > 0
-                                ? "bg-blue-100 -m-1 p-1 cursor-pointer"
-                                : ""
-                            }
-                            onClick={handleSelectVerse.bind(this, {
-                              key,
-                              text: (verse as { verseObjects: { text: string; tag: string; type: string }[] }).verseObjects.map((vo) => vo.text).join(" "),
-                            })}
-                          >
+              <div className={`text-lg leading-relaxed ${language == "ar" ? "text-xl" : ""}`}>
+                {Object.entries(json).map(([key, verse]) => (
+                  <>
+                    {commentary?.sections
+                      .filter((s) => s.fromVerse == key)
+                      .map((section) => (
+                        <div id={`s${section.fromVerse}`} key={`s${section.fromVerse}`} className="snap-y scroll-my-10 mt-10">
+                          <Popover key={key}>
+                            <PopoverTrigger asChild>
+                              <h3 className="text-xl font-semibold mb-2 mt-4 cursor-pointer">{section.title}</h3>
+                            </PopoverTrigger>
+                            <PopoverContent className="max-w-2xl space-y-2 flex flex-wrap text-sm">
+                              {section.commentary.map((l, index) => (
+                                <p key={index} className="text-sm">
+                                  {l}
+                                </p>
+                              ))}
+                            </PopoverContent>
+                          </Popover>
+                        </div>
+                      ))}
+                    <Popover key={key}>
+                      <PopoverTrigger asChild>
+                        <span
+                          className={
+                            selectedVerse?.key == key
+                              ? "bg-yellow-200 -m-1 p-1 cursor-pointer"
+                              : commentary?.importantVerses.filter((v) => v.verse == key).length > 0
+                              ? "bg-blue-100 -m-1 p-1 cursor-pointer"
+                              : ""
+                          }
+                          onClick={handleSelectVerse.bind(this, {
+                            key,
+                            text: (verse as { verseObjects: { text: string; tag: string; type: string }[] }).verseObjects.map((vo) => vo.text).join(" "),
+                          })}
+                        >
+                          {key != "0" && (
                             <sup id={key} className="scroll-my-4 text-xs font-semibold text-blue-600 mr-1">
                               {key}
                             </sup>
-                            {(verse as { verseObjects: { text: string; tag: string; type: string; content: string }[] }).verseObjects.map((verseObject, index, array) =>
-                              verseObject.type == "text" || verseObject.type == "word" ? (
-                                <>{verseObject.text}</>
-                              ) : verseObject.type == "paragraph" ? (
-                                <>
-                                  <br />
-                                  <br />
-                                </>
-                              ) : verseObject.tag == "add" ? (
-                                <span className="italic">{verseObject.text}</span>
-                              ) : verseObject.tag == "f" ? (
-                                <span className="italic text-muted-foreground">{verseObject.content.replace(/\+\s\\fr\s*\d+:\d+\s*\\ft|[^a-zA-Z0-9\s]/g, "").replace(/fqa/g, ":")}</span>
-                              ) : verseObject.tag == "q1" ? (
+                          )}
+                          {(verse as { verseObjects: { text: string; tag: string; type: string; content: string }[] }).verseObjects.map((verseObject, index, array) =>
+                            verseObject.type == "text" || verseObject.type == "word" ? (
+                              <>{verseObject.text}</>
+                            ) : verseObject.type == "paragraph" ? (
+                              <>
                                 <br />
-                              ) : verseObject.tag == "qs" ? (
-                                <>
-                                  <span className="italic float-end">{verseObject.text}</span>
-                                  <br />
-                                </>
-                              ) : (
-                                <>{JSON.stringify(verseObject)}</>
-                              )
-                            )}
-                          </span>
-                        </PopoverTrigger>
+                                <br />
+                              </>
+                            ) : verseObject.tag == "add" ? (
+                              <span className="italic">{verseObject.text}</span>
+                            ) : verseObject.tag == "s1" ? (
+                              <h3 className="text-xl font-semibold mt-8">{verseObject.content}</h3>
+                            ) : verseObject.tag == "f" ? (
+                              <span className="italic text-muted-foreground">{verseObject.content.replace(/\+\s\\fr\s*\d+:\d+\s*\\ft|[^a-zA-Z0-9\s]/g, "").replace(/fqa/g, ":")}</span>
+                            ) : verseObject.tag == "q1" ? (
+                              <br />
+                            ) : verseObject.tag == "qs" ? (
+                              <>
+                                <span className="italic float-end">{verseObject.text}</span>
+                                <br />
+                              </>
+                            ) : (
+                              <>{JSON.stringify(verseObject)}</>
+                            )
+                          )}
+                        </span>
+                      </PopoverTrigger>
 
-                        <PopoverContent className="max-w-2xl space-y-2 flex flex-wrap text-sm">
-                          <h3 className="text-lg font-semibold">
-                            {bookInfo.n} {chapter}:{key}
-                          </h3>
-                          <span className="pb-4 block">&ldquo;{(verse as { verseObjects: { text: string; tag: string; type: string }[] }).verseObjects.map((vo) => vo.text).join(" ")}&rdquo;</span>
-                          {commentary?.importantVerses
-                            .filter((v) => v.verse == key)
-                            .map((important, index) => (
-                              <div key={index}>
-                                <h3 className="font-semibold mb-2">Commentary</h3>
-                                <span className="pb-4 block">{important.commentary}</span>
-                                {important.crossReferences?.map((ref, index) => (
-                                  <Button key={index} variant="outline" className="mr-1 mb-1">
-                                    <Link href={`/asv/${ref.book.toLowerCase().replace(/ /g, "-")}/${ref.chapter}#${ref.verse}`}>{`${ref.book} ${ref.chapter}:${ref.verse}`}</Link>
-                                  </Button>
-                                ))}
-                              </div>
-                            ))}
-                          {selectedVerse && <SocialShareButtons language={language} version={version} book={bookInfo.n} chapter={chapter} verse={selectedVerse.key} verseText={selectedVerse.text} />}
-                        </PopoverContent>
-                      </Popover>
-                    </>
-                  ) : (
-                    <></>
-                  )
-                )}
+                      <PopoverContent className="max-w-2xl space-y-2 flex flex-wrap text-sm">
+                        <h3 className="text-lg font-semibold">
+                          {bookInfo.n} {chapter}:{key}
+                        </h3>
+                        <span className="pb-4 block">&ldquo;{(verse as { verseObjects: { text: string; tag: string; type: string }[] }).verseObjects.map((vo) => vo.text).join(" ")}&rdquo;</span>
+                        {commentary?.importantVerses
+                          .filter((v) => v.verse == key)
+                          .map((important, index) => (
+                            <div key={index}>
+                              <h3 className="font-semibold mb-2">Commentary</h3>
+                              <span className="pb-4 block">{important.commentary}</span>
+                              {important.crossReferences?.map((ref, index) => (
+                                <Button key={index} variant="outline" className="mr-1 mb-1">
+                                  <Link href={`/${version}/${ref.book.toLowerCase().replace(/ /g, "-")}/${ref.chapter}#${ref.verse}`}>{`${ref.book} ${ref.chapter}:${ref.verse}`}</Link>
+                                </Button>
+                              ))}
+                            </div>
+                          ))}
+                        {selectedVerse && <SocialShareButtons language={language} version={version} book={bookInfo.n} chapter={chapter} verse={selectedVerse.key} verseText={selectedVerse.text} />}
+                      </PopoverContent>
+                    </Popover>
+                  </>
+                ))}
               </div>
             </div>
 
@@ -346,7 +343,7 @@ export function BibleReader({ book, chapter, version, bookInfo, json, booksCateg
             )}
           </div>
         </div>
-        <ChatSupport book={book} chapter={chapter} question={question} />
+        <ChatSupport version={version} book={book} chapter={chapter} question={question} />
       </main>
     </div>
   );

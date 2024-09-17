@@ -4,7 +4,7 @@ import { Separator } from "@/components/ui/separator";
 import { Button } from "./ui/button";
 import Link from "next/link";
 
-export function BibleBooksList({ booksCategorized, aside }) {
+export function BibleBooksList({ version, booksCategorized, aside }) {
   return (
     <div className="container mx-auto p-4">
       {aside ? <></> : <h1 className="text-2xl font-bold text-center mb-8">ASV</h1>}
@@ -19,7 +19,7 @@ export function BibleBooksList({ booksCategorized, aside }) {
                   {group.books.map((book, bookIndex) => (
                     <li key={bookIndex} className="text-sm">
                       <Button key={book} variant="ghost" asChild>
-                        <Link href={`/asv/${book.toLowerCase().replace(/ /g, "-")}`}>{book}</Link>
+                        <Link href={`/${version}/${book.toLowerCase().replace(/ /g, "-")}`}>{book}</Link>
                       </Button>
                     </li>
                   ))}
@@ -39,7 +39,7 @@ export function BibleBooksList({ booksCategorized, aside }) {
                   {group.books.map((book, bookIndex) => (
                     <li key={bookIndex} className="text-sm">
                       <Button key={book} variant="ghost" asChild>
-                        <Link href={`/asv/${book.toLowerCase().replace(/ /g, "-")}`}>{book}</Link>
+                        <Link href={`/${version}/${book.toLowerCase().replace(/ /g, "-")}`}>{book}</Link>
                       </Button>
                     </li>
                   ))}
