@@ -7,6 +7,7 @@ import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 
 export function SalvationGuideComponent() {
+  const version = "asv";
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold text-center mb-6">How to Be Saved</h1>
