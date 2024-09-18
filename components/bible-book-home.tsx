@@ -12,14 +12,14 @@ const titleFont = localFont({
   display: "swap",
 });
 
-export function BibleBookHome({ version, book, curation, bookInfo, booksCategorized }) {
+export function BibleBookHome({ language, version, book, curation, bookInfo, booksCategorized }) {
   return (
     <div className="flex h-screen bg-background">
       {/* Collapsible Sidebar */}
       <aside className={`hidden md:flex flex-col border-r transition-all duration-300 w-64`}>
         <ScrollArea className="flex-1">
           <div className="p-4 space-y-2">
-            <BibleBooksList version={version} booksCategorized={booksCategorized} aside={true} />
+            <BibleBooksList language={language} version={version} booksCategorized={booksCategorized} aside={true} />
           </div>
         </ScrollArea>
       </aside>
@@ -38,22 +38,22 @@ export function BibleBookHome({ version, book, curation, bookInfo, booksCategori
                 <SheetContent side="left">
                   <ScrollArea className="flex-1 h-full mt-4">
                     <div className="space-y-2">
-                      <BibleBooksList version={version} booksCategorized={booksCategorized} aside={true} />
+                      <BibleBooksList language={language} version={version} booksCategorized={booksCategorized} aside={true} />
                     </div>
                   </ScrollArea>
                 </SheetContent>
               </Sheet>
 
               <Button variant="ghost" asChild className="hidden md:inline-flex">
-                <Link href={`/${version}/${bookInfo.previousBook?.toLowerCase().replace(/ /g, "-")}`}>
+                <Link href={`/${version}/${bookInfo.previousBook?.slug}`}>
                   <ChevronLeft className="mr-2 h-4 w-4" />
-                  {bookInfo.previousBook}
+                  {bookInfo.previousBook?.n}
                 </Link>
               </Button>
               <h1 className={`text-4xl font-bold text-center ${titleFont.className}`}>{bookInfo.n.replace(/1/g, "I ").replace(/2/g, "II ")}</h1>
               <Button variant="ghost" asChild className="hidden md:inline-flex">
-                <Link href={`/${version}/${bookInfo.nextBook?.toLowerCase().replace(/ /g, "-")}`}>
-                  {bookInfo.nextBook}
+                <Link href={`/${version}/${bookInfo.nextBook?.slug}`}>
+                  {bookInfo.nextBook?.n}
                   <ChevronRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>

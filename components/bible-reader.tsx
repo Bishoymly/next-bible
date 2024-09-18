@@ -11,6 +11,12 @@ import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import ChatSupport from "./chat-support";
 import { BibleBooksList } from "./bible-books-list";
 import { TwitterLogoIcon } from "@radix-ui/react-icons";
+import { Amiri } from "next/font/google";
+
+const amiri = Amiri({
+  weight: ["400", "700"],
+  subsets: ["arabic"],
+});
 
 const uiText = {
   en: {
@@ -26,6 +32,8 @@ const uiText = {
     linkCopied: "Link copied!",
     expandSidebar: "Expand sidebar",
     collapseSidebar: "Collapse sidebar",
+    chapters: "Chapters",
+    books: "Books",
   },
   es: {
     selectBook: "Seleccionar Libro",
@@ -40,6 +48,24 @@ const uiText = {
     linkCopied: "¡Enlace copiado!",
     expandSidebar: "Expandir barra lateral",
     collapseSidebar: "Contraer barra lateral",
+    chapters: "Capítulos",
+    books: "Libros",
+  },
+  ar: {
+    selectBook: "اختر الكتاب",
+    selectChapter: "اختر الفصل",
+    search: "بحث",
+    bibleNavigation: "تنقل الكتاب المقدس",
+    selectBookOrChapter: "اختر كتابًا أو فصلًا للقراءة",
+    commentary: "تعليق على",
+    share: "شارك",
+    shareVerse: "شارك هذه الآية",
+    copyLink: "نسخ الرابط",
+    linkCopied: "تم نسخ الرابط!",
+    expandSidebar: "توسيع الشريط الجانبي",
+    collapseSidebar: "طي الشريط الجانبي",
+    chapters: "الفصول",
+    books: "الكتب",
   },
 };
 
@@ -89,7 +115,7 @@ export function BibleReader({ language, book, chapter, version, bookInfo, json, 
   // scroll spy
   const [activeId, setActiveId] = useState<string | undefined>();
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
-
+  console.log("json", json);
   // handling scroll spy
   useEffect(() => {
     const scrollContainer = scrollContainerRef.current;
@@ -180,7 +206,7 @@ export function BibleReader({ language, book, chapter, version, bookInfo, json, 
           </div>
         )}
 
-        <h2 className="text-xl font-semibold mb-4">Chapters</h2>
+        <h2 className="text-xl font-semibold mb-4">{uiText.ar.chapters}</h2>
         <div className="grid grid-cols-5 gap-2 mb-8">
           {Array.from({ length: bookInfo.c }, (_, i) => i + 1).map((c) => (
             <Button key={c} variant={chapter == c ? "default" : "outline"} size="sm" asChild>
@@ -188,14 +214,14 @@ export function BibleReader({ language, book, chapter, version, bookInfo, json, 
             </Button>
           ))}
         </div>
-        <h2 className="text-xl font-semibold mt-6">Books</h2>
-        <BibleBooksList version={version} booksCategorized={booksCategorized} aside={true} />
+        <h2 className="text-xl font-semibold mt-6">{uiText.ar.books}</h2>
+        <BibleBooksList language={language} version={version} booksCategorized={booksCategorized} aside={true} />
       </ScrollArea>
     );
   }
 
   return (
-    <div className="flex h-screen bg-background transition-all">
+    <div className={`flex h-screen bg-background transition-all ${language == "ar" ? `[direction:rtl] line- ${amiri.className}` : ""}`}>
       {/* Collapsible Sidebar */}
       <aside className={`hidden md:flex flex-col border-r p-4 transition-all duration-300 ${sidebarExpanded ? "w-72" : "w-16"}`}>{Sidebar(bookInfo, chapter, book, booksCategorized)}</aside>
 
@@ -231,10 +257,10 @@ export function BibleReader({ language, book, chapter, version, bookInfo, json, 
         </header>
 
         {/* Bible Content */}
-        <div className={`flex-1 scroll-smooth overflow-y-scroll ${language == "ar" ? "text-right [direction:rtl]" : ""}`} ref={scrollContainerRef}>
+        <div className={`flex-1 scroll-smooth overflow-y-scroll`} ref={scrollContainerRef}>
           <div className="p-6">
             <div className="max-w-3xl mx-auto space-y-4 mb-20">
-              <div className={`text-lg leading-relaxed ${language == "ar" ? "text-xl" : ""}`}>
+              <div className={` ${language == "ar" ? "text-2xl leading-loose" : "text-lg leading-relaxed"}`}>
                 {Object.entries(json).map(([key, verse]) => (
                   <>
                     {commentary?.sections
@@ -243,7 +269,7 @@ export function BibleReader({ language, book, chapter, version, bookInfo, json, 
                         <div id={`s${section.fromVerse}`} key={`s${section.fromVerse}`} className="snap-y scroll-my-10 mt-10">
                           <Popover key={key}>
                             <PopoverTrigger asChild>
-                              <h3 className="text-xl font-semibold mb-2 mt-4 cursor-pointer">{section.title}</h3>
+                              <h3 className={` font-semibold mb-2 mt-4 cursor-pointer ${language == "ar" ? "text-2xl" : "text-xl"}`}>{section.title}</h3>
                             </PopoverTrigger>
                             <PopoverContent className="max-w-2xl space-y-2 flex flex-wrap text-sm">
                               {section.commentary.map((l, index) => (
@@ -271,7 +297,7 @@ export function BibleReader({ language, book, chapter, version, bookInfo, json, 
                           })}
                         >
                           {key != "0" && (
-                            <sup id={key} className="scroll-my-4 text-xs font-semibold text-blue-600 mr-1">
+                            <sup id={key} className={`scroll-my-4 ${language == "ar" ? "text-lg" : "text-xs"} font-semibold text-blue-600 mr-1`}>
                               {key}
                             </sup>
                           )}
@@ -286,7 +312,7 @@ export function BibleReader({ language, book, chapter, version, bookInfo, json, 
                             ) : verseObject.tag == "add" ? (
                               <span className="italic">{verseObject.text}</span>
                             ) : verseObject.tag == "s1" ? (
-                              <h3 className="text-xl font-semibold mt-8">{verseObject.content}</h3>
+                              <h3 className="text-3xl font-semibold mt-2 mb-4">{verseObject.content}</h3>
                             ) : verseObject.tag == "f" ? (
                               <span className="italic text-muted-foreground">{verseObject.content.replace(/\+\s\\fr\s*\d+:\d+\s*\\ft|[^a-zA-Z0-9\s]/g, "").replace(/fqa/g, ":")}</span>
                             ) : verseObject.tag == "q1" ? (
@@ -316,7 +342,7 @@ export function BibleReader({ language, book, chapter, version, bookInfo, json, 
                               <span className="pb-4 block">{important.commentary}</span>
                               {important.crossReferences?.map((ref, index) => (
                                 <Button key={index} variant="outline" className="mr-1 mb-1">
-                                  <Link href={`/${version}/${ref.book.toLowerCase().replace(/ /g, "-")}/${ref.chapter}#${ref.verse}`}>{`${ref.book} ${ref.chapter}:${ref.verse}`}</Link>
+                                  <Link href={`/${version}/${ref.book.slug}/${ref.chapter}#${ref.verse}`}>{`${ref.book} ${ref.chapter}:${ref.verse}`}</Link>
                                 </Button>
                               ))}
                             </div>

@@ -6,12 +6,13 @@ import getBooksCategorized from "@/lib/getBooksCategorized";
 
 export default async function BookPage({ params }) {
   const { version, book } = params;
-  const booksCategorized = getBooksCategorized();
-  const books = getBooks();
-  let bookInfo = books.filter((b) => b.n.toLowerCase() === book.replace(/-/g, " "))[0];
-  bookInfo.previousBook = bookInfo.b === 1 ? books[books.length - 1].n : books[books.indexOf(bookInfo) - 1].n;
-  bookInfo.nextBook = bookInfo.b === books.length ? books[0].n : books[books.indexOf(bookInfo) + 1].n;
+  const language = version == "asv" ? "en" : "ar";
+  const books = getBooks(language);
+  const booksCategorized = getBooksCategorized(language);
+  let bookInfo = books.filter((b) => b.slug === book)[0];
+  bookInfo.previousBook = bookInfo.b === 1 ? books[books.length - 1] : books[books.indexOf(bookInfo) - 1];
+  bookInfo.nextBook = bookInfo.b === books.length ? books[0] : books[books.indexOf(bookInfo) + 1];
   const curation = await curateBook(book);
 
-  return <BibleBookHome version={version} book={book} curation={curation} bookInfo={bookInfo} booksCategorized={booksCategorized} />;
+  return <BibleBookHome language={language} version={version} book={book} curation={curation} bookInfo={bookInfo} booksCategorized={booksCategorized} />;
 }
