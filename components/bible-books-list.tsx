@@ -30,7 +30,7 @@ export function BibleBooksList({ language, version, booksCategorized, aside }) {
                     </li>
                   ))}
                 </ul>
-                {index < booksCategorized.oldTestament.length - 1 && <Separator className="my-4" />}
+                {index < booksCategorized.oldTestament.length - 1 && <Separator className="mt-4" />}
               </div>
             ))}
           </div>
@@ -50,7 +50,7 @@ export function BibleBooksList({ language, version, booksCategorized, aside }) {
                     </li>
                   ))}
                 </ul>
-                {index < booksCategorized.newTestament.length - 1 && <Separator className="my-4" />}
+                {index < booksCategorized.newTestament.length - 1 && <Separator className="mt-4" />}
               </div>
             ))}
           </div>
