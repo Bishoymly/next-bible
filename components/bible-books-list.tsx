@@ -3,6 +3,12 @@
 import { Separator } from "@/components/ui/separator";
 import { Button } from "./ui/button";
 import Link from "next/link";
+import { Amiri } from "next/font/google";
+
+const amiri = Amiri({
+  weight: ["400", "700"],
+  subsets: ["arabic"],
+});
 
 export function BibleBooksList({ language, version, booksCategorized, aside }) {
   return (
@@ -14,11 +20,11 @@ export function BibleBooksList({ language, version, booksCategorized, aside }) {
           <div className={aside ? "" : "rounded-md border p-4"}>
             {booksCategorized.oldTestament.map((group, index) => (
               <div key={index} className="mb-6">
-                <h3 className="font-medium mb-2 text-muted-foreground">{group.category}</h3>
+                {/*<h3 className="font-medium mb-2 text-muted-foreground">{group.category}</h3>*/}
                 <ul className="space-y-1">
                   {group.books.map((book, bookIndex) => (
-                    <li key={bookIndex} className="text-sm">
-                      <Button key={book} variant="ghost" asChild>
+                    <li key={bookIndex}>
+                      <Button key={book} variant="ghost" className={language == "ar" ? `${amiri.className} text-xl leading-loose` : "text-sm leading-relaxed"} asChild>
                         <Link href={`/${version}/${book.slug}`}>{book.n}</Link>
                       </Button>
                     </li>
@@ -34,11 +40,11 @@ export function BibleBooksList({ language, version, booksCategorized, aside }) {
           <div className={aside ? "" : "rounded-md border p-4"}>
             {booksCategorized.newTestament.map((group, index) => (
               <div key={index} className="mb-6">
-                <h3 className="font-medium mb-2 text-muted-foreground">{group.category}</h3>
+                {/*<h3 className="font-medium mb-2 text-muted-foreground">{group.category}</h3>*/}
                 <ul className="space-y-1">
                   {group.books.map((book, bookIndex) => (
                     <li key={bookIndex} className="text-sm">
-                      <Button key={book} variant="ghost" asChild>
+                      <Button key={book} variant="ghost" className={language == "ar" ? `${amiri.className} text-xl leading-loose` : "text-sm leading-relaxed"} asChild>
                         <Link href={`/${version}/${book.slug}`}>{book.n}</Link>
                       </Button>
                     </li>

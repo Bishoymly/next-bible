@@ -12,98 +12,13 @@ import ChatSupport from "./chat-support";
 import { BibleBooksList } from "./bible-books-list";
 import { TwitterLogoIcon } from "@radix-ui/react-icons";
 import { Amiri } from "next/font/google";
+import { uiText } from "@/lib/uiText";
+import SocialShareButtons from "./social-share-buttons";
 
 const amiri = Amiri({
   weight: ["400", "700"],
   subsets: ["arabic"],
 });
-
-const uiText = {
-  en: {
-    selectBook: "Select Book",
-    selectChapter: "Select Chapter",
-    search: "Search",
-    bibleNavigation: "Bible Navigation",
-    selectBookOrChapter: "Select a book or chapter to read",
-    commentary: "Commentary on",
-    share: "Share",
-    shareVerse: "Share this verse",
-    copyLink: "Copy link",
-    linkCopied: "Link copied!",
-    expandSidebar: "Expand sidebar",
-    collapseSidebar: "Collapse sidebar",
-    chapters: "Chapters",
-    books: "Books",
-  },
-  es: {
-    selectBook: "Seleccionar Libro",
-    selectChapter: "Seleccionar Capítulo",
-    search: "Buscar",
-    bibleNavigation: "Navegación de la Biblia",
-    selectBookOrChapter: "Seleccione un libro o capítulo para leer",
-    commentary: "Comentario sobre",
-    share: "Compartir",
-    shareVerse: "Compartir este versículo",
-    copyLink: "Copiar enlace",
-    linkCopied: "¡Enlace copiado!",
-    expandSidebar: "Expandir barra lateral",
-    collapseSidebar: "Contraer barra lateral",
-    chapters: "Capítulos",
-    books: "Libros",
-  },
-  ar: {
-    selectBook: "اختر الكتاب",
-    selectChapter: "اختر الفصل",
-    search: "بحث",
-    bibleNavigation: "تنقل الكتاب المقدس",
-    selectBookOrChapter: "اختر كتابًا أو فصلًا للقراءة",
-    commentary: "تعليق على",
-    share: "شارك",
-    shareVerse: "شارك هذه الآية",
-    copyLink: "نسخ الرابط",
-    linkCopied: "تم نسخ الرابط!",
-    expandSidebar: "توسيع الشريط الجانبي",
-    collapseSidebar: "طي الشريط الجانبي",
-    chapters: "الفصول",
-    books: "الكتب",
-  },
-};
-
-const SocialShareButtons = ({ language, version, book, chapter, verse, verseText }) => {
-  const [linkCopied, setLinkCopied] = useState(false);
-
-  const shareUrl = window.location.href;
-  const shareText = `${book} ${chapter}:${verse} ${verseText}`;
-
-  const handleCopyLink = () => {
-    navigator.clipboard.writeText(shareUrl);
-    setLinkCopied(true);
-    setTimeout(() => setLinkCopied(false), 2000);
-  };
-
-  return (
-    <TooltipProvider>
-      <div className="flex space-x-2">
-        <Button variant="outline" size="icon" onClick={() => window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`, "_blank")}>
-          <Facebook className="h-4 w-4" />
-        </Button>
-        <Button variant="outline" size="icon" onClick={() => window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`, "_blank")}>
-          <TwitterLogoIcon className="h-4 w-4" />
-        </Button>
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={() => window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(shareUrl)}&title=${encodeURIComponent(shareText)}`, "_blank")}
-        >
-          <Linkedin className="h-4 w-4" />
-        </Button>
-        <Button variant="outline" size="icon" onClick={handleCopyLink}>
-          {linkCopied ? <span className="text-xs">{uiText[language].linkCopied}</span> : <Share2 className="h-4 w-4" />}
-        </Button>
-      </div>
-    </TooltipProvider>
-  );
-};
 
 export function BibleReader({ language, book, chapter, version, bookInfo, json, booksCategorized }) {
   const [showCommentary, setShowCommentary] = useState(false);
@@ -115,7 +30,7 @@ export function BibleReader({ language, book, chapter, version, bookInfo, json, 
   // scroll spy
   const [activeId, setActiveId] = useState<string | undefined>();
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
-  console.log("json", json);
+
   // handling scroll spy
   useEffect(() => {
     const scrollContainer = scrollContainerRef.current;
@@ -186,7 +101,7 @@ export function BibleReader({ language, book, chapter, version, bookInfo, json, 
 
   function Sidebar(bookInfo: any, chapter: any, book: any, booksCategorized: any) {
     return (
-      <ScrollArea className="h-full mt-4 pr-3">
+      <ScrollArea className={`h-full mt-4 pr-3 ${language == "ar" ? `[direction:rtl] ${amiri.className} text-2xl leading-loose` : "text-lg leading-relaxed"}`}>
         {commentary && (
           <div className="mb-10">
             <h2 className="text-xl font-semibold mb-2">On this page</h2>
@@ -194,7 +109,7 @@ export function BibleReader({ language, book, chapter, version, bookInfo, json, 
               {commentary?.sections.map((section, index) => (
                 <li key={index} className="block">
                   <Link
-                    className={`text-sm  hover:text-blue-600 ${activeId === `s${section.fromVerse}` ? "text-blue-600 font-bold" : "text-gray-500"}`}
+                    className={`text-sm hover:text-blue-600 ${activeId === `s${section.fromVerse}` ? "text-blue-600 font-bold" : "text-gray-500"}`}
                     href={`#s${section.fromVerse}`}
                     onClick={() => setActiveId(`s${section.fromVerse}`)}
                   >
@@ -206,24 +121,26 @@ export function BibleReader({ language, book, chapter, version, bookInfo, json, 
           </div>
         )}
 
-        <h2 className="text-xl font-semibold mb-4">{uiText.ar.chapters}</h2>
+        <h2 className="text-xl font-semibold mb-4">{uiText[language].chapters}</h2>
         <div className="grid grid-cols-5 gap-2 mb-8">
           {Array.from({ length: bookInfo.c }, (_, i) => i + 1).map((c) => (
-            <Button key={c} variant={chapter == c ? "default" : "outline"} size="sm" asChild>
+            <Button key={c} variant={chapter == c ? "default" : "outline"} size="sm" className={language == "ar" ? "text-base" : "text-sm"} asChild>
               <Link href={`/${version}/${book}/${c}`}>{c}</Link>
             </Button>
           ))}
         </div>
-        <h2 className="text-xl font-semibold mt-6">{uiText.ar.books}</h2>
+        <h2 className="text-xl font-semibold mt-6">{uiText[language].books}</h2>
         <BibleBooksList language={language} version={version} booksCategorized={booksCategorized} aside={true} />
       </ScrollArea>
     );
   }
 
   return (
-    <div className={`flex h-screen bg-background transition-all ${language == "ar" ? `[direction:rtl] line- ${amiri.className}` : ""}`}>
+    <div className={`flex h-screen bg-background transition-all ${language == "ar" ? `[direction:rtl] ${amiri.className}` : ""}`}>
       {/* Collapsible Sidebar */}
-      <aside className={`hidden md:flex flex-col border-r p-4 transition-all duration-300 ${sidebarExpanded ? "w-72" : "w-16"}`}>{Sidebar(bookInfo, chapter, book, booksCategorized)}</aside>
+      <aside className={`hidden md:flex flex-col ${language == "ar" ? "border-l" : "border-r"} p-4 transition-all duration-300 ${sidebarExpanded ? "w-72" : "w-16"}`}>
+        {Sidebar(bookInfo, chapter, book, booksCategorized)}
+      </aside>
 
       {/* Main Content */}
       <main className="flex-1 flex flex-col overflow-hidden">
@@ -292,7 +209,7 @@ export function BibleReader({ language, book, chapter, version, bookInfo, json, 
                               : ""
                           }
                           onClick={handleSelectVerse.bind(this, {
-                            key,
+                            key: key,
                             text: (verse as { verseObjects: { text: string; tag: string; type: string }[] }).verseObjects.map((vo) => vo.text).join(" "),
                           })}
                         >
