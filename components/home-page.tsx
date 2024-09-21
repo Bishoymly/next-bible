@@ -108,8 +108,8 @@ export function HomePageComponent() {
               <div className="md:w-1/2 md:pr-8 mb-8 md:mb-0">
                 <h2 className="text-3xl font-bold mb-4">New to the Bible?</h2>
                 <p className="mb-6">
-                  Start your journey through God's Word with our guided reading plans and introductory resources. We'll help you navigate the Scriptures and grow in your understanding of God's
-                  message.
+                  Start your journey through God&apos;s Word with our guided reading plans and introductory resources. We&apos;ll help you navigate the Scriptures and grow in your understanding of
+                  God&apos;s message.
                 </p>
                 <Button asChild>
                   <Link href={"/start"}>Begin Your Bible Journey</Link>
