@@ -4,28 +4,28 @@ import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { ChevronLeft, ChevronRight, Menu, Share2, Facebook, Linkedin } from "lucide-react";
+import { BookCopy, ChevronLeft, ChevronRight, Columns2Icon, Menu } from "lucide-react";
 import Link from "next/link";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import ChatSupport from "./chat-support";
 import { BibleBooksList } from "./bible-books-list";
-import { TwitterLogoIcon } from "@radix-ui/react-icons";
-import { Amiri } from "next/font/google";
+import { Amiri, Inter } from "next/font/google";
 import { uiText } from "@/lib/uiText";
 import SocialShareButtons from "./social-share-buttons";
 
+const inter = Inter({ subsets: ["latin"] });
 const amiri = Amiri({
   weight: ["400", "700"],
   subsets: ["arabic"],
 });
 
-export function BibleReader({ language, book, chapter, version, bookInfo, json, booksCategorized }) {
+export function BibleReader({ language, book, chapter, version, bookInfo, json, json2, language2, booksCategorized }) {
   const [showCommentary, setShowCommentary] = useState(false);
   const [selectedVerse, setSelectedVerse] = useState(null);
   const [sidebarExpanded, setSidebarExpanded] = useState(true);
   const [question, setQuestion] = useState(null);
   const [commentary, setCommentary] = useState(null);
+  const [sideBySide, setSideBySide] = useState(false);
 
   // scroll spy
   const [activeId, setActiveId] = useState<string | undefined>();
@@ -101,7 +101,7 @@ export function BibleReader({ language, book, chapter, version, bookInfo, json, 
 
   function Sidebar(bookInfo: any, chapter: any, book: any, booksCategorized: any) {
     return (
-      <ScrollArea className={`h-full mt-4 pr-3 ${language == "ar" ? `[direction:rtl] ${amiri.className} text-2xl leading-loose` : "text-lg leading-relaxed"}`}>
+      <ScrollArea className={`h-full mt-4 pr-3 ${language == "ar" ? `[direction:rtl] ${amiri.className} text-2xl leading-loose` : `text-lg leading-relaxed ${inter.className}`}`}>
         {commentary && (
           <div className="mb-10">
             <h2 className="text-xl font-semibold mb-2">On this page</h2>
@@ -136,7 +136,7 @@ export function BibleReader({ language, book, chapter, version, bookInfo, json, 
   }
 
   return (
-    <div className={`flex h-screen bg-background transition-all ${language == "ar" ? `[direction:rtl] ${amiri.className}` : ""}`}>
+    <div className={`flex h-screen bg-background transition-all ${language == "ar" ? `[direction:rtl] ${amiri.className}` : `[direction:ltr] ${inter.className}`}`}>
       {/* Collapsible Sidebar */}
       <aside className={`hidden md:flex flex-col ${language == "ar" ? "border-l" : "border-r"} p-4 transition-all duration-300 ${sidebarExpanded ? "w-72" : "w-16"}`}>
         {Sidebar(bookInfo, chapter, book, booksCategorized)}
@@ -160,44 +160,44 @@ export function BibleReader({ language, book, chapter, version, bookInfo, json, 
             </h1>
           </div>
           <div className="flex items-center space-x-2">
+            <Button variant="ghost" size="icon" onClick={() => setSideBySide(!sideBySide)}>
+              <BookCopy />
+            </Button>
             <Button variant="ghost" size="icon" disabled={parseInt(chapter) === 1}>
-              <Link href={`/${version}/${book}/${parseInt(chapter) - 1}`}>
-                <ChevronLeft />
-              </Link>
+              <Link href={`/${version}/${book}/${parseInt(chapter) - 1}`}>{language == "en" ? <ChevronLeft /> : <ChevronRight />}</Link>
             </Button>
             <Button variant="ghost" size="icon" disabled={parseInt(chapter) === bookInfo.c}>
-              <Link href={`/${version}/${book}/${parseInt(chapter) + 1}`}>
-                <ChevronRight />
-              </Link>
+              <Link href={`/${version}/${book}/${parseInt(chapter) + 1}`}>{language == "en" ? <ChevronRight /> : <ChevronLeft />}</Link>
             </Button>
           </div>
         </header>
 
         {/* Bible Content */}
         <div className={`flex-1 scroll-smooth overflow-y-scroll`} ref={scrollContainerRef}>
-          <div className="p-6">
-            <div className="max-w-3xl mx-auto space-y-4 mb-20">
+          <div className="p-6 flex">
+            <div className="max-w-3xl mx-auto space-y-4 mb-20 flex-1">
               <div className={` ${language == "ar" ? "text-2xl leading-loose" : "text-lg leading-relaxed"}`}>
                 {Object.entries(json).map(([key, verse]) => (
                   <>
-                    {commentary?.sections
-                      .filter((s) => s.fromVerse == key)
-                      .map((section) => (
-                        <div id={`s${section.fromVerse}`} key={`s${section.fromVerse}`} className="snap-y scroll-my-10 mt-10">
-                          <Popover key={key}>
-                            <PopoverTrigger asChild>
-                              <h3 className={` font-semibold mb-2 mt-4 cursor-pointer ${language == "ar" ? "text-2xl" : "text-xl"}`}>{section.title}</h3>
-                            </PopoverTrigger>
-                            <PopoverContent className="max-w-2xl space-y-2 flex flex-wrap text-sm">
-                              {section.commentary.map((l, index) => (
-                                <p key={index} className="text-sm">
-                                  {l}
-                                </p>
-                              ))}
-                            </PopoverContent>
-                          </Popover>
-                        </div>
-                      ))}
+                    {language != "ar" &&
+                      commentary?.sections
+                        .filter((s) => s.fromVerse == key)
+                        .map((section) => (
+                          <div id={`s${section.fromVerse}`} key={`s${section.fromVerse}`} className="snap-y scroll-my-10 mt-10">
+                            <Popover key={key}>
+                              <PopoverTrigger asChild>
+                                <h3 className={` font-semibold mb-2 mt-4 cursor-pointer ${language == "ar" ? "text-2xl" : "text-xl"}`}>{section.title}</h3>
+                              </PopoverTrigger>
+                              <PopoverContent className="max-w-2xl space-y-2 flex flex-wrap text-sm">
+                                {section.commentary.map((l, index) => (
+                                  <p key={index} className="text-sm">
+                                    {l}
+                                  </p>
+                                ))}
+                              </PopoverContent>
+                            </Popover>
+                          </div>
+                        ))}
                     <Popover key={key}>
                       <PopoverTrigger asChild>
                         <span
@@ -272,6 +272,106 @@ export function BibleReader({ language, book, chapter, version, bookInfo, json, 
               </div>
             </div>
 
+            {sideBySide && (
+              <div className="max-w-3xl mx-auto space-y-4 mb-20 flex-1">
+                <div className={` ${language2 == "ar" ? `text-2xl leading-loose [direction:rtl] ${amiri.className}` : `text-lg leading-relaxed [direction:ltr] ${inter.className}`}`}>
+                  {Object.entries(json2).map(([key, verse]) => (
+                    <>
+                      {language2 != "ar" &&
+                        commentary?.sections
+                          .filter((s) => s.fromVerse == key)
+                          .map((section) => (
+                            <div id={`s${section.fromVerse}`} key={`s${section.fromVerse}`} className="snap-y scroll-my-10 mt-10">
+                              <Popover key={key}>
+                                <PopoverTrigger asChild>
+                                  <h3 className={` font-semibold mb-2 mt-4 cursor-pointer ${language2 == "ar" ? "text-2xl" : "text-xl"}`}>{section.title}</h3>
+                                </PopoverTrigger>
+                                <PopoverContent className="max-w-2xl space-y-2 flex flex-wrap text-sm">
+                                  {section.commentary.map((l, index) => (
+                                    <p key={index} className="text-sm">
+                                      {l}
+                                    </p>
+                                  ))}
+                                </PopoverContent>
+                              </Popover>
+                            </div>
+                          ))}
+                      <Popover key={key}>
+                        <PopoverTrigger asChild>
+                          <span
+                            className={
+                              selectedVerse?.key == key
+                                ? "bg-yellow-200 -m-1 p-1 cursor-pointer"
+                                : commentary?.importantVerses.filter((v) => v.verse == key).length > 0
+                                ? "bg-blue-100 -m-1 p-1 cursor-pointer"
+                                : ""
+                            }
+                            onClick={handleSelectVerse.bind(this, {
+                              key: key,
+                              text: (verse as { verseObjects: { text: string; tag: string; type: string }[] }).verseObjects.map((vo) => vo.text).join(" "),
+                            })}
+                          >
+                            {key != "0" && (
+                              <sup id={key} className={`scroll-my-4 ${language2 == "ar" ? "text-lg" : "text-xs"} font-semibold text-blue-600 mr-1`}>
+                                {key}
+                              </sup>
+                            )}
+                            {(verse as { verseObjects: { text: string; tag: string; type: string; content: string }[] }).verseObjects.map((verseObject, index, array) =>
+                              verseObject.type == "text" || verseObject.type == "word" ? (
+                                <>{verseObject.text}</>
+                              ) : verseObject.type == "paragraph" ? (
+                                <>
+                                  <br />
+                                  <br />
+                                </>
+                              ) : verseObject.tag == "add" ? (
+                                <span className="italic">{verseObject.text}</span>
+                              ) : verseObject.tag == "s1" ? (
+                                <h3 className="text-3xl font-semibold mt-2 mb-4">{verseObject.content}</h3>
+                              ) : verseObject.tag == "f" ? (
+                                <span className="italic text-muted-foreground">{verseObject.content.replace(/\+\s\\fr\s*\d+:\d+\s*\\ft|[^a-zA-Z0-9\s]/g, "").replace(/fqa/g, ":")}</span>
+                              ) : verseObject.tag == "q1" ? (
+                                <br />
+                              ) : verseObject.tag == "qs" ? (
+                                <>
+                                  <span className="italic float-end">{verseObject.text}</span>
+                                  <br />
+                                </>
+                              ) : (
+                                <>{JSON.stringify(verseObject)}</>
+                              )
+                            )}
+                          </span>
+                        </PopoverTrigger>
+
+                        <PopoverContent className="max-w-2xl space-y-2 flex flex-wrap text-sm">
+                          <h3 className="text-lg font-semibold">
+                            {bookInfo.n} {chapter}:{key}
+                          </h3>
+                          <span className="pb-4 block">&ldquo;{(verse as { verseObjects: { text: string; tag: string; type: string }[] }).verseObjects.map((vo) => vo.text).join(" ")}&rdquo;</span>
+                          {commentary?.importantVerses
+                            .filter((v) => v.verse == key)
+                            .map((important, index) => (
+                              <div key={index}>
+                                <h3 className="font-semibold mb-2">Commentary</h3>
+                                <span className="pb-4 block">{important.commentary}</span>
+                                {important.crossReferences?.map((ref, index) => (
+                                  <Button key={index} variant="outline" className="mr-1 mb-1">
+                                    <Link href={`/${version}/${ref.book.slug}/${ref.chapter}#${ref.verse}`}>{`${ref.book} ${ref.chapter}:${ref.verse}`}</Link>
+                                  </Button>
+                                ))}
+                              </div>
+                            ))}
+                          {selectedVerse && <SocialShareButtons language={language2} version={version} book={bookInfo.n} chapter={chapter} verse={selectedVerse.key} verseText={selectedVerse.text} />}
+                        </PopoverContent>
+                      </Popover>
+                    </>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+          <div className="p-6">
             {commentary?.questions?.length > 0 && (
               <div className="max-w-4xl mx-auto mt-8">
                 <h3 className="text-xl font-semibold mb-2">Questions</h3>
