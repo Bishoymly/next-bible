@@ -27,6 +27,16 @@ export function BibleReader({ language, book, chapter, version, bookInfo, json, 
   const [commentary, setCommentary] = useState(null);
   const [sideBySide, setSideBySide] = useState(false);
 
+  useEffect(() => {
+    const value = localStorage.getItem("sideBySide") || "false";
+    setSideBySide(value === "true");
+  }, []);
+
+  const saveSideBySide = (value) => {
+    localStorage.setItem("sideBySide", value);
+    setSideBySide(value);
+  };
+
   // scroll spy
   const [activeId, setActiveId] = useState<string | undefined>();
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
@@ -160,7 +170,7 @@ export function BibleReader({ language, book, chapter, version, bookInfo, json, 
             </h1>
           </div>
           <div className="flex items-center space-x-2">
-            <Button variant="ghost" size="icon" onClick={() => setSideBySide(!sideBySide)}>
+            <Button variant="ghost" size="icon" onClick={() => saveSideBySide(!sideBySide)}>
               <BookCopy />
             </Button>
             <Button variant="ghost" size="icon" disabled={parseInt(chapter) === 1}>
