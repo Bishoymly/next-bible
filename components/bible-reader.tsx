@@ -6,12 +6,12 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { BookCopy, BookOpen, ChevronLeft, ChevronRight, Columns2Icon, HomeIcon, Menu } from "lucide-react";
 import Link from "next/link";
-import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import ChatSupport from "./chat-support";
 import { BibleBooksList } from "./bible-books-list";
 import { Amiri, Inter } from "next/font/google";
 import { uiText } from "@/lib/uiText";
 import SocialShareButtons from "./social-share-buttons";
+import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
 
 const inter = Inter({ subsets: ["latin"] });
 const amiri = Amiri({
@@ -199,22 +199,22 @@ export function BibleReader({ language, book, chapter, version, bookInfo, json, 
                         .filter((s) => s.fromVerse == key)
                         .map((section) => (
                           <div id={`s${section.fromVerse}`} key={`s${section.fromVerse}`} className={`snap-y scroll-my-10 ${section.fromVerse == 1 ? "" : "mt-10"}`}>
-                            <Popover key={key}>
-                              <PopoverTrigger asChild>
+                            <Drawer key={key}>
+                              <DrawerTrigger asChild>
                                 <h3 className={` font-semibold mb-2 mt-4 cursor-pointer ${language == "ar" ? "text-2xl" : "text-xl"}`}>{section.title}</h3>
-                              </PopoverTrigger>
-                              <PopoverContent className="max-w-2xl space-y-2 flex flex-wrap text-sm">
+                              </DrawerTrigger>
+                              <DrawerContent>
                                 {section.commentary.map((l, index) => (
                                   <p key={index} className="text-sm">
                                     {l}
                                   </p>
                                 ))}
-                              </PopoverContent>
-                            </Popover>
+                              </DrawerContent>
+                            </Drawer>
                           </div>
                         ))}
-                    <Popover key={key}>
-                      <PopoverTrigger asChild>
+                    <Drawer key={key}>
+                      <DrawerTrigger asChild>
                         <span
                           className={
                             selectedVerse?.key == key
@@ -259,12 +259,12 @@ export function BibleReader({ language, book, chapter, version, bookInfo, json, 
                             )
                           )}
                         </span>
-                      </PopoverTrigger>
-
-                      <PopoverContent className="max-w-2xl space-y-2 flex flex-wrap text-sm">
+                      </DrawerTrigger>
+                      <DrawerContent>
                         <h3 className="text-lg font-semibold">
                           {bookInfo.n} {chapter}:{key}
                         </h3>
+
                         <span className="pb-4 block">&ldquo;{(verse as { verseObjects: { text: string; tag: string; type: string }[] }).verseObjects.map((vo) => vo.text).join(" ")}&rdquo;</span>
                         {commentary?.importantVerses
                           .filter((v) => v.verse == key)
@@ -280,8 +280,8 @@ export function BibleReader({ language, book, chapter, version, bookInfo, json, 
                             </div>
                           ))}
                         {selectedVerse && <SocialShareButtons language={language} version={version} book={bookInfo.n} chapter={chapter} verse={selectedVerse.key} verseText={selectedVerse.text} />}
-                      </PopoverContent>
-                    </Popover>
+                      </DrawerContent>
+                    </Drawer>
                   </>
                 ))}
               </div>
@@ -297,22 +297,22 @@ export function BibleReader({ language, book, chapter, version, bookInfo, json, 
                           .filter((s) => s.fromVerse == key)
                           .map((section) => (
                             <div id={`s${section.fromVerse}`} key={`s${section.fromVerse}`} className="snap-y scroll-my-10 mt-10">
-                              <Popover key={key}>
-                                <PopoverTrigger asChild>
+                              <Drawer key={key}>
+                                <DrawerTrigger asChild>
                                   <h3 className={` font-semibold mb-2 mt-4 cursor-pointer ${language2 == "ar" ? "text-2xl" : "text-xl"}`}>{section.title}</h3>
-                                </PopoverTrigger>
-                                <PopoverContent className="max-w-2xl space-y-2 flex flex-wrap text-sm">
+                                </DrawerTrigger>
+                                <DrawerContent>
                                   {section.commentary.map((l, index) => (
                                     <p key={index} className="text-sm">
                                       {l}
                                     </p>
                                   ))}
-                                </PopoverContent>
-                              </Popover>
+                                </DrawerContent>
+                              </Drawer>
                             </div>
                           ))}
-                      <Popover key={key}>
-                        <PopoverTrigger asChild>
+                      <Drawer key={key}>
+                        <DrawerTrigger asChild>
                           <span
                             className={
                               selectedVerse?.key == key
@@ -357,9 +357,9 @@ export function BibleReader({ language, book, chapter, version, bookInfo, json, 
                               )
                             )}
                           </span>
-                        </PopoverTrigger>
+                        </DrawerTrigger>
 
-                        <PopoverContent className="max-w-2xl space-y-2 flex flex-wrap text-sm">
+                        <DrawerContent>
                           <h3 className="text-lg font-semibold">
                             {bookInfo.n} {chapter}:{key}
                           </h3>
@@ -378,8 +378,8 @@ export function BibleReader({ language, book, chapter, version, bookInfo, json, 
                               </div>
                             ))}
                           {selectedVerse && <SocialShareButtons language={language2} version={version} book={bookInfo.n} chapter={chapter} verse={selectedVerse.key} verseText={selectedVerse.text} />}
-                        </PopoverContent>
-                      </Popover>
+                        </DrawerContent>
+                      </Drawer>
                     </>
                   ))}
                 </div>
