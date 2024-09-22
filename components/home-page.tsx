@@ -13,10 +13,10 @@ export function HomePageComponent() {
         <div className="container mx-auto px-4 py-4">
           <nav className="flex items-center justify-between">
             <Link href="/" className="text-2xl font-bold flex items-center">
-              <BookOpen className="mr-2" />
+              <BookOpen className="mt-1 mr-3" />
               Bible Study
             </Link>
-            <div className="flex items-center space-x-4">
+            {/*<div className="flex items-center space-x-4">
               <Link href="/about" className="hover:underline">
                 About
               </Link>
@@ -29,7 +29,7 @@ export function HomePageComponent() {
               <Link href="/tools" className="hover:underline">
                 Study Tools
               </Link>
-            </div>
+            </div>*/}
           </nav>
         </div>
       </header>
