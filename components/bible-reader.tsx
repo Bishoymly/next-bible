@@ -386,7 +386,7 @@ export function BibleReader({ language, book, chapter, version, bookInfo, json, 
               </div>
             )}
           </div>
-          <div className="p-6">
+          <div className="p-6 mb-16">
             {commentary?.questions?.length > 0 && (
               <div className="max-w-4xl mx-auto mt-8">
                 <h3 className="text-xl font-semibold mb-2">Questions</h3>

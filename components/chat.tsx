@@ -62,7 +62,7 @@ export function Chats({ version, book, chapter, question }) {
     <div className="flex flex-col h-full w-full border-0 shadow-none space-y-4 p-4">
       <div>
         {/*<CardTitle> Bible AI </CardTitle>*/}
-        <CardDescription>
+        <CardDescription className="mr-3">
           This AI provides general Bible information and is not a substitute for personal study or guidance from religious leaders. Interpretations may vary. Consult the Bible and trusted faith
           advisors for spiritual guidance.
         </CardDescription>
