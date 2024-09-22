@@ -23,7 +23,7 @@ export function SalvationGuideComponent() {
                 <h3 className="font-semibold">Recognize your need for salvation</h3>
                 <p className="text-sm text-muted-foreground mt-1">
                   &quot;For all have sinned and fall short of the glory of God.&quot; -{" "}
-                  <Link className="text-blue-500 hover:text-blue-700 hover:underline" href="/${version}/romans/3#23">
+                  <Link className="text-blue-500 hover:text-blue-700 hover:underline" href={`/${version}/romans/3#23`}>
                     Romans 3:23
                   </Link>
                 </p>
@@ -32,7 +32,7 @@ export function SalvationGuideComponent() {
                 <h3 className="font-semibold">Believe in Jesus Christ</h3>
                 <p className="text-sm text-muted-foreground mt-1">
                   &quot;For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life.&quot; -
-                  <Link className="text-blue-500 hover:text-blue-700 hover:underline" href="/${version}/john/3#16">
+                  <Link className="text-blue-500 hover:text-blue-700 hover:underline" href={`/${version}/john/3#16`}>
                     John 3:16
                   </Link>
                 </p>
@@ -41,7 +41,7 @@ export function SalvationGuideComponent() {
                 <h3 className="font-semibold">Confess and repent of your sins</h3>
                 <p className="text-sm text-muted-foreground mt-1">
                   &quot;If we confess our sins, he is faithful and just and will forgive us our sins and purify us from all unrighteousness.&quot; -
-                  <Link className="text-blue-500 hover:text-blue-700 hover:underline" href="/${version}/1-john/1#9">
+                  <Link className="text-blue-500 hover:text-blue-700 hover:underline" href={`/${version}/1-john/1#9`}>
                     1 John 1:9
                   </Link>
                 </p>
@@ -50,7 +50,7 @@ export function SalvationGuideComponent() {
                 <h3 className="font-semibold">Accept Jesus as your Lord and Savior</h3>
                 <p className="text-sm text-muted-foreground mt-1">
                   &quot;If you declare with your mouth, &apos;Jesus is Lord,&apos; and believe in your heart that God raised him from the dead, you will be saved.&quot; -
-                  <Link className="text-blue-500 hover:text-blue-700 hover:underline" href="/${version}/romans/10#9">
+                  <Link className="text-blue-500 hover:text-blue-700 hover:underline" href={`/${version}/romans/10#9`}>
                     Romans 10:9
                   </Link>
                 </p>

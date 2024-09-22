@@ -1,7 +1,7 @@
 "use client";
 import localFont from "next/font/local";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight, Home, Menu, Search } from "lucide-react";
+import { BookOpen, ChevronLeft, ChevronRight, Home, Menu, Search } from "lucide-react";
 import Link from "next/link";
 import { BibleBooksList } from "@/components/bible-books-list";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -50,6 +50,7 @@ export function BibleBookHome({ language, version, book, curation, bookInfo, boo
                   {bookInfo.previousBook?.n}
                 </Link>
               </Button>
+
               <h1 className={`text-4xl font-bold text-center ${titleFont.className}`}>{bookInfo.n.replace(/1/g, "I ").replace(/2/g, "II ")}</h1>
               <Button variant="ghost" asChild className="hidden md:inline-flex">
                 <Link href={`/${version}/${bookInfo.nextBook?.slug}`}>

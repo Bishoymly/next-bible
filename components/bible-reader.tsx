@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { BookCopy, ChevronLeft, ChevronRight, Columns2Icon, Menu } from "lucide-react";
+import { BookCopy, BookOpen, ChevronLeft, ChevronRight, Columns2Icon, HomeIcon, Menu } from "lucide-react";
 import Link from "next/link";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import ChatSupport from "./chat-support";
@@ -165,7 +165,12 @@ export function BibleReader({ language, book, chapter, version, bookInfo, json, 
               </SheetTrigger>
               <SheetContent side="left">{Sidebar(bookInfo, chapter, book, booksCategorized)}</SheetContent>
             </Sheet>
-            <h1 className="text-2xl font-bold ml-4 flex flex-row space-x-2">
+            <Button variant="ghost" size="icon" asChild>
+              <Link href="/">
+                <BookOpen className="mt-1" />
+              </Link>
+            </Button>
+            <h1 className="text-2xl font-bold ml-2 flex flex-row space-x-2">
               {bookInfo.n} {chapter}
             </h1>
           </div>
@@ -193,7 +198,7 @@ export function BibleReader({ language, book, chapter, version, bookInfo, json, 
                       commentary?.sections
                         .filter((s) => s.fromVerse == key)
                         .map((section) => (
-                          <div id={`s${section.fromVerse}`} key={`s${section.fromVerse}`} className="snap-y scroll-my-10 mt-10">
+                          <div id={`s${section.fromVerse}`} key={`s${section.fromVerse}`} className={`snap-y scroll-my-10 ${section.fromVerse == 1 ? "" : "mt-10"}`}>
                             <Popover key={key}>
                               <PopoverTrigger asChild>
                                 <h3 className={` font-semibold mb-2 mt-4 cursor-pointer ${language == "ar" ? "text-2xl" : "text-xl"}`}>{section.title}</h3>
@@ -213,9 +218,9 @@ export function BibleReader({ language, book, chapter, version, bookInfo, json, 
                         <span
                           className={
                             selectedVerse?.key == key
-                              ? "bg-yellow-200 -m-1 p-1 cursor-pointer"
+                              ? "bg-yellow-200 -my-1 py-1 cursor-pointer shadow-md"
                               : commentary?.importantVerses.filter((v) => v.verse == key).length > 0
-                              ? "bg-blue-100 -m-1 p-1 cursor-pointer"
+                              ? "bg-blue-100 -my-1 py-1 cursor-pointer"
                               : ""
                           }
                           onClick={handleSelectVerse.bind(this, {
@@ -311,9 +316,9 @@ export function BibleReader({ language, book, chapter, version, bookInfo, json, 
                           <span
                             className={
                               selectedVerse?.key == key
-                                ? "bg-yellow-200 -m-1 p-1 cursor-pointer"
+                                ? "bg-yellow-200 -my-1 py-1 cursor-pointer shadow-md"
                                 : commentary?.importantVerses.filter((v) => v.verse == key).length > 0
-                                ? "bg-blue-100 -m-1 p-1 cursor-pointer"
+                                ? "bg-blue-100 -my-1 py-1 cursor-pointer"
                                 : ""
                             }
                             onClick={handleSelectVerse.bind(this, {
