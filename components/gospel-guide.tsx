@@ -71,42 +71,27 @@ const essentialChapters = [
 
 export function GospelGuide() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white p-4 md:p-6">
-      <Card className="max-w-4xl mx-auto">
-        <CardContent className="p-4 md:p-6">
-          <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4">Essential Gospel Chapters</h1>
-          <p className="text-gray-600 mb-6">A compact guide to understanding the core message of the Gospel</p>
-          <div className="my-6 border-b border-gray-200 pb-6">
-            <h2 className="text-xl font-semibold mb-2 text-gray-700">How to Use This Guide</h2>
-            <ol className="list-decimal pl-5 space-y-1 text-sm">
-              <li>Start from the top and read through in order.</li>
-              <li>Take time to understand each passage.</li>
-              <li>Reflect on how each chapter contributes to the Gospel message.</li>
-              <li>Use the &quot;Read Now&quot; links to access the full text.</li>
-              <li>Consider journaling your thoughts and questions.</li>
-              <li>Discuss what you&apos;re learning with others.</li>
-            </ol>
-          </div>
+    <Card>
+      <CardContent className="p-4 md:p-6">
+        {/*<h1 className="text-2xl font-bold text-gray-800 mb-4">Essential Gospel Chapters</h1>
+        <p className="text-gray-600 mb-6">A compact guide to understanding the core message of the Gospel</p>*/}
 
-          <ul className="space-y-4">
-            {essentialChapters.map((chapter, index) => (
-              <li key={index} className="border-b border-gray-200 pb-4 last:border-b-0">
-                <Button variant="link" className="p-0 h-auto" asChild>
-                  <Link href={`/asv/${chapter.book.toLowerCase()}/${chapter.chapter}`} className="flex items-center text-blue-500 hover:text-blue-700">
-                    <div className="flex items-center mb-2">
-                      <BookOpen className="mr-2 h-4 w-4 text-blue-500" />
-                      <h2 className="text-lg font-semibold text-gray-800">
-                        {chapter.book} {chapter.chapter}
-                      </h2>
-                    </div>
-                  </Link>
-                </Button>
-                <p className="text-sm text-gray-600 mb-2">{chapter.description}</p>
-              </li>
-            ))}
-          </ul>
-        </CardContent>
-      </Card>
-    </div>
+        <ul className="space-y-2">
+          {essentialChapters.map((chapter, index) => (
+            <li key={index} className="">
+              <div className="flex items-center mb-1 text-sm">
+                <Link href={`/asv/${chapter.book.toLowerCase()}/${chapter.chapter}`} className="flex items-center text-blue-500 hover:text-blue-700">
+                  <BookOpen className="mr-2 h-4 w-4 text-blue-500 hover:text-blue-700" />
+                  <h2 className="font-semibold text-gray-800 hover:text-blue-700">
+                    {chapter.book} {chapter.chapter}
+                  </h2>
+                </Link>
+                <p className="text-gray-600 ml-2">{chapter.description}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </CardContent>
+    </Card>
   );
 }

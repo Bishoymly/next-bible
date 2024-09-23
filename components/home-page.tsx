@@ -5,6 +5,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
 import { BookOpen, Search, Book, Users } from "lucide-react";
+import { ChurchGuidanceComponent } from "./church-guidance";
+import { SalvationGuideComponent } from "./salvation-guide";
+import { GospelGuide } from "./gospel-guide";
 
 export function HomePageComponent() {
   return (
@@ -105,18 +108,21 @@ export function HomePageComponent() {
         <section className="bg-muted py-16">
           <div className="container mx-auto px-8">
             <div className="flex flex-col md:flex-row items-center">
-              <div className="md:w-1/2 md:pr-8 mb-8 md:mb-0">
+              <div className="md:w-1/3 md:pr-8 mb-8 md:mb-0">
                 <h2 className="text-3xl font-bold mb-4">New to the Bible?</h2>
-                <p className="mb-6">
-                  Start your journey through God&apos;s Word with our guided reading plans and introductory resources. We&apos;ll help you navigate the Scriptures and grow in your understanding of
-                  God&apos;s message.
-                </p>
-                <Button asChild>
-                  <Link href={"/start"}>Begin Your Bible Journey</Link>
-                </Button>
+                <div className="my-6 pb-6">
+                  <h2 className="text-xl font-semibold mb-2 text-gray-700">Start from here</h2>
+                  <ol className="list-decimal pl-5 space-y-1 text-sm">
+                    <li>Start from the top and read through in order.</li>
+                    <li>Take time to understand each passage.</li>
+                    <li>Reflect on how each chapter contributes to the Gospel message.</li>
+                    <li>Consider journaling your thoughts and questions.</li>
+                    <li>Discuss what you&apos;re learning with others.</li>
+                  </ol>
+                </div>
               </div>
-              <div className="md:w-1/2 bg-primary-foreground rounded-lg shadow-lg h-64 flex items-center justify-center">
-                <p className="text-muted-foreground">Animation Placeholder</p>
+              <div className="md:w-2/3">
+                <GospelGuide />
               </div>
             </div>
           </div>
@@ -136,6 +142,15 @@ export function HomePageComponent() {
               <div className="md:w-1/2 bg-muted rounded-lg shadow-lg h-64 flex items-center justify-center">
                 <p className="text-muted-foreground">Animation Placeholder</p>
               </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-muted py-16">
+          <div className="container mx-auto px-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 items-stretch md:space-x-6 space-y-6 md:space-y-0">
+              <ChurchGuidanceComponent />
+              <SalvationGuideComponent />
             </div>
           </div>
         </section>
