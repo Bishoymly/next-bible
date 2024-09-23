@@ -12,6 +12,7 @@ import { Amiri, Inter } from "next/font/google";
 import { uiText } from "@/lib/uiText";
 import SocialShareButtons from "./social-share-buttons";
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
+import useStickyState from "@/lib/useStickyState";
 
 const inter = Inter({ subsets: ["latin"] });
 const amiri = Amiri({
@@ -20,22 +21,11 @@ const amiri = Amiri({
 });
 
 export function BibleReader({ language, book, chapter, version, bookInfo, json, json2, language2, booksCategorized }) {
-  const [showCommentary, setShowCommentary] = useState(false);
   const [selectedVerse, setSelectedVerse] = useState(null);
-  const [sidebarExpanded, setSidebarExpanded] = useState(true);
+  const [sidebarExpanded, setSidebarExpanded] = useStickyState("sidebarExpanded", true);
   const [question, setQuestion] = useState(null);
   const [commentary, setCommentary] = useState(null);
-  const [sideBySide, setSideBySide] = useState(false);
-
-  useEffect(() => {
-    const value = localStorage.getItem("sideBySide") || "false";
-    setSideBySide(value === "true");
-  }, []);
-
-  const saveSideBySide = (value) => {
-    localStorage.setItem("sideBySide", value);
-    setSideBySide(value);
-  };
+  const [sideBySide, setSideBySide] = useStickyState("sideBySide", false);
 
   // scroll spy
   const [activeId, setActiveId] = useState<string | undefined>();
@@ -148,7 +138,10 @@ export function BibleReader({ language, book, chapter, version, bookInfo, json, 
   return (
     <div className={`flex h-screen bg-background transition-all ${language == "ar" ? `[direction:rtl] ${amiri.className}` : `[direction:ltr] ${inter.className}`}`}>
       {/* Collapsible Sidebar */}
-      <aside className={`hidden md:flex flex-col ${language == "ar" ? "border-l" : "border-r"} p-4 transition-all duration-300 ${sidebarExpanded ? "w-72" : "w-16"}`}>
+      <aside className={`hidden md:block ${language == "ar" ? "border-l" : "border-r"} transition-all duration-300 ${sidebarExpanded ? "w-72 p-4" : "w-0"}`}>
+        <Button variant="ghost" size="icon" className={`absolute top-0 start-64 p-0 ${sidebarExpanded ? "absolute" : "hidden"}`} onClick={() => setSidebarExpanded(!sidebarExpanded)}>
+          {language == "en" ? <ChevronLeft className="h-5" /> : <ChevronRight />}
+        </Button>
         {Sidebar(bookInfo, chapter, book, booksCategorized)}
       </aside>
 
@@ -165,9 +158,12 @@ export function BibleReader({ language, book, chapter, version, bookInfo, json, 
               </SheetTrigger>
               <SheetContent side="left">{Sidebar(bookInfo, chapter, book, booksCategorized)}</SheetContent>
             </Sheet>
-            <Button variant="ghost" size="icon" asChild>
+            <Button variant="ghost" size="icon" className={`p-0 ${sidebarExpanded ? "hidden" : ""}`} onClick={() => setSidebarExpanded(!sidebarExpanded)}>
+              {language == "ar" ? <ChevronLeft className="h-5" /> : <ChevronRight />}
+            </Button>
+            <Button variant="ghost" size="icon" className="hidden md:block" asChild>
               <Link href="/">
-                <BookOpen className="mt-1" />
+                <BookOpen className="mt-2 ml-2" />
               </Link>
             </Button>
             <h1 className="text-2xl font-bold ml-2 flex flex-row space-x-2">
@@ -175,7 +171,7 @@ export function BibleReader({ language, book, chapter, version, bookInfo, json, 
             </h1>
           </div>
           <div className="flex items-center space-x-2">
-            <Button variant="ghost" size="icon" onClick={() => saveSideBySide(!sideBySide)}>
+            <Button variant="ghost" size="icon" onClick={() => setSideBySide(!sideBySide)}>
               <BookCopy />
             </Button>
             <Button variant="ghost" size="icon" disabled={parseInt(chapter) === 1}>
