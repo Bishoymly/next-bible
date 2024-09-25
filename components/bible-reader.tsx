@@ -148,7 +148,7 @@ export function BibleReader({ language, book, chapter, version, bookInfo, json, 
       {/* Main Content */}
       <main className="flex-1 flex flex-col overflow-hidden">
         {/* Top Navigation */}
-        <header className="flex items-center justify-between p-4 border-b">
+        <header className="flex items-center justify-between p-2 border-b">
           <div className="flex items-center">
             <Sheet>
               <SheetTrigger asChild>
