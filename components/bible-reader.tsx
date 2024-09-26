@@ -270,7 +270,7 @@ export function BibleReader({ language, book, chapter, version, bookInfo, json, 
                               <span className="pb-4 block">{important.commentary}</span>
                               {important.crossReferences?.map((ref, index) => (
                                 <Button key={index} variant="outline" className="mr-1 mb-1">
-                                  <Link href={`/${version}/${ref.book.slug}/${ref.chapter}#${ref.verse}`}>{`${ref.book} ${ref.chapter}:${ref.verse}`}</Link>
+                                  <Link href={`/${version}/${ref.book.toLowerCase().replace(/ /g,"-")}/${ref.chapter}#${ref.verse}`}>{`${ref.book} ${ref.chapter}:${ref.verse}`}</Link>
                                 </Button>
                               ))}
                             </div>
