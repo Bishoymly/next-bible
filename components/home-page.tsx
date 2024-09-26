@@ -137,7 +137,6 @@ export function HomePageComponent() {
                   Dive deeper into the Scriptures with our advanced study tools. Access original language resources, in-depth commentaries, and academic materials to enhance your understanding and
                   research.
                 </p>
-                <Button>Explore Advanced Tools</Button>
               </div>
               <div className="md:w-1/2 bg-muted rounded-lg shadow-lg h-64 flex items-center justify-center">
                 <p className="text-muted-foreground">Animation Placeholder</p>
@@ -149,16 +148,16 @@ export function HomePageComponent() {
         <section className="bg-muted py-16">
           <div className="container mx-auto px-8">
             <div className="grid grid-cols-1 md:grid-cols-2 items-stretch md:space-x-6 space-y-6 md:space-y-0">
-              <ChurchGuidanceComponent />
               <SalvationGuideComponent />
+              <ChurchGuidanceComponent />
             </div>
           </div>
         </section>
       </main>
 
-      <footer className="bg-primary text-primary-foreground py-8">
+      <footer className="bg-primary text-primary-foreground py-4">
         <div className="container mx-auto px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          {/*<div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
             <div>
               <h3 className="text-lg font-semibold mb-4">About Us</h3>
               <ul className="space-y-2">
@@ -239,8 +238,8 @@ export function HomePageComponent() {
                 </li>
               </ul>
             </div>
-          </div>
-          <div className="mt-8 text-center">
+          </div>*/}
+          <div className="text-center">
             <p>&copy; {new Date().getFullYear()} Bible Study. All rights reserved.</p>
           </div>
         </div>
