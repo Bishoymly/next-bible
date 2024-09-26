@@ -15,6 +15,9 @@ import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
 import useStickyState from "@/lib/useStickyState";
 import { Select, SelectContent, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "./ui/select";
 import { SelectGroup } from "@radix-ui/react-select";
+import { Badge } from "./ui/badge";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
+import parseFootnote from "@/lib/parseFootnote";
 
 const inter = Inter({ subsets: ["latin"] });
 const amiri = Amiri({
@@ -281,7 +284,20 @@ export function BibleReader({ language, book, chapter, version, version2, versio
                             ) : verseObject.tag == "s1" ? (
                               <h3 className="text-3xl font-semibold mt-2 mb-4">{verseObject.content}</h3>
                             ) : verseObject.tag == "f" ? (
-                              <span className="italic text-muted-foreground">{verseObject.content.replace(/\+\s\\fr\s*\d+:\d+\s*\\ft|[^a-zA-Z0-9\s]/g, "").replace(/fqa/g, ":")}</span>
+                              <TooltipProvider>
+                                <Tooltip>
+                                  <TooltipTrigger asChild>
+                                    <Button size="sm" className="px-1">
+                                      {parseFootnote(verseObject.content).reference}
+                                    </Button>
+                                  </TooltipTrigger>
+                                  <TooltipContent>
+                                    <p>
+                                      {parseFootnote(verseObject.content).text} {parseFootnote(verseObject.content).quote}
+                                    </p>
+                                  </TooltipContent>
+                                </Tooltip>
+                              </TooltipProvider>
                             ) : verseObject.tag == "q1" ? (
                               <br />
                             ) : verseObject.tag == "qs" ? (
