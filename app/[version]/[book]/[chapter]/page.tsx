@@ -2,9 +2,11 @@ import { BibleReader } from "@/components/bible-reader";
 import { getBibleJson, swapSectionAndParagraph } from "@/lib/getBibleText";
 import getBooks from "@/lib/getBooks";
 import getBooksCategorized from "@/lib/getBooksCategorized";
+import getVersions from "@/lib/getVersions";
 
 export default async function Read({ params }) {
   const { version, book, chapter } = params;
+  const versions = getVersions();
   const language = version == "avd" ? "ar" : "en";
   const books = getBooks(language);
   const bookInfo = books.filter((b) => b.slug === book)[0];
@@ -28,5 +30,19 @@ export default async function Read({ params }) {
 
   const booksCategorized = getBooksCategorized(language);
 
-  return <BibleReader language={language} book={book} bookInfo={bookInfo} chapter={chapter} version={version} json={json} json2={json2} language2={language2} booksCategorized={booksCategorized} />;
+  return (
+    <BibleReader
+      language={language}
+      book={book}
+      bookInfo={bookInfo}
+      chapter={chapter}
+      version={version}
+      version2={version2}
+      versions={versions}
+      json={json}
+      json2={json2}
+      language2={language2}
+      booksCategorized={booksCategorized}
+    />
+  );
 }

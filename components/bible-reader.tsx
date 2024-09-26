@@ -1,5 +1,5 @@
 "use client";
-
+import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -13,6 +13,8 @@ import { uiText } from "@/lib/uiText";
 import SocialShareButtons from "./social-share-buttons";
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
 import useStickyState from "@/lib/useStickyState";
+import { Select, SelectContent, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "./ui/select";
+import { SelectGroup } from "@radix-ui/react-select";
 
 const inter = Inter({ subsets: ["latin"] });
 const amiri = Amiri({
@@ -20,12 +22,15 @@ const amiri = Amiri({
   subsets: ["arabic"],
 });
 
-export function BibleReader({ language, book, chapter, version, bookInfo, json, json2, language2, booksCategorized }) {
+export function BibleReader({ language, book, chapter, version, version2, versions, bookInfo, json, json2, language2, booksCategorized }) {
+  const router = useRouter();
   const [selectedVerse, setSelectedVerse] = useState(null);
   const [sidebarExpanded, setSidebarExpanded] = useStickyState("sidebarExpanded", true);
   const [question, setQuestion] = useState(null);
   const [commentary, setCommentary] = useState(null);
   const [sideBySide, setSideBySide] = useStickyState("sideBySide", false);
+  const [selectedVersion, setSelectedVersion] = useStickyState("selectedVersion", version);
+  const [selectedVersion2, setSelectedVersion2] = useStickyState("selectedVersion2", version2);
 
   // scroll spy
   const [activeId, setActiveId] = useState<string | undefined>();
@@ -88,6 +93,15 @@ export function BibleReader({ language, book, chapter, version, bookInfo, json, 
       fetchCommentary();
     }
   }, [book, chapter]);
+
+  const handleSelectVersion = (version) => {
+    setSelectedVersion(version.toLowerCase());
+    router.push(`/${version.toLowerCase()}/${book}/${chapter}`);
+  };
+
+  const handleSelectVersion2 = (version) => {
+    setSelectedVersion2(version.toLowerCase());
+  };
 
   const handleSelectVerse = (verse) => {
     if (selectedVerse?.key != verse.key) {
@@ -163,10 +177,10 @@ export function BibleReader({ language, book, chapter, version, bookInfo, json, 
             </Button>
             <Button variant="ghost" size="icon" className="hidden md:block" asChild>
               <Link href="/">
-                <BookOpen className="mt-2 ml-2" />
+                <BookOpen className="mt-2 mx-1" />
               </Link>
             </Button>
-            <h1 className="text-2xl font-bold ml-2 flex flex-row space-x-2">
+            <h1 className="text-2xl font-bold mx-2 flex flex-row space-x-2">
               {bookInfo.n} {chapter}
             </h1>
           </div>
@@ -187,6 +201,31 @@ export function BibleReader({ language, book, chapter, version, bookInfo, json, 
         <div className={`flex-1 scroll-smooth overflow-y-scroll`} ref={scrollContainerRef}>
           <div className="p-6 flex">
             <div className="max-w-3xl mx-auto space-y-4 mb-20 flex-1">
+              <Select value={version.toUpperCase()} onValueChange={handleSelectVersion}>
+                <SelectTrigger className="w-[280px] mb-8">
+                  <SelectValue placeholder="Version" />
+                </SelectTrigger>
+                <SelectContent>
+                  {Object.entries(
+                    versions.reduce((acc, version) => {
+                      const lang = version.lang || "Other";
+                      if (!acc[lang]) acc[lang] = [];
+                      acc[lang].push(version);
+                      return acc;
+                    }, {})
+                  ).map(([lang, versions]: [string, any[]]) => (
+                    <SelectGroup key={lang}>
+                      <SelectLabel>{lang}</SelectLabel>
+                      {versions.map((version) => (
+                        <SelectItem key={version.id} value={version.id.toUpperCase()}>
+                          <b>{version.id.toUpperCase()}</b> {version.name}
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  ))}
+                </SelectContent>
+              </Select>
+
               <div className={` ${language == "ar" ? "text-2xl leading-loose" : "text-lg leading-relaxed"}`}>
                 {Object.entries(json).map(([key, verse]) => (
                   <>
@@ -270,7 +309,7 @@ export function BibleReader({ language, book, chapter, version, bookInfo, json, 
                               <span className="pb-4 block">{important.commentary}</span>
                               {important.crossReferences?.map((ref, index) => (
                                 <Button key={index} variant="outline" className="mr-1 mb-1">
-                                  <Link href={`/${version}/${ref.book.toLowerCase().replace(/ /g,"-")}/${ref.chapter}#${ref.verse}`}>{`${ref.book} ${ref.chapter}:${ref.verse}`}</Link>
+                                  <Link href={`/${version}/${ref.book.toLowerCase().replace(/ /g, "-")}/${ref.chapter}#${ref.verse}`}>{`${ref.book} ${ref.chapter}:${ref.verse}`}</Link>
                                 </Button>
                               ))}
                             </div>
@@ -285,6 +324,30 @@ export function BibleReader({ language, book, chapter, version, bookInfo, json, 
 
             {sideBySide && (
               <div className="max-w-3xl mx-auto space-y-4 mb-20 flex-1">
+                <Select value={version2.toUpperCase()} onValueChange={handleSelectVersion2}>
+                  <SelectTrigger className="w-[280px] mb-8">
+                    <SelectValue placeholder="Version" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {Object.entries(
+                      versions.reduce((acc, version) => {
+                        const lang = version.lang || "Other";
+                        if (!acc[lang]) acc[lang] = [];
+                        acc[lang].push(version);
+                        return acc;
+                      }, {})
+                    ).map(([lang, versions]: [string, any[]]) => (
+                      <SelectGroup key={lang}>
+                        <SelectLabel>{lang}</SelectLabel>
+                        {versions.map((version) => (
+                          <SelectItem key={version.id} value={version.id.toUpperCase()}>
+                            <b>{version.id.toUpperCase()}</b> {version.name}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    ))}
+                  </SelectContent>
+                </Select>
                 <div className={` ${language2 == "ar" ? `text-2xl leading-loose [direction:rtl] ${amiri.className}` : `text-lg leading-relaxed [direction:ltr] ${inter.className}`}`}>
                   {Object.entries(json2).map(([key, verse]) => (
                     <>
