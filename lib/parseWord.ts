@@ -14,7 +14,7 @@ export default function parseWord(input: string): ParsedData {
   }
 
   return {
-    text: textPart.trim(), // Trim any extra spaces from the text part
+    text: textPart, // Trim any extra spaces from the text part
     strong: strongMatch ? strongMatch[1] : "", // Extract the strong value if found
   };
 }
