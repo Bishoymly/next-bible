@@ -15,9 +15,9 @@ import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
 import useStickyState from "@/lib/useStickyState";
 import { Select, SelectContent, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "./ui/select";
 import { SelectGroup } from "@radix-ui/react-select";
-import { Badge } from "./ui/badge";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
 import parseFootnote from "@/lib/parseFootnote";
+import parseWord from "@/lib/parseWord";
 
 const inter = Inter({ subsets: ["latin"] });
 const amiri = Amiri({
@@ -271,43 +271,41 @@ export function BibleReader({ language, book, chapter, version, version2, versio
                               {key}
                             </sup>
                           )}
-                          {(verse as { verseObjects: { text: string; tag: string; type: string; content: string }[] }).verseObjects.map((verseObject, index, array) =>
-                            verseObject.type == "text" || verseObject.type == "word" ? (
-                              <>{verseObject.text}</>
-                            ) : verseObject.type == "paragraph" ? (
-                              <>
+                          {(verse as { verseObjects: { text: string; tag: string; type: string; content: string; nextChar: string; children: any[] }[] }).verseObjects.map(
+                            (verseObject, index, array) =>
+                              verseObject.type == "text" || verseObject.type == "word" ? (
+                                <>{verseObject.text.replace("¶ ", "")}</>
+                              ) : verseObject.tag == "wj*" ? (
+                                <>{parseWord(verseObject.content).text + (verseObject.nextChar ? verseObject.nextChar : "")}</>
+                              ) : verseObject.tag == "wj" ? (
+                                <span className="text-red-600">{parseWord(verseObject.children[0].content).text + (verseObject.nextChar ? verseObject.nextChar : "")}</span>
+                              ) : verseObject.tag == "+w" ? (
+                                <span className="text-red-600">{parseWord(verseObject.content).text + (verseObject.nextChar ? verseObject.nextChar : "")}</span>
+                              ) : verseObject.tag == "+w*" ? (
+                                <span className="text-red-600">{verseObject.content}</span>
+                              ) : verseObject.type == "paragraph" ? (
+                                <>
+                                  <br />
+                                  <br />
+                                </>
+                              ) : verseObject.tag == "add" ? (
+                                <span className="italic">{verseObject.text}</span>
+                              ) : verseObject.tag == "s1" ? (
+                                <h3 className="text-3xl font-semibold mt-2 mb-4">{verseObject.content}</h3>
+                              ) : verseObject.tag == "f" ? (
+                                <span className="italic text-muted-foreground text-sm">
+                                  {parseFootnote(verseObject.content).quote} {parseFootnote(verseObject.content).text}
+                                </span>
+                              ) : verseObject.tag == "q1" ? (
                                 <br />
-                                <br />
-                              </>
-                            ) : verseObject.tag == "add" ? (
-                              <span className="italic">{verseObject.text}</span>
-                            ) : verseObject.tag == "s1" ? (
-                              <h3 className="text-3xl font-semibold mt-2 mb-4">{verseObject.content}</h3>
-                            ) : verseObject.tag == "f" ? (
-                              <TooltipProvider>
-                                <Tooltip>
-                                  <TooltipTrigger asChild>
-                                    <Button size="sm" className="px-1">
-                                      {parseFootnote(verseObject.content).reference}
-                                    </Button>
-                                  </TooltipTrigger>
-                                  <TooltipContent>
-                                    <p>
-                                      {parseFootnote(verseObject.content).text} {parseFootnote(verseObject.content).quote}
-                                    </p>
-                                  </TooltipContent>
-                                </Tooltip>
-                              </TooltipProvider>
-                            ) : verseObject.tag == "q1" ? (
-                              <br />
-                            ) : verseObject.tag == "qs" ? (
-                              <>
-                                <span className="italic float-end">{verseObject.text}</span>
-                                <br />
-                              </>
-                            ) : (
-                              <>{JSON.stringify(verseObject)}</>
-                            )
+                              ) : verseObject.tag == "qs" ? (
+                                <>
+                                  <span className="italic float-end">{verseObject.text}</span>
+                                  <br />
+                                </>
+                              ) : (
+                                <>{JSON.stringify(verseObject)}</>
+                              )
                           )}
                         </span>
                       </DrawerTrigger>
