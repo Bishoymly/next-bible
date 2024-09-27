@@ -282,7 +282,7 @@ export function BibleReader({ language, book, chapter, version, version2, versio
                               ) : verseObject.tag == "+w" ? (
                                 <span className="text-red-600">{parseWord(verseObject.content).text + (verseObject.nextChar ? verseObject.nextChar : "")}</span>
                               ) : verseObject.tag == "+w*" ? (
-                                <span className="text-red-600">{verseObject.content}</span>
+                                <span className="text-red-600">{verseObject.content + (verseObject.nextChar ? verseObject.nextChar : "")}</span>
                               ) : verseObject.type == "paragraph" ? (
                                 <>
                                   <br />
@@ -290,6 +290,8 @@ export function BibleReader({ language, book, chapter, version, version2, versio
                                 </>
                               ) : verseObject.tag == "add" ? (
                                 <span className="italic">{verseObject.text}</span>
+                              ) : verseObject.tag == "+add" ? (
+                                <span className="italic text-red-600">{verseObject.text}</span>
                               ) : verseObject.tag == "s1" ? (
                                 <h3 className="text-3xl font-semibold mt-2 mb-4">{verseObject.content}</h3>
                               ) : verseObject.tag == "f" ? (
