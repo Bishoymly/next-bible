@@ -11,7 +11,6 @@ export async function POST(req: Request) {
   const url = new URL(req.url);
   const book = url.searchParams.get("book");
   const chapter = url.searchParams.get("chapter");
-  console.log(book, chapter);
 
   const result = await streamText({
     model: openai("gpt-4o-mini"),

@@ -137,9 +137,7 @@ export function HomePageComponent() {
                   research.
                 </p>
               </div>
-              <div className="md:w-1/2 bg-muted rounded-lg shadow-lg h-64 flex items-center justify-center">
-                <p className="text-muted-foreground">Animation Placeholder</p>
-              </div>
+              {/*<div className="md:w-1/2 bg-muted rounded-lg shadow-lg h-64 flex items-center justify-center"></div>*/}
             </div>
           </div>
         </section>
