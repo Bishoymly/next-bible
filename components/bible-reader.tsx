@@ -3,8 +3,8 @@ import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { BookCopy, BookOpen, ChevronLeft, ChevronRight, Columns2Icon, HomeIcon, Menu } from "lucide-react";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { BookCopy, BookOpen, ChevronLeft, ChevronRight, Menu } from "lucide-react";
 import Link from "next/link";
 import ChatSupport from "./chat-support";
 import { BibleBooksList } from "./bible-books-list";
@@ -13,9 +13,6 @@ import { uiText } from "@/lib/uiText";
 import SocialShareButtons from "./social-share-buttons";
 import { Drawer, DrawerContent, DrawerDescription, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
 import useStickyState from "@/lib/useStickyState";
-import { Select, SelectContent, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "./ui/select";
-import { SelectGroup } from "@radix-ui/react-select";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
 import parseFootnote from "@/lib/parseFootnote";
 import parseWord from "@/lib/parseWord";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
@@ -303,7 +300,7 @@ function bibleContent(this, language: any, json: any, commentary: any, selectedV
                       <h3 className={` font-semibold mb-2 mt-4 cursor-pointer ${language == "Arabic" ? "text-2xl" : "text-xl"}`}>{section.title}</h3>
                     </DrawerTrigger>
                     <DrawerContent>
-                      <DrawerTitle>Test</DrawerTitle>
+                      <DrawerTitle></DrawerTitle>
                       <DrawerDescription></DrawerDescription>
                       {section.commentary.map((l, index) => (
                         <p key={index} className="text-sm">
