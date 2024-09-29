@@ -79,14 +79,11 @@ export function GospelGuide() {
         <ul className="space-y-2">
           {essentialChapters.map((chapter, index) => (
             <li key={index} className="">
-              <div className="flex items-center mb-1 text-sm">
-                <Link href={`/asv/${chapter.book.toLowerCase()}/${chapter.chapter}`} className="flex items-center text-blue-500 hover:text-blue-700">
-                  <BookOpen className="mr-2 h-4 w-4 text-blue-500 hover:text-blue-700" />
-                  <h2 className="font-semibold text-gray-800 hover:text-blue-700">
-                    {chapter.book} {chapter.chapter}
-                  </h2>
+              <div className="mb-1 text-sm">
+                <Link href={`/asv/${chapter.book.toLowerCase()}/${chapter.chapter}`} className="text-blue-500 hover:text-blue-700">
+                  {chapter.book} {chapter.chapter}&nbsp;
                 </Link>
-                <p className="text-gray-600 ml-2">{chapter.description}</p>
+                - {chapter.description}
               </div>
             </li>
           ))}

@@ -46,7 +46,6 @@ export function HomePageComponent() {
               <Button asChild>
                 <Link href={"/asv/genesis"}>Start Reading</Link>
               </Button>
-              <Button variant="outline">Learn More</Button>
             </div>
           </div>
         </section>
@@ -105,7 +104,7 @@ export function HomePageComponent() {
           </div>
         </section>
 
-        <section className="bg-muted py-16">
+        <section className="bg-muted py-8">
           <div className="container mx-auto px-8">
             <div className="flex flex-col md:flex-row items-center">
               <div className="md:w-1/3 md:pr-8 mb-8 md:mb-0">
