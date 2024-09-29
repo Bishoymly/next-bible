@@ -1,5 +1,5 @@
 export const uiText = {
-  en: {
+  English: {
     selectBook: "Select Book",
     selectChapter: "Select Chapter",
     search: "Search",
@@ -15,7 +15,7 @@ export const uiText = {
     chapters: "Chapters",
     books: "Books",
   },
-  es: {
+  Spanish: {
     selectBook: "Seleccionar Libro",
     selectChapter: "Seleccionar Capítulo",
     search: "Buscar",
@@ -31,7 +31,7 @@ export const uiText = {
     chapters: "Capítulos",
     books: "Libros",
   },
-  ar: {
+  Arabic: {
     selectBook: "اختر الكتاب",
     selectChapter: "اختر الفصل",
     search: "بحث",

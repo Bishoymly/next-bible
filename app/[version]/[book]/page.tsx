@@ -6,7 +6,7 @@ import getBooksCategorized from "@/lib/getBooksCategorized";
 
 export default async function BookPage({ params }) {
   const { version, book } = params;
-  const language = version == "asv" ? "en" : "ar";
+  const language = version == "asv" ? "English" : "Arabic";
   const books = getBooks(language);
   const booksCategorized = getBooksCategorized(language);
   let bookInfo = books.filter((b) => b.slug === book)[0];

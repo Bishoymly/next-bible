@@ -16,7 +16,7 @@ export function BibleBooksList({ language, version, booksCategorized, aside }) {
       {aside ? <></> : <h1 className="text-2xl font-bold text-center mb-8">{version.toUpperCase()}</h1>}
       <div className={`grid gap-8 ${aside ? "" : "md:grid-cols-2"}`}>
         <div>
-          <h2 className="text-2xl font-semibold mb-4">{language == "en" ? "Old Testament" : "العهد القديم"}</h2>
+          <h2 className="text-2xl font-semibold mb-4">{language == "English" ? "Old Testament" : "العهد القديم"}</h2>
           <div className={aside ? "" : "rounded-md border p-4"}>
             {booksCategorized.oldTestament.map((group, index) => (
               <div key={index} className="mb-6">
@@ -24,7 +24,7 @@ export function BibleBooksList({ language, version, booksCategorized, aside }) {
                 <ul className="space-y-1">
                   {group.books.map((book, bookIndex) => (
                     <li key={bookIndex}>
-                      <Button key={book} variant="ghost" className={language == "ar" ? `${amiri.className} text-xl leading-loose` : "text-sm leading-relaxed"} asChild>
+                      <Button key={book} variant="ghost" className={language == "Arabic" ? `${amiri.className} text-xl leading-loose` : "text-sm leading-relaxed"} asChild>
                         <Link href={`/${version}/${book.slug}`}>{book.n}</Link>
                       </Button>
                     </li>
@@ -36,7 +36,7 @@ export function BibleBooksList({ language, version, booksCategorized, aside }) {
           </div>
         </div>
         <div>
-          <h2 className="text-2xl font-semibold mb-4">{language == "en" ? "New Testament" : "العهد الجديد"}</h2>
+          <h2 className="text-2xl font-semibold mb-4">{language == "English" ? "New Testament" : "العهد الجديد"}</h2>
           <div className={aside ? "" : "rounded-md border p-4"}>
             {booksCategorized.newTestament.map((group, index) => (
               <div key={index} className="mb-6">
@@ -44,7 +44,7 @@ export function BibleBooksList({ language, version, booksCategorized, aside }) {
                 <ul className="space-y-1">
                   {group.books.map((book, bookIndex) => (
                     <li key={bookIndex} className="text-sm">
-                      <Button key={book} variant="ghost" className={language == "ar" ? `${amiri.className} text-xl leading-loose` : "text-sm leading-relaxed"} asChild>
+                      <Button key={book} variant="ghost" className={language == "Arabic" ? `${amiri.className} text-xl leading-loose` : "text-sm leading-relaxed"} asChild>
                         <Link href={`/${version}/${book.slug}`}>{book.n}</Link>
                       </Button>
                     </li>

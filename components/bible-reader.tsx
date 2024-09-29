@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { BookCopy, BookOpen, ChevronLeft, ChevronRight, Columns2Icon, HomeIcon, Menu } from "lucide-react";
 import Link from "next/link";
 import ChatSupport from "./chat-support";
@@ -11,13 +11,14 @@ import { BibleBooksList } from "./bible-books-list";
 import { Amiri, Inter } from "next/font/google";
 import { uiText } from "@/lib/uiText";
 import SocialShareButtons from "./social-share-buttons";
-import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
+import { Drawer, DrawerContent, DrawerDescription, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
 import useStickyState from "@/lib/useStickyState";
 import { Select, SelectContent, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "./ui/select";
 import { SelectGroup } from "@radix-ui/react-select";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
 import parseFootnote from "@/lib/parseFootnote";
 import parseWord from "@/lib/parseWord";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
 
 const inter = Inter({ subsets: ["latin"] });
 const amiri = Amiri({
@@ -92,12 +93,13 @@ export function BibleReader({ language, book, chapter, version, version2, versio
       }
     };
 
-    if (language == "en") {
+    if (language == "English") {
       fetchCommentary();
     }
   }, [book, chapter]);
 
   const handleSelectVersion = (version) => {
+    console.log("version", version);
     setSelectedVersion(version.toLowerCase());
     router.push(`/${version.toLowerCase()}/${book}/${chapter}`);
   };
@@ -118,7 +120,7 @@ export function BibleReader({ language, book, chapter, version, version2, versio
 
   function Sidebar(bookInfo: any, chapter: any, book: any, booksCategorized: any) {
     return (
-      <ScrollArea className={`h-full mt-4 pr-3 ${language == "ar" ? `[direction:rtl] ${amiri.className} text-2xl leading-loose` : `text-lg leading-relaxed ${inter.className}`}`}>
+      <ScrollArea className={`h-full mt-4 pr-3 ${language == "Arabic" ? `[direction:rtl] ${amiri.className} text-2xl leading-loose` : `text-lg leading-relaxed ${inter.className}`}`}>
         {commentary && (
           <div className="mb-10">
             <h2 className="text-xl font-semibold mb-2">On this page</h2>
@@ -141,7 +143,7 @@ export function BibleReader({ language, book, chapter, version, version2, versio
         <h2 className="text-xl font-semibold mb-4">{uiText[language].chapters}</h2>
         <div className="grid grid-cols-5 gap-2 mb-8">
           {Array.from({ length: bookInfo.c }, (_, i) => i + 1).map((c) => (
-            <Button key={c} variant={chapter == c ? "default" : "outline"} size="sm" className={language == "ar" ? "text-base" : "text-sm"} asChild>
+            <Button key={c} variant={chapter == c ? "default" : "outline"} size="sm" className={language == "Arabic" ? "text-base" : "text-sm"} asChild>
               <Link href={`/${version}/${book}/${c}`}>{c}</Link>
             </Button>
           ))}
@@ -153,11 +155,11 @@ export function BibleReader({ language, book, chapter, version, version2, versio
   }
 
   return (
-    <div className={`flex h-screen bg-background transition-all ${language == "ar" ? `[direction:rtl] ${amiri.className}` : `[direction:ltr] ${inter.className}`}`}>
+    <div className={`flex h-screen bg-background transition-all ${language == "Arabic" ? `[direction:rtl] ${amiri.className}` : `[direction:ltr] ${inter.className}`}`}>
       {/* Collapsible Sidebar */}
-      <aside className={`hidden md:block ${language == "ar" ? "border-l" : "border-r"} transition-all duration-300 ${sidebarExpanded ? "w-72 p-4" : "w-0"}`}>
+      <aside className={`hidden md:block ${language == "Arabic" ? "border-l" : "border-r"} transition-all duration-300 ${sidebarExpanded ? "w-72 p-4" : "w-0"}`}>
         <Button variant="ghost" size="icon" className={`absolute top-0 start-64 p-0 ${sidebarExpanded ? "absolute" : "hidden"}`} onClick={() => setSidebarExpanded(!sidebarExpanded)}>
-          {language == "en" ? <ChevronLeft className="h-5" /> : <ChevronRight />}
+          {language == "English" ? <ChevronLeft className="h-5" /> : <ChevronRight />}
         </Button>
         {Sidebar(bookInfo, chapter, book, booksCategorized)}
       </aside>
@@ -176,7 +178,7 @@ export function BibleReader({ language, book, chapter, version, version2, versio
               <SheetContent side="left">{Sidebar(bookInfo, chapter, book, booksCategorized)}</SheetContent>
             </Sheet>
             <Button variant="ghost" size="icon" className={`p-0 ${sidebarExpanded ? "hidden" : ""}`} onClick={() => setSidebarExpanded(!sidebarExpanded)}>
-              {language == "ar" ? <ChevronLeft className="h-5" /> : <ChevronRight />}
+              {language == "Arabic" ? <ChevronLeft className="h-5" /> : <ChevronRight />}
             </Button>
             <Button variant="ghost" size="icon" className="hidden md:block" asChild>
               <Link href="/">
@@ -192,56 +194,61 @@ export function BibleReader({ language, book, chapter, version, version2, versio
               <BookCopy />
             </Button>
             <Button variant="ghost" size="icon" disabled={parseInt(chapter) === 1}>
-              <Link href={`/${version}/${book}/${parseInt(chapter) - 1}`}>{language == "en" ? <ChevronLeft /> : <ChevronRight />}</Link>
+              <Link href={`/${version}/${book}/${parseInt(chapter) - 1}`}>{language == "English" ? <ChevronLeft /> : <ChevronRight />}</Link>
             </Button>
             <Button variant="ghost" size="icon" disabled={parseInt(chapter) === bookInfo.c}>
-              <Link href={`/${version}/${book}/${parseInt(chapter) + 1}`}>{language == "en" ? <ChevronRight /> : <ChevronLeft />}</Link>
+              <Link href={`/${version}/${book}/${parseInt(chapter) + 1}`}>{language == "English" ? <ChevronRight /> : <ChevronLeft />}</Link>
             </Button>
           </div>
         </header>
 
         {/* Bible Content */}
         <div className={`flex-1 scroll-smooth overflow-y-scroll`} ref={scrollContainerRef}>
-          <div className="p-6 flex">
+          <div className="p-6 flex space-x-4">
             <div className="max-w-3xl mx-auto space-y-4 mb-20 flex-1">
-              <Select value={version.toUpperCase()} onValueChange={handleSelectVersion}>
-                <SelectTrigger className="w-[280px] mb-8">
-                  <SelectValue placeholder="Version" />
-                </SelectTrigger>
-                <SelectContent>
-                  {Object.entries(
-                    versions.reduce((acc, version) => {
-                      const lang = version.lang || "Other";
-                      if (!acc[lang]) acc[lang] = [];
-                      acc[lang].push(version);
-                      return acc;
-                    }, {})
-                  ).map(([lang, versions]: [string, any[]]) => (
-                    <SelectGroup key={lang}>
-                      <SelectLabel>{lang}</SelectLabel>
-                      {versions.map((version) => (
-                        <SelectItem key={version.id} value={version.id.toUpperCase()}>
-                          <b>{version.id.toUpperCase()}</b> {version.name}
-                        </SelectItem>
-                      ))}
-                    </SelectGroup>
-                  ))}
-                </SelectContent>
-              </Select>
-
-              <div className={` ${language == "ar" ? "text-2xl leading-loose" : "text-lg leading-relaxed"}`}>
+              <div className={inter.className}>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="secondary" size="sm">
+                      {version.toUpperCase()}
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="w-56">
+                    {Object.entries(
+                      versions.reduce((acc, version) => {
+                        const lang = version.lang || "Other";
+                        if (!acc[lang]) acc[lang] = [];
+                        acc[lang].push(version);
+                        return acc;
+                      }, {})
+                    ).map(([lang, versions]: [string, any[]]) => (
+                      <DropdownMenuGroup key={lang}>
+                        <DropdownMenuLabel>{lang}</DropdownMenuLabel>
+                        {versions.map((version) => (
+                          <Link href={`/${version.id}/${book}/${chapter}`} key={version.id}>
+                            <DropdownMenuItem>{version.id.toUpperCase()}</DropdownMenuItem>
+                          </Link>
+                        ))}
+                      </DropdownMenuGroup>
+                    ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
+              <div className={` ${language == "Arabic" ? "text-2xl leading-loose" : "text-lg leading-relaxed"}`}>
                 {Object.entries(json).map(([key, verse]) => (
                   <>
-                    {language != "ar" &&
+                    {language != "Arabic" &&
                       commentary?.sections
                         .filter((s) => s.fromVerse == key)
                         .map((section) => (
                           <div id={`s${section.fromVerse}`} key={`s${section.fromVerse}`} className={`snap-y scroll-my-10 ${section.fromVerse == 1 ? "" : "mt-10"}`}>
                             <Drawer key={key}>
                               <DrawerTrigger asChild>
-                                <h3 className={` font-semibold mb-2 mt-4 cursor-pointer ${language == "ar" ? "text-2xl" : "text-xl"}`}>{section.title}</h3>
+                                <h3 className={` font-semibold mb-2 mt-4 cursor-pointer ${language == "Arabic" ? "text-2xl" : "text-xl"}`}>{section.title}</h3>
                               </DrawerTrigger>
                               <DrawerContent>
+                                <DrawerTitle>Test</DrawerTitle>
+                                <DrawerDescription></DrawerDescription>
                                 {section.commentary.map((l, index) => (
                                   <p key={index} className="text-sm">
                                     {l}
@@ -254,6 +261,7 @@ export function BibleReader({ language, book, chapter, version, version2, versio
                     <Drawer key={key}>
                       <DrawerTrigger asChild>
                         <span
+                          key={key}
                           className={
                             selectedVerse?.key == key
                               ? "bg-yellow-200 -my-1 py-1 cursor-pointer shadow-md"
@@ -267,7 +275,7 @@ export function BibleReader({ language, book, chapter, version, version2, versio
                           })}
                         >
                           {key != "0" && (
-                            <sup id={key} className={`scroll-my-4 ${language == "ar" ? "text-lg" : "text-xs"} font-semibold text-blue-600 mr-1`}>
+                            <sup id={key} className={`scroll-my-4 ${language == "Arabic" ? "text-lg" : "text-xs"} font-semibold text-blue-600 mr-1`}>
                               {key}
                             </sup>
                           )}
@@ -276,13 +284,13 @@ export function BibleReader({ language, book, chapter, version, version2, versio
                               verseObject.type == "text" || verseObject.type == "word" ? (
                                 <>{verseObject.text.replace("¶ ", "")}</>
                               ) : verseObject.tag == "wj*" ? (
-                                <>{parseWord(verseObject.content).text + (verseObject.nextChar ? verseObject.nextChar : "")}</>
+                                <>{parseWord(verseObject.content).text}</>
                               ) : verseObject.tag == "wj" ? (
-                                <span className="text-red-600">{parseWord(verseObject.children[0].content).text + (verseObject.nextChar ? verseObject.nextChar : "")}</span>
+                                <span className="text-red-600">{parseWord(verseObject.children[0].content).text}</span>
                               ) : verseObject.tag == "+w" ? (
-                                <span className="text-red-600">{parseWord(verseObject.content).text + (verseObject.nextChar ? verseObject.nextChar : "")}</span>
+                                <span className="text-red-600">{parseWord(verseObject.content).text}</span>
                               ) : verseObject.tag == "+w*" ? (
-                                <span className="text-red-600">{verseObject.content + (verseObject.nextChar ? verseObject.nextChar : "")}</span>
+                                <span className="text-red-600">{verseObject.content}</span>
                               ) : verseObject.type == "paragraph" ? (
                                 <>
                                   <br />
@@ -312,9 +320,12 @@ export function BibleReader({ language, book, chapter, version, version2, versio
                         </span>
                       </DrawerTrigger>
                       <DrawerContent>
-                        <h3 className="text-lg font-semibold">
-                          {bookInfo.n} {chapter}:{key}
-                        </h3>
+                        <DrawerTitle>
+                          <h3 className="text-lg font-semibold">
+                            {bookInfo.n} {chapter}:{key}
+                          </h3>
+                        </DrawerTitle>
+                        <DrawerDescription></DrawerDescription>
 
                         <span className="pb-4 block">&ldquo;{(verse as { verseObjects: { text: string; tag: string; type: string }[] }).verseObjects.map((vo) => vo.text).join(" ")}&rdquo;</span>
                         {commentary?.importantVerses
@@ -339,12 +350,14 @@ export function BibleReader({ language, book, chapter, version, version2, versio
             </div>
 
             {sideBySide && (
-              <div className="max-w-3xl mx-auto space-y-4 mb-20 flex-1">
-                <Select value={version2.toUpperCase()} onValueChange={handleSelectVersion2}>
-                  <SelectTrigger className="w-[280px] mb-8">
-                    <SelectValue placeholder="Version" />
-                  </SelectTrigger>
-                  <SelectContent>
+              <div className={`max-w-3xl mx-auto space-y-4 mb-20 flex-1 ${inter.className}`}>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="secondary" size="sm">
+                      {version2.toUpperCase()}
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="w-56">
                     {Object.entries(
                       versions.reduce((acc, version) => {
                         const lang = version.lang || "Other";
@@ -353,28 +366,28 @@ export function BibleReader({ language, book, chapter, version, version2, versio
                         return acc;
                       }, {})
                     ).map(([lang, versions]: [string, any[]]) => (
-                      <SelectGroup key={lang}>
-                        <SelectLabel>{lang}</SelectLabel>
-                        {versions.map((version) => (
-                          <SelectItem key={version.id} value={version.id.toUpperCase()}>
-                            <b>{version.id.toUpperCase()}</b> {version.name}
-                          </SelectItem>
+                      <DropdownMenuGroup key={lang}>
+                        <DropdownMenuLabel>{lang}</DropdownMenuLabel>
+                        {versions.map((v2) => (
+                          <Link href={`/${version}/${book}/${chapter}?side=${v2.id}`} key={version.id}>
+                            <DropdownMenuItem>{v2.id.toUpperCase()}</DropdownMenuItem>
+                          </Link>
                         ))}
-                      </SelectGroup>
+                      </DropdownMenuGroup>
                     ))}
-                  </SelectContent>
-                </Select>
-                <div className={` ${language2 == "ar" ? `text-2xl leading-loose [direction:rtl] ${amiri.className}` : `text-lg leading-relaxed [direction:ltr] ${inter.className}`}`}>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+                <div className={` ${language2 == "Arabic" ? `text-2xl leading-loose [direction:rtl] ${amiri.className}` : `text-lg leading-relaxed [direction:ltr] ${inter.className}`}`}>
                   {Object.entries(json2).map(([key, verse]) => (
                     <>
-                      {language2 != "ar" &&
+                      {language2 != "Arabic" &&
                         commentary?.sections
                           .filter((s) => s.fromVerse == key)
                           .map((section) => (
-                            <div id={`s${section.fromVerse}`} key={`s${section.fromVerse}`} className="snap-y scroll-my-10 mt-10">
+                            <div id={`s${section.fromVerse}`} key={`s${section.fromVerse}`} className={`snap-y scroll-my-10 ${section.fromVerse == 1 ? "" : "mt-10"}`}>
                               <Drawer key={key}>
                                 <DrawerTrigger asChild>
-                                  <h3 className={` font-semibold mb-2 mt-4 cursor-pointer ${language2 == "ar" ? "text-2xl" : "text-xl"}`}>{section.title}</h3>
+                                  <h3 className={` font-semibold mb-2 mt-4 cursor-pointer ${language2 == "Arabic" ? "text-2xl" : "text-xl"}`}>{section.title}</h3>
                                 </DrawerTrigger>
                                 <DrawerContent>
                                   {section.commentary.map((l, index) => (
@@ -402,7 +415,7 @@ export function BibleReader({ language, book, chapter, version, version2, versio
                             })}
                           >
                             {key != "0" && (
-                              <sup id={key} className={`scroll-my-4 ${language2 == "ar" ? "text-lg" : "text-xs"} font-semibold text-blue-600 mr-1`}>
+                              <sup id={key} className={`scroll-my-4 ${language2 == "Arabic" ? "text-lg" : "text-xs"} font-semibold text-blue-600 mr-1`}>
                                 {key}
                               </sup>
                             )}

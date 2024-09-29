@@ -4,15 +4,15 @@ import getBooks from "@/lib/getBooks";
 import getBooksCategorized from "@/lib/getBooksCategorized";
 import getVersions from "@/lib/getVersions";
 
-export default async function Read({ params }) {
+export default async function Read({ params, searchParams }) {
   const { version, book, chapter } = params;
   const versions = getVersions();
-  const language = version == "avd" ? "ar" : "en";
+  const language = versions.filter((v) => v.id === version)[0].lang;
   const books = getBooks(language);
   const bookInfo = books.filter((b) => b.slug === book)[0];
 
-  const version2 = version === "avd" ? "asv" : "avd";
-  const language2 = language === "ar" ? "en" : "ar";
+  const version2 = searchParams.side || (version === "avd" ? "asv" : "avd");
+  const language2 = versions.filter((v) => v.id === version2)[0].lang;
 
   let json = getBibleJson(bookInfo.b, version)["chapters"][parseInt(chapter)];
   if (json["front"]) {
