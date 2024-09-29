@@ -95,15 +95,6 @@ export function BibleReader({ language, book, chapter, version, version2, versio
     }
   }, [book, chapter]);
 
-  const handleSelectVersion = (version) => {
-    setSelectedVersion(version.toLowerCase());
-    router.push(`/${version.toLowerCase()}/${book}/${chapter}`);
-  };
-
-  const handleSelectVersion2 = (version) => {
-    setSelectedVersion2(version.toLowerCase());
-  };
-
   const handleSelectVerse = (verse) => {
     if (selectedVerse?.key != verse.key) {
       setSelectedVerse(verse);
@@ -267,22 +258,101 @@ export function BibleReader({ language, book, chapter, version, version2, versio
           </div>
           <div className="p-6 mb-16">
             {commentary?.questions?.length > 0 && (
-              <div className="max-w-4xl mx-auto mt-8">
-                <h3 className="text-xl font-semibold mb-2">Questions</h3>
-                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                  {commentary?.questions?.map((question) => (
-                    <Button key={question} variant="outline" className="mr-2 mb-2 text-wrap h-auto py-2 text-left" onClick={() => setQuestion(question)}>
-                      {question}
-                    </Button>
-                  ))}
-                </ul>
-              </div>
+              <>
+                <div className="max-w-3xl mx-auto mt-8">
+                  <h2 className="text-2xl font-semibold mb-2">Study</h2>
+                  {language != "Arabic" &&
+                    commentary?.sections.map((section) => (
+                      <div id={`s2${section.fromVerse}`} key={`s2${section.fromVerse}`} className={`snap-y scroll-my-10 mb-6`}>
+                        <Link href={`#s${section.fromVerse}`} className="hover:text-blue-700">
+                          <h4 className={` font-semibold mb-2 mt-4 cursor-pointer ${language == "Arabic" ? "text-xl" : "text-lg"}`}>
+                            {section.fromVerse} - {section.toVerse} : {section.title}
+                          </h4>
+                        </Link>
+                        {section.commentary.map((l, index) => (
+                          <span key={index}>{l}</span>
+                        ))}
+                        {commentary?.importantVerses
+                          .filter((v) => v.verse >= section.fromVerse && v.verse <= section.toVerse)
+                          .map((important, index) => (
+                            <figure key={index} className="md:flex bg-slate-100 rounded-xl p-8 md:p-0 dark:bg-slate-800 mt-6 md:ml-20">
+                              <div className="pt-6 md:p-8 text-center md:text-left space-y-4">
+                                <blockquote>
+                                  <p className="text-lg font-medium">
+                                    &ldquo;
+                                    {renderVerse(json[important.verse], language)}
+                                    &rdquo;
+                                  </p>
+                                </blockquote>
+                                <figcaption className="font-medium">
+                                  <div className="text-slate-700 dark:text-slate-500">
+                                    <Link href={`#${important.verse}`} className="hover:text-blue-700">
+                                      {bookInfo.n} {chapter}:{important.verse}
+                                    </Link>
+                                  </div>
+                                </figcaption>
+                              </div>
+                            </figure>
+                          ))}
+                      </div>
+                    ))}
+
+                  <h3 className="text-xl font-semibold mt-10 mb-2">Questions</h3>
+                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    {commentary?.questions?.map((question) => (
+                      <Button key={question} variant="outline" className="mr-2 mb-2 text-wrap h-auto py-2 text-left" onClick={() => setQuestion(question)}>
+                        {question}
+                      </Button>
+                    ))}
+                  </ul>
+                </div>
+              </>
             )}
           </div>
         </div>
         <ChatSupport version={version} book={book} chapter={chapter} question={question} />
       </main>
     </div>
+  );
+}
+
+function renderVerse(verse: any, language: any) {
+  return (verse as { verseObjects: { text: string; tag: string; type: string; content: string; nextChar: string; children: any[] }[] }).verseObjects.map((verseObject, index, array) =>
+    verseObject.type == "text" || verseObject.type == "word" ? (
+      <>{verseObject.text.replace("¶ ", "")}</>
+    ) : verseObject.tag == "wj*" ? (
+      <>{parseWord(verseObject.content).text}</>
+    ) : verseObject.tag == "wj" ? (
+      <span className="text-red-600">{parseWord(verseObject.children[0].content).text}</span>
+    ) : verseObject.tag == "+w" ? (
+      <span className="text-red-600">{parseWord(verseObject.content).text}</span>
+    ) : verseObject.tag == "+w*" ? (
+      <span className="text-red-600">{verseObject.content}</span>
+    ) : verseObject.type == "paragraph" ? (
+      <>
+        <br />
+        <br />
+      </>
+    ) : verseObject.tag == "add" ? (
+      <span className="italic">{verseObject.text}</span>
+    ) : verseObject.tag == "+add" ? (
+      <span className="italic text-red-600">{verseObject.text}</span>
+    ) : verseObject.tag == "s1" ? (
+      <h3 className="text-3xl font-semibold mt-2 mb-4">{verseObject.content}</h3>
+    ) : verseObject.tag == "f" ? (
+      <span className="italic text-muted-foreground text-sm">
+        {parseFootnote(verseObject.content).quote} {parseFootnote(verseObject.content).text}
+      </span>
+    ) : verseObject.tag == "q1" ? (
+      <br />
+    ) : verseObject.tag == "qs" ? (
+      <>
+        <span className="italic float-end">{verseObject.text}</span>
+        <br />
+      </>
+    ) : (
+      <>{JSON.stringify(verseObject)}</>
+    )
   );
 }
 function bibleContent(this, language: any, json: any, commentary: any, selectedVerse: any, handleSelectVerse: (verse: any) => void, bookInfo: any, chapter: any, version: any) {
@@ -295,20 +365,9 @@ function bibleContent(this, language: any, json: any, commentary: any, selectedV
               .filter((s) => s.fromVerse == key)
               .map((section) => (
                 <div id={`s${section.fromVerse}`} key={`s${section.fromVerse}`} className={`snap-y scroll-my-10 ${section.fromVerse == 1 ? "" : "mt-10"}`}>
-                  <Drawer key={key}>
-                    <DrawerTrigger asChild>
-                      <h3 className={` font-semibold mb-2 mt-4 cursor-pointer ${language == "Arabic" ? "text-2xl" : "text-xl"}`}>{section.title}</h3>
-                    </DrawerTrigger>
-                    <DrawerContent>
-                      <DrawerTitle></DrawerTitle>
-                      <DrawerDescription></DrawerDescription>
-                      {section.commentary.map((l, index) => (
-                        <p key={index} className="text-sm">
-                          {l}
-                        </p>
-                      ))}
-                    </DrawerContent>
-                  </Drawer>
+                  <Link href={`#s2${section.fromVerse}`}>
+                    <h3 className={` font-semibold mb-2 mt-4 cursor-pointer ${language == "Arabic" ? "text-2xl" : "text-xl"}`}>{section.title}</h3>
+                  </Link>
                 </div>
               ))}
           <Drawer key={key}>
@@ -332,43 +391,7 @@ function bibleContent(this, language: any, json: any, commentary: any, selectedV
                     {key}
                   </sup>
                 )}
-                {(verse as { verseObjects: { text: string; tag: string; type: string; content: string; nextChar: string; children: any[] }[] }).verseObjects.map((verseObject, index, array) =>
-                  verseObject.type == "text" || verseObject.type == "word" ? (
-                    <>{verseObject.text.replace("¶ ", "")}</>
-                  ) : verseObject.tag == "wj*" ? (
-                    <>{parseWord(verseObject.content).text}</>
-                  ) : verseObject.tag == "wj" ? (
-                    <span className="text-red-600">{parseWord(verseObject.children[0].content).text}</span>
-                  ) : verseObject.tag == "+w" ? (
-                    <span className="text-red-600">{parseWord(verseObject.content).text}</span>
-                  ) : verseObject.tag == "+w*" ? (
-                    <span className="text-red-600">{verseObject.content}</span>
-                  ) : verseObject.type == "paragraph" ? (
-                    <>
-                      <br />
-                      <br />
-                    </>
-                  ) : verseObject.tag == "add" ? (
-                    <span className="italic">{verseObject.text}</span>
-                  ) : verseObject.tag == "+add" ? (
-                    <span className="italic text-red-600">{verseObject.text}</span>
-                  ) : verseObject.tag == "s1" ? (
-                    <h3 className="text-3xl font-semibold mt-2 mb-4">{verseObject.content}</h3>
-                  ) : verseObject.tag == "f" ? (
-                    <span className="italic text-muted-foreground text-sm">
-                      {parseFootnote(verseObject.content).quote} {parseFootnote(verseObject.content).text}
-                    </span>
-                  ) : verseObject.tag == "q1" ? (
-                    <br />
-                  ) : verseObject.tag == "qs" ? (
-                    <>
-                      <span className="italic float-end">{verseObject.text}</span>
-                      <br />
-                    </>
-                  ) : (
-                    <>{JSON.stringify(verseObject)}</>
-                  )
-                )}
+                {renderVerse(verse, language)}
               </span>
             </DrawerTrigger>
             <DrawerContent>
@@ -379,7 +402,7 @@ function bibleContent(this, language: any, json: any, commentary: any, selectedV
               </DrawerTitle>
               <DrawerDescription></DrawerDescription>
 
-              <span className="pb-4 block">&ldquo;{(verse as { verseObjects: { text: string; tag: string; type: string }[] }).verseObjects.map((vo) => vo.text).join(" ")}&rdquo;</span>
+              <span className="pb-4 block">&ldquo;{renderVerse(verse, language)}&rdquo;</span>
               {commentary?.importantVerses
                 .filter((v) => v.verse == key)
                 .map((important, index) => (
