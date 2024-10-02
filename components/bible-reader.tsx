@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { BookCopy, BookOpen, ChevronLeft, ChevronRight, Menu } from "lucide-react";
+import { BookCopy, BookOpen, ChevronLeft, ChevronRight, Menu, MessageSquareMore } from "lucide-react";
 import Link from "next/link";
 import ChatSupport from "./chat-support";
 import { BibleBooksList } from "./bible-books-list";
@@ -16,6 +16,7 @@ import useStickyState from "@/lib/useStickyState";
 import parseFootnote from "@/lib/parseFootnote";
 import parseWord from "@/lib/parseWord";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 
 const inter = Inter({ subsets: ["latin"] });
 const amiri = Amiri({
@@ -280,7 +281,7 @@ export function BibleReader({ language, book, chapter, version, version2, versio
                                 <blockquote>
                                   <p className="text-lg font-medium">
                                     &ldquo;
-                                    {renderVerse(json[important.verse], language)}
+                                    {renderVerse(json[important.verse], language, true)}
                                     &rdquo;
                                   </p>
                                 </blockquote>
@@ -316,23 +317,27 @@ export function BibleReader({ language, book, chapter, version, version2, versio
   );
 }
 
-function renderVerse(verse: any, language: any) {
+function renderVerse(verse: any, language: any, singleVerse: boolean = false) {
   return (verse as { verseObjects: { text: string; tag: string; type: string; content: string; nextChar: string; children: any[] }[] }).verseObjects.map((verseObject, index, array) =>
-    verseObject.type == "text" || verseObject.type == "word" ? (
+    verseObject.type == "text" || verseObject.type == "word" || verseObject.tag == "d" ? (
       <>{verseObject.text.replace("¶ ", "")}</>
-    ) : verseObject.tag == "wj*" ? (
+    ) : verseObject.tag == "wj*" || verseObject.tag == "nd*" ? (
       <>{parseWord(verseObject.content).text}</>
-    ) : verseObject.tag == "wj" ? (
+    ) : verseObject.tag == "wj" || verseObject.tag == "nd" ? (
       <span className="text-red-600">{parseWord(verseObject.children[0].content).text}</span>
     ) : verseObject.tag == "+w" ? (
       <span className="text-red-600">{parseWord(verseObject.content).text}</span>
     ) : verseObject.tag == "+w*" ? (
       <span className="text-red-600">{verseObject.content}</span>
     ) : verseObject.type == "paragraph" ? (
-      <>
-        <br />
-        <br />
-      </>
+      singleVerse ? (
+        <></>
+      ) : (
+        <>
+          <br />
+          <br />
+        </>
+      )
     ) : verseObject.tag == "add" ? (
       <span className="italic">{verseObject.text}</span>
     ) : verseObject.tag == "+add" ? (
@@ -340,9 +345,11 @@ function renderVerse(verse: any, language: any) {
     ) : verseObject.tag == "s1" ? (
       <h3 className="text-3xl font-semibold mt-2 mb-4">{verseObject.content}</h3>
     ) : verseObject.tag == "f" ? (
-      <span className="italic text-muted-foreground text-sm">
-        {parseFootnote(verseObject.content).quote} {parseFootnote(verseObject.content).text}
-      </span>
+      singleVerse ? (
+        <></>
+      ) : (
+        <MessageSquareMore className="text-gray-500 text-sm w-4 inline" />
+      )
     ) : verseObject.tag == "q1" ? (
       <br />
     ) : verseObject.tag == "qs" ? (
@@ -352,6 +359,19 @@ function renderVerse(verse: any, language: any) {
       </>
     ) : (
       <>{JSON.stringify(verseObject)}</>
+    )
+  );
+}
+
+function renderFootnotes(verse: any, language: any) {
+  return (verse as { verseObjects: { text: string; tag: string; type: string; content: string; nextChar: string; children: any[] }[] }).verseObjects.map((verseObject, index, array) =>
+    verseObject.tag == "f" ? (
+      <p className="italic text-muted-foreground text-sm">
+        <MessageSquareMore className="w-4 inline mx-1" />
+        {parseFootnote(verseObject.content).text}
+      </p>
+    ) : (
+      <></>
     )
   );
 }
@@ -402,12 +422,13 @@ function bibleContent(this, language: any, json: any, commentary: any, selectedV
               </DrawerTitle>
               <DrawerDescription></DrawerDescription>
 
-              <span className="pb-4 block">&ldquo;{renderVerse(verse, language)}&rdquo;</span>
+              <span className="pb-4 block">&ldquo;{renderVerse(verse, language, true)}&rdquo;</span>
+              {renderFootnotes(verse, language)}
               {commentary?.importantVerses
                 .filter((v) => v.verse == key)
                 .map((important, index) => (
                   <div key={index}>
-                    <h3 className="font-semibold mb-2">Commentary</h3>
+                    <h3 className="font-semibold mb-2 mt-2">Commentary</h3>
                     <span className="pb-4 block">{important.commentary}</span>
                     {important.crossReferences?.map((ref, index) => (
                       <Button key={index} variant="outline" className="mr-1 mb-1">

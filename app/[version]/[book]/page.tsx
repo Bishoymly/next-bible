@@ -3,10 +3,12 @@ import { BibleBookHome } from "@/components/bible-book-home";
 import curateBook from "@/lib/curateBook";
 import getBooks from "@/lib/getBooks";
 import getBooksCategorized from "@/lib/getBooksCategorized";
+import getVersions from "@/lib/getVersions";
 
 export default async function BookPage({ params }) {
   const { version, book } = params;
-  const language = version == "asv" ? "English" : "Arabic";
+  const versions = getVersions();
+  const language = versions.filter((v) => v.id === version)[0].lang;
   const books = getBooks(language);
   const booksCategorized = getBooksCategorized(language);
   let bookInfo = books.filter((b) => b.slug === book)[0];
