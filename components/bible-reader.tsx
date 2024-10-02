@@ -366,7 +366,7 @@ function renderVerse(verse: any, language: any, singleVerse: boolean = false) {
 function renderFootnotes(verse: any, language: any) {
   return (verse as { verseObjects: { text: string; tag: string; type: string; content: string; nextChar: string; children: any[] }[] }).verseObjects.map((verseObject, index, array) =>
     verseObject.tag == "f" ? (
-      <p className="italic text-muted-foreground text-sm">
+      <p key={index} className="italic text-muted-foreground text-sm">
         <MessageSquareMore className="w-4 inline mx-1" />
         {parseFootnote(verseObject.content).text}
       </p>
