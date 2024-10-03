@@ -262,8 +262,10 @@ function studyContent(language: any, version: any, commentary: any, json: any, b
                       </span>
                     </>
 
-                    <div className="gap-2 space-x-2">
-                      <span className="pb-4 block text-muted-foreground">{important.commentary}</span>
+                    <div>
+                      <span className="pb-2 block text-muted-foreground text-start">{important.commentary}</span>
+                    </div>
+                    <div className="flex gap-2">
                       {important.crossReferences?.map((ref, index) => (
                         <Button key={index} variant="outline">
                           <Link href={`/${version}/${ref.book.toLowerCase().replace(/ /g, "-")}/${ref.chapter}#${ref.verse}`}>{`${ref.book} ${ref.chapter}:${ref.verse}`}</Link>
