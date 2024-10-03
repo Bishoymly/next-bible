@@ -17,6 +17,7 @@ import parseFootnote from "@/lib/parseFootnote";
 import parseWord from "@/lib/parseWord";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import { Toggle } from "./ui/toggle";
 
 const inter = Inter({ subsets: ["latin"] });
 const amiri = Amiri({
@@ -155,7 +156,7 @@ export function BibleReader({ language, book, chapter, version, version2, versio
       {/* Main Content */}
       <main className="flex-1 flex flex-col overflow-hidden">
         {/* Top Navigation */}
-        <header className="flex items-center justify-between p-2 border-b">
+        <header className="flex items-center justify-between p-3 border-b">
           <div className="flex items-center">
             <Sheet>
               <SheetTrigger asChild>
@@ -178,9 +179,6 @@ export function BibleReader({ language, book, chapter, version, version2, versio
             </h1>
           </div>
           <div className="flex items-center space-x-2">
-            <Button variant="ghost" size="icon" onClick={() => setSideBySide(!sideBySide)}>
-              <BookCopy />
-            </Button>
             <Button variant="ghost" size="icon" disabled={parseInt(chapter) === 1}>
               <Link href={`/${version}/${book}/${parseInt(chapter) - 1}`}>{language == "English" ? <ChevronLeft /> : <ChevronRight />}</Link>
             </Button>
@@ -195,64 +193,19 @@ export function BibleReader({ language, book, chapter, version, version2, versio
           <div className="p-6 flex space-x-4">
             <div className="max-w-3xl mx-auto space-y-4 mb-20 flex-1">
               <div className={inter.className}>
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="secondary" size="sm">
-                      {version.toUpperCase()}
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="w-56">
-                    {Object.entries(
-                      versions.reduce((acc, version) => {
-                        const lang = version.lang || "Other";
-                        if (!acc[lang]) acc[lang] = [];
-                        acc[lang].push(version);
-                        return acc;
-                      }, {})
-                    ).map(([lang, versions]: [string, any[]]) => (
-                      <DropdownMenuGroup key={lang}>
-                        <DropdownMenuLabel>{lang}</DropdownMenuLabel>
-                        {versions.map((version) => (
-                          <Link href={`/${version.id}/${book}/${chapter}`} key={version.id}>
-                            <DropdownMenuItem>{version.id.toUpperCase()}</DropdownMenuItem>
-                          </Link>
-                        ))}
-                      </DropdownMenuGroup>
-                    ))}
-                  </DropdownMenuContent>
-                </DropdownMenu>
+                <div className="flex items-center space-x-2">
+                  {versionsDropDown(versions, version, book, chapter, version2, false)}
+                  <Toggle aria-label="Side by side" aria-description="Side by side" size="sm" onClick={() => setSideBySide(!sideBySide)} value={sideBySide}>
+                    <BookCopy />
+                  </Toggle>
+                </div>
               </div>
               {bibleContent.call(this, language, json, commentary, selectedVerse, handleSelectVerse, bookInfo, chapter, version)}
             </div>
 
             {sideBySide && (
               <div className={`max-w-3xl mx-auto space-y-4 mb-20 flex-1 ${inter.className}`}>
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="secondary" size="sm">
-                      {version2.toUpperCase()}
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="w-56">
-                    {Object.entries(
-                      versions.reduce((acc, version) => {
-                        const lang = version.lang || "Other";
-                        if (!acc[lang]) acc[lang] = [];
-                        acc[lang].push(version);
-                        return acc;
-                      }, {})
-                    ).map(([lang, versions]: [string, any[]]) => (
-                      <DropdownMenuGroup key={lang}>
-                        <DropdownMenuLabel>{lang}</DropdownMenuLabel>
-                        {versions.map((v2) => (
-                          <Link href={`/${version}/${book}/${chapter}?side=${v2.id}`} key={version.id}>
-                            <DropdownMenuItem>{v2.id.toUpperCase()}</DropdownMenuItem>
-                          </Link>
-                        ))}
-                      </DropdownMenuGroup>
-                    ))}
-                  </DropdownMenuContent>
-                </DropdownMenu>
+                {versionsDropDown(versions, version, book, chapter, version2, true)}
                 {bibleContent.call(this, language2, json2, commentary, selectedVerse, handleSelectVerse, bookInfo, chapter, version2)}
               </div>
             )}
@@ -314,6 +267,39 @@ export function BibleReader({ language, book, chapter, version, version2, versio
         <ChatSupport version={version} book={book} chapter={chapter} question={question} />
       </main>
     </div>
+  );
+}
+
+function versionsDropDown(versions: any, version: any, book: any, chapter: any, version2: any, side: boolean = false) {
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="secondary" size="sm">
+          {side ? version2.toUpperCase() : version.toUpperCase()}
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="w-80">
+        {Object.entries(
+          versions.reduce((acc, version) => {
+            const lang = version.lang || "Other";
+            if (!acc[lang]) acc[lang] = [];
+            acc[lang].push(version);
+            return acc;
+          }, {})
+        ).map(([lang, versions]: [string, any[]]) => (
+          <DropdownMenuGroup key={lang}>
+            <DropdownMenuLabel>{lang}</DropdownMenuLabel>
+            {versions.map((v) => (
+              <Link href={side ? `/${version}/${book}/${chapter}?side=${v.id}` : `/${v.id}/${book}/${chapter}?side=${version2}`} key={v.id}>
+                <DropdownMenuItem>
+                  <b>{v.id.toUpperCase()}</b>&nbsp;{v.name}
+                </DropdownMenuItem>
+              </Link>
+            ))}
+          </DropdownMenuGroup>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
 
