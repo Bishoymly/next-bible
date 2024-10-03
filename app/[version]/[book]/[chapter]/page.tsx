@@ -11,7 +11,7 @@ export default async function Read({ params, searchParams }) {
   const books = getBooks(language);
   const bookInfo = books.filter((b) => b.slug === book)[0];
 
-  const version2 = searchParams.side || (version === "avd" ? "asv" : "avd");
+  const version2 = searchParams.side || "study";
   const language2 = versions.filter((v) => v.id === version2)[0].lang;
 
   let json = getBibleJson(bookInfo.b, version)["chapters"][parseInt(chapter)];
@@ -21,12 +21,15 @@ export default async function Read({ params, searchParams }) {
   }
   json = swapSectionAndParagraph(json);
 
-  let json2 = getBibleJson(bookInfo.b, version2)["chapters"][parseInt(chapter)];
-  if (json2["front"]) {
-    json2["0"] = json2["front"];
-    delete json2.front;
+  let json2 = null;
+  if (version2 != "study") {
+    json2 = getBibleJson(bookInfo.b, version2)["chapters"][parseInt(chapter)];
+    if (json2["front"]) {
+      json2["0"] = json2["front"];
+      delete json2.front;
+    }
+    json2 = swapSectionAndParagraph(json2);
   }
-  json2 = swapSectionAndParagraph(json2);
 
   const booksCategorized = getBooksCategorized(language);
 

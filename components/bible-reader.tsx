@@ -189,8 +189,8 @@ export function BibleReader({ language, book, chapter, version, version2, versio
         </header>
 
         {/* Bible Content */}
-        <div className={`flex-1 scroll-smooth overflow-y-scroll`} ref={scrollContainerRef}>
-          <div className="p-6 flex space-x-4">
+        <div className="flex-1 scroll-smooth overflow-y-scroll" ref={scrollContainerRef}>
+          <div className="p-6 flex space-x-8">
             <div className="max-w-3xl mx-auto space-y-4 mb-20 flex-1">
               <div className={inter.className}>
                 <div className="flex items-center space-x-2">
@@ -206,67 +206,77 @@ export function BibleReader({ language, book, chapter, version, version2, versio
             {sideBySide && (
               <div className={`max-w-3xl mx-auto space-y-4 mb-20 flex-1 ${inter.className}`}>
                 {versionsDropDown(versions, version, book, chapter, version2, true)}
-                {bibleContent.call(this, language2, json2, commentary, selectedVerse, handleSelectVerse, bookInfo, chapter, version2)}
+                {version2 == "study"
+                  ? studyContent(language, commentary, json, bookInfo, chapter, setQuestion)
+                  : bibleContent.call(this, language2, json2, commentary, selectedVerse, handleSelectVerse, bookInfo, chapter, version2)}
               </div>
             )}
           </div>
           <div className="p-6 mb-16">
-            {commentary?.questions?.length > 0 && (
-              <>
-                <div className="max-w-3xl mx-auto mt-8">
-                  <h2 className="text-2xl font-semibold mb-2">Study</h2>
-                  {language != "Arabic" &&
-                    commentary?.sections.map((section) => (
-                      <div id={`s2${section.fromVerse}`} key={`s2${section.fromVerse}`} className={`snap-y scroll-my-10 mb-6`}>
-                        <Link href={`#s${section.fromVerse}`} className="hover:text-blue-700">
-                          <h4 className={` font-semibold mb-2 mt-4 cursor-pointer ${language == "Arabic" ? "text-xl" : "text-lg"}`}>
-                            {section.fromVerse} - {section.toVerse} : {section.title}
-                          </h4>
-                        </Link>
-                        {section.commentary.map((l, index) => (
-                          <span key={index}>{l}</span>
-                        ))}
-                        {commentary?.importantVerses
-                          .filter((v) => v.verse >= section.fromVerse && v.verse <= section.toVerse)
-                          .map((important, index) => (
-                            <figure key={index} className="md:flex bg-slate-100 rounded-xl p-8 md:p-0 dark:bg-slate-800 mt-6 md:ml-20">
-                              <div className="pt-6 md:p-8 text-center md:text-left space-y-4">
-                                <blockquote>
-                                  <p className="text-lg font-medium">
-                                    &ldquo;
-                                    {renderVerse(json[important.verse], language, true)}
-                                    &rdquo;
-                                  </p>
-                                </blockquote>
-                                <figcaption className="font-medium">
-                                  <div className="text-slate-700 dark:text-slate-500">
-                                    <Link href={`#${important.verse}`} className="hover:text-blue-700">
-                                      {bookInfo.n} {chapter}:{important.verse}
-                                    </Link>
-                                  </div>
-                                </figcaption>
-                              </div>
-                            </figure>
-                          ))}
-                      </div>
-                    ))}
-
-                  <h3 className="text-xl font-semibold mt-10 mb-2">Questions</h3>
-                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    {commentary?.questions?.map((question) => (
-                      <Button key={question} variant="outline" className="mr-2 mb-2 text-wrap h-auto py-2 text-left" onClick={() => setQuestion(question)}>
-                        {question}
-                      </Button>
-                    ))}
-                  </ul>
-                </div>
-              </>
+            {(version2 != "study" || !sideBySide) && commentary?.questions?.length > 0 && (
+              <div className="max-w-3xl mx-auto mt-8">
+                <h2 className="text-2xl font-semibold mb-2">Study</h2>
+                {studyContent(language, commentary, json, bookInfo, chapter, setQuestion)}
+              </div>
             )}
           </div>
         </div>
         <ChatSupport version={version} book={book} chapter={chapter} question={question} />
       </main>
     </div>
+  );
+}
+
+function studyContent(language: any, commentary: any, json: any, bookInfo: any, chapter: any, setQuestion) {
+  return (
+    commentary?.questions?.length > 0 && (
+      <div>
+        {language != "Arabic" &&
+          commentary?.sections.map((section) => (
+            <div id={`s2${section.fromVerse}`} key={`s2${section.fromVerse}`} className={`snap-y scroll-my-10 mb-6`}>
+              <Link href={`#s${section.fromVerse}`} className="hover:text-blue-700">
+                <h4 className={` font-semibold mb-2 mt-4 cursor-pointer ${language == "Arabic" ? "text-xl" : "text-lg"}`}>
+                  {section.fromVerse} - {section.toVerse} : {section.title}
+                </h4>
+              </Link>
+              {section.commentary.map((l, index) => (
+                <span key={index}>{l}</span>
+              ))}
+              {commentary?.importantVerses
+                .filter((v) => v.verse >= section.fromVerse && v.verse <= section.toVerse)
+                .map((important, index) => (
+                  <figure key={index} className="md:flex bg-slate-100 rounded-xl p-8 md:p-0 dark:bg-slate-800 mt-6 md:ml-20">
+                    <div className="pt-6 md:p-8 text-center md:text-left space-y-4">
+                      <blockquote>
+                        <p className="text-lg font-medium">
+                          &ldquo;
+                          {renderVerse(json[important.verse], language, true)}
+                          &rdquo;
+                        </p>
+                      </blockquote>
+                      <figcaption className="font-medium">
+                        <div className="text-slate-700 dark:text-slate-500">
+                          <Link href={`#${important.verse}`} className="hover:text-blue-700">
+                            {bookInfo.n} {chapter}:{important.verse}
+                          </Link>
+                        </div>
+                      </figcaption>
+                    </div>
+                  </figure>
+                ))}
+            </div>
+          ))}
+
+        <h3 className="text-xl font-semibold mt-10 mb-2">Questions</h3>
+        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          {commentary?.questions?.map((question) => (
+            <Button key={question} variant="outline" className="mr-2 mb-2 text-wrap h-auto py-2 text-left" onClick={() => setQuestion(question)}>
+              {question}
+            </Button>
+          ))}
+        </ul>
+      </div>
+    )
   );
 }
 
