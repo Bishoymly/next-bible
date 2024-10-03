@@ -5,7 +5,7 @@ import { kv } from "@vercel/kv";
 import { z } from "zod";
 
 export default async function curateBook(language, book) {
-  const key = book;
+  const key = `${language}/${book}`;
 
   // Check if we have a cached response
   const cached = (await kv.get(key)) as { overviewParagraphs?: string[]; sections?: { title: string; fromChapter: number; toChapter: number }[] };
