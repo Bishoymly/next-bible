@@ -84,17 +84,14 @@ export function BibleReader({ language, book, chapter, version, version2, versio
   useEffect(() => {
     const fetchCommentary = async () => {
       try {
-        const response = await fetch(`/api/${book}/${chapter}/commentary`);
+        const response = await fetch(`/api/${language}/${book}/${chapter}/commentary`);
         const data = await response.json();
         setCommentary(data);
       } catch (error) {
         console.error("Error fetching commentary:", error);
       }
     };
-
-    if (language == "English") {
-      fetchCommentary();
-    }
+    fetchCommentary();
   }, [book, chapter]);
 
   const handleSelectVerse = (verse) => {
@@ -112,12 +109,12 @@ export function BibleReader({ language, book, chapter, version, version2, versio
       <ScrollArea className={`h-full mt-4 pr-3 ${language == "Arabic" ? `[direction:rtl] ${amiri.className} text-2xl leading-loose` : `text-lg leading-relaxed ${inter.className}`}`}>
         {commentary && (
           <div className="mb-10">
-            <h2 className="text-xl font-semibold mb-2">On this page</h2>
+            <h2 className="text-xl font-semibold mb-2">{uiText[language].onThisPage}</h2>
             <ul className="space-y-1">
               {commentary?.sections.map((section, index) => (
                 <li key={index} className="block">
                   <Link
-                    className={`text-sm hover:text-blue-600 ${activeId === `s${section.fromVerse}` ? "text-blue-600 font-bold" : "text-gray-500"}`}
+                    className={`${language == "Arabic" ? "text-xl" : "text-sm"} hover:text-blue-600 ${activeId === `s${section.fromVerse}` ? "text-blue-600 font-bold" : "text-gray-500"}`}
                     href={`#s${section.fromVerse}`}
                     onClick={() => setActiveId(`s${section.fromVerse}`)}
                   >
@@ -131,6 +128,9 @@ export function BibleReader({ language, book, chapter, version, version2, versio
 
         <h2 className="text-xl font-semibold mb-4">{uiText[language].chapters}</h2>
         <div className="grid grid-cols-5 gap-2 mb-8">
+          <Button variant="outline" size="sm" className={`${language == "Arabic" ? "text-base" : "text-sm"} col-span-5`} asChild>
+            <Link href={`/${version}/${book}`}>{uiText[language].introduction}</Link>
+          </Button>
           {Array.from({ length: bookInfo.c }, (_, i) => i + 1).map((c) => (
             <Button key={c} variant={chapter == c ? "default" : "outline"} size="sm" className={language == "Arabic" ? "text-base" : "text-sm"} asChild>
               <Link href={`/${version}/${book}/${c}`}>{c}</Link>
@@ -190,24 +190,26 @@ export function BibleReader({ language, book, chapter, version, version2, versio
 
         {/* Bible Content */}
         <div className="flex-1 scroll-smooth overflow-y-scroll" ref={scrollContainerRef}>
-          <div className="p-6 flex space-x-4 md:space-x-8">
+          <div className="p-6 flex gap-4 md:gap-8">
             <div className="max-w-3xl mx-auto space-y-4 mb-20 flex-1">
               <div className={inter.className}>
-                <div className="flex items-center space-x-2">
+                <div className="flex gap-2">
                   {versionsDropDown(versions, version, book, chapter, version2, false)}
                   <Toggle aria-label="Side by side" aria-description="Side by side" size="sm" onClick={() => setSideBySide(!sideBySide)} value={sideBySide}>
                     <BookCopy />
                   </Toggle>
                 </div>
               </div>
-              {bibleContent.call(this, language, json, commentary, selectedVerse, handleSelectVerse, bookInfo, chapter, version)}
+              {version == "study"
+                ? studyContent(language, version, commentary, json, bookInfo, chapter, setQuestion)
+                : bibleContent.call(this, language, json, commentary, selectedVerse, handleSelectVerse, bookInfo, chapter, version)}
             </div>
 
             {sideBySide && (
-              <div className={`max-w-3xl mx-auto space-y-4 mb-20 flex-1 ${inter.className}`}>
-                {versionsDropDown(versions, version, book, chapter, version2, true)}
+              <div className={`max-w-3xl mx-auto space-y-4 mb-20 flex-1`}>
+                <div className={inter.className}>{versionsDropDown(versions, version, book, chapter, version2, true)}</div>
                 {version2 == "study"
-                  ? studyContent(language, commentary, json, bookInfo, chapter, setQuestion)
+                  ? studyContent(language, version, commentary, json, bookInfo, chapter, setQuestion)
                   : bibleContent.call(this, language2, json2, commentary, selectedVerse, handleSelectVerse, bookInfo, chapter, version2)}
               </div>
             )}
@@ -215,8 +217,8 @@ export function BibleReader({ language, book, chapter, version, version2, versio
           <div className="p-6 mb-16">
             {(version2 != "study" || !sideBySide) && commentary?.questions?.length > 0 && (
               <div className="max-w-3xl mx-auto mt-8">
-                <h2 className="text-2xl font-semibold mb-2">Study</h2>
-                {studyContent(language, commentary, json, bookInfo, chapter, setQuestion)}
+                <h2 className="text-2xl font-semibold mb-2">{uiText[language].study}</h2>
+                {studyContent(language, version, commentary, json, bookInfo, chapter, setQuestion)}
               </div>
             )}
           </div>
@@ -227,50 +229,57 @@ export function BibleReader({ language, book, chapter, version, version2, versio
   );
 }
 
-function studyContent(language: any, commentary: any, json: any, bookInfo: any, chapter: any, setQuestion) {
+function studyContent(language: any, version: any, commentary: any, json: any, bookInfo: any, chapter: any, setQuestion) {
   return (
     commentary?.questions?.length > 0 && (
       <div>
-        {language != "Arabic" &&
-          commentary?.sections.map((section) => (
-            <div id={`s2${section.fromVerse}`} key={`s2${section.fromVerse}`} className={`snap-y scroll-my-10 mb-6`}>
-              <Link href={`#s${section.fromVerse}`} className="hover:text-blue-700">
-                <h4 className={` font-semibold mb-2 mt-4 cursor-pointer ${language == "Arabic" ? "text-xl" : "text-lg"}`}>
-                  {section.fromVerse} - {section.toVerse} : {section.title}
-                </h4>
-              </Link>
-              {section.commentary.map((l, index) => (
-                <span key={index}>{l}</span>
-              ))}
-              {commentary?.importantVerses
-                .filter((v) => v.verse >= section.fromVerse && v.verse <= section.toVerse)
-                .map((important, index) => (
-                  <figure key={index} className="md:flex bg-slate-100 rounded-xl p-8 md:p-0 dark:bg-slate-800 mt-6 md:ml-20">
-                    <div className="pt-6 md:p-8 text-center md:text-left space-y-4">
-                      <blockquote>
-                        <p className="text-lg font-medium">
-                          &ldquo;
-                          {renderVerse(json[important.verse], language, true)}
-                          &rdquo;
-                        </p>
-                      </blockquote>
-                      <figcaption className="font-medium">
-                        <div className="text-slate-700 dark:text-slate-500">
-                          <Link href={`#${important.verse}`} className="hover:text-blue-700">
-                            {bookInfo.n} {chapter}:{important.verse}
-                          </Link>
-                        </div>
-                      </figcaption>
-                    </div>
-                  </figure>
-                ))}
-            </div>
-          ))}
+        {commentary?.sections.map((section) => (
+          <div id={`ss${section.fromVerse}`} key={`ss${section.fromVerse}`} className={`snap-y scroll-my-10 mb-6`}>
+            <Link href={`#s${section.fromVerse}`} className="hover:text-blue-700">
+              <h4 className={` font-semibold mb-2 mt-4 cursor-pointer ${language == "Arabic" ? "text-xl" : "text-lg"}`}>
+                {section.fromVerse} - {section.toVerse} : {section.title}
+              </h4>
+            </Link>
+            {section.commentary.map((l, index) => (
+              <span key={index}>{l}</span>
+            ))}
+            {commentary?.importantVerses
+              .filter((v) => v.verse >= section.fromVerse && v.verse <= section.toVerse)
+              .map((important, index) => (
+                <figure key={index} className="md:flex bg-slate-100 rounded-xl p-8 md:p-0 dark:bg-slate-800 mt-6 md:ml-20">
+                  <div className="pt-6 md:p-8 text-center md:text-start space-y-4">
+                    <>
+                      <span className="text-lg font-medium">
+                        {language == "Arabic" ? <>&rdquo;</> : <>&ldquo;</>}
+                        {renderVerse(json[important.verse], language, true)}
+                        {language == "Arabic" ? <>&ldquo;</> : <>&rdquo;</>}
+                      </span>{" "}
+                      -{" "}
+                      <span className="text-slate-600 dark:text-slate-500">
+                        <Link href={`#${important.verse}`} className="hover:text-blue-700">
+                          {bookInfo.n} {chapter}:{important.verse}
+                        </Link>
+                      </span>
+                    </>
 
-        <h3 className="text-xl font-semibold mt-10 mb-2">Questions</h3>
-        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    <div className="gap-2 space-x-2">
+                      <span className="pb-4 block text-muted-foreground">{important.commentary}</span>
+                      {important.crossReferences?.map((ref, index) => (
+                        <Button key={index} variant="outline">
+                          <Link href={`/${version}/${ref.book.toLowerCase().replace(/ /g, "-")}/${ref.chapter}#${ref.verse}`}>{`${ref.book} ${ref.chapter}:${ref.verse}`}</Link>
+                        </Button>
+                      ))}
+                    </div>
+                  </div>
+                </figure>
+              ))}
+          </div>
+        ))}
+
+        <h3 className="text-xl font-semibold mt-10 mb-2">{uiText[language].questions}</h3>
+        <ul className={`gap-2`}>
           {commentary?.questions?.map((question) => (
-            <Button key={question} variant="outline" className="mr-2 mb-2 text-wrap h-auto py-2 text-left" onClick={() => setQuestion(question)}>
+            <Button key={question} variant="outline" className="block mr-2 mb-2 text-wrap h-auto py-2 text-start" onClick={() => setQuestion(question)}>
               {question}
             </Button>
           ))}
@@ -298,7 +307,7 @@ function versionsDropDown(versions: any, version: any, book: any, chapter: any, 
           }, {})
         ).map(([lang, versions]: [string, any[]]) => (
           <DropdownMenuGroup key={lang}>
-            <DropdownMenuLabel>{lang}</DropdownMenuLabel>
+            <DropdownMenuLabel className="font-normal text-muted-foreground">{lang}</DropdownMenuLabel>
             {versions.map((v) => (
               <Link href={side ? `/${version}/${book}/${chapter}?side=${v.id}` : `/${v.id}/${book}/${chapter}?side=${version2}`} key={v.id}>
                 <DropdownMenuItem>
@@ -339,7 +348,7 @@ function renderVerse(verse: any, language: any, singleVerse: boolean = false) {
     ) : verseObject.tag == "+add" ? (
       <span className="italic text-red-600">{verseObject.text}</span>
     ) : verseObject.tag == "s1" ? (
-      <h3 className="text-3xl font-semibold mt-2 mb-4">{verseObject.content}</h3>
+      <>{/*<h3 className="text-3xl font-semibold mt-2 mb-4">{verseObject.content}</h3>*/}</>
     ) : verseObject.tag == "f" ? (
       singleVerse ? (
         <></>
@@ -376,16 +385,15 @@ function bibleContent(this, language: any, json: any, commentary: any, selectedV
     <div className={` ${language == "Arabic" ? `text-2xl leading-loose [direction:rtl] ${amiri.className}` : `text-lg leading-relaxed [direction:ltr] ${inter.className}`}`}>
       {Object.entries(json).map(([key, verse]) => (
         <>
-          {language != "Arabic" &&
-            commentary?.sections
-              .filter((s) => s.fromVerse == key)
-              .map((section) => (
-                <div id={`s${section.fromVerse}`} key={`s${section.fromVerse}`} className={`snap-y scroll-my-10 ${section.fromVerse == 1 ? "" : "mt-10"}`}>
-                  <Link href={`#s2${section.fromVerse}`}>
-                    <h3 className={` font-semibold mb-2 mt-4 cursor-pointer ${language == "Arabic" ? "text-2xl" : "text-xl"}`}>{section.title}</h3>
-                  </Link>
-                </div>
-              ))}
+          {commentary?.sections
+            .filter((s) => s.fromVerse == key)
+            .map((section) => (
+              <div id={`s${section.fromVerse}`} key={`s${section.fromVerse}`} className={`snap-y scroll-my-10 ${section.fromVerse == 1 ? "" : "mt-10"}`}>
+                <Link href={`#ss${section.fromVerse}`}>
+                  <h3 className={` font-semibold mb-2 mt-4 cursor-pointer ${language == "Arabic" ? "text-2xl" : "text-xl"}`}>{section.title}</h3>
+                </Link>
+              </div>
+            ))}
           <Drawer key={key}>
             <DrawerTrigger asChild>
               <span
@@ -424,7 +432,7 @@ function bibleContent(this, language: any, json: any, commentary: any, selectedV
                 .filter((v) => v.verse == key)
                 .map((important, index) => (
                   <div key={index}>
-                    <h3 className="font-semibold mb-2 mt-2">Commentary</h3>
+                    <h3 className="font-semibold mb-2 mt-2">{uiText[language].commentary}</h3>
                     <span className="pb-4 block">{important.commentary}</span>
                     {important.crossReferences?.map((ref, index) => (
                       <Button key={index} variant="outline" className="mr-1 mb-1">

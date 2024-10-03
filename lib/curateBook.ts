@@ -3,9 +3,8 @@ import { openai } from "@ai-sdk/openai";
 import { generateObject } from "ai";
 import { kv } from "@vercel/kv";
 import { z } from "zod";
-import GenerateImage from "./generateImage";
 
-export default async function curateBook(book) {
+export default async function curateBook(language, book) {
   const key = book;
 
   // Check if we have a cached response
@@ -20,7 +19,10 @@ export default async function curateBook(book) {
       overviewParagraphs: z.array(z.string()),
       sections: z.array(z.object({ title: z.string(), fromChapter: z.number(), toChapter: z.number() })),
     }),
-    prompt: `As a reformed baptist scholar talking to an average bible student. Give me an introduction to the book of ${book} that will help me understand the book, the writer, the setting and how to split its chapters into useful sections. Don't included chapter numbers in section titles.`,
+    prompt:
+      language === "Arabic"
+        ? `كعالم دين معمداني إصلاحي يتحدث إلى طالب الكتاب المقدس المتوسط. أعطني مقدمة لكتاب ${book} تساعدني على فهم الكتاب، الكاتب، السياق وكيفية تقسيم الفصول إلى أقسام مفيدة. لا تتضمن أرقام الفصول في عناوين الأقسام.`
+        : `As a reformed baptist scholar talking to an average bible student. Give me an introduction to the book of ${book} that will help me understand the book, the writer, the setting and how to split its chapters into useful sections. Don't included chapter numbers in section titles.`,
   });
 
   await kv.set(key, object);
