@@ -190,7 +190,7 @@ export function BibleReader({ language, book, chapter, version, version2, versio
 
         {/* Bible Content */}
         <div className="flex-1 scroll-smooth overflow-y-scroll" ref={scrollContainerRef}>
-          <div className="p-6 flex space-x-8">
+          <div className="p-6 flex space-x-4 md:space-x-8">
             <div className="max-w-3xl mx-auto space-y-4 mb-20 flex-1">
               <div className={inter.className}>
                 <div className="flex items-center space-x-2">
