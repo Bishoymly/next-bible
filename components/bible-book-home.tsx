@@ -8,6 +8,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Amiri, Inter } from "next/font/google";
 import { uiText } from "@/lib/uiText";
+import versionsDropDown from "./versions-drop-down";
 
 const titleFont = localFont({
   src: "./../public/game-of-thrones.ttf",
@@ -20,14 +21,14 @@ const amiri = Amiri({
   subsets: ["arabic"],
 });
 
-export function BibleBookHome({ language, version, book, curation, bookInfo, booksCategorized }) {
+export function BibleBookHome({ language, versions, version, book, curation, bookInfo, booksCategorized }) {
   return (
     <div className={`flex h-screen bg-background ${language == "Arabic" ? `text-2xl leading-loose [direction:rtl] ${amiri.className}` : `text-lg leading-relaxed [direction:ltr] ${inter.className}`}`}>
       {/* Collapsible Sidebar */}
       <aside className={`hidden md:flex flex-col ${language == "Arabic" ? "border-l" : "border-r"} transition-all duration-300 w-64`}>
         <ScrollArea className={`flex-1 ${language == "Arabic" ? `text-2xl leading-loose [direction:rtl] ${amiri.className}` : `text-lg leading-relaxed [direction:ltr] ${inter.className}`}`}>
           <div className="p-4 space-y-2">
-            <BibleBooksList language={language} version={version} booksCategorized={booksCategorized} aside={true} />
+            <BibleBooksList language={language} versions={versions} version={version} booksCategorized={booksCategorized} aside={true} />
           </div>
         </ScrollArea>
       </aside>
@@ -50,7 +51,7 @@ export function BibleBookHome({ language, version, book, curation, bookInfo, boo
                     }`}
                   >
                     <div className="space-y-2">
-                      <BibleBooksList language={language} version={version} booksCategorized={booksCategorized} aside={true} />
+                      <BibleBooksList language={language} versions={versions} version={version} booksCategorized={booksCategorized} aside={true} />
                     </div>
                   </ScrollArea>
                 </SheetContent>
@@ -63,7 +64,10 @@ export function BibleBookHome({ language, version, book, curation, bookInfo, boo
                 </Link>
               </Button>
 
-              <h1 className={`text-4xl font-bold text-center ${titleFont.className}`}>{bookInfo.n.replace(/1/g, "I ").replace(/2/g, "II ")}</h1>
+              <div className="flex">
+                <h1 className={`text-4xl font-bold text-center align-middle ${titleFont.className}`}>{bookInfo.n.replace(/1/g, "I ").replace(/2/g, "II ")}</h1>
+                <span className="mx-3">{versionsDropDown(versions, version, book, null, null, false)}</span>
+              </div>
               <Button variant="ghost" asChild className="hidden md:inline-flex">
                 <Link href={`/${version}/${bookInfo.nextBook?.slug}`}>
                   {bookInfo.nextBook?.n}

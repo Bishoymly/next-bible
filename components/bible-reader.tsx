@@ -20,6 +20,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { Toggle } from "./ui/toggle";
 import { getBookSlug } from "@/lib/getBookSlug";
 import { Skeleton } from "./ui/skeleton";
+import versionsDropDown from "./versions-drop-down";
 
 const inter = Inter({ subsets: ["latin"] });
 const amiri = Amiri({
@@ -140,7 +141,7 @@ export function BibleReader({ language, book, chapter, version, version2, versio
           ))}
         </div>
         <h2 className="text-xl font-semibold mt-6">{uiText[language].books}</h2>
-        <BibleBooksList language={language} version={version} booksCategorized={booksCategorized} aside={true} />
+        <BibleBooksList language={language} versions={versions} version={version} booksCategorized={booksCategorized} aside={true} />
       </ScrollArea>
     );
   }
@@ -301,41 +302,6 @@ function studyContent(language: any, version: any, commentary: any, json: any, b
   );
 }
 
-function versionsDropDown(versions: any, version: any, book: any, chapter: any, version2: any, side: boolean = false) {
-  return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="secondary" size="sm">
-          {side ? version2.toUpperCase() : version.toUpperCase()}
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-80">
-        {Object.entries(
-          versions
-            .filter((v) => (!side ? v.id != "study" : true))
-            .reduce((acc, version) => {
-              const lang = version.lang || "Other";
-              if (!acc[lang]) acc[lang] = [];
-              acc[lang].push(version);
-              return acc;
-            }, {})
-        ).map(([lang, versions]: [string, any[]]) => (
-          <DropdownMenuGroup key={lang}>
-            <DropdownMenuLabel className="font-normal text-muted-foreground">{lang}</DropdownMenuLabel>
-            {versions.map((v) => (
-              <Link href={side ? `/${version}/${book}/${chapter}?side=${v.id}` : `/${v.id}/${book}/${chapter}?side=${version2}`} key={v.id}>
-                <DropdownMenuItem>
-                  <b>{v.id.toUpperCase()}</b>&nbsp;{v.name}
-                </DropdownMenuItem>
-              </Link>
-            ))}
-          </DropdownMenuGroup>
-        ))}
-      </DropdownMenuContent>
-    </DropdownMenu>
-  );
-}
-
 function renderVerse(verse: any, language: any, singleVerse: boolean = false) {
   return (verse as { verseObjects: { text: string; tag: string; type: string; content: string; nextChar: string; children: any[] }[] }).verseObjects.map((verseObject, index, array) =>
     verseObject.type == "text" || verseObject.type == "word" || verseObject.tag == "d" ? (
@@ -412,13 +378,7 @@ function bibleContent(this, language: any, json: any, commentary: any, selectedV
             <DrawerTrigger asChild>
               <span
                 key={key}
-                className={
-                  selectedVerse?.key == key
-                    ? "bg-yellow-200 -my-1 py-1 cursor-pointer shadow-md"
-                    : commentary?.importantVerses.filter((v) => v.verse == key).length > 0
-                    ? "bg-blue-100 -my-1 py-1 cursor-pointer"
-                    : ""
-                }
+                className={selectedVerse?.key == key ? "bg-yellow-200 -my-1 py-1 cursor-pointer shadow-md" : ""}
                 onClick={handleSelectVerse.bind(this, {
                   key: key,
                   text: (verse as { verseObjects: { text: string; tag: string; type: string }[] }).verseObjects.map((vo) => vo.text).join(" "),

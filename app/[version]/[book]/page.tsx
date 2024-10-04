@@ -16,5 +16,5 @@ export default async function BookPage({ params }) {
   bookInfo.nextBook = bookInfo.b === books.length ? books[0] : books[books.indexOf(bookInfo) + 1];
   const curation = await curateBook(language, book);
 
-  return <BibleBookHome language={language} version={version} book={book} curation={curation} bookInfo={bookInfo} booksCategorized={booksCategorized} />;
+  return <BibleBookHome language={language} versions={versions} version={version} book={book} curation={curation} bookInfo={bookInfo} booksCategorized={booksCategorized} />;
 }

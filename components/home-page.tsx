@@ -47,13 +47,13 @@ export function HomePageComponent() {
                 <Link href={`/asv/genesis`}>Start Reading</Link>
               </Button>
               <Button variant="outline" asChild>
-                <Link href={"/kjv/genesis"}>KJV</Link>
+                <Link href={"/kjv"}>KJV</Link>
               </Button>
               <Button variant="outline" asChild>
-                <Link href={"/asv/genesis"}>ASV</Link>
+                <Link href={"/asv"}>ASV</Link>
               </Button>
               <Button variant="outline" asChild>
-                <Link href={"/avd/genesis"}>الكتاب المقدس</Link>
+                <Link href={"/avd"}>الكتاب المقدس</Link>
               </Button>
             </div>
           </div>

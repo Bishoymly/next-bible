@@ -9,5 +9,5 @@ export default async function VersionPage({ params }) {
   const language = versions.filter((v) => v.id === version)[0].lang;
   const booksCategorized = getBooksCategorized(language);
 
-  return <BibleBooksList language={language} version={version} booksCategorized={booksCategorized} aside={false} />;
+  return <BibleBooksList language={language} versions={versions} version={version} booksCategorized={booksCategorized} aside={false} />;
 }

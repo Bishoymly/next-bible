@@ -19,6 +19,8 @@ export const uiText = {
     sections: "Sections",
     onThisPage: "On this page",
     introduction: "Introduction",
+    oldTestament: "Old Testament",
+    newTestament: "New Testament",
   },
   Spanish: {
     selectBook: "Seleccionar Libro",
@@ -40,6 +42,8 @@ export const uiText = {
     sections: "Secciones",
     onThisPage: "En esta página",
     introduction: "Introducción",
+    oldTestament: "Antiguo Testamento",
+    newTestament: "Nuevo Testamento",
   },
   Arabic: {
     selectBook: "اختر الكتاب",
@@ -61,5 +65,7 @@ export const uiText = {
     sections: "أقسام",
     onThisPage: "في هذه الصفحة",
     introduction: "مقدمة",
+    oldTestament: "العهد القديم",
+    newTestament: "العهد الجديد",
   },
 };
