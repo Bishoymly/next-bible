@@ -42,7 +42,7 @@ export function HomePageComponent() {
           <div className="container mx-auto px-4 text-center">
             <h1 className="text-4xl font-bold mb-4">Discover the Word of God</h1>
             <p className="text-xl mb-8">Explore the Bible with helpful insights and multiple translations.</p>
-            <div className="flex justify-center space-x-4">
+            <div className="flex flex-wrap justify-center gap-3">
               <Button asChild>
                 <Link href={`/asv/genesis`}>Start Reading</Link>
               </Button>
