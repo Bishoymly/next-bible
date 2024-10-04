@@ -46,6 +46,7 @@ export default async function Read({ params, searchParams }) {
       json2={json2}
       language2={language2}
       booksCategorized={booksCategorized}
+      books={books}
     />
   );
 }
