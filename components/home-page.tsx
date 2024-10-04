@@ -44,7 +44,16 @@ export function HomePageComponent() {
             <p className="text-xl mb-8">Explore the Bible with helpful insights and multiple translations.</p>
             <div className="flex justify-center space-x-4">
               <Button asChild>
-                <Link href={"/asv/genesis"}>Start Reading</Link>
+                <Link href={`/asv/genesis`}>Start Reading</Link>
+              </Button>
+              <Button variant="outline" asChild>
+                <Link href={"/kjv/genesis"}>KJV</Link>
+              </Button>
+              <Button variant="outline" asChild>
+                <Link href={"/asv/genesis"}>ASV</Link>
+              </Button>
+              <Button variant="outline" asChild>
+                <Link href={"/avd/genesis"}>الكتاب المقدس</Link>
               </Button>
             </div>
           </div>
