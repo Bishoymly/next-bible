@@ -167,7 +167,7 @@ export function BibleReader({ language, book, chapter, version, version2, versio
                   <Menu />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="left">{Sidebar(bookInfo, chapter, book, booksCategorized)}</SheetContent>
+              <SheetContent side={language === "Arabic" ? "right" : "left"}>{Sidebar(bookInfo, chapter, book, booksCategorized)}</SheetContent>
             </Sheet>
             <Button variant="ghost" size="icon" className={`p-0 ${sidebarExpanded ? "hidden" : ""}`} onClick={() => setSidebarExpanded(!sidebarExpanded)}>
               {language == "Arabic" ? <ChevronLeft className="h-5" /> : <ChevronRight />}
