@@ -28,7 +28,7 @@ export function BibleBookHome({ language, versions, version, book, curation, boo
       <aside className={`hidden md:flex flex-col ${language == "Arabic" ? "border-l" : "border-r"} transition-all duration-300 w-64`}>
         <ScrollArea className={`flex-1 ${language == "Arabic" ? `text-2xl leading-loose [direction:rtl] ${amiri.className}` : `text-lg leading-relaxed [direction:ltr] ${inter.className}`}`}>
           <div className="p-4 space-y-2">
-            <BibleBooksList language={language} versions={versions} version={version} booksCategorized={booksCategorized} aside={true} />
+            <BibleBooksList language={language} versions={versions} version={version} book={book} chapter={null} booksCategorized={booksCategorized} aside={true} />
           </div>
         </ScrollArea>
       </aside>
@@ -51,7 +51,7 @@ export function BibleBookHome({ language, versions, version, book, curation, boo
                     }`}
                   >
                     <div className="space-y-2">
-                      <BibleBooksList language={language} versions={versions} version={version} booksCategorized={booksCategorized} aside={true} />
+                      <BibleBooksList language={language} versions={versions} version={version} book={book} chapter={null} booksCategorized={booksCategorized} aside={true} />
                     </div>
                   </ScrollArea>
                 </SheetContent>

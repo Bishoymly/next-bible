@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetClose, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { BookCopy, BookOpen, ChevronLeft, ChevronRight, Menu, MessageSquareMore } from "lucide-react";
 import Link from "next/link";
 import ChatSupport from "./chat-support";
@@ -21,6 +21,7 @@ import { Toggle } from "./ui/toggle";
 import { getBookSlug } from "@/lib/getBookSlug";
 import { Skeleton } from "./ui/skeleton";
 import versionsDropDown from "./versions-drop-down";
+import ChaptersList from "./chapters-list";
 
 const inter = Inter({ subsets: ["latin"] });
 const amiri = Amiri({
@@ -35,6 +36,7 @@ export function BibleReader({ language, book, chapter, version, version2, versio
   const [question, setQuestion] = useState(null);
   const [commentary, setCommentary] = useState(null);
   const [sideBySide, setSideBySide] = useStickyState("sideBySide", false);
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [selectedVersion, setSelectedVersion] = useStickyState("selectedVersion", version);
   const [selectedVersion2, setSelectedVersion2] = useStickyState("selectedVersion2", version2);
 
@@ -107,7 +109,7 @@ export function BibleReader({ language, book, chapter, version, version2, versio
     }
   };
 
-  function Sidebar(bookInfo: any, chapter: any, book: any, booksCategorized: any) {
+  function Sidebar(bookInfo: any, chapter: any, book: any, booksCategorized: any, setIsSheetOpen: any) {
     return (
       <ScrollArea className={`h-full mt-4 pr-3 ${language == "Arabic" ? `[direction:rtl] ${amiri.className} text-2xl leading-loose` : `text-lg leading-relaxed ${inter.className}`}`}>
         {commentary && (
@@ -119,7 +121,10 @@ export function BibleReader({ language, book, chapter, version, version2, versio
                   <Link
                     className={`${language == "Arabic" ? "text-xl" : "text-sm"} hover:text-blue-600 ${activeId === `s${section.fromVerse}` ? "text-blue-600 font-bold" : "text-gray-500"}`}
                     href={`#s${section.fromVerse}`}
-                    onClick={() => setActiveId(`s${section.fromVerse}`)}
+                    onClick={() => {
+                      setActiveId(`s${section.fromVerse}`);
+                      if (setIsSheetOpen) setIsSheetOpen(false);
+                    }}
                   >
                     {section.title}
                   </Link>
@@ -130,18 +135,9 @@ export function BibleReader({ language, book, chapter, version, version2, versio
         )}
 
         <h2 className="text-xl font-semibold mb-4">{uiText[language].chapters}</h2>
-        <div className="grid grid-cols-5 gap-2 mb-8">
-          <Button variant="outline" size="sm" className={`${language == "Arabic" ? "text-base" : "text-sm"} col-span-5`} asChild>
-            <Link href={`/${version}/${book}`}>{uiText[language].introduction}</Link>
-          </Button>
-          {Array.from({ length: bookInfo.c }, (_, i) => i + 1).map((c) => (
-            <Button key={c} variant={chapter == c ? "default" : "outline"} size="sm" className={language == "Arabic" ? "text-base" : "text-sm"} asChild>
-              <Link href={`/${version}/${book}/${c}`}>{c}</Link>
-            </Button>
-          ))}
-        </div>
+        <ChaptersList language={language} version={version} book={bookInfo.slug} chaptersCount={bookInfo.c} chapter={chapter} aside={true} />
         <h2 className="text-xl font-semibold mt-6">{uiText[language].books}</h2>
-        <BibleBooksList language={language} versions={versions} version={version} booksCategorized={booksCategorized} aside={true} />
+        <BibleBooksList language={language} versions={versions} version={version} book={null} chapter={chapter} booksCategorized={booksCategorized} aside={true} />
       </ScrollArea>
     );
   }
@@ -153,7 +149,7 @@ export function BibleReader({ language, book, chapter, version, version2, versio
         <Button variant="ghost" size="icon" className={`absolute top-0 start-64 p-0 ${sidebarExpanded ? "absolute" : "hidden"}`} onClick={() => setSidebarExpanded(!sidebarExpanded)}>
           {language == "English" ? <ChevronLeft className="h-5" /> : <ChevronRight />}
         </Button>
-        {Sidebar(bookInfo, chapter, book, booksCategorized)}
+        {Sidebar(bookInfo, chapter, book, booksCategorized, null)}
       </aside>
 
       {/* Main Content */}
@@ -161,15 +157,20 @@ export function BibleReader({ language, book, chapter, version, version2, versio
         {/* Top Navigation */}
         <header className="flex items-center justify-between p-3 border-b">
           <div className="flex items-center">
-            <Sheet>
+            <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="md:hidden">
-                  <Menu />
-                </Button>
+                <div className="flex row md:hidden" onClick={() => setIsSheetOpen(!isSheetOpen)}>
+                  <Button variant="ghost" size="icon">
+                    <Menu />
+                  </Button>
+                  <h1 className="text-2xl font-bold mx-2 flex flex-row space-x-2">
+                    {bookInfo.n} {chapter}
+                  </h1>
+                </div>
               </SheetTrigger>
-              <SheetContent side={language === "Arabic" ? "right" : "left"}>{Sidebar(bookInfo, chapter, book, booksCategorized)}</SheetContent>
+              <SheetContent side={language === "Arabic" ? "right" : "left"}>{Sidebar(bookInfo, chapter, book, booksCategorized, setIsSheetOpen)}</SheetContent>
             </Sheet>
-            <Button variant="ghost" size="icon" className={`p-0 ${sidebarExpanded ? "hidden" : ""}`} onClick={() => setSidebarExpanded(!sidebarExpanded)}>
+            <Button variant="ghost" size="icon" className={`p-0 ${sidebarExpanded ? "hidden" : ""}`} onClick={() => setSidebarExpanded(true)}>
               {language == "Arabic" ? <ChevronLeft className="h-5" /> : <ChevronRight />}
             </Button>
             <Button variant="ghost" size="icon" className="hidden md:block" asChild>
@@ -177,7 +178,7 @@ export function BibleReader({ language, book, chapter, version, version2, versio
                 <BookOpen className="mt-2 mx-1" />
               </Link>
             </Button>
-            <h1 className="text-2xl font-bold mx-2 flex flex-row space-x-2">
+            <h1 className="text-2xl font-bold mx-2 flex-row space-x-2 hidden md:flex" onClick={() => setSidebarExpanded(true)}>
               {bookInfo.n} {chapter}
             </h1>
           </div>
@@ -306,7 +307,7 @@ function renderVerse(verse: any, language: any, singleVerse: boolean = false) {
   return (verse as { verseObjects: { text: string; tag: string; type: string; content: string; nextChar: string; children: any[] }[] }).verseObjects.map((verseObject, index, array) =>
     verseObject.type == "text" || verseObject.type == "word" || verseObject.tag == "d" ? (
       <>{verseObject.text.replace("¶ ", "")}</>
-    ) : verseObject.tag == "wj*" || verseObject.tag == "nd*" ? (
+    ) : verseObject.tag == "wj*" || verseObject.tag == "nd*" || verseObject.tag == "ms1" ? (
       <>{parseWord(verseObject.content).text}</>
     ) : verseObject.tag == "wj" || verseObject.tag == "nd" ? (
       <span className="text-red-600">{parseWord(verseObject.children[0].content).text}</span>

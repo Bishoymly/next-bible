@@ -6,13 +6,16 @@ import Link from "next/link";
 import { Amiri } from "next/font/google";
 import { uiText } from "@/lib/uiText";
 import versionsDropDown from "./versions-drop-down";
+import { useState } from "react";
+import ChaptersList from "./chapters-list";
 
 const amiri = Amiri({
   weight: ["400", "700"],
   subsets: ["arabic"],
 });
 
-export function BibleBooksList({ language, versions, version, booksCategorized, aside }) {
+export function BibleBooksList({ language, versions, version, book, chapter, booksCategorized, aside }) {
+  const [openBook, setOpenBook] = useState(book);
   let v = null;
   if (versions) v = versions.filter((v) => v.id === version)[0];
 
@@ -35,11 +38,18 @@ export function BibleBooksList({ language, versions, version, booksCategorized, 
               <div key={index} className="mb-6">
                 {!aside && <h3 className="font-medium mb-2 text-muted-foreground">{group.category}</h3>}
                 <ul className="space-y-0">
-                  {group.books.map((book, bookIndex) => (
+                  {group.books.map((bookInfo, bookIndex) => (
                     <li key={bookIndex}>
-                      <Button key={book} variant="ghost" className={language == "Arabic" ? `${amiri.className} text-xl leading-loose` : "text-sm leading-relaxed"} asChild>
-                        <Link href={`/${version}/${book.slug}`}>{book.n}</Link>
+                      <Button
+                        variant="ghost"
+                        className={language == "Arabic" ? `${amiri.className} text-xl leading-loose` : "text-sm leading-relaxed"}
+                        onClick={() => setOpenBook(bookInfo.slug === openBook ? null : bookInfo.slug)}
+                      >
+                        {bookInfo.n}
                       </Button>
+                      <div key={bookIndex + "c"} className={`overflow-hidden transition-all duration-300 ${bookInfo.slug === openBook ? "max-h-[1300px]" : "max-h-0"}`}>
+                        <ChaptersList language={language} version={version} book={bookInfo.slug} chaptersCount={bookInfo.c} chapter={bookInfo.slug === book ? chapter : null} aside={aside} />
+                      </div>
                     </li>
                   ))}
                 </ul>
@@ -55,11 +65,18 @@ export function BibleBooksList({ language, versions, version, booksCategorized, 
               <div key={index} className="mb-6">
                 {!aside && <h3 className="font-medium mb-2 text-muted-foreground">{group.category}</h3>}
                 <ul className="space-y-1">
-                  {group.books.map((book, bookIndex) => (
-                    <li key={bookIndex} className="text-sm">
-                      <Button key={book} variant="ghost" className={language == "Arabic" ? `${amiri.className} text-xl leading-loose` : "text-sm leading-relaxed"} asChild>
-                        <Link href={`/${version}/${book.slug}`}>{book.n}</Link>
+                  {group.books.map((bookInfo, bookIndex) => (
+                    <li key={bookIndex}>
+                      <Button
+                        variant="ghost"
+                        className={language == "Arabic" ? `${amiri.className} text-xl leading-loose` : "text-sm leading-relaxed"}
+                        onClick={() => setOpenBook(bookInfo.slug === openBook ? null : bookInfo.slug)}
+                      >
+                        {bookInfo.n}
                       </Button>
+                      <div key={bookIndex + "c"} className={`overflow-hidden transition-all duration-300 ${bookInfo.slug === openBook ? "max-h-[1300px]" : "max-h-0"}`}>
+                        <ChaptersList language={language} version={version} book={bookInfo.slug} chaptersCount={bookInfo.c} chapter={bookInfo.slug === book ? chapter : null} aside={aside} />
+                      </div>
                     </li>
                   ))}
                 </ul>
