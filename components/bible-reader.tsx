@@ -251,20 +251,17 @@ function studyContent(language: any, version: any, commentary: any, json: any, b
             .map((important, index) => (
               <figure key={index} className="md:flex bg-slate-100 rounded-xl p-8 md:p-0 dark:bg-slate-800 mt-6 md:ml-20">
                 <div className="pt-6 md:p-8 text-center md:text-start space-y-4">
-                  <>
+                  <Link href={`#${important.verse}`} className="hover:text-blue-700">
                     <span className="text-lg font-medium">
                       {language == "Arabic" ? <>&rdquo;</> : <>&ldquo;</>}
                       {renderVerse(json[important.verse], language, true)}
                       {language == "Arabic" ? <>&ldquo;</> : <>&rdquo;</>}
                     </span>{" "}
                     -{" "}
-                    <span className="text-slate-600 dark:text-slate-500">
-                      <Link href={`#${important.verse}`} className="hover:text-blue-700">
-                        {bookInfo.n} {chapter}:{important.verse}
-                      </Link>
+                    <span>
+                      {bookInfo.n} {chapter}:{important.verse}
                     </span>
-                  </>
-
+                  </Link>
                   <div>
                     <span className="pb-2 block text-muted-foreground text-start">{important.commentary}</span>
                   </div>
