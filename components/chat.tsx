@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { useChat } from "ai/react";
 import { ScrollArea } from "./ui/scroll-area";
 import React, { useEffect } from "react";
+import { BotMessageSquare, UserRound } from "lucide-react";
 
 function formatChatResponseToHTML(version, response) {
   // Escape any HTML special characters to avoid XSS attacks
@@ -62,26 +63,14 @@ export function Chats({ version, book, chapter, question }) {
     <div className="flex flex-col h-full w-full border-0 shadow-none space-y-4 p-4">
       <div>
         {/*<CardTitle> Bible AI </CardTitle>*/}
-        <CardDescription className="mr-3">
-          This AI provides general Bible information and is not a substitute for personal study or guidance from religious leaders. Interpretations may vary. Consult the Bible and trusted faith
-          advisors for spiritual guidance.
-        </CardDescription>
+        <CardDescription className="mr-3">This AI provides general Bible information and is not a substitute for personal study or guidance from religious leaders.</CardDescription>
       </div>
       <ScrollArea className="flex-1 w-full pr-4">
         {messages.map((message) => {
           return (
             <div key={message.id} className="flex gap-3 text-slate-600 mb-4">
-              {message.role === "user" && (
-                <Avatar>
-                  <AvatarFallback>User</AvatarFallback>
-                </Avatar>
-              )}
-              {message.role === "assistant" && (
-                <Avatar>
-                  <AvatarFallback>AI</AvatarFallback>
-                  {/*<AvatarImage src="https://github.com/shadcn.png" />*/}
-                </Avatar>
-              )}
+              {message.role === "user" && <UserRound className="w-8 h-8" />}
+              {message.role === "assistant" && <BotMessageSquare className="w-16 h-16" />}
 
               <p className="leading-relaxed">
                 <span className="block font-bold text-slate-700">{message.role === "user" ? "User" : "AI"}</span>
