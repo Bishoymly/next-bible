@@ -134,7 +134,7 @@ export function BibleReader({ language, book, chapter, version, version2, versio
           </div>
         )}
 
-        <h2 className="text-xl font-semibold mb-4">{uiText[language].chapters}</h2>
+        <h2 className="text-xl font-semibold mb-4">{bookInfo.n}</h2>
         <ChaptersList language={language} version={version} book={bookInfo.slug} chaptersCount={bookInfo.c} chapter={chapter} aside={true} />
         <h2 className="text-xl font-semibold mt-6">{uiText[language].books}</h2>
         <BibleBooksList language={language} versions={versions} version={version} book={null} chapter={chapter} booksCategorized={booksCategorized} aside={true} />
