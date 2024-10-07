@@ -19,7 +19,7 @@ export default function SocialShareButtons({ language, version, book, chapter, v
 
   return (
     <TooltipProvider>
-      <div className="flex mt-4 space-x-2">
+      <div className="flex mt-4 gap-2">
         <Button variant="outline" size="icon" onClick={() => window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`, "_blank")}>
           <Facebook className="h-4 w-4" />
         </Button>

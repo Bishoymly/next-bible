@@ -304,7 +304,9 @@ function renderVerse(verse: any, language: any, singleVerse: boolean = false) {
   return (verse as { verseObjects: { text: string; tag: string; type: string; content: string; nextChar: string; children: any[] }[] }).verseObjects.map((verseObject, index, array) =>
     verseObject.type == "text" || verseObject.type == "word" || verseObject.tag == "d" ? (
       <>{verseObject.text.replace("¶ ", "")}</>
-    ) : verseObject.tag == "wj*" || verseObject.tag == "nd*" || verseObject.tag == "ms1" ? (
+    ) : verseObject.tag == "cl" || verseObject.tag == "ms1" ? (
+      <>{verseObject.content}</>
+    ) : verseObject.tag == "wj*" || verseObject.tag == "nd*" ? (
       <>{parseWord(verseObject.content).text}</>
     ) : verseObject.tag == "wj" || verseObject.tag == "nd" ? (
       <span className="text-red-600">{parseWord(verseObject.children[0].content).text}</span>
@@ -390,15 +392,18 @@ function bibleContent(this, language: any, json: any, commentary: any, selectedV
                 {renderVerse(verse, language)}
               </span>
             </DrawerTrigger>
-            <DrawerContent>
-              <DrawerTitle>
-                <h3 className="text-lg font-semibold">
+            <DrawerContent className={`md:flex bg-slate-100 rounded-xl p-8 dark:bg-slate-800 ${language == "Arabic" && `[direction:rtl] ${amiri.className}`}`}>
+              <div className="pt-6 text-center md:text-start space-y-4">
+                <span className="text-lg font-medium">
+                  {language == "Arabic" ? <>&rdquo;</> : <>&ldquo;</>}
+                  {renderVerse(verse, language, true)}
+                  {language == "Arabic" ? <>&ldquo;</> : <>&rdquo;</>}
+                </span>{" "}
+                -{" "}
+                <span>
                   {bookInfo.n} {chapter}:{key}
-                </h3>
-              </DrawerTitle>
-              <DrawerDescription></DrawerDescription>
-
-              <span className="pb-4 block">&ldquo;{renderVerse(verse, language, true)}&rdquo;</span>
+                </span>
+              </div>
               {renderFootnotes(verse, language)}
               {commentary?.importantVerses
                 .filter((v) => v.verse == key)
