@@ -20,7 +20,7 @@ export function BibleBooksList({ language, versions, version, book, chapter, boo
   if (versions) v = versions.filter((v) => v.id === version)[0];
 
   return (
-    <div className={`container mx-auto py-4 ${language == "Arabic" ? "[direction:rtl]" : ""}`}>
+    <div className={`container mx-auto py-4 ${!aside && "px-8 md:px-20"} ${language == "Arabic" ? "[direction:rtl]" : ""}`}>
       {aside ? (
         <></>
       ) : (
