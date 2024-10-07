@@ -1,9 +1,8 @@
 "use client";
-import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Sheet, SheetClose, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { BookCopy, BookOpen, ChevronLeft, ChevronRight, Menu, MessageSquareMore } from "lucide-react";
 import Link from "next/link";
 import ChatSupport from "./chat-support";
@@ -11,17 +10,18 @@ import { BibleBooksList } from "./bible-books-list";
 import { Amiri, Inter } from "next/font/google";
 import { uiText } from "@/lib/uiText";
 import SocialShareButtons from "./social-share-buttons";
-import { Drawer, DrawerContent, DrawerDescription, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
+import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
 import useStickyState from "@/lib/useStickyState";
 import parseFootnote from "@/lib/parseFootnote";
 import parseWord from "@/lib/parseWord";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { Toggle } from "./ui/toggle";
 import { getBookSlug } from "@/lib/getBookSlug";
 import { Skeleton } from "./ui/skeleton";
 import versionsDropDown from "./versions-drop-down";
 import ChaptersList from "./chapters-list";
+import strongsHebrewDictionary from "@/lib/strongs-hebrew-dictionary.js";
+import strongsGreekDictionary from "@/lib/strongs-greek-dictionary.js";
 
 const inter = Inter({ subsets: ["latin"] });
 const amiri = Amiri({
@@ -30,15 +30,12 @@ const amiri = Amiri({
 });
 
 export function BibleReader({ language, book, chapter, version, version2, versions, bookInfo, json, json2, language2, booksCategorized, books }) {
-  const router = useRouter();
   const [selectedVerse, setSelectedVerse] = useState(null);
   const [sidebarExpanded, setSidebarExpanded] = useStickyState("sidebarExpanded", true);
   const [question, setQuestion] = useState(null);
   const [commentary, setCommentary] = useState(null);
   const [sideBySide, setSideBySide] = useStickyState("sideBySide", false);
   const [isSheetOpen, setIsSheetOpen] = useState(false);
-  const [selectedVersion, setSelectedVersion] = useStickyState("selectedVersion", version);
-  const [selectedVersion2, setSelectedVersion2] = useStickyState("selectedVersion2", version2);
 
   // scroll spy
   const [activeId, setActiveId] = useState<string | undefined>();
@@ -281,7 +278,7 @@ function studyContent(language: any, version: any, commentary: any, json: any, b
       <h3 className="text-xl font-semibold mt-10 mb-2">{uiText[language].questions}</h3>
       <ul className={`gap-2`}>
         {commentary?.questions?.map((question) => (
-          <Button key={question} variant="outline" className="block mr-2 mb-2 text-wrap h-auto py-2 text-start" onClick={() => setQuestion(question)}>
+          <Button key={question} variant="outline" className="block mr-2 mb-2 text-wrap h-auto py-2 text-start text-lg font-normal" onClick={() => setQuestion(question)}>
             {question}
           </Button>
         ))}
@@ -301,9 +298,13 @@ function studyContent(language: any, version: any, commentary: any, json: any, b
 }
 
 function renderVerse(verse: any, language: any, singleVerse: boolean = false) {
-  return (verse as { verseObjects: { text: string; tag: string; type: string; content: string; nextChar: string; children: any[] }[] }).verseObjects.map((verseObject, index, array) =>
-    verseObject.type == "text" || verseObject.type == "word" || verseObject.tag == "d" ? (
+  return (verse as { verseObjects: { text: string; tag: string; type: string; content: string; strong: string; nextChar: string; children: any[] }[] }).verseObjects.map((verseObject, index, array) =>
+    verseObject.strong && singleVerse ? (
+      renderWord(verseObject.text, verseObject.strong, index, language)
+    ) : verseObject.type == "text" || verseObject.tag == "d" ? (
       <>{verseObject.text.replace("¶ ", "")}</>
+    ) : verseObject.type == "word" ? (
+      <>{verseObject.text}</>
     ) : verseObject.tag == "cl" || verseObject.tag == "ms1" ? (
       <>{verseObject.content}</>
     ) : verseObject.tag == "wj*" || verseObject.tag == "nd*" ? (
@@ -348,6 +349,74 @@ function renderVerse(verse: any, language: any, singleVerse: boolean = false) {
   );
 }
 
+function renderWord(word: any, strongNumber: any, index: any, language: any) {
+  if (!strongNumber) return word;
+  if (strongNumber.startsWith("H")) {
+    const strongWord = strongsHebrewDictionary[strongNumber];
+    if (strongWord == undefined) return word;
+    return (
+      <Popover key={index}>
+        <PopoverTrigger asChild>
+          <span className="cursor-pointer border-b border-dotted border-primary">{word}</span>
+        </PopoverTrigger>
+        <PopoverContent className="w-80">
+          <div className="grid gap-4">
+            <div className="space-y-2">
+              <div className="flex">
+                <h4 className="flex-1 font-medium leading-none">{word}</h4>
+                <p className="flex-1 text-sm text-muted-foreground text-center">{strongNumber}</p>
+                <p className="flex-1 text-sm text-muted-foreground text-end">{strongWord.lemma}</p>
+              </div>
+            </div>
+            <div className="grid gap-2">
+              <div className="grid gap-1">
+                <div className="text-sm">
+                  <span className="text-muted-foreground">Pronounced: </span>
+                  {strongWord.pron}
+                </div>
+                <div className="text-sm">
+                  <span className="text-muted-foreground">Definition: </span>
+                  {strongWord.strongs_def}
+                </div>
+              </div>
+            </div>
+          </div>
+        </PopoverContent>
+      </Popover>
+    );
+  }
+  if (strongNumber.startsWith("G")) {
+    const strongWord = strongsGreekDictionary[strongNumber];
+    if (strongWord == undefined) return word;
+    return (
+      <Popover key={index}>
+        <PopoverTrigger asChild>
+          <span className="cursor-pointer border-b border-dotted border-primary">{word}</span>
+        </PopoverTrigger>
+        <PopoverContent className="w-80">
+          <div className="grid gap-4">
+            <div className="space-y-2">
+              <div className="flex">
+                <h4 className="flex-1 font-medium leading-none">{word}</h4>
+                <p className="flex-1 text-sm text-muted-foreground text-center">{strongNumber}</p>
+                <p className="flex-1 text-sm text-muted-foreground text-end">{strongWord.lemma}</p>
+              </div>
+            </div>
+            <div className="grid gap-2">
+              <div className="grid gap-1">
+                <div className="text-sm">
+                  <span className="text-muted-foreground">Definition: </span>
+                  {strongWord.strongs_def}
+                </div>
+              </div>
+            </div>
+          </div>
+        </PopoverContent>
+      </Popover>
+    );
+  }
+}
+
 function renderFootnotes(verse: any, language: any) {
   return (verse as { verseObjects: { text: string; tag: string; type: string; content: string; nextChar: string; children: any[] }[] }).verseObjects.map((verseObject, index, array) =>
     verseObject.tag == "f" ? (
@@ -384,6 +453,7 @@ function bibleContent(this, language: any, json: any, commentary: any, selectedV
                   text: (verse as { verseObjects: { text: string; tag: string; type: string }[] }).verseObjects.map((vo) => vo.text).join(" "),
                 })}
               >
+                {key == "1" && <span className={`text-7xl font-bold text-gray-700 ${language == "Arabic" ? "ml-4" : "mr-4"} float-start`}>{chapter}</span>}
                 {key != "0" && (
                   <sup id={key} className={`scroll-my-4 ${language == "Arabic" ? "text-lg" : "text-xs"} font-semibold text-blue-600 mr-1`}>
                     {key}
