@@ -13,7 +13,7 @@ export function getBookSlug(books, language, name) {
       return "ecclesiastes";
   }
 
-  const book = books.filter((b) => b.n === name);
+  const book = books.filter((b) => b.n === name || b.short === name);
   if (book.length > 0) {
     return book[0].slug;
   } else {

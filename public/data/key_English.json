@@ -7,7 +7,8 @@
                 "n": "Genesis",
                 "t": "OT",
                 "g": 1,
-                "slug": "genesis"
+                "slug": "genesis",
+                "short": "gen"
             },
             {
                 "b": 2,
@@ -15,7 +16,8 @@
                 "n": "Exodus",
                 "t": "OT",
                 "g": 1,
-                "slug": "exodus"
+                "slug": "exodus",
+                "short": "exo"
             },
             {
                 "b": 3,
@@ -23,7 +25,8 @@
                 "n": "Leviticus",
                 "t": "OT",
                 "g": 1,
-                "slug": "leviticus"
+                "slug": "leviticus",
+                "short": "lev"
             },
             {
                 "b": 4,
@@ -31,7 +34,8 @@
                 "n": "Numbers",
                 "t": "OT",
                 "g": 1,
-                "slug": "numbers"
+                "slug": "numbers",
+                "short": "num"
             },
             {
                 "b": 5,
@@ -39,7 +43,8 @@
                 "n": "Deuteronomy",
                 "t": "OT",
                 "g": 1,
-                "slug": "deuteronomy"
+                "slug": "deuteronomy",
+                "short": "deu"
             },
             {
                 "b": 6,
@@ -47,7 +52,8 @@
                 "n": "Joshua",
                 "t": "OT",
                 "g": 2,
-                "slug": "joshua"
+                "slug": "joshua",
+                "short": "jos"
             },
             {
                 "b": 7,
@@ -55,7 +61,8 @@
                 "n": "Judges",
                 "t": "OT",
                 "g": 2,
-                "slug": "judges"
+                "slug": "judges",
+                "short": "jdg"
             },
             {
                 "b": 8,
@@ -63,7 +70,8 @@
                 "n": "Ruth",
                 "t": "OT",
                 "g": 2,
-                "slug": "ruth"
+                "slug": "ruth",
+                "short": "rut"
             },
             {
                 "b": 9,
@@ -71,7 +79,8 @@
                 "n": "1 Samuel",
                 "t": "OT",
                 "g": 2,
-                "slug": "1-samuel"
+                "slug": "1-samuel",
+                "short": "1sa"
             },
             {
                 "b": 10,
@@ -79,7 +88,8 @@
                 "n": "2 Samuel",
                 "t": "OT",
                 "g": 2,
-                "slug": "2-samuel"
+                "slug": "2-samuel",
+                "short": "2sa"
             },
             {
                 "b": 11,
@@ -87,7 +97,8 @@
                 "n": "1 Kings",
                 "t": "OT",
                 "g": 2,
-                "slug": "1-kings"
+                "slug": "1-kings",
+                "short": "1ki"
             },
             {
                 "b": 12,
@@ -95,7 +106,8 @@
                 "n": "2 Kings",
                 "t": "OT",
                 "g": 2,
-                "slug": "2-kings"
+                "slug": "2-kings",
+                "short": "2ki"
             },
             {
                 "b": 13,
@@ -103,7 +115,8 @@
                 "n": "1 Chronicles",
                 "t": "OT",
                 "g": 2,
-                "slug": "1-chronicles"
+                "slug": "1-chronicles",
+                "short": "1ch"
             },
             {
                 "b": 14,
@@ -111,7 +124,8 @@
                 "n": "2 Chronicles",
                 "t": "OT",
                 "g": 2,
-                "slug": "2-chronicles"
+                "slug": "2-chronicles",
+                "short": "2ch"
             },
             {
                 "b": 15,
@@ -119,7 +133,8 @@
                 "n": "Ezra",
                 "t": "OT",
                 "g": 2,
-                "slug": "ezra"
+                "slug": "ezra",
+                "short": "ezr"
             },
             {
                 "b": 16,
@@ -127,7 +142,8 @@
                 "n": "Nehemiah",
                 "t": "OT",
                 "g": 2,
-                "slug": "nehemiah"
+                "slug": "nehemiah",
+                "short": "neh"
             },
             {
                 "b": 17,
@@ -135,7 +151,8 @@
                 "n": "Esther",
                 "t": "OT",
                 "g": 2,
-                "slug": "esther"
+                "slug": "esther",
+                "short": "est"
             },
             {
                 "b": 18,
@@ -143,7 +160,8 @@
                 "n": "Job",
                 "t": "OT",
                 "g": 3,
-                "slug": "job"
+                "slug": "job",
+                "short": "job"
             },
             {
                 "b": 19,
@@ -151,7 +169,8 @@
                 "n": "Psalms",
                 "t": "OT",
                 "g": 3,
-                "slug": "psalms"
+                "slug": "psalms",
+                "short": "psa"
             },
             {
                 "b": 20,
@@ -159,7 +178,8 @@
                 "n": "Proverbs",
                 "t": "OT",
                 "g": 3,
-                "slug": "proverbs"
+                "slug": "proverbs",
+                "short": "pro"
             },
             {
                 "b": 21,
@@ -167,7 +187,8 @@
                 "n": "Ecclesiastes",
                 "t": "OT",
                 "g": 3,
-                "slug": "ecclesiastes"
+                "slug": "ecclesiastes",
+                "short": "ecc"
             },
             {
                 "b": 22,
@@ -175,7 +196,8 @@
                 "n": "Song of Solomon",
                 "t": "OT",
                 "g": 3,
-                "slug": "song-of-solomon"
+                "slug": "song-of-solomon",
+                "short": "sng"
             },
             {
                 "b": 23,
@@ -183,7 +205,8 @@
                 "n": "Isaiah",
                 "t": "OT",
                 "g": 4,
-                "slug": "isaiah"
+                "slug": "isaiah",
+                "short": "isa"
             },
             {
                 "b": 24,
@@ -191,7 +214,8 @@
                 "n": "Jeremiah",
                 "t": "OT",
                 "g": 4,
-                "slug": "jeremiah"
+                "slug": "jeremiah",
+                "short": "jer"
             },
             {
                 "b": 25,
@@ -199,7 +223,8 @@
                 "n": "Lamentations",
                 "t": "OT",
                 "g": 4,
-                "slug": "lamentations"
+                "slug": "lamentations",
+                "short": "lam"
             },
             {
                 "b": 26,
@@ -207,7 +232,8 @@
                 "n": "Ezekiel",
                 "t": "OT",
                 "g": 4,
-                "slug": "ezekiel"
+                "slug": "ezekiel",
+                "short": "ezk"
             },
             {
                 "b": 27,
@@ -215,7 +241,8 @@
                 "n": "Daniel",
                 "t": "OT",
                 "g": 4,
-                "slug": "daniel"
+                "slug": "daniel",
+                "short": "dan"
             },
             {
                 "b": 28,
@@ -223,7 +250,8 @@
                 "n": "Hosea",
                 "t": "OT",
                 "g": 4,
-                "slug": "hosea"
+                "slug": "hosea",
+                "short": "hos"
             },
             {
                 "b": 29,
@@ -231,7 +259,8 @@
                 "n": "Joel",
                 "t": "OT",
                 "g": 4,
-                "slug": "joel"
+                "slug": "joel",
+                "short": "jol"
             },
             {
                 "b": 30,
@@ -239,7 +268,8 @@
                 "n": "Amos",
                 "t": "OT",
                 "g": 4,
-                "slug": "amos"
+                "slug": "amos",
+                "short": "amo"
             },
             {
                 "b": 31,
@@ -247,7 +277,8 @@
                 "n": "Obadiah",
                 "t": "OT",
                 "g": 4,
-                "slug": "obadiah"
+                "slug": "obadiah",
+                "short": "oba"
             },
             {
                 "b": 32,
@@ -255,7 +286,8 @@
                 "n": "Jonah",
                 "t": "OT",
                 "g": 4,
-                "slug": "jonah"
+                "slug": "jonah",
+                "short": "jon"
             },
             {
                 "b": 33,
@@ -263,7 +295,8 @@
                 "n": "Micah",
                 "t": "OT",
                 "g": 4,
-                "slug": "micah"
+                "slug": "micah",
+                "short": "mic"
             },
             {
                 "b": 34,
@@ -271,7 +304,8 @@
                 "n": "Nahum",
                 "t": "OT",
                 "g": 4,
-                "slug": "nahum"
+                "slug": "nahum",
+                "short": "nam"
             },
             {
                 "b": 35,
@@ -279,7 +313,8 @@
                 "n": "Habakkuk",
                 "t": "OT",
                 "g": 4,
-                "slug": "habakkuk"
+                "slug": "habakkuk",
+                "short": "hab"
             },
             {
                 "b": 36,
@@ -287,7 +322,8 @@
                 "n": "Zephaniah",
                 "t": "OT",
                 "g": 4,
-                "slug": "zephaniah"
+                "slug": "zephaniah",
+                "short": "zep"
             },
             {
                 "b": 37,
@@ -295,7 +331,8 @@
                 "n": "Haggai",
                 "t": "OT",
                 "g": 4,
-                "slug": "haggai"
+                "slug": "haggai",
+                "short": "hag"
             },
             {
                 "b": 38,
@@ -303,7 +340,8 @@
                 "n": "Zechariah",
                 "t": "OT",
                 "g": 4,
-                "slug": "zechariah"
+                "slug": "zechariah",
+                "short": "zec"
             },
             {
                 "b": 39,
@@ -311,7 +349,8 @@
                 "n": "Malachi",
                 "t": "OT",
                 "g": 4,
-                "slug": "malachi"
+                "slug": "malachi",
+                "short": "mal"
             },
             {
                 "b": 40,
@@ -319,7 +358,8 @@
                 "n": "Matthew",
                 "t": "NT",
                 "g": 5,
-                "slug": "matthew"
+                "slug": "matthew",
+                "short": "mat"
             },
             {
                 "b": 41,
@@ -327,7 +367,8 @@
                 "n": "Mark",
                 "t": "NT",
                 "g": 5,
-                "slug": "mark"
+                "slug": "mark",
+                "short": "mrk"
             },
             {
                 "b": 42,
@@ -335,7 +376,8 @@
                 "n": "Luke",
                 "t": "NT",
                 "g": 5,
-                "slug": "luke"
+                "slug": "luke",
+                "short": "luk"
             },
             {
                 "b": 43,
@@ -343,7 +385,8 @@
                 "n": "John",
                 "t": "NT",
                 "g": 5,
-                "slug": "john"
+                "slug": "john",
+                "short": "jhn"
             },
             {
                 "b": 44,
@@ -351,7 +394,8 @@
                 "n": "Acts",
                 "t": "NT",
                 "g": 5,
-                "slug": "acts"
+                "slug": "acts",
+                "short": "act"
             },
             {
                 "b": 45,
@@ -359,7 +403,8 @@
                 "n": "Romans",
                 "t": "NT",
                 "g": 6,
-                "slug": "romans"
+                "slug": "romans",
+                "short": "rom"
             },
             {
                 "b": 46,
@@ -367,7 +412,8 @@
                 "n": "1 Corinthians",
                 "t": "NT",
                 "g": 6,
-                "slug": "1-corinthians"
+                "slug": "1-corinthians",
+                "short": "1co"
             },
             {
                 "b": 47,
@@ -375,7 +421,8 @@
                 "n": "2 Corinthians",
                 "t": "NT",
                 "g": 6,
-                "slug": "2-corinthians"
+                "slug": "2-corinthians",
+                "short": "2co"
             },
             {
                 "b": 48,
@@ -383,7 +430,8 @@
                 "n": "Galatians",
                 "t": "NT",
                 "g": 6,
-                "slug": "galatians"
+                "slug": "galatians",
+                "short": "gal"
             },
             {
                 "b": 49,
@@ -391,7 +439,8 @@
                 "n": "Ephesians",
                 "t": "NT",
                 "g": 6,
-                "slug": "ephesians"
+                "slug": "ephesians",
+                "short": "eph"
             },
             {
                 "b": 50,
@@ -399,7 +448,8 @@
                 "n": "Philippians",
                 "t": "NT",
                 "g": 6,
-                "slug": "philippians"
+                "slug": "philippians",
+                "short": "php"
             },
             {
                 "b": 51,
@@ -407,7 +457,8 @@
                 "n": "Colossians",
                 "t": "NT",
                 "g": 6,
-                "slug": "colossians"
+                "slug": "colossians",
+                "short": "col"
             },
             {
                 "b": 52,
@@ -415,7 +466,8 @@
                 "n": "1 Thessalonians",
                 "t": "NT",
                 "g": 6,
-                "slug": "1-thessalonians"
+                "slug": "1-thessalonians",
+                "short": "1th"
             },
             {
                 "b": 53,
@@ -423,7 +475,8 @@
                 "n": "2 Thessalonians",
                 "t": "NT",
                 "g": 6,
-                "slug": "2-thessalonians"
+                "slug": "2-thessalonians",
+                "short": "2th"
             },
             {
                 "b": 54,
@@ -431,7 +484,8 @@
                 "n": "1 Timothy",
                 "t": "NT",
                 "g": 6,
-                "slug": "1-timothy"
+                "slug": "1-timothy",
+                "short": "1ti"
             },
             {
                 "b": 55,
@@ -439,7 +493,8 @@
                 "n": "2 Timothy",
                 "t": "NT",
                 "g": 6,
-                "slug": "2-timothy"
+                "slug": "2-timothy",
+                "short": "2ti"
             },
             {
                 "b": 56,
@@ -447,7 +502,8 @@
                 "n": "Titus",
                 "t": "NT",
                 "g": 6,
-                "slug": "titus"
+                "slug": "titus",
+                "short": "tit"
             },
             {
                 "b": 57,
@@ -455,7 +511,8 @@
                 "n": "Philemon",
                 "t": "NT",
                 "g": 6,
-                "slug": "philemon"
+                "slug": "philemon",
+                "short": "phm"
             },
             {
                 "b": 58,
@@ -463,7 +520,8 @@
                 "n": "Hebrews",
                 "t": "NT",
                 "g": 6,
-                "slug": "hebrews"
+                "slug": "hebrews",
+                "short": "heb"
             },
             {
                 "b": 59,
@@ -471,7 +529,8 @@
                 "n": "James",
                 "t": "NT",
                 "g": 7,
-                "slug": "james"
+                "slug": "james",
+                "short": "jas"
             },
             {
                 "b": 60,
@@ -479,7 +538,8 @@
                 "n": "1 Peter",
                 "t": "NT",
                 "g": 7,
-                "slug": "1-peter"
+                "slug": "1-peter",
+                "short": "1pe"
             },
             {
                 "b": 61,
@@ -487,7 +547,8 @@
                 "n": "2 Peter",
                 "t": "NT",
                 "g": 7,
-                "slug": "2-peter"
+                "slug": "2-peter",
+                "short": "2pe"
             },
             {
                 "b": 62,
@@ -495,7 +556,8 @@
                 "n": "1 John",
                 "t": "NT",
                 "g": 7,
-                "slug": "1-john"
+                "slug": "1-john",
+                "short": "1jn"
             },
             {
                 "b": 63,
@@ -503,7 +565,8 @@
                 "n": "2 John",
                 "t": "NT",
                 "g": 7,
-                "slug": "2-john"
+                "slug": "2-john",
+                "short": "2jn"
             },
             {
                 "b": 64,
@@ -511,7 +574,8 @@
                 "n": "3 John",
                 "t": "NT",
                 "g": 7,
-                "slug": "3-john"
+                "slug": "3-john",
+                "short": "3jn"
             },
             {
                 "b": 65,
@@ -519,7 +583,8 @@
                 "n": "Jude",
                 "t": "NT",
                 "g": 7,
-                "slug": "jude"
+                "slug": "jude",
+                "short": "jud"
             },
             {
                 "b": 66,
@@ -527,7 +592,8 @@
                 "n": "Revelation",
                 "t": "NT",
                 "g": 8,
-                "slug": "revelation"
+                "slug": "revelation",
+                "short": "rev"
             }
         ]
     }

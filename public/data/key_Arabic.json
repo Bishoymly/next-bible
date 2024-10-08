@@ -7,7 +7,8 @@
                 "n": "التكوين",
                 "t": "OT",
                 "g": 1,
-                "slug": "genesis"
+                "slug": "genesis",
+                "short": "gen"
             },
             {
                 "b": 2,
@@ -15,7 +16,8 @@
                 "n": "الخروج",
                 "t": "OT",
                 "g": 1,
-                "slug": "exodus"
+                "slug": "exodus",
+                "short": "exo"
             },
             {
                 "b": 3,
@@ -23,7 +25,8 @@
                 "n": "اللاويين",
                 "t": "OT",
                 "g": 1,
-                "slug": "leviticus"
+                "slug": "leviticus",
+                "short": "lev"
             },
             {
                 "b": 4,
@@ -31,7 +34,8 @@
                 "n": "العدد",
                 "t": "OT",
                 "g": 1,
-                "slug": "numbers"
+                "slug": "numbers",
+                "short": "num"
             },
             {
                 "b": 5,
@@ -39,495 +43,557 @@
                 "n": "التثنية",
                 "t": "OT",
                 "g": 1,
-                "slug": "deuteronomy"
+                "slug": "deuteronomy",
+                "short": "deu"
             },
             {
                 "b": 6,
                 "c": 24,
                 "n": "يشوع",
                 "t": "OT",
-                "g": 2,
-                "slug": "joshua"
+                "g": 1,
+                "slug": "joshua",
+                "short": "jos"
             },
             {
                 "b": 7,
                 "c": 21,
                 "n": "القضاة",
                 "t": "OT",
-                "g": 2,
-                "slug": "judges"
+                "g": 1,
+                "slug": "judges",
+                "short": "jdg"
             },
             {
                 "b": 8,
                 "c": 4,
                 "n": "راعوث",
                 "t": "OT",
-                "g": 2,
-                "slug": "ruth"
+                "g": 1,
+                "slug": "ruth",
+                "short": "rut"
             },
             {
                 "b": 9,
                 "c": 31,
-                "n": "١ صموئيل",
+                "n": "صموئيل الأول",
                 "t": "OT",
-                "g": 2,
-                "slug": "1-samuel"
+                "g": 1,
+                "slug": "1-samuel",
+                "short": "1sa"
             },
             {
                 "b": 10,
                 "c": 24,
-                "n": "٢ صموئيل",
+                "n": "صموئيل الثاني",
                 "t": "OT",
-                "g": 2,
-                "slug": "2-samuel"
+                "g": 1,
+                "slug": "2-samuel",
+                "short": "2sa"
             },
             {
                 "b": 11,
                 "c": 22,
-                "n": "١ ملوك",
+                "n": "الملوك الأول",
                 "t": "OT",
-                "g": 2,
-                "slug": "1-kings"
+                "g": 1,
+                "slug": "1-kings",
+                "short": "1ki"
             },
             {
                 "b": 12,
                 "c": 25,
-                "n": "٢ ملوك",
+                "n": "الملوك الثاني",
                 "t": "OT",
-                "g": 2,
-                "slug": "2-kings"
+                "g": 1,
+                "slug": "2-kings",
+                "short": "2ki"
             },
             {
                 "b": 13,
                 "c": 29,
-                "n": "١ أخبار الأيام",
+                "n": "أخبار الأيام الأول",
                 "t": "OT",
-                "g": 2,
-                "slug": "1-chronicles"
+                "g": 1,
+                "slug": "1-chronicles",
+                "short": "1ch"
             },
             {
                 "b": 14,
                 "c": 36,
-                "n": "٢ أخبار الأيام",
+                "n": "أخبار الأيام الثاني",
                 "t": "OT",
-                "g": 2,
-                "slug": "2-chronicles"
+                "g": 1,
+                "slug": "2-chronicles",
+                "short": "2ch"
             },
             {
                 "b": 15,
                 "c": 10,
                 "n": "عزرا",
                 "t": "OT",
-                "g": 2,
-                "slug": "ezra"
+                "g": 1,
+                "slug": "ezra",
+                "short": "ezr"
             },
             {
                 "b": 16,
                 "c": 13,
                 "n": "نحميا",
                 "t": "OT",
-                "g": 2,
-                "slug": "nehemiah"
+                "g": 1,
+                "slug": "nehemiah",
+                "short": "neh"
             },
             {
                 "b": 17,
                 "c": 10,
                 "n": "أستير",
                 "t": "OT",
-                "g": 2,
-                "slug": "esther"
+                "g": 1,
+                "slug": "esther",
+                "short": "est"
             },
             {
                 "b": 18,
                 "c": 42,
                 "n": "أيوب",
                 "t": "OT",
-                "g": 3,
-                "slug": "job"
+                "g": 1,
+                "slug": "job",
+                "short": "job"
             },
             {
                 "b": 19,
                 "c": 150,
                 "n": "المزامير",
                 "t": "OT",
-                "g": 3,
-                "slug": "psalms"
+                "g": 1,
+                "slug": "psalms",
+                "short": "psa"
             },
             {
                 "b": 20,
                 "c": 31,
                 "n": "الأمثال",
                 "t": "OT",
-                "g": 3,
-                "slug": "proverbs"
+                "g": 1,
+                "slug": "proverbs",
+                "short": "pro"
             },
             {
                 "b": 21,
                 "c": 12,
                 "n": "الجامعة",
                 "t": "OT",
-                "g": 3,
-                "slug": "ecclesiastes"
+                "g": 1,
+                "slug": "ecclesiastes",
+                "short": "ecc"
             },
             {
                 "b": 22,
                 "c": 8,
                 "n": "نشيد الأنشاد",
                 "t": "OT",
-                "g": 3,
-                "slug": "song-of-solomon"
+                "g": 1,
+                "slug": "song-of-songs",
+                "short": "sng"
             },
             {
                 "b": 23,
                 "c": 66,
                 "n": "إشعياء",
                 "t": "OT",
-                "g": 4,
-                "slug": "isaiah"
+                "g": 1,
+                "slug": "isaiah",
+                "short": "isa"
             },
             {
                 "b": 24,
                 "c": 52,
                 "n": "إرميا",
                 "t": "OT",
-                "g": 4,
-                "slug": "jeremiah"
+                "g": 1,
+                "slug": "jeremiah",
+                "short": "jer"
             },
             {
                 "b": 25,
                 "c": 5,
                 "n": "مراثي إرميا",
                 "t": "OT",
-                "g": 4,
-                "slug": "lamentations"
+                "g": 1,
+                "slug": "lamentations",
+                "short": "lam"
             },
             {
                 "b": 26,
                 "c": 48,
                 "n": "حزقيال",
                 "t": "OT",
-                "g": 4,
-                "slug": "ezekiel"
+                "g": 1,
+                "slug": "ezekiel",
+                "short": "ezk"
             },
             {
                 "b": 27,
                 "c": 12,
                 "n": "دانيال",
                 "t": "OT",
-                "g": 4,
-                "slug": "daniel"
+                "g": 1,
+                "slug": "daniel",
+                "short": "dan"
             },
             {
                 "b": 28,
                 "c": 14,
                 "n": "هوشع",
                 "t": "OT",
-                "g": 4,
-                "slug": "hosea"
+                "g": 1,
+                "slug": "hosea",
+                "short": "hos"
             },
             {
                 "b": 29,
                 "c": 3,
                 "n": "يوئيل",
                 "t": "OT",
-                "g": 4,
-                "slug": "joel"
+                "g": 1,
+                "slug": "joel",
+                "short": "jol"
             },
             {
                 "b": 30,
                 "c": 9,
                 "n": "عاموس",
                 "t": "OT",
-                "g": 4,
-                "slug": "amos"
+                "g": 1,
+                "slug": "amos",
+                "short": "amo"
             },
             {
                 "b": 31,
                 "c": 1,
                 "n": "عوبديا",
                 "t": "OT",
-                "g": 4,
-                "slug": "obadiah"
+                "g": 1,
+                "slug": "obadiah",
+                "short": "oba"
             },
             {
                 "b": 32,
                 "c": 4,
                 "n": "يونان",
                 "t": "OT",
-                "g": 4,
-                "slug": "jonah"
+                "g": 1,
+                "slug": "jonah",
+                "short": "jon"
             },
             {
                 "b": 33,
                 "c": 7,
                 "n": "ميخا",
                 "t": "OT",
-                "g": 4,
-                "slug": "micah"
+                "g": 1,
+                "slug": "micah",
+                "short": "mic"
             },
             {
                 "b": 34,
                 "c": 3,
                 "n": "ناحوم",
                 "t": "OT",
-                "g": 4,
-                "slug": "nahum"
+                "g": 1,
+                "slug": "nahum",
+                "short": "nam"
             },
             {
                 "b": 35,
                 "c": 3,
                 "n": "حبقوق",
                 "t": "OT",
-                "g": 4,
-                "slug": "habakkuk"
+                "g": 1,
+                "slug": "habakkuk",
+                "short": "hab"
             },
             {
                 "b": 36,
                 "c": 3,
                 "n": "صفنيا",
                 "t": "OT",
-                "g": 4,
-                "slug": "zephaniah"
+                "g": 1,
+                "slug": "zephaniah",
+                "short": "zep"
             },
             {
                 "b": 37,
                 "c": 2,
                 "n": "حجي",
                 "t": "OT",
-                "g": 4,
-                "slug": "haggai"
+                "g": 1,
+                "slug": "haggai",
+                "short": "hag"
             },
             {
                 "b": 38,
                 "c": 14,
                 "n": "زكريا",
                 "t": "OT",
-                "g": 4,
-                "slug": "zechariah"
+                "g": 1,
+                "slug": "zechariah",
+                "short": "zec"
             },
             {
                 "b": 39,
                 "c": 4,
                 "n": "ملاخي",
                 "t": "OT",
-                "g": 4,
-                "slug": "malachi"
+                "g": 1,
+                "slug": "malachi",
+                "short": "mal"
             },
             {
                 "b": 40,
                 "c": 28,
                 "n": "متى",
                 "t": "NT",
-                "g": 5,
-                "slug": "matthew"
+                "g": 1,
+                "slug": "matthew",
+                "short": "mat"
             },
             {
                 "b": 41,
                 "c": 16,
                 "n": "مرقس",
                 "t": "NT",
-                "g": 5,
-                "slug": "mark"
+                "g": 1,
+                "slug": "mark",
+                "short": "mrk"
             },
             {
                 "b": 42,
                 "c": 24,
                 "n": "لوقا",
                 "t": "NT",
-                "g": 5,
-                "slug": "luke"
+                "g": 1,
+                "slug": "luke",
+                "short": "luk"
             },
             {
                 "b": 43,
                 "c": 21,
                 "n": "يوحنا",
                 "t": "NT",
-                "g": 5,
-                "slug": "john"
+                "g": 1,
+                "slug": "john",
+                "short": "jhn"
             },
             {
                 "b": 44,
                 "c": 28,
                 "n": "أعمال الرسل",
                 "t": "NT",
-                "g": 5,
-                "slug": "acts"
+                "g": 1,
+                "slug": "acts",
+                "short": "act"
             },
             {
                 "b": 45,
                 "c": 16,
                 "n": "رومية",
                 "t": "NT",
-                "g": 6,
-                "slug": "romans"
+                "g": 1,
+                "slug": "romans",
+                "short": "rom"
             },
             {
                 "b": 46,
                 "c": 16,
-                "n": "١ كورنثوس",
+                "n": "كورنثوس الأولى",
                 "t": "NT",
-                "g": 6,
-                "slug": "1-corinthians"
+                "g": 1,
+                "slug": "1-corinthians",
+                "short": "1co"
             },
             {
                 "b": 47,
                 "c": 13,
-                "n": "٢ كورنثوس",
+                "n": "كورنثوس الثانية",
                 "t": "NT",
-                "g": 6,
-                "slug": "2-corinthians"
+                "g": 1,
+                "slug": "2-corinthians",
+                "short": "2co"
             },
             {
                 "b": 48,
                 "c": 6,
                 "n": "غلاطية",
                 "t": "NT",
-                "g": 6,
-                "slug": "galatians"
+                "g": 1,
+                "slug": "galatians",
+                "short": "gal"
             },
             {
                 "b": 49,
                 "c": 6,
                 "n": "أفسس",
                 "t": "NT",
-                "g": 6,
-                "slug": "ephesians"
+                "g": 1,
+                "slug": "ephesians",
+                "short": "eph"
             },
             {
                 "b": 50,
                 "c": 4,
                 "n": "فيلبي",
                 "t": "NT",
-                "g": 6,
-                "slug": "philippians"
+                "g": 1,
+                "slug": "philippians",
+                "short": "php"
             },
             {
                 "b": 51,
                 "c": 4,
                 "n": "كولوسي",
                 "t": "NT",
-                "g": 6,
-                "slug": "colossians"
+                "g": 1,
+                "slug": "colossians",
+                "short": "col"
             },
             {
                 "b": 52,
                 "c": 5,
-                "n": "١ تسالونيكي",
+                "n": "تسالونيكي الأولى",
                 "t": "NT",
-                "g": 6,
-                "slug": "1-thessalonians"
+                "g": 1,
+                "slug": "1-thessalonians",
+                "short": "1th"
             },
             {
                 "b": 53,
                 "c": 3,
-                "n": "٢ تسالونيكي",
+                "n": "تسالونيكي الثانية",
                 "t": "NT",
-                "g": 6,
-                "slug": "2-thessalonians"
+                "g": 1,
+                "slug": "2-thessalonians",
+                "short": "2th"
             },
             {
                 "b": 54,
                 "c": 6,
-                "n": "١ تيموثاوس",
+                "n": "تيموثاوس الأولى",
                 "t": "NT",
-                "g": 6,
-                "slug": "1-timothy"
+                "g": 1,
+                "slug": "1-timothy",
+                "short": "1ti"
             },
             {
                 "b": 55,
                 "c": 4,
-                "n": "٢ تيموثاوس",
+                "n": "تيموثاوس الثانية",
                 "t": "NT",
-                "g": 6,
-                "slug": "2-timothy"
+                "g": 1,
+                "slug": "2-timothy",
+                "short": "2ti"
             },
             {
                 "b": 56,
                 "c": 3,
                 "n": "تيطس",
                 "t": "NT",
-                "g": 6,
-                "slug": "titus"
+                "g": 1,
+                "slug": "titus",
+                "short": "tit"
             },
             {
                 "b": 57,
                 "c": 1,
                 "n": "فليمون",
                 "t": "NT",
-                "g": 6,
-                "slug": "philemon"
+                "g": 1,
+                "slug": "philemon",
+                "short": "phm"
             },
             {
                 "b": 58,
                 "c": 13,
-                "n": "عبرانيين",
+                "n": "العبرانيين",
                 "t": "NT",
-                "g": 6,
-                "slug": "hebrews"
+                "g": 1,
+                "slug": "hebrews",
+                "short": "heb"
             },
             {
                 "b": 59,
                 "c": 5,
                 "n": "يعقوب",
                 "t": "NT",
-                "g": 7,
-                "slug": "james"
+                "g": 1,
+                "slug": "james",
+                "short": "jas"
             },
             {
                 "b": 60,
                 "c": 5,
-                "n": "١ بطرس",
+                "n": "بطرس الأولى",
                 "t": "NT",
-                "g": 7,
-                "slug": "1-peter"
+                "g": 1,
+                "slug": "1-peter",
+                "short": "1pe"
             },
             {
                 "b": 61,
                 "c": 3,
-                "n": "٢ بطرس",
+                "n": "بطرس الثانية",
                 "t": "NT",
-                "g": 7,
-                "slug": "2-peter"
+                "g": 1,
+                "slug": "2-peter",
+                "short": "2pe"
             },
             {
                 "b": 62,
                 "c": 5,
-                "n": "١ يوحنا",
+                "n": "يوحنا الأولى",
                 "t": "NT",
-                "g": 7,
-                "slug": "1-john"
+                "g": 1,
+                "slug": "1-john",
+                "short": "1jn"
             },
             {
                 "b": 63,
                 "c": 1,
-                "n": "٢ يوحنا",
+                "n": "يوحنا الثانية",
                 "t": "NT",
-                "g": 7,
-                "slug": "2-john"
+                "g": 1,
+                "slug": "2-john",
+                "short": "2jn"
             },
             {
                 "b": 64,
                 "c": 1,
-                "n": "٣ يوحنا",
+                "n": "يوحنا الثالثة",
                 "t": "NT",
-                "g": 7,
-                "slug": "3-john"
+                "g": 1,
+                "slug": "3-john",
+                "short": "3jn"
             },
             {
                 "b": 65,
                 "c": 1,
                 "n": "يهوذا",
                 "t": "NT",
-                "g": 7,
-                "slug": "jude"
+                "g": 1,
+                "slug": "jude",
+                "short": "jud"
             },
             {
                 "b": 66,
                 "c": 22,
-                "n": "رؤيا يوحنا",
+                "n": "الرؤيا",
                 "t": "NT",
-                "g": 8,
-                "slug": "revelation"
+                "g": 1,
+                "slug": "revelation",
+                "short": "rev"
             }
         ]
     }

@@ -22,6 +22,7 @@ import versionsDropDown from "./versions-drop-down";
 import ChaptersList from "./chapters-list";
 import strongsHebrewDictionary from "@/lib/strongs-hebrew-dictionary.js";
 import strongsGreekDictionary from "@/lib/strongs-greek-dictionary.js";
+import { getByBC } from "@texttree/bible-crossref";
 
 const inter = Inter({ subsets: ["latin"] });
 const amiri = Amiri({
@@ -364,8 +365,8 @@ function renderWord(word: any, strongNumber: any, index: any, language: any) {
             <div className="space-y-2">
               <div className="flex">
                 <h4 className="flex-1 font-medium leading-none">{word}</h4>
-                <p className="flex-1 text-sm text-muted-foreground text-center">{strongNumber}</p>
-                <p className="flex-1 text-sm text-muted-foreground text-end">{strongWord.lemma}</p>
+                <p className="flex-1 text-sm text-muted-foreground leading-none text-center">{strongNumber}</p>
+                <p className="flex-1 text-sm text-muted-foreground leading-none text-end">{strongWord.lemma}</p>
               </div>
             </div>
             <div className="grid gap-2">
@@ -398,8 +399,8 @@ function renderWord(word: any, strongNumber: any, index: any, language: any) {
             <div className="space-y-2">
               <div className="flex">
                 <h4 className="flex-1 font-medium leading-none">{word}</h4>
-                <p className="flex-1 text-sm text-muted-foreground text-center">{strongNumber}</p>
-                <p className="flex-1 text-sm text-muted-foreground text-end">{strongWord.lemma}</p>
+                <p className="flex-1 text-sm text-muted-foreground leading-none text-center">{strongNumber}</p>
+                <p className="flex-1 text-sm text-muted-foreground leading-none text-end">{strongWord.lemma}</p>
               </div>
             </div>
             <div className="grid gap-2">
@@ -430,6 +431,8 @@ function renderFootnotes(verse: any, language: any) {
   );
 }
 function bibleContent(this, language: any, json: any, commentary: any, selectedVerse: any, handleSelectVerse: (verse: any) => void, bookInfo: any, chapter: any, version: any, books: any) {
+  const crossRef = getByBC({ book: bookInfo.short, chapter });
+
   return (
     <div className={` ${language == "Arabic" ? `text-2xl leading-loose [direction:rtl] ${amiri.className}` : `text-lg leading-relaxed [direction:ltr] ${inter.className}`}`}>
       {Object.entries(json).map(([key, verse]) => (
@@ -481,14 +484,16 @@ function bibleContent(this, language: any, json: any, commentary: any, selectedV
                   <div key={index}>
                     <h3 className="font-semibold mb-2 mt-2">{uiText[language].commentary}</h3>
                     <span className="pb-4 block">{important.commentary}</span>
-                    {important.crossReferences?.map((ref, index) => (
-                      <Button key={index} variant="outline" className="mr-1 mb-1">
-                        <Link href={`/${version}/${getBookSlug(books, language, ref.book)}/${ref.chapter}#${ref.verse}`}>{`${ref.book} ${ref.chapter}:${ref.verse}`}</Link>
-                      </Button>
-                    ))}
                   </div>
                 ))}
-              {selectedVerse && <SocialShareButtons language={language} version={version} book={bookInfo.n} chapter={chapter} verse={selectedVerse.key} verseText={selectedVerse.text} />}
+              <div className="flex flex-wrap gap-1 mt-4">
+                {crossRef[key]?.map((ref, index) => (
+                  <Button key={index} variant="outline" size="sm">
+                    <Link href={`/${version}/${getBookSlug(books, language, ref.split(" ")[0])}/${ref.split(" ")[1].split(":")[0]}#${ref.split(" ")[1].split(":")[1]}`}>{`${ref}`}</Link>
+                  </Button>
+                ))}
+              </div>
+              {<SocialShareButtons language={language} version={version} book={bookInfo.n} chapter={chapter} verse={key} verseText={selectedVerse?.text} />}
             </DrawerContent>
           </Drawer>
         </>
