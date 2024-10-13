@@ -4,6 +4,12 @@ export interface ParsedData {
 }
 
 export default function parseWord(input: string): ParsedData {
+  if (!input) {
+    return {
+      text: "",
+      strong: "",
+    };
+  }
   // Split the string by '|'
   const [textPart, strongPart] = input.split("|");
 
