@@ -337,7 +337,7 @@ function renderVerse(verse: any, language: any, singleVerse: boolean = false) {
       ) : (
         <MessageSquareMore className="text-gray-500 text-sm w-4 inline" />
       )
-    ) : verseObject.tag == "q1" ? (
+    ) : verseObject.tag == "q1" || verseObject.tag == "q2" ? (
       <br />
     ) : verseObject.tag == "qs" ? (
       <>
@@ -466,7 +466,7 @@ function bibleContent(this, language: any, json: any, commentary: any, selectedV
               </span>
             </DrawerTrigger>
             <DrawerContent className={`md:flex bg-slate-100 rounded-xl p-8 dark:bg-slate-800 ${language == "Arabic" && `[direction:rtl] ${amiri.className}`}`}>
-              <div className="pt-6 text-center md:text-start space-y-4">
+              <div className="pt-6 text-center md:text-start space-y-4 mb-2">
                 <span className="text-lg font-medium">
                   {language == "Arabic" ? <>&rdquo;</> : <>&ldquo;</>}
                   {renderVerse(verse, language, true)}
