@@ -1,0 +1,7731 @@
+{
+    "0": {
+        "verseObjects": []
+    },
+    "1": {
+        "verseObjects": [
+            {
+                "text": "In",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1722"
+            },
+            {
+                "type": "text",
+                "text": " the "
+            },
+            {
+                "text": "beginning",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0746"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "was",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2258"
+            },
+            {
+                "type": "text",
+                "text": " the "
+            },
+            {
+                "text": "Word",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3056"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "and",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2532"
+            },
+            {
+                "type": "text",
+                "text": " the "
+            },
+            {
+                "text": "Word",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3056"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "was",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2258"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "with",
+                "tag": "w",
+                "type": "word",
+                "strong": "G4314"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "God",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2316"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "and",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2532"
+            },
+            {
+                "type": "text",
+                "text": " the "
+            },
+            {
+                "text": "Word",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3056"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "was",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2258"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "God",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2316"
+            },
+            {
+                "type": "text",
+                "text": ".  \n"
+            }
+        ]
+    },
+    "2": {
+        "verseObjects": [
+            {
+                "type": "text",
+                "text": "The "
+            },
+            {
+                "text": "same",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3778"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "was",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2258"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "in",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1722"
+            },
+            {
+                "type": "text",
+                "text": " the "
+            },
+            {
+                "text": "beginning",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0746"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "with",
+                "tag": "w",
+                "type": "word",
+                "strong": "G4314"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "God",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2316"
+            },
+            {
+                "type": "text",
+                "text": ".  \n"
+            }
+        ]
+    },
+    "3": {
+        "verseObjects": [
+            {
+                "type": "text",
+                "text": "All "
+            },
+            {
+                "text": "things",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3956"
+            },
+            {
+                "type": "text",
+                "text": " were "
+            },
+            {
+                "text": "made",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1096"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "by",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1223"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "him",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0846"
+            },
+            {
+                "type": "text",
+                "text": "; "
+            },
+            {
+                "text": "and",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2532"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "without",
+                "tag": "w",
+                "type": "word",
+                "strong": "G5565"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "him",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0846"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "was",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1096"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "not",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3761"
+            },
+            {
+                "type": "text",
+                "text": " any "
+            },
+            {
+                "text": "thing",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1520"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "made",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1096"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "that",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3739"
+            },
+            {
+                "type": "text",
+                "text": " was "
+            },
+            {
+                "text": "made",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1096"
+            },
+            {
+                "type": "text",
+                "text": ".  \n"
+            }
+        ]
+    },
+    "4": {
+        "verseObjects": [
+            {
+                "text": "In",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1722"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "him",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0846"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "was",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2258"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "life",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2222"
+            },
+            {
+                "type": "text",
+                "text": "; "
+            },
+            {
+                "text": "and",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2532"
+            },
+            {
+                "type": "text",
+                "text": " the "
+            },
+            {
+                "text": "life",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2222"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "was",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2258"
+            },
+            {
+                "type": "text",
+                "text": " the "
+            },
+            {
+                "text": "light",
+                "tag": "w",
+                "type": "word",
+                "strong": "G5457"
+            },
+            {
+                "type": "text",
+                "text": " of "
+            },
+            {
+                "text": "men",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0444"
+            },
+            {
+                "type": "text",
+                "text": ".  \n"
+            }
+        ]
+    },
+    "5": {
+        "verseObjects": [
+            {
+                "text": "And",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2532"
+            },
+            {
+                "type": "text",
+                "text": " the "
+            },
+            {
+                "text": "light",
+                "tag": "w",
+                "type": "word",
+                "strong": "G5457"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "shineth",
+                "tag": "w",
+                "type": "word",
+                "strong": "G5316"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "in",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1722"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "darkness",
+                "tag": "w",
+                "type": "word",
+                "strong": "G4653"
+            },
+            {
+                "type": "text",
+                "text": "; "
+            },
+            {
+                "text": "and",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2532"
+            },
+            {
+                "type": "text",
+                "text": " the "
+            },
+            {
+                "text": "darkness",
+                "tag": "w",
+                "type": "word",
+                "strong": "G4653"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "comprehended",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2638"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "it",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0846"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "not",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3756"
+            },
+            {
+                "type": "text",
+                "text": ".   \n"
+            },
+            {
+                "tag": "p",
+                "nextChar": "\n",
+                "type": "paragraph"
+            }
+        ]
+    },
+    "6": {
+        "verseObjects": [
+            {
+                "type": "text",
+                "text": "¶ There "
+            },
+            {
+                "text": "was",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1096"
+            },
+            {
+                "type": "text",
+                "text": " a "
+            },
+            {
+                "text": "man",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0444"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "sent",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0649"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "from",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3844"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "God",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2316"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "whose",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0846"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "name",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3686"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "tag": "add",
+                "text": "was",
+                "endTag": "add*"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "John",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2491"
+            },
+            {
+                "type": "text",
+                "text": ".  \n"
+            }
+        ]
+    },
+    "7": {
+        "verseObjects": [
+            {
+                "type": "text",
+                "text": "The "
+            },
+            {
+                "text": "same",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3778"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "came",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2064"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "for",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1519"
+            },
+            {
+                "type": "text",
+                "text": " a "
+            },
+            {
+                "text": "witness",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3141"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "to",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2443"
+            },
+            {
+                "type": "text",
+                "text": " bear "
+            },
+            {
+                "text": "witness",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3140"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "of",
+                "tag": "w",
+                "type": "word",
+                "strong": "G4012"
+            },
+            {
+                "type": "text",
+                "text": " the "
+            },
+            {
+                "text": "Light",
+                "tag": "w",
+                "type": "word",
+                "strong": "G5457"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "that",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2443"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "all",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3956"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "tag": "add",
+                "text": "men",
+                "endTag": "add*"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "through",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1223"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "him",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0846"
+            },
+            {
+                "type": "text",
+                "text": " might "
+            },
+            {
+                "text": "believe",
+                "tag": "w",
+                "type": "word",
+                "strong": "G4100"
+            },
+            {
+                "type": "text",
+                "text": ".  \n"
+            }
+        ]
+    },
+    "8": {
+        "verseObjects": [
+            {
+                "type": "text",
+                "text": "He "
+            },
+            {
+                "text": "was",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2258"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "not",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3756"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "that",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1565"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "Light",
+                "tag": "w",
+                "type": "word",
+                "strong": "G5457"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "but",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0235"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "tag": "add",
+                "text": "was sent",
+                "endTag": "add*"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "to",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2443"
+            },
+            {
+                "type": "text",
+                "text": " bear "
+            },
+            {
+                "text": "witness",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3140"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "of",
+                "tag": "w",
+                "type": "word",
+                "strong": "G4012"
+            },
+            {
+                "type": "text",
+                "text": " that "
+            },
+            {
+                "text": "Light",
+                "tag": "w",
+                "type": "word",
+                "strong": "G5457"
+            },
+            {
+                "type": "text",
+                "text": ".  \n"
+            }
+        ]
+    },
+    "9": {
+        "verseObjects": [
+            {
+                "tag": "add",
+                "text": "That",
+                "endTag": "add*"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "was",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2258"
+            },
+            {
+                "type": "text",
+                "text": " the "
+            },
+            {
+                "text": "true",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0228"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "Light",
+                "tag": "w",
+                "type": "word",
+                "strong": "G5457"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "which",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3739"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "lighteth",
+                "tag": "w",
+                "type": "word",
+                "strong": "G5461"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "every",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3956"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "man",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0444"
+            },
+            {
+                "type": "text",
+                "text": " that "
+            },
+            {
+                "text": "cometh",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2064"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "into",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1519"
+            },
+            {
+                "type": "text",
+                "text": " the "
+            },
+            {
+                "text": "world",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2889"
+            },
+            {
+                "type": "text",
+                "text": ".  \n"
+            }
+        ]
+    },
+    "10": {
+        "verseObjects": [
+            {
+                "type": "text",
+                "text": "He "
+            },
+            {
+                "text": "was",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2258"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "in",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1722"
+            },
+            {
+                "type": "text",
+                "text": " the "
+            },
+            {
+                "text": "world",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2889"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "and",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2532"
+            },
+            {
+                "type": "text",
+                "text": " the "
+            },
+            {
+                "text": "world",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2889"
+            },
+            {
+                "type": "text",
+                "text": " was "
+            },
+            {
+                "text": "made",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1096"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "by",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1223"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "him",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0846"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "and",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2532"
+            },
+            {
+                "type": "text",
+                "text": " the "
+            },
+            {
+                "text": "world",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2889"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "knew",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1097"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "him",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0846"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "not",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3756"
+            },
+            {
+                "type": "text",
+                "text": ".  \n"
+            }
+        ]
+    },
+    "11": {
+        "verseObjects": [
+            {
+                "type": "text",
+                "text": "He "
+            },
+            {
+                "text": "came",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2064"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "unto",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1519"
+            },
+            {
+                "type": "text",
+                "text": " his "
+            },
+            {
+                "text": "own",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2398"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "and",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2532"
+            },
+            {
+                "type": "text",
+                "text": " his "
+            },
+            {
+                "text": "own",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2398"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "received",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3880"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "him",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0846"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "not",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3756"
+            },
+            {
+                "type": "text",
+                "text": ".  \n"
+            }
+        ]
+    },
+    "12": {
+        "verseObjects": [
+            {
+                "text": "But",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1161"
+            },
+            {
+                "type": "text",
+                "text": " as many "
+            },
+            {
+                "text": "as",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3745"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "received",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2983"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "him",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0846"
+            },
+            {
+                "type": "text",
+                "text": ", to "
+            },
+            {
+                "text": "them",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0846"
+            },
+            {
+                "type": "text",
+                "text": " gave "
+            },
+            {
+                "text": "he",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1325"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "power",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1849"
+            },
+            {
+                "type": "text",
+                "text": " to "
+            },
+            {
+                "text": "become",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1096"
+            },
+            {
+                "type": "text",
+                "text": " the "
+            },
+            {
+                "text": "sons",
+                "tag": "w",
+                "type": "word",
+                "strong": "G5043"
+            },
+            {
+                "type": "text",
+                "text": " of "
+            },
+            {
+                "text": "God",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2316"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "tag": "add",
+                "text": "even",
+                "endTag": "add*"
+            },
+            {
+                "type": "text",
+                "text": " to "
+            },
+            {
+                "text": "them",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3588"
+            },
+            {
+                "type": "text",
+                "text": " that "
+            },
+            {
+                "text": "believe",
+                "tag": "w",
+                "type": "word",
+                "strong": "G4100"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "on",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1519"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "his",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0846"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "name",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3686"
+            },
+            {
+                "type": "text",
+                "text": ":  \n"
+            }
+        ]
+    },
+    "13": {
+        "verseObjects": [
+            {
+                "text": "Which",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3739"
+            },
+            {
+                "type": "text",
+                "text": " were "
+            },
+            {
+                "text": "born",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1080"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "not",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3756"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "of",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1537"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "blood",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0129"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "nor",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3761"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "of",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1537"
+            },
+            {
+                "type": "text",
+                "text": " the "
+            },
+            {
+                "text": "will",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2307"
+            },
+            {
+                "type": "text",
+                "text": " of the "
+            },
+            {
+                "text": "flesh",
+                "tag": "w",
+                "type": "word",
+                "strong": "G4561"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "nor",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3761"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "of",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1537"
+            },
+            {
+                "type": "text",
+                "text": " the "
+            },
+            {
+                "text": "will",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2307"
+            },
+            {
+                "type": "text",
+                "text": " of "
+            },
+            {
+                "text": "man",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0435"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "but",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0235"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "of",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1537"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "God",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2316"
+            },
+            {
+                "type": "text",
+                "text": ".  \n"
+            }
+        ]
+    },
+    "14": {
+        "verseObjects": [
+            {
+                "text": "And",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2532"
+            },
+            {
+                "type": "text",
+                "text": " the "
+            },
+            {
+                "text": "Word",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3056"
+            },
+            {
+                "type": "text",
+                "text": " was "
+            },
+            {
+                "text": "made",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1096"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "flesh",
+                "tag": "w",
+                "type": "word",
+                "strong": "G4561"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "and",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2532"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "dwelt",
+                "tag": "w",
+                "type": "word",
+                "strong": "G4637"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "among",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1722"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "us",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2254"
+            },
+            {
+                "type": "text",
+                "text": ", ("
+            },
+            {
+                "text": "and",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2532"
+            },
+            {
+                "type": "text",
+                "text": " we "
+            },
+            {
+                "text": "beheld",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2300"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "his",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0846"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "glory",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1391"
+            },
+            {
+                "type": "text",
+                "text": ", the "
+            },
+            {
+                "text": "glory",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1391"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "as",
+                "tag": "w",
+                "type": "word",
+                "strong": "G5613"
+            },
+            {
+                "type": "text",
+                "text": " of the only "
+            },
+            {
+                "text": "begotten",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3439"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "of",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3844"
+            },
+            {
+                "type": "text",
+                "text": " the "
+            },
+            {
+                "text": "Father",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3962"
+            },
+            {
+                "type": "text",
+                "text": ",) "
+            },
+            {
+                "text": "full",
+                "tag": "w",
+                "type": "word",
+                "strong": "G4134"
+            },
+            {
+                "type": "text",
+                "text": " of "
+            },
+            {
+                "text": "grace",
+                "tag": "w",
+                "type": "word",
+                "strong": "G5485"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "and",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2532"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "truth",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0225"
+            },
+            {
+                "type": "text",
+                "text": ".   \n"
+            },
+            {
+                "tag": "p",
+                "nextChar": "\n",
+                "type": "paragraph"
+            }
+        ]
+    },
+    "15": {
+        "verseObjects": [
+            {
+                "type": "text",
+                "text": "¶ "
+            },
+            {
+                "text": "John",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2491"
+            },
+            {
+                "type": "text",
+                "text": " bare "
+            },
+            {
+                "text": "witness",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3140"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "of",
+                "tag": "w",
+                "type": "word",
+                "strong": "G4012"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "him",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0846"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "and",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2532"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "cried",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2896"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "saying",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3004"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "This",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3778"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "was",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2258"
+            },
+            {
+                "type": "text",
+                "text": " he of "
+            },
+            {
+                "text": "whom",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3739"
+            },
+            {
+                "type": "text",
+                "text": " I "
+            },
+            {
+                "text": "spake",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2036"
+            },
+            {
+                "type": "text",
+                "text": ", He "
+            },
+            {
+                "text": "that",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3588"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "cometh",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2064"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "after",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3694"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "me",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3450"
+            },
+            {
+                "type": "text",
+                "text": " is "
+            },
+            {
+                "text": "preferred",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1096"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "before",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1715"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "me",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3450"
+            },
+            {
+                "type": "text",
+                "text": ": "
+            },
+            {
+                "text": "for",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3754"
+            },
+            {
+                "type": "text",
+                "text": " he "
+            },
+            {
+                "text": "was",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2258"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "before",
+                "tag": "w",
+                "type": "word",
+                "strong": "G4413"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "me",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3450"
+            },
+            {
+                "type": "text",
+                "text": ".  \n"
+            }
+        ]
+    },
+    "16": {
+        "verseObjects": [
+            {
+                "text": "And",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2532"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "of",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1537"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "his",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0846"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "fulness",
+                "tag": "w",
+                "type": "word",
+                "strong": "G4138"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "have",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2983"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "all",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3956"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "we",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2249"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "received",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2983"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "and",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2532"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "grace",
+                "tag": "w",
+                "type": "word",
+                "strong": "G5485"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "for",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0473"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "grace",
+                "tag": "w",
+                "type": "word",
+                "strong": "G5485"
+            },
+            {
+                "type": "text",
+                "text": ".  \n"
+            }
+        ]
+    },
+    "17": {
+        "verseObjects": [
+            {
+                "text": "For",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3754"
+            },
+            {
+                "type": "text",
+                "text": " the "
+            },
+            {
+                "text": "law",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3551"
+            },
+            {
+                "type": "text",
+                "text": " was "
+            },
+            {
+                "text": "given",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1325"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "by",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1223"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "Moses",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3475"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "tag": "add",
+                "text": "but",
+                "endTag": "add*"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "grace",
+                "tag": "w",
+                "type": "word",
+                "strong": "G5485"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "and",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2532"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "truth",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0225"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "came",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1096"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "by",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1223"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "Jesus",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2424"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "Christ",
+                "tag": "w",
+                "type": "word",
+                "strong": "G5547"
+            },
+            {
+                "type": "text",
+                "text": ".  \n"
+            }
+        ]
+    },
+    "18": {
+        "verseObjects": [
+            {
+                "type": "text",
+                "text": "No "
+            },
+            {
+                "text": "man",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3762"
+            },
+            {
+                "type": "text",
+                "text": " hath "
+            },
+            {
+                "text": "seen",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3708"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "God",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2316"
+            },
+            {
+                "type": "text",
+                "text": " at any "
+            },
+            {
+                "text": "time",
+                "tag": "w",
+                "type": "word",
+                "strong": "G4455"
+            },
+            {
+                "type": "text",
+                "text": "; the only "
+            },
+            {
+                "text": "begotten",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3439"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "Son",
+                "tag": "w",
+                "type": "word",
+                "strong": "G5207"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "which",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3588"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "is",
+                "tag": "w",
+                "type": "word",
+                "strong": "G5607"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "in",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1519"
+            },
+            {
+                "type": "text",
+                "text": " the "
+            },
+            {
+                "text": "bosom",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2859"
+            },
+            {
+                "type": "text",
+                "text": " of the "
+            },
+            {
+                "text": "Father",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3962"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "he",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1565"
+            },
+            {
+                "type": "text",
+                "text": " hath "
+            },
+            {
+                "text": "declared",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1834"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "tag": "add",
+                "text": "him.",
+                "endTag": "add*"
+            },
+            {
+                "type": "text",
+                "text": "   \n"
+            },
+            {
+                "tag": "p",
+                "nextChar": "\n",
+                "type": "paragraph"
+            }
+        ]
+    },
+    "19": {
+        "verseObjects": [
+            {
+                "type": "text",
+                "text": "¶ "
+            },
+            {
+                "text": "And",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2532"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "this",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3778"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "is",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2076"
+            },
+            {
+                "type": "text",
+                "text": " the "
+            },
+            {
+                "text": "record",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3141"
+            },
+            {
+                "type": "text",
+                "text": " of "
+            },
+            {
+                "text": "John",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2491"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "when",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3753"
+            },
+            {
+                "type": "text",
+                "text": " the "
+            },
+            {
+                "text": "Jews",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2453"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "sent",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0649"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "priests",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2409"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "and",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2532"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "Levites",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3019"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "from",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1537"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "Jerusalem",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2414"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "to",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2443"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "ask",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2065"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "him",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0846"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "Who",
+                "tag": "w",
+                "type": "word",
+                "strong": "G5101"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "art",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1488"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "thou",
+                "tag": "w",
+                "type": "word",
+                "strong": "G4771"
+            },
+            {
+                "type": "text",
+                "text": "?  \n"
+            }
+        ]
+    },
+    "20": {
+        "verseObjects": [
+            {
+                "text": "And",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2532"
+            },
+            {
+                "type": "text",
+                "text": " he "
+            },
+            {
+                "text": "confessed",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3670"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "and",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2532"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "denied",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0720"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "not",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3756"
+            },
+            {
+                "type": "text",
+                "text": "; "
+            },
+            {
+                "text": "but",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2532"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "confessed",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3670"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "I",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1473"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "am",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1510"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "not",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3756"
+            },
+            {
+                "type": "text",
+                "text": " the "
+            },
+            {
+                "text": "Christ",
+                "tag": "w",
+                "type": "word",
+                "strong": "G5547"
+            },
+            {
+                "type": "text",
+                "text": ".  \n"
+            }
+        ]
+    },
+    "21": {
+        "verseObjects": [
+            {
+                "text": "And",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2532"
+            },
+            {
+                "type": "text",
+                "text": " they "
+            },
+            {
+                "text": "asked",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2065"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "him",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0846"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "What",
+                "tag": "w",
+                "type": "word",
+                "strong": "G5101"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "then",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3767"
+            },
+            {
+                "type": "text",
+                "text": "? "
+            },
+            {
+                "text": "Art",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1488"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "thou",
+                "tag": "w",
+                "type": "word",
+                "strong": "G4771"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "Elias",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2243"
+            },
+            {
+                "type": "text",
+                "text": "? "
+            },
+            {
+                "text": "And",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2532"
+            },
+            {
+                "type": "text",
+                "text": " he "
+            },
+            {
+                "text": "saith",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3004"
+            },
+            {
+                "type": "text",
+                "text": ", I "
+            },
+            {
+                "text": "am",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1510"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "not",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3756"
+            },
+            {
+                "type": "text",
+                "text": ". "
+            },
+            {
+                "text": "Art",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1488"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "thou",
+                "tag": "w",
+                "type": "word",
+                "strong": "G4771"
+            },
+            {
+                "type": "text",
+                "text": " that "
+            },
+            {
+                "text": "prophet",
+                "tag": "w",
+                "type": "word",
+                "strong": "G4396"
+            },
+            {
+                "type": "text",
+                "text": "? "
+            },
+            {
+                "text": "And",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2532"
+            },
+            {
+                "type": "text",
+                "text": " he "
+            },
+            {
+                "text": "answered",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0611"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "No",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3756"
+            },
+            {
+                "type": "text",
+                "text": ".  \n"
+            }
+        ]
+    },
+    "22": {
+        "verseObjects": [
+            {
+                "text": "Then",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3767"
+            },
+            {
+                "type": "text",
+                "text": " said "
+            },
+            {
+                "text": "they",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2036"
+            },
+            {
+                "type": "text",
+                "text": " unto "
+            },
+            {
+                "text": "him",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0846"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "Who",
+                "tag": "w",
+                "type": "word",
+                "strong": "G5101"
+            },
+            {
+                "type": "text",
+                "text": " art "
+            },
+            {
+                "text": "thou",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1488"
+            },
+            {
+                "type": "text",
+                "text": "? "
+            },
+            {
+                "text": "that",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2443"
+            },
+            {
+                "type": "text",
+                "text": " we may "
+            },
+            {
+                "text": "give",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1325"
+            },
+            {
+                "type": "text",
+                "text": " an "
+            },
+            {
+                "text": "answer",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0612"
+            },
+            {
+                "type": "text",
+                "text": " to "
+            },
+            {
+                "text": "them",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3588"
+            },
+            {
+                "type": "text",
+                "text": " that "
+            },
+            {
+                "text": "sent",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3992"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "us",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2248"
+            },
+            {
+                "type": "text",
+                "text": ". "
+            },
+            {
+                "text": "What",
+                "tag": "w",
+                "type": "word",
+                "strong": "G5101"
+            },
+            {
+                "type": "text",
+                "text": " sayest "
+            },
+            {
+                "text": "thou",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3004"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "of",
+                "tag": "w",
+                "type": "word",
+                "strong": "G4012"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "thyself",
+                "tag": "w",
+                "type": "word",
+                "strong": "G4572"
+            },
+            {
+                "type": "text",
+                "text": "?  \n"
+            }
+        ]
+    },
+    "23": {
+        "verseObjects": [
+            {
+                "type": "text",
+                "text": "He "
+            },
+            {
+                "text": "said",
+                "tag": "w",
+                "type": "word",
+                "strong": "G5346"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "I",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1473"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "tag": "add",
+                "text": "am",
+                "endTag": "add*"
+            },
+            {
+                "type": "text",
+                "text": " the "
+            },
+            {
+                "text": "voice",
+                "tag": "w",
+                "type": "word",
+                "strong": "G5456"
+            },
+            {
+                "type": "text",
+                "text": " of one "
+            },
+            {
+                "text": "crying",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0994"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "in",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1722"
+            },
+            {
+                "type": "text",
+                "text": " the "
+            },
+            {
+                "text": "wilderness",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2048"
+            },
+            {
+                "type": "text",
+                "text": ", Make "
+            },
+            {
+                "text": "straight",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2116"
+            },
+            {
+                "type": "text",
+                "text": " the "
+            },
+            {
+                "text": "way",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3598"
+            },
+            {
+                "type": "text",
+                "text": " of the "
+            },
+            {
+                "text": "Lord",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2962"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "as",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2531"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "said",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2036"
+            },
+            {
+                "type": "text",
+                "text": " the "
+            },
+            {
+                "text": "prophet",
+                "tag": "w",
+                "type": "word",
+                "strong": "G4396"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "Esaias",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2268"
+            },
+            {
+                "type": "text",
+                "text": ".  \n"
+            }
+        ]
+    },
+    "24": {
+        "verseObjects": [
+            {
+                "text": "And",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2532"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "they",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3588"
+            },
+            {
+                "type": "text",
+                "text": " which were "
+            },
+            {
+                "text": "sent",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0649"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "were",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2258"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "of",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1537"
+            },
+            {
+                "type": "text",
+                "text": " the "
+            },
+            {
+                "text": "Pharisees",
+                "tag": "w",
+                "type": "word",
+                "strong": "G5330"
+            },
+            {
+                "type": "text",
+                "text": ".  \n"
+            }
+        ]
+    },
+    "25": {
+        "verseObjects": [
+            {
+                "text": "And",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2532"
+            },
+            {
+                "type": "text",
+                "text": " they "
+            },
+            {
+                "text": "asked",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2065"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "him",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0846"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "and",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2532"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "said",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2036"
+            },
+            {
+                "type": "text",
+                "text": " unto "
+            },
+            {
+                "text": "him",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0846"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "Why",
+                "tag": "w",
+                "type": "word",
+                "strong": "G5101"
+            },
+            {
+                "type": "text",
+                "text": " baptizest "
+            },
+            {
+                "text": "thou",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0907"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "then",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3767"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "if",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1487"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "thou",
+                "tag": "w",
+                "type": "word",
+                "strong": "G4771"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "be",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1488"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "not",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3756"
+            },
+            {
+                "type": "text",
+                "text": " that "
+            },
+            {
+                "text": "Christ",
+                "tag": "w",
+                "type": "word",
+                "strong": "G5547"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "nor",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3777"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "Elias",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2243"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "neither",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3777"
+            },
+            {
+                "type": "text",
+                "text": " that "
+            },
+            {
+                "text": "prophet",
+                "tag": "w",
+                "type": "word",
+                "strong": "G4396"
+            },
+            {
+                "type": "text",
+                "text": "?  \n"
+            }
+        ]
+    },
+    "26": {
+        "verseObjects": [
+            {
+                "text": "John",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2491"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "answered",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0611"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "them",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0846"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "saying",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3004"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "I",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1473"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "baptize",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0907"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "with",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1722"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "water",
+                "tag": "w",
+                "type": "word",
+                "strong": "G5204"
+            },
+            {
+                "type": "text",
+                "text": ": "
+            },
+            {
+                "text": "but",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1161"
+            },
+            {
+                "type": "text",
+                "text": " there "
+            },
+            {
+                "text": "standeth",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2476"
+            },
+            {
+                "type": "text",
+                "text": " one "
+            },
+            {
+                "text": "among",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3319"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "you",
+                "tag": "w",
+                "type": "word",
+                "strong": "G5216"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "whom",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3739"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "ye",
+                "tag": "w",
+                "type": "word",
+                "strong": "G5210"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "know",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1492"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "not",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3756"
+            },
+            {
+                "type": "text",
+                "text": ";  \n"
+            }
+        ]
+    },
+    "27": {
+        "verseObjects": [
+            {
+                "text": "He",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0846"
+            },
+            {
+                "type": "text",
+                "text": " it "
+            },
+            {
+                "text": "is",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2076"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "who",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3739"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "coming",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2064"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "after",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3694"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "me",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3450"
+            },
+            {
+                "type": "text",
+                "text": " is "
+            },
+            {
+                "text": "preferred",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1096"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "before",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1715"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "me",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3450"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "whose",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3739"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "shoe’s",
+                "tag": "w",
+                "type": "word",
+                "strong": "G5266"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "latchet",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2438"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "I",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1473"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "am",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1510"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "not",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3756"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "worthy",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0514"
+            },
+            {
+                "type": "text",
+                "text": " to "
+            },
+            {
+                "text": "unloose",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3089"
+            },
+            {
+                "type": "text",
+                "text": ".  \n"
+            }
+        ]
+    },
+    "28": {
+        "verseObjects": [
+            {
+                "type": "text",
+                "text": "These "
+            },
+            {
+                "text": "things",
+                "tag": "w",
+                "type": "word",
+                "strong": "G5023"
+            },
+            {
+                "type": "text",
+                "text": " were "
+            },
+            {
+                "text": "done",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1096"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "in",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1722"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "Bethabara",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0962"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "beyond",
+                "tag": "w",
+                "type": "word",
+                "strong": "G4008"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "Jordan",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2446"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "where",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3699"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "John",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2491"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "was",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2258"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "baptizing",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0907"
+            },
+            {
+                "type": "text",
+                "text": ".   \n"
+            },
+            {
+                "tag": "p",
+                "nextChar": "\n",
+                "type": "paragraph"
+            }
+        ]
+    },
+    "29": {
+        "verseObjects": [
+            {
+                "type": "text",
+                "text": "¶ The next "
+            },
+            {
+                "text": "day",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1887"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "John",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2491"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "seeth",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0991"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "Jesus",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2424"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "coming",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2064"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "unto",
+                "tag": "w",
+                "type": "word",
+                "strong": "G4314"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "him",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0846"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "and",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2532"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "saith",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3004"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "Behold",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1492"
+            },
+            {
+                "type": "text",
+                "text": " the "
+            },
+            {
+                "text": "Lamb",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0286"
+            },
+            {
+                "type": "text",
+                "text": " of "
+            },
+            {
+                "text": "God",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2316"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "which",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3588"
+            },
+            {
+                "type": "text",
+                "text": " taketh "
+            },
+            {
+                "text": "away",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0142"
+            },
+            {
+                "type": "text",
+                "text": " the "
+            },
+            {
+                "text": "sin",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0266"
+            },
+            {
+                "type": "text",
+                "text": " of the "
+            },
+            {
+                "text": "world",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2889"
+            },
+            {
+                "type": "text",
+                "text": ".  \n"
+            }
+        ]
+    },
+    "30": {
+        "verseObjects": [
+            {
+                "text": "This",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3778"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "is",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2076"
+            },
+            {
+                "type": "text",
+                "text": " he "
+            },
+            {
+                "text": "of",
+                "tag": "w",
+                "type": "word",
+                "strong": "G4012"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "whom",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3739"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "I",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1473"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "said",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2036"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "After",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3694"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "me",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3450"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "cometh",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2064"
+            },
+            {
+                "type": "text",
+                "text": " a "
+            },
+            {
+                "text": "man",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0435"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "which",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3739"
+            },
+            {
+                "type": "text",
+                "text": " is "
+            },
+            {
+                "text": "preferred",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1096"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "before",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1715"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "me",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3450"
+            },
+            {
+                "type": "text",
+                "text": ": "
+            },
+            {
+                "text": "for",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3754"
+            },
+            {
+                "type": "text",
+                "text": " he "
+            },
+            {
+                "text": "was",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2258"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "before",
+                "tag": "w",
+                "type": "word",
+                "strong": "G4413"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "me",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3450"
+            },
+            {
+                "type": "text",
+                "text": ".  \n"
+            }
+        ]
+    },
+    "31": {
+        "verseObjects": [
+            {
+                "type": "text",
+                "text": "And "
+            },
+            {
+                "text": "I",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2504"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "knew",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1492"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "him",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0846"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "not",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3756"
+            },
+            {
+                "type": "text",
+                "text": ": "
+            },
+            {
+                "text": "but",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0235"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "that",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2443"
+            },
+            {
+                "type": "text",
+                "text": " he should be made "
+            },
+            {
+                "text": "manifest",
+                "tag": "w",
+                "type": "word",
+                "strong": "G5319"
+            },
+            {
+                "type": "text",
+                "text": " to "
+            },
+            {
+                "text": "Israel",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2474"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "therefore",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1223"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "am",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2064"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "I",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1473"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "come",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2064"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "baptizing",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0907"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "with",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1722"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "water",
+                "tag": "w",
+                "type": "word",
+                "strong": "G5204"
+            },
+            {
+                "type": "text",
+                "text": ".  \n"
+            }
+        ]
+    },
+    "32": {
+        "verseObjects": [
+            {
+                "text": "And",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2532"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "John",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2491"
+            },
+            {
+                "type": "text",
+                "text": " bare "
+            },
+            {
+                "text": "record",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3140"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "saying",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3004"
+            },
+            {
+                "type": "text",
+                "text": ", I "
+            },
+            {
+                "text": "saw",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2300"
+            },
+            {
+                "type": "text",
+                "text": " the "
+            },
+            {
+                "text": "Spirit",
+                "tag": "w",
+                "type": "word",
+                "strong": "G4151"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "descending",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2597"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "from",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1537"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "heaven",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3772"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "like",
+                "tag": "w",
+                "type": "word",
+                "strong": "G5616"
+            },
+            {
+                "type": "text",
+                "text": " a "
+            },
+            {
+                "text": "dove",
+                "tag": "w",
+                "type": "word",
+                "strong": "G4058"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "and",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2532"
+            },
+            {
+                "type": "text",
+                "text": " it "
+            },
+            {
+                "text": "abode",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3306"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "upon",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1909"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "him",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0846"
+            },
+            {
+                "type": "text",
+                "text": ".  \n"
+            }
+        ]
+    },
+    "33": {
+        "verseObjects": [
+            {
+                "text": "And",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2504"
+            },
+            {
+                "type": "text",
+                "text": " I "
+            },
+            {
+                "text": "knew",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1492"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "him",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0846"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "not",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3756"
+            },
+            {
+                "type": "text",
+                "text": ": "
+            },
+            {
+                "text": "but",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0235"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "he",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3588"
+            },
+            {
+                "type": "text",
+                "text": " that "
+            },
+            {
+                "text": "sent",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3992"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "me",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3165"
+            },
+            {
+                "type": "text",
+                "text": " to "
+            },
+            {
+                "text": "baptize",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0907"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "with",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1722"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "water",
+                "tag": "w",
+                "type": "word",
+                "strong": "G5204"
+            },
+            {
+                "type": "text",
+                "text": ", the "
+            },
+            {
+                "text": "same",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1565"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "said",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2036"
+            },
+            {
+                "type": "text",
+                "text": " unto "
+            },
+            {
+                "text": "me",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3427"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "Upon",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1909"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "whom",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3739"
+            },
+            {
+                "type": "text",
+                "text": " thou shalt "
+            },
+            {
+                "text": "see",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1492"
+            },
+            {
+                "type": "text",
+                "text": " the "
+            },
+            {
+                "text": "Spirit",
+                "tag": "w",
+                "type": "word",
+                "strong": "G4151"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "descending",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2597"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "and",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2532"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "remaining",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3306"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "on",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1909"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "him",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0846"
+            },
+            {
+                "type": "text",
+                "text": ", the "
+            },
+            {
+                "text": "same",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3778"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "is",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2076"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "he",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3588"
+            },
+            {
+                "type": "text",
+                "text": " which "
+            },
+            {
+                "text": "baptizeth",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0907"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "with",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1722"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "the",
+                "tag": "w",
+                "type": "word",
+                "strong": "G4151"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "Holy",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0040"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "Ghost",
+                "tag": "w",
+                "type": "word",
+                "strong": "G4151"
+            },
+            {
+                "type": "text",
+                "text": ".  \n"
+            }
+        ]
+    },
+    "34": {
+        "verseObjects": [
+            {
+                "text": "And",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2504"
+            },
+            {
+                "type": "text",
+                "text": " I "
+            },
+            {
+                "text": "saw",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3708"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "and",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2532"
+            },
+            {
+                "type": "text",
+                "text": " bare "
+            },
+            {
+                "text": "record",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3140"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "that",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3754"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "this",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3778"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "is",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2076"
+            },
+            {
+                "type": "text",
+                "text": " the "
+            },
+            {
+                "text": "Son",
+                "tag": "w",
+                "type": "word",
+                "strong": "G5207"
+            },
+            {
+                "type": "text",
+                "text": " of "
+            },
+            {
+                "text": "God",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2316"
+            },
+            {
+                "type": "text",
+                "text": ".   \n"
+            },
+            {
+                "tag": "p",
+                "nextChar": "\n",
+                "type": "paragraph"
+            }
+        ]
+    },
+    "35": {
+        "verseObjects": [
+            {
+                "type": "text",
+                "text": "¶ "
+            },
+            {
+                "text": "Again",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3825"
+            },
+            {
+                "type": "text",
+                "text": " the next "
+            },
+            {
+                "text": "day",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1887"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "after",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2476"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "John",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2491"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "stood",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2476"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "and",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2532"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "two",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1417"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "of",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1537"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "his",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0846"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "disciples",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3101"
+            },
+            {
+                "type": "text",
+                "text": ";  \n"
+            }
+        ]
+    },
+    "36": {
+        "verseObjects": [
+            {
+                "text": "And",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2532"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "looking",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1689"
+            },
+            {
+                "type": "text",
+                "text": " upon "
+            },
+            {
+                "text": "Jesus",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2424"
+            },
+            {
+                "type": "text",
+                "text": " as he "
+            },
+            {
+                "text": "walked",
+                "tag": "w",
+                "type": "word",
+                "strong": "G4043"
+            },
+            {
+                "type": "text",
+                "text": ", he "
+            },
+            {
+                "text": "saith",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3004"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "Behold",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1492"
+            },
+            {
+                "type": "text",
+                "text": " the "
+            },
+            {
+                "text": "Lamb",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0286"
+            },
+            {
+                "type": "text",
+                "text": " of "
+            },
+            {
+                "text": "God",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2316"
+            },
+            {
+                "type": "text",
+                "text": "!  \n"
+            }
+        ]
+    },
+    "37": {
+        "verseObjects": [
+            {
+                "text": "And",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2532"
+            },
+            {
+                "type": "text",
+                "text": " the "
+            },
+            {
+                "text": "two",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1417"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "disciples",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3101"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "heard",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0191"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "him",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0846"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "speak",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2980"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "and",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2532"
+            },
+            {
+                "type": "text",
+                "text": " they "
+            },
+            {
+                "text": "followed",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0190"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "Jesus",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2424"
+            },
+            {
+                "type": "text",
+                "text": ".  \n"
+            }
+        ]
+    },
+    "38": {
+        "verseObjects": [
+            {
+                "text": "Then",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1161"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "Jesus",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2424"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "turned",
+                "tag": "w",
+                "type": "word",
+                "strong": "G4762"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "and",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2532"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "saw",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2300"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "them",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0846"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "following",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0190"
+            },
+            {
+                "type": "text",
+                "text": ", and "
+            },
+            {
+                "text": "saith",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3004"
+            },
+            {
+                "type": "text",
+                "text": " unto "
+            },
+            {
+                "text": "them",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0846"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "tag": "wj",
+                "nextChar": " ",
+                "children": [
+                    {
+                        "tag": "+w",
+                        "content": "What|strong=\"G5101\""
+                    }
+                ],
+                "endTag": ""
+            },
+            {
+                "tag": "+w*",
+                "content": " "
+            },
+            {
+                "tag": "+w",
+                "content": "seek ye|strong=\"G2212\""
+            },
+            {
+                "tag": "+w*",
+                "content": "?"
+            },
+            {
+                "tag": "wj*",
+                "endMarkerChar": " ",
+                "content": "They "
+            },
+            {
+                "text": "said",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2036"
+            },
+            {
+                "type": "text",
+                "text": " unto "
+            },
+            {
+                "text": "him",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0846"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "Rabbi",
+                "tag": "w",
+                "type": "word",
+                "strong": "G4461"
+            },
+            {
+                "type": "text",
+                "text": ", ("
+            },
+            {
+                "text": "which",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3739"
+            },
+            {
+                "type": "text",
+                "text": " is to "
+            },
+            {
+                "text": "say",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3004"
+            },
+            {
+                "type": "text",
+                "text": ", being "
+            },
+            {
+                "text": "interpreted",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2059"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "Master",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1320"
+            },
+            {
+                "type": "text",
+                "text": ",) "
+            },
+            {
+                "text": "where",
+                "tag": "w",
+                "type": "word",
+                "strong": "G4226"
+            },
+            {
+                "type": "text",
+                "text": " dwellest "
+            },
+            {
+                "text": "thou",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3306"
+            },
+            {
+                "type": "text",
+                "text": "?  \n"
+            }
+        ]
+    },
+    "39": {
+        "verseObjects": [
+            {
+                "type": "text",
+                "text": "He "
+            },
+            {
+                "text": "saith",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3004"
+            },
+            {
+                "type": "text",
+                "text": " unto "
+            },
+            {
+                "text": "them",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0846"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "tag": "wj",
+                "nextChar": " ",
+                "children": [
+                    {
+                        "tag": "+w",
+                        "content": "Come|strong=\"G2064\""
+                    }
+                ],
+                "endTag": ""
+            },
+            {
+                "tag": "+w*",
+                "content": " "
+            },
+            {
+                "tag": "+w",
+                "content": "and|strong=\"G2532\""
+            },
+            {
+                "tag": "+w*",
+                "content": " "
+            },
+            {
+                "tag": "+w",
+                "content": "see|strong=\"G1492\""
+            },
+            {
+                "tag": "+w*",
+                "content": "."
+            },
+            {
+                "tag": "wj*",
+                "endMarkerChar": " ",
+                "content": "They "
+            },
+            {
+                "text": "came",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2064"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "and",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2532"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "saw",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1492"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "where",
+                "tag": "w",
+                "type": "word",
+                "strong": "G4225"
+            },
+            {
+                "type": "text",
+                "text": " he "
+            },
+            {
+                "text": "dwelt",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3306"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "and",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2532"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "abode",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3306"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "with",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3844"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "him",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0846"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "that",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1565"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "day",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2250"
+            },
+            {
+                "type": "text",
+                "text": ": "
+            },
+            {
+                "text": "for",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1161"
+            },
+            {
+                "type": "text",
+                "text": " it "
+            },
+            {
+                "text": "was",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2258"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "about",
+                "tag": "w",
+                "type": "word",
+                "strong": "G5613"
+            },
+            {
+                "type": "text",
+                "text": " the "
+            },
+            {
+                "text": "tenth",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1182"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "hour",
+                "tag": "w",
+                "type": "word",
+                "strong": "G5610"
+            },
+            {
+                "type": "text",
+                "text": ".  \n"
+            }
+        ]
+    },
+    "40": {
+        "verseObjects": [
+            {
+                "text": "One",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1520"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "of",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1537"
+            },
+            {
+                "type": "text",
+                "text": " the "
+            },
+            {
+                "text": "two",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1417"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "which",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3588"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "heard",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0191"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "John",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2491"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "tag": "add",
+                "text": "speak",
+                "endTag": "add*"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "and",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2532"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "followed",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0190"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "him",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0846"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "was",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2258"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "Andrew",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0406"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "Simon",
+                "tag": "w",
+                "type": "word",
+                "strong": "G4613"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "Peter’s",
+                "tag": "w",
+                "type": "word",
+                "strong": "G4074"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "brother",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0080"
+            },
+            {
+                "type": "text",
+                "text": ".  \n"
+            }
+        ]
+    },
+    "41": {
+        "verseObjects": [
+            {
+                "text": "He",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3778"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "first",
+                "tag": "w",
+                "type": "word",
+                "strong": "G4413"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "findeth",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2147"
+            },
+            {
+                "type": "text",
+                "text": " his "
+            },
+            {
+                "text": "own",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2398"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "brother",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0080"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "Simon",
+                "tag": "w",
+                "type": "word",
+                "strong": "G4613"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "and",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2532"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "saith",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3004"
+            },
+            {
+                "type": "text",
+                "text": " unto "
+            },
+            {
+                "text": "him",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0846"
+            },
+            {
+                "type": "text",
+                "text": ", We have "
+            },
+            {
+                "text": "found",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2147"
+            },
+            {
+                "type": "text",
+                "text": " the "
+            },
+            {
+                "text": "Messias",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3323"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "which",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3739"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "is",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2076"
+            },
+            {
+                "type": "text",
+                "text": ", being "
+            },
+            {
+                "text": "interpreted",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3177"
+            },
+            {
+                "type": "text",
+                "text": ", the "
+            },
+            {
+                "text": "Christ",
+                "tag": "w",
+                "type": "word",
+                "strong": "G5547"
+            },
+            {
+                "type": "text",
+                "text": ".  \n"
+            }
+        ]
+    },
+    "42": {
+        "verseObjects": [
+            {
+                "text": "And",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2532"
+            },
+            {
+                "type": "text",
+                "text": " he "
+            },
+            {
+                "text": "brought",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0071"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "him",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0846"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "to",
+                "tag": "w",
+                "type": "word",
+                "strong": "G4314"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "Jesus",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2424"
+            },
+            {
+                "type": "text",
+                "text": ". "
+            },
+            {
+                "text": "And",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1161"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "when",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1689"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "Jesus",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2424"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "beheld",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1689"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "him",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0846"
+            },
+            {
+                "type": "text",
+                "text": ", he "
+            },
+            {
+                "text": "said",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2036"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "tag": "wj",
+                "nextChar": " ",
+                "children": [
+                    {
+                        "tag": "+w",
+                        "content": "Thou|strong=\"G4771\""
+                    }
+                ],
+                "endTag": ""
+            },
+            {
+                "tag": "+w*",
+                "content": " "
+            },
+            {
+                "tag": "+w",
+                "content": "art|strong=\"G1488\""
+            },
+            {
+                "tag": "+w*",
+                "content": " "
+            },
+            {
+                "tag": "+w",
+                "content": "Simon|strong=\"G4613\""
+            },
+            {
+                "tag": "+w*",
+                "content": " "
+            },
+            {
+                "tag": "+w",
+                "content": "the son|strong=\"G5207\""
+            },
+            {
+                "tag": "+w*",
+                "content": " "
+            },
+            {
+                "tag": "+w",
+                "content": "of Jona|strong=\"G2495\""
+            },
+            {
+                "tag": "+w*",
+                "content": ": "
+            },
+            {
+                "tag": "+w",
+                "content": "thou|strong=\"G4771\""
+            },
+            {
+                "tag": "+w*",
+                "content": " "
+            },
+            {
+                "tag": "+w",
+                "content": "shalt be called|strong=\"G2564\""
+            },
+            {
+                "tag": "+w*",
+                "content": " "
+            },
+            {
+                "tag": "+w",
+                "content": "Cephas|strong=\"G2786\""
+            },
+            {
+                "tag": "+w*",
+                "content": ","
+            },
+            {
+                "tag": "wj*",
+                "content": " "
+            },
+            {
+                "text": "which",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3739"
+            },
+            {
+                "type": "text",
+                "text": " is by "
+            },
+            {
+                "text": "interpretation",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2059"
+            },
+            {
+                "type": "text",
+                "text": ", A "
+            },
+            {
+                "text": "stone",
+                "tag": "w",
+                "type": "word",
+                "strong": "G4074"
+            },
+            {
+                "type": "text",
+                "text": ".   \n"
+            },
+            {
+                "tag": "p",
+                "nextChar": "\n",
+                "type": "paragraph"
+            }
+        ]
+    },
+    "43": {
+        "verseObjects": [
+            {
+                "type": "text",
+                "text": "¶ The day "
+            },
+            {
+                "text": "following",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1887"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "Jesus",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2424"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "would",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2309"
+            },
+            {
+                "type": "text",
+                "text": " go "
+            },
+            {
+                "text": "forth",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1831"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "into",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1519"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "Galilee",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1056"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "and",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2532"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "findeth",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2147"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "Philip",
+                "tag": "w",
+                "type": "word",
+                "strong": "G5376"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "and",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2532"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "saith",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3004"
+            },
+            {
+                "type": "text",
+                "text": " unto "
+            },
+            {
+                "text": "him",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0846"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "tag": "wj",
+                "nextChar": " ",
+                "children": [
+                    {
+                        "tag": "+w",
+                        "content": "Follow|strong=\"G0190\""
+                    }
+                ],
+                "endTag": ""
+            },
+            {
+                "tag": "+w*",
+                "content": " "
+            },
+            {
+                "tag": "+w",
+                "content": "me|strong=\"G3427\""
+            },
+            {
+                "tag": "+w*",
+                "content": "."
+            },
+            {
+                "tag": "wj*",
+                "endMarkerChar": " ",
+                "content": " \n"
+            }
+        ]
+    },
+    "44": {
+        "verseObjects": [
+            {
+                "text": "Now",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1161"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "Philip",
+                "tag": "w",
+                "type": "word",
+                "strong": "G5376"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "was",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2258"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "of",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0575"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "Bethsaida",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0966"
+            },
+            {
+                "type": "text",
+                "text": ", the "
+            },
+            {
+                "text": "city",
+                "tag": "w",
+                "type": "word",
+                "strong": "G4172"
+            },
+            {
+                "type": "text",
+                "text": " of "
+            },
+            {
+                "text": "Andrew",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0406"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "and",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2532"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "Peter",
+                "tag": "w",
+                "type": "word",
+                "strong": "G4074"
+            },
+            {
+                "type": "text",
+                "text": ".  \n"
+            }
+        ]
+    },
+    "45": {
+        "verseObjects": [
+            {
+                "text": "Philip",
+                "tag": "w",
+                "type": "word",
+                "strong": "G5376"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "findeth",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2147"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "Nathanael",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3482"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "and",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2532"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "saith",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3004"
+            },
+            {
+                "type": "text",
+                "text": " unto "
+            },
+            {
+                "text": "him",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0846"
+            },
+            {
+                "type": "text",
+                "text": ", We have "
+            },
+            {
+                "text": "found",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2147"
+            },
+            {
+                "type": "text",
+                "text": " him, of "
+            },
+            {
+                "text": "whom",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3739"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "Moses",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3475"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "in",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1722"
+            },
+            {
+                "type": "text",
+                "text": " the "
+            },
+            {
+                "text": "law",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3551"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "and",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2532"
+            },
+            {
+                "type": "text",
+                "text": " the "
+            },
+            {
+                "text": "prophets",
+                "tag": "w",
+                "type": "word",
+                "strong": "G4396"
+            },
+            {
+                "type": "text",
+                "text": ", did "
+            },
+            {
+                "text": "write",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1125"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "Jesus",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2424"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "of",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0575"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "Nazareth",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3478"
+            },
+            {
+                "type": "text",
+                "text": ", the "
+            },
+            {
+                "text": "son",
+                "tag": "w",
+                "type": "word",
+                "strong": "G5207"
+            },
+            {
+                "type": "text",
+                "text": " of "
+            },
+            {
+                "text": "Joseph",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2501"
+            },
+            {
+                "type": "text",
+                "text": ".  \n"
+            }
+        ]
+    },
+    "46": {
+        "verseObjects": [
+            {
+                "text": "And",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2532"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "Nathanael",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3482"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "said",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2036"
+            },
+            {
+                "type": "text",
+                "text": " unto "
+            },
+            {
+                "text": "him",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0846"
+            },
+            {
+                "type": "text",
+                "text": ", Can "
+            },
+            {
+                "text": "there",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1410"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "any",
+                "tag": "w",
+                "type": "word",
+                "strong": "G5101"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "good",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0018"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "thing",
+                "tag": "w",
+                "type": "word",
+                "strong": "G5101"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "come",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1511"
+            },
+            {
+                "type": "text",
+                "text": " out "
+            },
+            {
+                "text": "of",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1537"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "Nazareth",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3478"
+            },
+            {
+                "type": "text",
+                "text": "? "
+            },
+            {
+                "text": "Philip",
+                "tag": "w",
+                "type": "word",
+                "strong": "G5376"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "saith",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3004"
+            },
+            {
+                "type": "text",
+                "text": " unto "
+            },
+            {
+                "text": "him",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0846"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "Come",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2064"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "and",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2532"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "see",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1492"
+            },
+            {
+                "type": "text",
+                "text": ".  \n"
+            }
+        ]
+    },
+    "47": {
+        "verseObjects": [
+            {
+                "text": "Jesus",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2424"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "saw",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1492"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "Nathanael",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3482"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "coming",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2064"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "to",
+                "tag": "w",
+                "type": "word",
+                "strong": "G4314"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "him",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0846"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "and",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2532"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "saith",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3004"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "of",
+                "tag": "w",
+                "type": "word",
+                "strong": "G4012"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "him",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0846"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "tag": "wj",
+                "nextChar": " ",
+                "children": [
+                    {
+                        "tag": "+w",
+                        "content": "Behold|strong=\"G1492\""
+                    }
+                ],
+                "endTag": ""
+            },
+            {
+                "tag": "+w*",
+                "content": " "
+            },
+            {
+                "tag": "+w",
+                "content": "an Israelite|strong=\"G2475\""
+            },
+            {
+                "tag": "+w*",
+                "content": " "
+            },
+            {
+                "tag": "+w",
+                "content": "indeed|strong=\"G0230\""
+            },
+            {
+                "tag": "+w*",
+                "content": ", "
+            },
+            {
+                "tag": "+w",
+                "content": "in|strong=\"G1722\""
+            },
+            {
+                "tag": "+w*",
+                "content": " "
+            },
+            {
+                "tag": "+w",
+                "content": "whom|strong=\"G3739\""
+            },
+            {
+                "tag": "+w*",
+                "content": " "
+            },
+            {
+                "tag": "+w",
+                "content": "is|strong=\"G2076\""
+            },
+            {
+                "tag": "+w*",
+                "content": " "
+            },
+            {
+                "tag": "+w",
+                "content": "no|strong=\"G3756\""
+            },
+            {
+                "tag": "+w*",
+                "content": " "
+            },
+            {
+                "tag": "+w",
+                "content": "guile|strong=\"G1388\""
+            },
+            {
+                "tag": "+w*",
+                "content": "!"
+            },
+            {
+                "tag": "wj*",
+                "endMarkerChar": " ",
+                "content": " \n"
+            }
+        ]
+    },
+    "48": {
+        "verseObjects": [
+            {
+                "text": "Nathanael",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3482"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "saith",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3004"
+            },
+            {
+                "type": "text",
+                "text": " unto "
+            },
+            {
+                "text": "him",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0846"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "Whence",
+                "tag": "w",
+                "type": "word",
+                "strong": "G4159"
+            },
+            {
+                "type": "text",
+                "text": " knowest "
+            },
+            {
+                "text": "thou",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1097"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "me",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3165"
+            },
+            {
+                "type": "text",
+                "text": "? "
+            },
+            {
+                "text": "Jesus",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2424"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "answered",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0611"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "and",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2532"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "said",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2036"
+            },
+            {
+                "type": "text",
+                "text": " unto "
+            },
+            {
+                "text": "him",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0846"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "tag": "wj",
+                "nextChar": " ",
+                "children": [
+                    {
+                        "tag": "+w",
+                        "content": "Before|strong=\"G4253\""
+                    }
+                ],
+                "endTag": ""
+            },
+            {
+                "tag": "+w*",
+                "content": " "
+            },
+            {
+                "tag": "+w",
+                "content": "that|strong=\"G3588\""
+            },
+            {
+                "tag": "+w*",
+                "content": " "
+            },
+            {
+                "tag": "+w",
+                "content": "Philip|strong=\"G5376\""
+            },
+            {
+                "tag": "+w*",
+                "content": " "
+            },
+            {
+                "tag": "+w",
+                "content": "called|strong=\"G5455\""
+            },
+            {
+                "tag": "+w*",
+                "content": " "
+            },
+            {
+                "tag": "+w",
+                "content": "thee|strong=\"G4571\""
+            },
+            {
+                "tag": "+w*",
+                "content": ", "
+            },
+            {
+                "tag": "+w",
+                "content": "when thou wast|strong=\"G5607\""
+            },
+            {
+                "tag": "+w*",
+                "content": " "
+            },
+            {
+                "tag": "+w",
+                "content": "under|strong=\"G5259\""
+            },
+            {
+                "tag": "+w*",
+                "content": " "
+            },
+            {
+                "tag": "+w",
+                "content": "the fig tree|strong=\"G4808\""
+            },
+            {
+                "tag": "+w*",
+                "content": ", "
+            },
+            {
+                "tag": "+w",
+                "content": "I saw|strong=\"G1492\""
+            },
+            {
+                "tag": "+w*",
+                "content": " "
+            },
+            {
+                "tag": "+w",
+                "content": "thee|strong=\"G4571\""
+            },
+            {
+                "tag": "+w*",
+                "content": "."
+            },
+            {
+                "tag": "wj*",
+                "endMarkerChar": " ",
+                "content": " \n"
+            }
+        ]
+    },
+    "49": {
+        "verseObjects": [
+            {
+                "text": "Nathanael",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3482"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "answered",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0611"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "and",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2532"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "saith",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3004"
+            },
+            {
+                "type": "text",
+                "text": " unto "
+            },
+            {
+                "text": "him",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0846"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "Rabbi",
+                "tag": "w",
+                "type": "word",
+                "strong": "G4461"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "text": "thou",
+                "tag": "w",
+                "type": "word",
+                "strong": "G4771"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "art",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1488"
+            },
+            {
+                "type": "text",
+                "text": " the "
+            },
+            {
+                "text": "Son",
+                "tag": "w",
+                "type": "word",
+                "strong": "G5207"
+            },
+            {
+                "type": "text",
+                "text": " of "
+            },
+            {
+                "text": "God",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2316"
+            },
+            {
+                "type": "text",
+                "text": "; "
+            },
+            {
+                "text": "thou",
+                "tag": "w",
+                "type": "word",
+                "strong": "G4771"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "art",
+                "tag": "w",
+                "type": "word",
+                "strong": "G1488"
+            },
+            {
+                "type": "text",
+                "text": " the "
+            },
+            {
+                "text": "King",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0935"
+            },
+            {
+                "type": "text",
+                "text": " of "
+            },
+            {
+                "text": "Israel",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2474"
+            },
+            {
+                "type": "text",
+                "text": ".  \n"
+            }
+        ]
+    },
+    "50": {
+        "verseObjects": [
+            {
+                "text": "Jesus",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2424"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "answered",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0611"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "and",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2532"
+            },
+            {
+                "type": "text",
+                "text": " "
+            },
+            {
+                "text": "said",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2036"
+            },
+            {
+                "type": "text",
+                "text": " unto "
+            },
+            {
+                "text": "him",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0846"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "tag": "wj",
+                "nextChar": " ",
+                "children": [
+                    {
+                        "tag": "+w",
+                        "content": "Because|strong=\"G3754\""
+                    }
+                ],
+                "endTag": ""
+            },
+            {
+                "tag": "+w*",
+                "content": " "
+            },
+            {
+                "tag": "+w",
+                "content": "I said|strong=\"G2036\""
+            },
+            {
+                "tag": "+w*",
+                "content": " "
+            },
+            {
+                "tag": "+w",
+                "content": "unto thee|strong=\"G4671\""
+            },
+            {
+                "tag": "+w*",
+                "content": ", "
+            },
+            {
+                "tag": "+w",
+                "content": "I saw|strong=\"G1492\""
+            },
+            {
+                "tag": "+w*",
+                "content": " "
+            },
+            {
+                "tag": "+w",
+                "content": "thee|strong=\"G4571\""
+            },
+            {
+                "tag": "+w*",
+                "content": " "
+            },
+            {
+                "tag": "+w",
+                "content": "under|strong=\"G5270\""
+            },
+            {
+                "tag": "+w*",
+                "content": " "
+            },
+            {
+                "tag": "+w",
+                "content": "the fig tree|strong=\"G4808\""
+            },
+            {
+                "tag": "+w*",
+                "content": ", "
+            },
+            {
+                "tag": "+w",
+                "content": "believest thou|strong=\"G4100\""
+            },
+            {
+                "tag": "+w*",
+                "content": "? "
+            },
+            {
+                "tag": "+w",
+                "content": "thou shalt see|strong=\"G3700\""
+            },
+            {
+                "tag": "+w*",
+                "content": " "
+            },
+            {
+                "tag": "+w",
+                "content": "greater things than|strong=\"G3173\""
+            },
+            {
+                "tag": "+w*",
+                "content": " "
+            },
+            {
+                "tag": "+w",
+                "content": "these|strong=\"G5130\""
+            },
+            {
+                "tag": "+w*",
+                "content": "."
+            },
+            {
+                "tag": "wj*",
+                "endMarkerChar": " ",
+                "content": " \n"
+            }
+        ]
+    },
+    "51": {
+        "verseObjects": [
+            {
+                "text": "And",
+                "tag": "w",
+                "type": "word",
+                "strong": "G2532"
+            },
+            {
+                "type": "text",
+                "text": " he "
+            },
+            {
+                "text": "saith",
+                "tag": "w",
+                "type": "word",
+                "strong": "G3004"
+            },
+            {
+                "type": "text",
+                "text": " unto "
+            },
+            {
+                "text": "him",
+                "tag": "w",
+                "type": "word",
+                "strong": "G0846"
+            },
+            {
+                "type": "text",
+                "text": ", "
+            },
+            {
+                "tag": "wj",
+                "nextChar": " ",
+                "children": [
+                    {
+                        "tag": "+w",
+                        "content": "Verily|strong=\"G0281\""
+                    }
+                ],
+                "endTag": ""
+            },
+            {
+                "tag": "+w*",
+                "content": ", "
+            },
+            {
+                "tag": "+w",
+                "content": "verily|strong=\"G0281\""
+            },
+            {
+                "tag": "+w*",
+                "content": ", "
+            },
+            {
+                "tag": "+w",
+                "content": "I say|strong=\"G3004\""
+            },
+            {
+                "tag": "+w*",
+                "content": " "
+            },
+            {
+                "tag": "+w",
+                "content": "unto you|strong=\"G5213\""
+            },
+            {
+                "tag": "+w*",
+                "content": ", "
+            },
+            {
+                "tag": "+w",
+                "content": "Hereafter|strong=\"G0575\""
+            },
+            {
+                "tag": "+w*",
+                "content": " "
+            },
+            {
+                "tag": "+w",
+                "content": "ye shall see|strong=\"G3700\""
+            },
+            {
+                "tag": "+w*",
+                "content": " "
+            },
+            {
+                "tag": "+w",
+                "content": "heaven|strong=\"G3772\""
+            },
+            {
+                "tag": "+w*",
+                "content": " "
+            },
+            {
+                "tag": "+w",
+                "content": "open|strong=\"G0455\""
+            },
+            {
+                "tag": "+w*",
+                "content": ", "
+            },
+            {
+                "tag": "+w",
+                "content": "and|strong=\"G2532\""
+            },
+            {
+                "tag": "+w*",
+                "content": " "
+            },
+            {
+                "tag": "+w",
+                "content": "the angels|strong=\"G0032\""
+            },
+            {
+                "tag": "+w*",
+                "content": " "
+            },
+            {
+                "tag": "+w",
+                "content": "of God|strong=\"G2316\""
+            },
+            {
+                "tag": "+w*",
+                "content": " "
+            },
+            {
+                "tag": "+w",
+                "content": "ascending|strong=\"G0305\""
+            },
+            {
+                "tag": "+w*",
+                "content": " "
+            },
+            {
+                "tag": "+w",
+                "content": "and|strong=\"G2532\""
+            },
+            {
+                "tag": "+w*",
+                "content": " "
+            },
+            {
+                "tag": "+w",
+                "content": "descending|strong=\"G2597\""
+            },
+            {
+                "tag": "+w*",
+                "content": " "
+            },
+            {
+                "tag": "+w",
+                "content": "upon|strong=\"G1909\""
+            },
+            {
+                "tag": "+w*",
+                "content": " "
+            },
+            {
+                "tag": "+w",
+                "content": "the Son|strong=\"G5207\""
+            },
+            {
+                "tag": "+w*",
+                "content": " "
+            },
+            {
+                "tag": "+w",
+                "content": "of man|strong=\"G0444\""
+            },
+            {
+                "tag": "+w*",
+                "content": "."
+            },
+            {
+                "tag": "wj*",
+                "endMarkerChar": " ",
+                "content": "  \n"
+            }
+        ]
+    }
+}
