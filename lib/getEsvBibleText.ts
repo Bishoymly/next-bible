@@ -5,6 +5,7 @@ export default async function getEsvBibleText(query) {
     },
   });
   const data = await response.json();
+  console.log(data);
   const convertedData = convertEsvSampleToJson(data);
   return convertedData;
 }
