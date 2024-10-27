@@ -28,6 +28,7 @@ export function BibleBooksList({ language, versions, version, book, chapter, boo
           <h1 className="text-2xl font-bold text-center mb-2">{versionsDropDown(versions, version, null, null, null, false)}</h1>
           <h1 className="text-xl font-bold text-center mb-4">{v.name}</h1>
           <p className="text-left mb-8">{v.desc}</p>
+          <p className="text-left mb-8 text-sm italic">{v.copyright}</p>
         </>
       )}
       <div className={`grid gap-8 ${aside ? "" : "md:grid-cols-2"}`}>

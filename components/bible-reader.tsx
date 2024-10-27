@@ -23,6 +23,7 @@ import ChaptersList from "./chapters-list";
 import strongsHebrewDictionary from "@/lib/strongs-hebrew-dictionary.js";
 import strongsGreekDictionary from "@/lib/strongs-greek-dictionary.js";
 import { getByBC } from "@texttree/bible-crossref";
+import { versions } from "process";
 
 const inter = Inter({ subsets: ["latin"] });
 const amiri = Amiri({
@@ -204,7 +205,7 @@ export function BibleReader({ language, book, chapter, version, version2, versio
               </div>
               {version == "study"
                 ? studyContent(language, version, commentary, json, bookInfo, chapter, books, setQuestion)
-                : bibleContent.call(this, language, json, commentary, selectedVerse, handleSelectVerse, bookInfo, chapter, version, books)}
+                : bibleContent.call(this, language, json, commentary, selectedVerse, handleSelectVerse, bookInfo, chapter, version, books, versions)}
             </div>
 
             {sideBySide && (
@@ -212,7 +213,7 @@ export function BibleReader({ language, book, chapter, version, version2, versio
                 <div className={inter.className}>{versionsDropDown(versions, version, book, chapter, version2, true)}</div>
                 {version2 == "study"
                   ? studyContent(language, version, commentary, json, bookInfo, chapter, books, setQuestion)
-                  : bibleContent.call(this, language2, json2, commentary, selectedVerse, handleSelectVerse, bookInfo, chapter, version2, books)}
+                  : bibleContent.call(this, language2, json2, commentary, selectedVerse, handleSelectVerse, bookInfo, chapter, version2, books, versions)}
               </div>
             )}
           </div>
@@ -430,7 +431,19 @@ function renderFootnotes(verse: any, language: any) {
     )
   );
 }
-function bibleContent(this, language: any, json: any, commentary: any, selectedVerse: any, handleSelectVerse: (verse: any) => void, bookInfo: any, chapter: any, version: any, books: any) {
+function bibleContent(
+  this,
+  language: any,
+  json: any,
+  commentary: any,
+  selectedVerse: any,
+  handleSelectVerse: (verse: any) => void,
+  bookInfo: any,
+  chapter: any,
+  version: any,
+  books: any,
+  versions: any
+) {
   const crossRef = getByBC({ book: bookInfo.short, chapter });
 
   return (
@@ -498,6 +511,7 @@ function bibleContent(this, language: any, json: any, commentary: any, selectedV
           </Drawer>
         </>
       ))}
+      <p className="text-left mt-8 text-sm italic">{versions.find((v) => v.id === version).copyright}</p>
     </div>
   );
 }
