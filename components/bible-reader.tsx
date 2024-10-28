@@ -23,7 +23,6 @@ import ChaptersList from "./chapters-list";
 import strongsHebrewDictionary from "@/lib/strongs-hebrew-dictionary.js";
 import strongsGreekDictionary from "@/lib/strongs-greek-dictionary.js";
 import { getByBC } from "@texttree/bible-crossref";
-import { versions } from "process";
 
 const inter = Inter({ subsets: ["latin"] });
 const amiri = Amiri({
@@ -300,53 +299,61 @@ function studyContent(language: any, version: any, commentary: any, json: any, b
 }
 
 function renderVerse(verse: any, language: any, singleVerse: boolean = false) {
-  return (verse as { verseObjects: { text: string; tag: string; type: string; content: string; strong: string; nextChar: string; children: any[] }[] }).verseObjects.map((verseObject, index, array) =>
-    verseObject.strong && singleVerse ? (
-      renderWord(verseObject.text, verseObject.strong, index, language)
-    ) : verseObject.type == "text" || verseObject.tag == "d" ? (
-      <>{verseObject.text.replace("¶ ", "")}</>
-    ) : verseObject.type == "word" ? (
-      <>{verseObject.text}</>
-    ) : verseObject.tag == "cl" || verseObject.tag == "ms1" ? (
-      <>{verseObject.content}</>
-    ) : verseObject.tag == "wj*" || verseObject.tag == "nd*" ? (
-      <>{parseWord(verseObject.content).text}</>
-    ) : verseObject.tag == "wj" || verseObject.tag == "nd" ? (
-      <span className="text-red-600">{parseWord(verseObject.children[0].content).text}</span>
-    ) : verseObject.tag == "+w" ? (
-      <span className="text-red-600">{parseWord(verseObject.content).text}</span>
-    ) : verseObject.tag == "+w*" ? (
-      <span className="text-red-600">{verseObject.content}</span>
-    ) : verseObject.type == "paragraph" ? (
-      singleVerse ? (
-        <></>
-      ) : (
-        <>
-          <br />
-          <br />
-        </>
-      )
-    ) : verseObject.tag == "add" ? (
-      <span className="italic">{verseObject.text}</span>
-    ) : verseObject.tag == "+add" ? (
-      <span className="italic text-red-600">{verseObject.text}</span>
-    ) : verseObject.tag == "s1" ? (
-      <>{/*<h3 className="text-3xl font-semibold mt-2 mb-4">{verseObject.content}</h3>*/}</>
-    ) : verseObject.tag == "f" ? (
-      singleVerse ? (
-        <></>
-      ) : (
-        <MessageSquareMore className="text-gray-500 text-sm w-4 inline" />
-      )
-    ) : verseObject.tag == "q1" || verseObject.tag == "q2" ? (
-      <br />
-    ) : verseObject.tag == "qs" ? (
+  return (verse as { verseObjects: { text: string; tag: string; type: string; content: string; strong: string; nextChar: string; children: any[] }[] }).verseObjects.map(
+    (verseObject, index, array) => (
       <>
-        <span className="italic float-end">{verseObject.text}</span>
-        <br />
+        {verseObject.strong && singleVerse ? (
+          renderWord(verseObject.text, verseObject.strong, index, language)
+        ) : verseObject.text == "\n" ? (
+          <br />
+        ) : verseObject.type == "text" || verseObject.tag == "d" ? (
+          <>{verseObject.text.replace("¶ ", "")}</>
+        ) : verseObject.type == "word" ? (
+          <>{verseObject.text}</>
+        ) : verseObject.tag == "cl" || verseObject.tag == "ms1" ? (
+          <>{verseObject.content}</>
+        ) : verseObject.tag == "wj*" || verseObject.tag == "nd*" ? (
+          <>{parseWord(verseObject.content).text}</>
+        ) : verseObject.tag == "wj" ? (
+          <span className="text-red-600">{renderVerse({ verseObjects: verseObject.children }, language, singleVerse)}</span>
+        ) : verseObject.tag == "nd" ? (
+          <span className="font-bold">{renderVerse({ verseObjects: verseObject.children }, language, singleVerse)}</span>
+        ) : verseObject.tag == "+w" ? (
+          parseWord(verseObject.content).text
+        ) : verseObject.tag == "+w*" ? (
+          verseObject.content
+        ) : verseObject.type == "paragraph" ? (
+          singleVerse ? (
+            <></>
+          ) : (
+            <>
+              <br />
+            </>
+          )
+        ) : verseObject.tag == "add" ? (
+          <span className="italic">{verseObject.text}</span>
+        ) : verseObject.tag == "+add" ? (
+          <span className="italic text-red-600">{verseObject.text}</span>
+        ) : verseObject.tag == "s1" ? (
+          <>{/*<h3 className="text-3xl font-semibold mt-2 mb-4">{verseObject.content}</h3>*/}</>
+        ) : verseObject.tag == "f" ? (
+          singleVerse ? (
+            <></>
+          ) : (
+            <MessageSquareMore className="text-gray-500 text-sm w-4 inline" />
+          )
+        ) : verseObject.tag == "q1" || verseObject.tag == "q2" ? (
+          <br />
+        ) : verseObject.tag == "qs" ? (
+          <>
+            <span className="italic float-end">{verseObject.text}</span>
+            <br />
+          </>
+        ) : (
+          <>{JSON.stringify(verseObject)}</>
+        )}
+        {verseObject.nextChar == "\n" ? <br /> : verseObject.nextChar}
       </>
-    ) : (
-      <>{JSON.stringify(verseObject)}</>
     )
   );
 }

@@ -4,6 +4,7 @@ import getBooks from "@/lib/getBooks";
 import getBooksCategorized from "@/lib/getBooksCategorized";
 import getEsvBibleText from "@/lib/getEsvBibleText";
 import getVersions from "@/lib/getVersions";
+import groupChildrenByTags from "@/lib/groupChildrenByTag";
 
 export default async function Read({ params, searchParams }) {
   const { version, book, chapter } = params;
@@ -25,6 +26,7 @@ export default async function Read({ params, searchParams }) {
       delete json.front;
     }
     json = swapSectionAndParagraph(json);
+    json = groupChildrenByTags(json);
   }
 
   let json2 = null;
@@ -38,6 +40,7 @@ export default async function Read({ params, searchParams }) {
         delete json2.front;
       }
       json2 = swapSectionAndParagraph(json2);
+      json2 = groupChildrenByTags(json2);
     }
   }
 
