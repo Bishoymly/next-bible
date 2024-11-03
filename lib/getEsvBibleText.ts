@@ -1,11 +1,13 @@
 export default async function getEsvBibleText(query) {
-  const response = await fetch(`https://api.esv.org/v3/passage/text/?q=${query}`, {
-    headers: {
-      Authorization: `Token ${process.env.ESV_API_KEY}`,
-    },
-  });
+  const response = await fetch(
+    `https://api.esv.org/v3/passage/text/?q=${query}`,
+    {
+      headers: {
+        Authorization: `Token ${process.env.ESV_API_KEY}`,
+      },
+    }
+  );
   const data = await response.json();
-  console.log(data);
   const convertedData = convertEsvSampleToJson(data);
   return convertedData;
 }
