@@ -67,6 +67,14 @@ export function BibleReader({
   const [activeId, setActiveId] = useState<string | undefined>();
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
 
+  // using version, json, version2, json2 and commentary calculate the content of the page using rows
+  // if verse by verse and none of the versions are study, then rows should be verse by verse, with the row having the verse json from both translations
+  // otherwise, rows should be sections of commentary, so each translation could have it's verses json or commentary
+  const rows = [];
+  if (verseByVerse && version != "study" && version2 != "study") {
+    // verse by verse, with the row having the verse json from both translations
+  }
+
   // handling scroll spy
   useEffect(() => {
     const scrollContainer = scrollContainerRef.current;
