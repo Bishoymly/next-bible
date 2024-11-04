@@ -15,7 +15,7 @@ import {
 import Link from "next/link";
 import ChatSupport from "./chat-support";
 import { BibleBooksList } from "./bible-books-list";
-import { Amiri, Inter } from "next/font/google";
+import { Amiri, Inter, Righteous } from "next/font/google";
 import { uiText } from "@/lib/uiText";
 import SocialShareButtons from "./social-share-buttons";
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
@@ -73,6 +73,48 @@ export function BibleReader({
   const rows = [];
   if (verseByVerse && version != "study" && version2 != "study") {
     // verse by verse, with the row having the verse json from both translations
+    for (const [key, verse] of Object.entries(json)) {
+      let left = {};
+      left[key] = verse;
+      let right = {};
+      right[key] = json2[key];
+      const verse2 = json2[key];
+      rows.push({ key, left, right });
+    }
+  } else if (commentary) {
+    // sections of commentary, so each translation could have it's verses json or commentary
+    if (commentary.sections[0].fromVerse != 1) {
+      const left = Object.entries(json)
+        .slice(0, 10)
+        .reduce((acc, [key, value]) => {
+          acc[key] = value;
+          return acc;
+        }, {});
+      const right = Object.entries(json2)
+        .slice(0, 10)
+        .reduce((acc, [key, value]) => {
+          acc[key] = value;
+          return acc;
+        }, {});
+      rows.push({ key: "1", left, right });
+    }
+    for (const section of commentary.sections) {
+      const left = Object.entries(json)
+        .slice(section.fromVerse, section.toVerse + 1)
+        .reduce((acc, [key, value]) => {
+          acc[key] = value;
+          return acc;
+        }, {});
+      const right = Object.entries(json2)
+        .slice(section.fromVerse, section.toVerse + 1)
+        .reduce((acc, [key, value]) => {
+          acc[key] = value;
+          return acc;
+        }, {});
+      rows.push({ key: section.fromVerse, left, right });
+    }
+  } else {
+    rows.push({ key: "1", left: json, right: json2 });
   }
 
   // handling scroll spy
@@ -336,101 +378,116 @@ export function BibleReader({
           ref={scrollContainerRef}
         >
           <div className="p-6 flex gap-4 md:gap-8">
-            <div className="max-w-3xl mx-auto space-y-4 mb-20 flex-1">
-              <div className={inter.className}>
-                <div className="flex gap-2">
-                  {versionsDropDown(
-                    versions,
-                    version,
-                    book,
-                    chapter,
-                    version2,
-                    false
-                  )}
-                  <Toggle
-                    aria-label="Side by side"
-                    size="sm"
-                    onClick={() => setSideBySide(!sideBySide)}
-                    value={sideBySide}
-                  >
-                    <BookCopy />
-                  </Toggle>
-                  <Toggle
-                    aria-label="Verse by verse"
-                    size="sm"
-                    onClick={() => setVerseByVerse(!verseByVerse)}
-                    value={verseByVerse}
-                  >
-                    <ListOrdered />
-                  </Toggle>
-                </div>
-              </div>
-              {version == "study"
-                ? studyContent(
-                    language,
-                    version,
-                    commentary,
-                    json,
-                    bookInfo,
-                    chapter,
-                    books,
-                    setQuestion
-                  )
-                : bibleContent.call(
-                    this,
-                    language,
-                    json,
-                    commentary,
-                    selectedVerse,
-                    handleSelectVerse,
-                    bookInfo,
-                    chapter,
-                    version,
-                    books,
-                    versions,
-                    verseByVerse
-                  )}
-            </div>
-
-            {sideBySide && (
-              <div className={`max-w-3xl mx-auto space-y-4 mb-20 flex-1`}>
-                <div className={inter.className}>
-                  {versionsDropDown(
-                    versions,
-                    version,
-                    book,
-                    chapter,
-                    version2,
-                    true
-                  )}
-                </div>
-                {version2 == "study"
-                  ? studyContent(
-                      language,
+            <div
+              className={`${
+                sideBySide ? "px-2" : "max-w-3xl"
+              } mx-auto space-y-2 mb-20 flex-1`}
+            >
+              <table>
+                <tr className={inter.className}>
+                  <td className="flex gap-2">
+                    {versionsDropDown(
+                      versions,
                       version,
-                      commentary,
-                      json,
-                      bookInfo,
-                      chapter,
-                      books,
-                      setQuestion
-                    )
-                  : bibleContent.call(
-                      this,
-                      language2,
-                      json2,
-                      commentary,
-                      selectedVerse,
-                      handleSelectVerse,
-                      bookInfo,
+                      book,
                       chapter,
                       version2,
-                      books,
-                      versions,
-                      verseByVerse
+                      false
                     )}
-              </div>
-            )}
+                    <Toggle
+                      aria-label="Side by side"
+                      size="sm"
+                      onClick={() => setSideBySide(!sideBySide)}
+                      value={sideBySide}
+                    >
+                      <BookCopy />
+                    </Toggle>
+                    <Toggle
+                      aria-label="Verse by verse"
+                      size="sm"
+                      onClick={() => setVerseByVerse(!verseByVerse)}
+                      value={verseByVerse}
+                    >
+                      <ListOrdered />
+                    </Toggle>
+                  </td>
+                  {sideBySide && (
+                    <td className={`max-w-3xl mx-auto space-y-4 mb-20 flex-1`}>
+                      <div className={inter.className}>
+                        {versionsDropDown(
+                          versions,
+                          version,
+                          book,
+                          chapter,
+                          version2,
+                          true
+                        )}
+                      </div>
+                    </td>
+                  )}
+                </tr>
+                {rows.map((row, index) => (
+                  <tr key={index}>
+                    <td className="align-top">
+                      {version == "study"
+                        ? studyContent(
+                            language,
+                            version,
+                            commentary,
+                            row.left,
+                            bookInfo,
+                            chapter,
+                            books,
+                            setQuestion
+                          )
+                        : bibleContent.call(
+                            this,
+                            language,
+                            row.left,
+                            commentary,
+                            selectedVerse,
+                            handleSelectVerse,
+                            bookInfo,
+                            chapter,
+                            version,
+                            books,
+                            versions,
+                            verseByVerse
+                          )}
+                    </td>
+                    {sideBySide && (
+                      <td className="align-top">
+                        {version2 == "study"
+                          ? studyContent(
+                              language,
+                              version,
+                              commentary,
+                              row.right,
+                              bookInfo,
+                              chapter,
+                              books,
+                              setQuestion
+                            )
+                          : bibleContent.call(
+                              this,
+                              language2,
+                              row.right,
+                              commentary,
+                              selectedVerse,
+                              handleSelectVerse,
+                              bookInfo,
+                              chapter,
+                              version2,
+                              books,
+                              versions,
+                              verseByVerse
+                            )}
+                      </td>
+                    )}
+                  </tr>
+                ))}
+              </table>
+            </div>
           </div>
           <div className="p-6 mb-16">
             {(version2 != "study" || !sideBySide) &&
