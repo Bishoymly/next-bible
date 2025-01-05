@@ -3,14 +3,14 @@ import path from "path";
 import getBooks from "./getBooks";
 
 export default function getBooksCategorized(language) {
-  const filePath = path.join(process.cwd(), "public", "data", "key_genre_english.json");
+  const filePath = path.join(process.cwd(), "public", "data", `key_genre_${language.toLowerCase()}.json`);
   const fileContents = fs.readFileSync(filePath, "utf-8");
   const groups = JSON.parse(fileContents);
 
   const books = getBooks(language);
   const results = {
     oldTestament: groups
-      .filter((group) => group.testament === "Old Testament")
+      .filter((group) => group.testament === (language === "Arabic" ? "العهد القديم" : "Old Testament"))
       .map((group) => {
         return {
           category: group.n,
@@ -18,7 +18,7 @@ export default function getBooksCategorized(language) {
         };
       }),
     newTestament: groups
-      .filter((group) => group.testament === "New Testament")
+      .filter((group) => group.testament === (language === "Arabic" ? "العهد الجديد" : "New Testament"))
       .map((group) => {
         return {
           category: group.n,

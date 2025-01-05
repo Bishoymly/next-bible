@@ -57,9 +57,6 @@ export function HomePageComponent() {
                 <Link href={"/asv"}>ASV</Link>
               </Button>
               <Button variant="outline" asChild>
-                <Link href={"/esv"}>ESV</Link>
-              </Button>
-              <Button variant="outline" asChild>
                 <Link href={"/avd"}>الكتاب المقدس</Link>
               </Button>
             </div>

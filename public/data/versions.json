@@ -24,15 +24,6 @@
         "direction": "ltr"
     },
     {
-        "id": "esv",
-        "name": "English Standard Version",
-        "desc": "The English Standard Version (ESV) is an English translation of the Bible. It was first published in 2001 by Crossway. The ESV is based on the 1971 edition of the Revised Standard Version (RSV) text. It aims to be \"as literal as possible\" while maintaining readability. It is widely used by conservative Protestant and evangelical churches.",
-        "copyright": "Scripture quotations are from The Holy Bible, English Standard Version® (ESV®), copyright © 2001 by Crossway, a publishing ministry of Good News Publishers. Used by permission. All rights reserved.",
-        "year": 2001,
-        "lang": "English",
-        "direction": "ltr"
-    },
-    {
         "id": "avd",
         "name": "Arabic Van Dyck",
         "desc": "The Van Dyck Bible was first published in 1865. It is the standard Arabic Bible used in the Middle East. It is also sometimes called the \"SVD Bible\". The translation was done by Cornelius Van Allen Van Dyck, a Christian missionary who worked in the Middle East. The translation was done in the 19th century and is in the public domain.",
