@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: https://new.holybiblereader.com/sitemap.xml
+Sitemap: https://holybiblereader.com/sitemap.xml
 
 # Crawl-delay for all bots
 Crawl-delay: 1 

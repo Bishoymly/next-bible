@@ -8,33 +8,33 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: {
-    default: "Bible Study Companion",
-    template: "%s | Bible Study Companion"
+    default: "Bible Reader",
+    template: "%s | Bible Reader"
   },
-  description: "Your comprehensive Bible study companion with multiple translations, study tools, and cross-references. Read, study, and explore the Bible in different languages.",
-  keywords: ["bible", "study", "scripture", "religious text", "bible study", "bible translations"],
-  authors: [{ name: "Bible Study Companion" }],
-  metadataBase: new URL('https://new.holybiblereader.com'),
+  description: "Your comprehensive Bible reader with multiple translations, study tools, and cross-references. Read, study, and explore the Bible in different languages.",
+  keywords: ["bible", "study", "scripture", "religious text", "bible reader", "bible translations"],
+  authors: [{ name: "Bible Reader" }],
+  metadataBase: new URL('https://holybiblereader.com'),
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://new.holybiblereader.com",
-    siteName: "Bible Study Companion",
-    title: "Bible Study Companion",
-    description: "Your comprehensive Bible study companion with multiple translations, study tools, and cross-references.",
+    url: "https://holybiblereader.com",
+    siteName: "Bible Reader",
+    title: "Bible Reader",
+    description: "Your comprehensive Bible reader with multiple translations, study tools, and cross-references.",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Bible Study Companion"
+        alt: "Bible Reader"
       }
     ]
   },
   twitter: {
     card: "summary_large_image",
-    title: "Bible Study Companion",
-    description: "Your comprehensive Bible study companion with multiple translations, study tools, and cross-references.",
+    title: "Bible Reader",
+    description: "Your comprehensive Bible reader with multiple translations, study tools, and cross-references.",
     images: ["/og-image.png"]
   },
   robots: {

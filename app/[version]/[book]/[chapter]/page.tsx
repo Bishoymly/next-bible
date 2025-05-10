@@ -6,6 +6,7 @@ import getBooksCategorized from "@/lib/getBooksCategorized";
 import getVersions from "@/lib/getVersions";
 import groupChildrenByTags from "@/lib/groupChildrenByTag";
 import Script from 'next/script';
+import { notFound } from 'next/navigation';
 
 type Props = {
   params: { version: string; book: string; chapter: string };
@@ -41,31 +42,69 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function Read({ params, searchParams }) {
   const { version, book, chapter } = params;
   const versions = getVersions();
-  const language = versions.filter((v) => v.id === version)[0].lang;
+  
+  // Validate version exists
+  const versionInfo = versions.find((v) => v.id === version);
+  if (!versionInfo) {
+    notFound();
+  }
+  
+  const language = versionInfo.lang;
   const books = getBooks(language);
-  const bookInfo = books.filter((b) => b.slug === book)[0];
+  
+  // Validate book exists
+  const bookInfo = books.find((b) => b.slug === book);
+  if (!bookInfo) {
+    notFound();
+  }
 
   const version2 = searchParams.side || "study";
-  const language2 = versions.filter((v) => v.id === version2)[0].lang;
+  // Validate secondary version exists
+  const version2Info = versions.find((v) => v.id === version2);
+  if (!version2Info) {
+    notFound();
+  }
+  const language2 = version2Info.lang;
 
   let json = null;
-  json = getBibleJson(bookInfo.b, version)["chapters"][parseInt(chapter)];
-  if (json["front"]) {
-    json["0"] = json["front"];
-    delete json.front;
+  try {
+    const bibleJson = getBibleJson(bookInfo.b, version);
+    
+    // Validate chapter exists
+    if (!bibleJson["chapters"] || !bibleJson["chapters"][parseInt(chapter)]) {
+      notFound();
+    }
+    
+    json = bibleJson["chapters"][parseInt(chapter)];
+    if (json["front"]) {
+      json["0"] = json["front"];
+      delete json.front;
+    }
+    json = swapSectionAndParagraph(json);
+    json = groupChildrenByTags(json);
+  } catch (error) {
+    console.error("Error loading Bible JSON:", error);
+    notFound();
   }
-  json = swapSectionAndParagraph(json);
-  json = groupChildrenByTags(json);
 
   let json2 = null;
   if (version2 != "study") {
-    json2 = getBibleJson(bookInfo.b, version2)["chapters"][parseInt(chapter)];
-    if (json2["front"]) {
-      json2["0"] = json2["front"];
-      delete json2.front;
+    try {
+      const bibleJson2 = getBibleJson(bookInfo.b, version2);
+      
+      if (bibleJson2["chapters"] && bibleJson2["chapters"][parseInt(chapter)]) {
+        json2 = bibleJson2["chapters"][parseInt(chapter)];
+        if (json2["front"]) {
+          json2["0"] = json2["front"];
+          delete json2.front;
+        }
+        json2 = swapSectionAndParagraph(json2);
+        json2 = groupChildrenByTags(json2);
+      }
+    } catch (error) {
+      console.error("Error loading secondary Bible JSON:", error);
+      // We don't throw notFound here since the primary content can still be shown
     }
-    json2 = swapSectionAndParagraph(json2);
-    json2 = groupChildrenByTags(json2);
   }
 
   const booksCategorized = getBooksCategorized(language);
@@ -73,7 +112,7 @@ export default async function Read({ params, searchParams }) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": `${bookInfo.name} ${chapter} - ${versions.find(v => v.id === version)?.name}`,
+    "headline": `${bookInfo.name} ${chapter} - ${versionInfo.name}`,
     "description": `Read and study ${bookInfo.name} chapter ${chapter}`,
     "inLanguage": language,
     "isPartOf": {

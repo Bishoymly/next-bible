@@ -18,7 +18,7 @@ export function HomePageComponent() {
           <nav className="flex items-center justify-between">
             <Link href="/" className="text-2xl font-bold flex items-center">
               <BookOpen className="mt-1 mr-3" />
-              Bible Study
+              Bible Reader
             </Link>
             {/*<div className="flex items-center space-x-4">
               <Link href="/about" className="hover:underline">
@@ -253,8 +253,8 @@ export function HomePageComponent() {
               </ul>
             </div>
           </div>*/}
-          <div className="text-center">
-            <p>&copy; {new Date().getFullYear()} Bible Study. All rights reserved.</p>
+          <div className="text-center text-sm text-muted-foreground mt-8">
+            <p>&copy; {new Date().getFullYear()} Bible Reader. All rights reserved.</p>
           </div>
         </div>
       </footer>
