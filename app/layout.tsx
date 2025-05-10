@@ -14,11 +14,11 @@ export const metadata: Metadata = {
   description: "Your comprehensive Bible reader with multiple translations, study tools, and cross-references. Read, study, and explore the Bible in different languages.",
   keywords: ["bible", "study", "scripture", "religious text", "bible reader", "bible translations"],
   authors: [{ name: "Bible Reader" }],
-  metadataBase: new URL('https://holybiblereader.com'),
+  metadataBase: new URL('https://www.holybiblereader.com'),
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://holybiblereader.com",
+    url: "https://www.holybiblereader.com",
     siteName: "Bible Reader",
     title: "Bible Reader",
     description: "Your comprehensive Bible reader with multiple translations, study tools, and cross-references.",
