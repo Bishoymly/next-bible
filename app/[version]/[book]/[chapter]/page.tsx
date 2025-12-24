@@ -5,6 +5,7 @@ import getBooks from "@/lib/getBooks";
 import getBooksCategorized from "@/lib/getBooksCategorized";
 import getVersions from "@/lib/getVersions";
 import groupChildrenByTags from "@/lib/groupChildrenByTag";
+import { findBookBySlug } from "@/lib/findBookBySlug";
 import Script from 'next/script';
 import { notFound } from 'next/navigation';
 
@@ -16,13 +17,13 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { version, book, chapter } = await params;
   const versions = getVersions();
-  const language = versions.find((v) => v.id === version)?.lang || 'en';
-  const books = getBooks(language);
-  const bookInfo = books.find((b) => b.slug === book);
   const versionInfo = versions.find((v) => v.id === version);
+  const language = versionInfo?.lang || 'en';
+  const books = getBooks(language);
+  const bookInfo = findBookBySlug(books, book);
   
-  const title = `${bookInfo?.name || book} ${chapter} - ${versionInfo?.name || version}`;
-  const description = `Read and study ${bookInfo?.name || book} chapter ${chapter} in ${versionInfo?.name || version}. Access multiple translations, study tools, and cross-references.`;
+  const title = `${bookInfo?.n || book} ${chapter} - ${versionInfo?.name || version}`;
+  const description = `Read and study ${bookInfo?.n || book} chapter ${chapter} in ${versionInfo?.name || version}. Access multiple translations, study tools, and cross-references.`;
 
   return {
     title,
@@ -30,7 +31,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title,
       description,
-      url: `/${version}/${book}/${chapter}`,
+      url: `/${version}/${bookInfo?.slug || book}/${chapter}`,
     },
     twitter: {
       title,
@@ -53,8 +54,8 @@ export default async function Read({ params, searchParams }: Props) {
   const language = versionInfo.lang;
   const books = getBooks(language);
   
-  // Validate book exists
-  const bookInfo = books.find((b) => b.slug === book);
+  // Validate book exists (accepts slugs with or without dashes)
+  const bookInfo = findBookBySlug(books, book);
   if (!bookInfo) {
     notFound();
   }
@@ -132,7 +133,7 @@ export default async function Read({ params, searchParams }: Props) {
       />
       <BibleReader
         language={language}
-        book={book}
+        book={bookInfo.slug}
         bookInfo={bookInfo}
         chapter={chapter}
         version={version}
