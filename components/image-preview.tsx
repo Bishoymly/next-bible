@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 
-const images = ["/img/demo/demo1.png?height=400&width=800", "/img/demo/demo2.png?height=400&width=800", "/img/demo/demo3.png?height=400&width=800", "/img/demo/demo4.png?height=400&width=800"];
+const images = ["/img/demo/demo1.png", "/img/demo/demo2.png", "/img/demo/demo3.png", "/img/demo/demo4.png"];
 
 export function ImagePreview() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);

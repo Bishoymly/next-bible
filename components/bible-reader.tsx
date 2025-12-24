@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -11,14 +11,14 @@ import {
   ListOrdered,
   Menu,
   MessageSquareMore,
+  MessageCircleQuestion,
 } from "lucide-react";
 import Link from "next/link";
-import ChatSupport from "./chat-support";
 import { BibleBooksList } from "./bible-books-list";
 import { Amiri, Inter } from "next/font/google";
 import { uiText } from "@/lib/uiText";
 import SocialShareButtons from "./social-share-buttons";
-import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
+import { Drawer, DrawerContent, DrawerTrigger, DrawerTitle } from "@/components/ui/drawer";
 import useStickyState from "@/lib/useStickyState";
 import parseFootnote from "@/lib/parseFootnote";
 import parseWord from "@/lib/parseWord";
@@ -31,6 +31,7 @@ import ChaptersList from "./chapters-list";
 import strongsHebrewDictionary from "@/lib/strongs-hebrew-dictionary.js";
 import strongsGreekDictionary from "@/lib/strongs-greek-dictionary.js";
 import { getByBC } from "@texttree/bible-crossref";
+import { ThemeToggle } from "./theme-toggle";
 
 const inter = Inter({ subsets: ["latin"] });
 const amiri = Amiri({
@@ -152,27 +153,27 @@ export function BibleReader({
   ) {
     return (
       <ScrollArea
-        className={`h-full mt-4 pr-3 ${
+        className={`h-full pr-3 ${
           language == "Arabic"
             ? `[direction:rtl] ${amiri.className} text-2xl leading-loose`
             : `text-lg leading-relaxed ${inter.className}`
         }`}
       >
         {commentary && (
-          <div className="mb-10">
-            <h2 className="text-xl font-semibold mb-2">
+          <div className="mb-10 px-4">
+            <h2 className="text-xl font-semibold mb-2 text-accent">
               {uiText[language].onThisPage}
             </h2>
             <ul className="space-y-1">
               {commentary?.sections.map((section, index) => (
-                <li key={index} className="block">
+                <li key={index} className="block cursor-pointer">
                   <Link
                     className={`${
                       language == "Arabic" ? "text-xl" : "text-sm"
-                    } hover:text-blue-600 ${
+                    } hover:text-primary transition-colors ${
                       activeId === `s${section.fromVerse}`
-                        ? "text-blue-600 font-bold"
-                        : "text-gray-500"
+                        ? "text-primary font-bold"
+                        : "text-muted-foreground"
                     }`}
                     href={`#s${section.fromVerse}`}
                     onClick={() => {
@@ -188,25 +189,27 @@ export function BibleReader({
           </div>
         )}
 
-        <h2 className="text-xl font-semibold mb-4">{bookInfo.n}</h2>
-        <ChaptersList
-          language={language}
-          version={version}
-          book={bookInfo.slug}
-          chaptersCount={bookInfo.c}
-          chapter={chapter}
-          aside={true}
-        />
-        <h2 className="text-xl font-semibold mt-6">{uiText[language].books}</h2>
-        <BibleBooksList
-          language={language}
-          versions={versions}
-          version={version}
-          book={null}
-          chapter={chapter}
-          booksCategorized={booksCategorized}
-          aside={true}
-        />
+        <div className="px-4">
+          <h2 className="text-xl font-semibold mb-4 text-accent">{bookInfo.n}</h2>
+          <ChaptersList
+            language={language}
+            version={version}
+            book={bookInfo.slug}
+            chaptersCount={bookInfo.c}
+            chapter={chapter}
+            aside={true}
+          />
+          <h2 className="text-xl font-semibold mt-6 text-accent">{uiText[language].books}</h2>
+          <BibleBooksList
+            language={language}
+            versions={versions}
+            version={version}
+            book={null}
+            chapter={chapter}
+            booksCategorized={booksCategorized}
+            aside={true}
+          />
+        </div>
       </ScrollArea>
     );
   }
@@ -221,25 +224,27 @@ export function BibleReader({
     >
       {/* Collapsible Sidebar */}
       <aside
-        className={`hidden md:block ${
+        className={`hidden md:flex flex-col ${
           language == "Arabic" ? "border-l" : "border-r"
-        } transition-all duration-300 ${sidebarExpanded ? "w-72 p-4" : "w-0"}`}
+        } transition-all duration-300 ${sidebarExpanded ? "w-72" : "w-0"} overflow-hidden`}
       >
-        <Button
-          variant="ghost"
-          size="icon"
-          className={`absolute top-0 start-64 p-0 ${
-            sidebarExpanded ? "absolute" : "hidden"
-          }`}
-          onClick={() => setSidebarExpanded(!sidebarExpanded)}
-        >
-          {language == "English" ? (
-            <ChevronLeft className="h-5" />
-          ) : (
-            <ChevronRight />
-          )}
-        </Button>
-        {Sidebar(bookInfo, chapter, book, booksCategorized, null)}
+        <div className="p-4 flex-shrink-0">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="p-0"
+            onClick={() => setSidebarExpanded(!sidebarExpanded)}
+          >
+            {language == "English" ? (
+              <ChevronLeft className="h-5 text-accent" />
+            ) : (
+              <ChevronRight className="text-accent" />
+            )}
+          </Button>
+        </div>
+        <div className="flex-1 min-h-0">
+          {Sidebar(bookInfo, chapter, book, booksCategorized, null)}
+        </div>
       </aside>
 
       {/* Main Content */}
@@ -256,7 +261,7 @@ export function BibleReader({
                   <Button variant="ghost" size="icon">
                     <Menu />
                   </Button>
-                  <h1 className="text-2xl font-bold mx-2 flex flex-row space-x-2">
+                  <h1 className="text-2xl font-bold mx-2 flex flex-row space-x-2 text-accent">
                     {bookInfo.n} {chapter}
                   </h1>
                 </div>
@@ -278,9 +283,9 @@ export function BibleReader({
               onClick={() => setSidebarExpanded(true)}
             >
               {language == "Arabic" ? (
-                <ChevronLeft className="h-5" />
+                <ChevronLeft className="h-5 text-accent" />
               ) : (
-                <ChevronRight />
+                <ChevronRight className="text-accent" />
               )}
             </Button>
             <Button
@@ -290,24 +295,25 @@ export function BibleReader({
               asChild
             >
               <Link href="/">
-                <BookOpen className="mt-2 mx-1" />
+                <BookOpen className="mt-2 mx-1 text-accent" />
               </Link>
             </Button>
             <h1
-              className="text-2xl font-bold mx-2 flex-row space-x-2 hidden md:flex"
+              className="text-2xl font-bold mx-2 flex-row space-x-2 hidden md:flex text-accent"
               onClick={() => setSidebarExpanded(true)}
             >
               {bookInfo.n} {chapter}
             </h1>
           </div>
           <div className="flex items-center space-x-2">
+            <ThemeToggle />
             <Button
               variant="ghost"
               size="icon"
               disabled={parseInt(chapter) === 1}
             >
               <Link href={`/${version}/${book}/${parseInt(chapter) - 1}`}>
-                {language == "English" ? <ChevronLeft /> : <ChevronRight />}
+                  {language == "English" ? <ChevronLeft className="text-accent" /> : <ChevronRight className="text-accent" />}
               </Link>
             </Button>
             <Button
@@ -428,7 +434,7 @@ export function BibleReader({
             {(version2 != "study" || !sideBySide) &&
               commentary?.questions?.length > 0 && (
                 <div className="max-w-3xl mx-auto mt-8">
-                  <h2 className="text-2xl font-semibold mb-2">
+                  <h2 className="text-2xl font-semibold mb-2 text-accent">
                     {uiText[language].study}
                   </h2>
                   {studyContent(
@@ -445,12 +451,19 @@ export function BibleReader({
               )}
           </div>
         </div>
-        <ChatSupport
-          version={version}
-          book={book}
-          chapter={chapter}
-          question={question}
-        />
+        <Link
+          href="https://ask.holybiblereader.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="fixed bottom-5 right-5 z-50"
+        >
+          <Button
+            variant="default"
+            className="w-14 h-14 rounded-full shadow-md flex items-center justify-center hover:shadow-lg hover:shadow-black/30 transition-all duration-300"
+          >
+            <MessageCircleQuestion className="h-6 w-6" />
+          </Button>
+        </Link>
       </main>
     </div>
   );
@@ -474,9 +487,9 @@ function studyContent(
           key={`ss${section.fromVerse}`}
           className={`snap-y scroll-my-10 mb-6`}
         >
-          <Link href={`#s${section.fromVerse}`} className="hover:text-blue-700">
+          <Link href={`#s${section.fromVerse}`} className="hover:text-primary">
             <h4
-              className={` font-semibold mb-2 mt-4 cursor-pointer ${
+              className={` font-semibold mb-2 mt-4 cursor-pointer text-accent ${
                 language == "Arabic" ? "text-xl" : "text-lg"
               }`}
             >
@@ -493,20 +506,20 @@ function studyContent(
             .map((important, index) => (
               <figure
                 key={index}
-                className="md:flex bg-slate-100 rounded-xl p-8 md:p-0 dark:bg-slate-800 mt-6 md:ml-20"
+                className="md:flex bg-muted rounded-xl p-8 md:p-0 mt-6 md:ml-20"
               >
                 <div className="pt-6 md:p-8 text-center md:text-start space-y-4">
                   <Link
                     href={`#${important.verse}`}
-                    className="hover:text-blue-700"
+                    className="hover:text-primary transition-colors"
                   >
-                    <span className="text-lg font-medium">
+                    <span className="text-lg font-medium text-foreground">
                       {language == "Arabic" ? <>&rdquo;</> : <>&ldquo;</>}
                       {renderVerse(json[important.verse], language, true, true)}
                       {language == "Arabic" ? <>&ldquo;</> : <>&rdquo;</>}
                     </span>{" "}
                     -{" "}
-                    <span>
+                    <span className="text-accent">
                       {bookInfo.n} {chapter}:{important.verse}
                     </span>
                   </Link>
@@ -534,20 +547,33 @@ function studyContent(
         </div>
       ))}
 
-      <h3 className="text-xl font-semibold mt-10 mb-2">
+      <h3 className="text-xl font-semibold mt-10 mb-2 text-accent">
         {uiText[language].questions}
       </h3>
       <ul className={`gap-2`}>
-        {commentary?.questions?.map((question) => (
-          <Button
-            key={question}
-            variant="outline"
-            className="block mr-2 mb-2 text-wrap h-auto py-2 text-start text-lg font-normal"
-            onClick={() => setQuestion(question)}
-          >
-            {question}
-          </Button>
-        ))}
+        {commentary?.questions?.map((question) => {
+          // Convert question to URL slug: lowercase, replace spaces with hyphens, remove special chars
+          const questionSlug = question
+            .toLowerCase()
+            .replace(/[^a-z0-9\s-]/g, '')
+            .replace(/\s+/g, '-')
+            .replace(/-+/g, '-')
+            .trim();
+          
+          return (
+            <li key={question} className="cursor-pointer">
+              <Button
+                variant="outline"
+                className="block mr-2 mb-2 text-wrap h-auto py-2 text-start text-lg font-normal cursor-pointer whitespace-normal"
+                asChild
+              >
+                <Link href={`https://ask.holybiblereader.com/study/${questionSlug}`} target="_blank" rel="noopener noreferrer" className="whitespace-normal break-words">
+                  {question}
+                </Link>
+              </Button>
+            </li>
+          );
+        })}
       </ul>
     </div>
   ) : (
@@ -637,7 +663,7 @@ function renderVerse(
         singleVerse ? (
           <></>
         ) : (
-          <MessageSquareMore className="text-gray-500 text-sm w-4 inline" />
+          <MessageSquareMore className="text-accent text-sm w-4 inline" />
         )
       ) : verseObject.tag == "q1" || verseObject.tag == "q2" ? (
         <br />
@@ -753,7 +779,7 @@ function renderFootnotes(verse: any, language: any) {
   ).verseObjects.map((verseObject, index, array) =>
     verseObject.tag == "f" ? (
       <p key={index} className="italic text-muted-foreground text-sm">
-        <MessageSquareMore className="w-4 inline mx-1" />
+        <MessageSquareMore className="w-4 inline mx-1 text-accent" />
         {parseFootnote(verseObject.content).text}
       </p>
     ) : (
@@ -786,7 +812,7 @@ function bibleContent(
       }`}
     >
       {Object.entries(json).map(([key, verse]) => (
-        <>
+        <React.Fragment key={key}>
           {commentary?.sections
             .filter((s) => s.fromVerse == key)
             .map((section) => (
@@ -799,7 +825,7 @@ function bibleContent(
               >
                 <Link href={`#ss${section.fromVerse}`}>
                   <h3
-                    className={` font-semibold mb-2 mt-4 cursor-pointer hover:text-blue-700 ${
+                    className={` font-semibold mb-2 mt-4 cursor-pointer text-accent hover:text-accent/80 transition-colors ${
                       language == "Arabic" ? "text-2xl" : "text-xl"
                     }`}
                   >
@@ -814,7 +840,7 @@ function bibleContent(
                 key={key}
                 className={
                   (selectedVerse?.key == key
-                    ? "bg-yellow-200 -my-1 py-1 cursor-pointer shadow-md"
+                    ? "bg-yellow-200 dark:bg-yellow-900/30 -my-1 py-1 cursor-pointer shadow-md"
                     : "") + (verseByVerse && "inline-block")
                 }
                 onClick={handleSelectVerse.bind(this, {
@@ -834,7 +860,7 @@ function bibleContent(
               >
                 {key == "1" && (
                   <span
-                    className={`text-7xl font-bold text-gray-700 ${
+                    className={`text-7xl font-bold text-accent ${
                       language == "Arabic" ? "ml-4" : "mr-4"
                     } float-start`}
                   >
@@ -846,7 +872,7 @@ function bibleContent(
                     id={key}
                     className={`scroll-my-4 ${
                       language == "Arabic" ? "text-lg" : "text-xs"
-                    } font-semibold text-blue-600 mr-1`}
+                    } font-semibold text-primary mr-1`}
                   >
                     {key}
                   </sup>
@@ -855,18 +881,21 @@ function bibleContent(
               </span>
             </DrawerTrigger>
             <DrawerContent
-              className={`md:flex bg-slate-100 rounded-xl p-8 dark:bg-slate-800 ${
+              className={`md:flex bg-muted rounded-xl p-8 ${
                 language == "Arabic" && `[direction:rtl] ${amiri.className}`
               }`}
             >
+              <DrawerTitle className="sr-only">
+                {bookInfo.n} {chapter}:{key}
+              </DrawerTitle>
               <div className="pt-6 text-center md:text-start space-y-4 mb-2">
-                <span className="text-lg font-medium">
+                <span className="text-lg font-medium text-foreground">
                   {language == "Arabic" ? <>&rdquo;</> : <>&ldquo;</>}
                   {renderVerse(verse, language, true, verseByVerse)}
                   {language == "Arabic" ? <>&ldquo;</> : <>&rdquo;</>}
                 </span>{" "}
                 -{" "}
-                <span>
+                <span className="text-accent">
                   {bookInfo.n} {chapter}:{key}
                 </span>
               </div>
@@ -875,7 +904,7 @@ function bibleContent(
                 .filter((v) => v.verse == key)
                 .map((important, index) => (
                   <div key={index}>
-                    <h3 className="font-semibold mb-2 mt-2">
+                    <h3 className="font-semibold mb-2 mt-2 text-accent">
                       {uiText[language].commentary}
                     </h3>
                     <span className="pb-4 block">{important.commentary}</span>
@@ -908,7 +937,7 @@ function bibleContent(
               }
             </DrawerContent>
           </Drawer>
-        </>
+        </React.Fragment>
       ))}
       <p className="text-left mt-8 text-sm italic">
         {versions.find((v) => v.id === version).copyright}

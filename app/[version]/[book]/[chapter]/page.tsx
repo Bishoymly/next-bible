@@ -9,12 +9,12 @@ import Script from 'next/script';
 import { notFound } from 'next/navigation';
 
 type Props = {
-  params: { version: string; book: string; chapter: string };
-  searchParams: { side?: string };
+  params: Promise<{ version: string; book: string; chapter: string }>;
+  searchParams: Promise<{ side?: string }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { version, book, chapter } = params;
+  const { version, book, chapter } = await params;
   const versions = getVersions();
   const language = versions.find((v) => v.id === version)?.lang || 'en';
   const books = getBooks(language);
@@ -39,8 +39,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function Read({ params, searchParams }) {
-  const { version, book, chapter } = params;
+export default async function Read({ params, searchParams }: Props) {
+  const { version, book, chapter } = await params;
+  const searchParamsResolved = await searchParams;
   const versions = getVersions();
   
   // Validate version exists
@@ -58,7 +59,7 @@ export default async function Read({ params, searchParams }) {
     notFound();
   }
 
-  const version2 = searchParams.side || "study";
+  const version2 = searchParamsResolved.side || "study";
   // Validate secondary version exists
   const version2Info = versions.find((v) => v.id === version2);
   if (!version2Info) {

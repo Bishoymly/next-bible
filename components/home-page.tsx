@@ -9,6 +9,7 @@ import { ChurchGuidanceComponent } from "./church-guidance";
 import { SalvationGuideComponent } from "./salvation-guide";
 import { GospelGuide } from "./gospel-guide";
 import { ImagePreview } from "./image-preview";
+import { ThemeToggle } from "./theme-toggle";
 
 export function HomePageComponent() {
   return (
@@ -20,20 +21,23 @@ export function HomePageComponent() {
               <BookOpen className="mt-1 mr-3" />
               Bible Reader
             </Link>
-            {/*<div className="flex items-center space-x-4">
-              <Link href="/about" className="hover:underline">
-                About
-              </Link>
-              <Link href="/translations" className="hover:underline">
-                Translations
-              </Link>
-              <Link href="/commentary" className="hover:underline">
-                Commentary
-              </Link>
-              <Link href="/tools" className="hover:underline">
-                Study Tools
-              </Link>
-            </div>*/}
+            <div className="flex items-center gap-4">
+              <ThemeToggle />
+              {/*<div className="flex items-center space-x-4">
+                <Link href="/about" className="hover:underline">
+                  About
+                </Link>
+                <Link href="/translations" className="hover:underline">
+                  Translations
+                </Link>
+                <Link href="/commentary" className="hover:underline">
+                  Commentary
+                </Link>
+                <Link href="/tools" className="hover:underline">
+                  Study Tools
+                </Link>
+              </div>*/}
+            </div>
           </nav>
         </div>
       </header>
@@ -41,9 +45,9 @@ export function HomePageComponent() {
       <main className="flex-grow">
         <section className="py-20">
           <div className="container mx-auto px-4 text-center">
-            <h1 className="text-4xl font-bold mb-4">Discover the Word of God</h1>
-            <p className="text-xl mb-8">
-              <Bot className="inline mx-2 mb-1" />
+            <h1 className="text-4xl font-bold mb-4 text-accent">Discover the Word of God</h1>
+            <p className="text-xl mb-8 text-foreground">
+              <Bot className="inline mx-2 mb-1 text-accent" />
               Explore the Bible with helpful insights and study AI assistant.
             </p>
             <div className="flex flex-wrap justify-center gap-3">
@@ -65,7 +69,7 @@ export function HomePageComponent() {
 
         <section className="py-16 hidden">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold mb-8 text-center">Quick Access</h2>
+            <h2 className="text-3xl font-bold mb-8 text-center text-accent">Quick Access</h2>
             <div className="flex justify-center space-x-4 mb-8">
               <Select>
                 <option>Select Translation</option>
@@ -83,7 +87,7 @@ export function HomePageComponent() {
               </Select>
               <Input type="number" placeholder="Chapter" className="w-24" />
               <Button>
-                <Search className="mr-2" /> Go
+                <Search className="mr-2 text-primary-foreground" /> Go
               </Button>
             </div>
             <div className="text-center">
@@ -96,22 +100,22 @@ export function HomePageComponent() {
 
         <section className="py-16 hidden">
           <div className="container mx-auto px-8">
-            <h2 className="text-3xl font-bold mb-8 text-center">Study Resources</h2>
+            <h2 className="text-3xl font-bold mb-8 text-center text-accent">Study Resources</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="bg-muted p-6 rounded-lg shadow-md">
                 <Book className="w-12 h-12 mb-4 text-primary" />
-                <h3 className="text-xl font-semibold mb-2">Commentaries</h3>
-                <p>Access in-depth commentaries from renowned Reformed Baptist scholars.</p>
+                <h3 className="text-xl font-semibold mb-2 text-accent">Commentaries</h3>
+                <p className="text-foreground">Access in-depth commentaries from renowned Reformed Baptist scholars.</p>
               </div>
               <div className="bg-muted p-6 rounded-lg shadow-md">
                 <Users className="w-12 h-12 mb-4 text-primary" />
-                <h3 className="text-xl font-semibold mb-2">Study Groups</h3>
-                <p>Join virtual study groups to discuss and learn with fellow believers.</p>
+                <h3 className="text-xl font-semibold mb-2 text-accent">Study Groups</h3>
+                <p className="text-foreground">Join virtual study groups to discuss and learn with fellow believers.</p>
               </div>
               <div className="bg-muted p-6 rounded-lg shadow-md">
                 <BookOpen className="w-12 h-12 mb-4 text-primary" />
-                <h3 className="text-xl font-semibold mb-2">Reading Plans</h3>
-                <p>Follow structured reading plans to guide your Bible study journey.</p>
+                <h3 className="text-xl font-semibold mb-2 text-accent">Reading Plans</h3>
+                <p className="text-foreground">Follow structured reading plans to guide your Bible study journey.</p>
               </div>
             </div>
           </div>
@@ -121,9 +125,9 @@ export function HomePageComponent() {
           <div className="container mx-auto px-8">
             <div className="flex flex-col md:flex-row items-center">
               <div className="md:w-1/3 md:pr-8 mb-8 md:mb-0">
-                <h2 className="text-3xl font-bold mb-4">New to the Bible?</h2>
+                <h2 className="text-3xl font-bold mb-4 text-accent">New to the Bible?</h2>
                 <div className="my-6 pb-6">
-                  <h2 className="text-xl font-semibold mb-2 text-gray-700">Start from here</h2>
+                  <h2 className="text-xl font-semibold mb-2 text-accent">Start from here</h2>
                   <ol className="list-decimal pl-5 space-y-1 text-sm">
                     <li>Start from the top and read through in order.</li>
                     <li>Take time to understand each passage.</li>
@@ -144,8 +148,8 @@ export function HomePageComponent() {
           <div className="container mx-auto px-8">
             <div className="flex flex-col md:flex-row items-center">
               <div className="md:w-1/3 md:pr-8 mb-8 md:mb-0">
-                <h2 className="text-3xl font-bold mb-4">For Bible Students and Scholars</h2>
-                <p className="mb-6">Dive deeper into the Scriptures with our advanced study tools.</p>
+                <h2 className="text-3xl font-bold mb-4 text-accent">For Bible Students and Scholars</h2>
+                <p className="mb-6 text-foreground">Dive deeper into the Scriptures with our advanced study tools.</p>
                 <ol className="list-decimal pl-5 space-y-1 text-sm">
                   <li>Book introductions and sections</li>
                   <li>Chapter main sections commentary and important verses</li>
@@ -173,7 +177,7 @@ export function HomePageComponent() {
         <div className="container mx-auto px-8">
           {/*<div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
             <div>
-              <h3 className="text-lg font-semibold mb-4">About Us</h3>
+              <h3 className="text-lg font-semibold mb-4 text-accent">About Us</h3>
               <ul className="space-y-2">
                 <li>
                   <Link href="/mission" className="hover:underline">
@@ -193,7 +197,7 @@ export function HomePageComponent() {
               </ul>
             </div>
             <div>
-              <h3 className="text-lg font-semibold mb-4">Resources</h3>
+              <h3 className="text-lg font-semibold mb-4 text-accent">Resources</h3>
               <ul className="space-y-2">
                 <li>
                   <Link href="/blog" className="hover:underline">
@@ -213,7 +217,7 @@ export function HomePageComponent() {
               </ul>
             </div>
             <div>
-              <h3 className="text-lg font-semibold mb-4">Community</h3>
+              <h3 className="text-lg font-semibold mb-4 text-accent">Community</h3>
               <ul className="space-y-2">
                 <li>
                   <Link href="/groups" className="hover:underline">
@@ -233,7 +237,7 @@ export function HomePageComponent() {
               </ul>
             </div>
             <div>
-              <h3 className="text-lg font-semibold mb-4">Connect</h3>
+              <h3 className="text-lg font-semibold mb-4 text-accent">Connect</h3>
               <ul className="space-y-2">
                 <li>
                   <Link href="/contact" className="hover:underline">
@@ -253,7 +257,7 @@ export function HomePageComponent() {
               </ul>
             </div>
           </div>*/}
-          <div className="text-center text-sm text-muted-foreground mt-8">
+          <div className="text-center text-sm text-primary-foreground/80 mt-8">
             <p>&copy; {new Date().getFullYear()} Bible Reader. All rights reserved.</p>
           </div>
         </div>

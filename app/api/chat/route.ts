@@ -1,5 +1,5 @@
 import { openai } from "@ai-sdk/openai";
-import { streamText, convertToCoreMessages } from "ai";
+import { streamText } from "ai";
 
 // Allow streaming responses up to 30 seconds
 export const maxDuration = 30;
@@ -15,8 +15,8 @@ export async function POST(req: Request) {
   const result = await streamText({
     model: openai("gpt-4o-mini"),
     system: `You are a reformed baptist scholar talking to an average bible student.${book ? ` You are discussing the book of ${book} chapter ${chapter}.` : ""}`,
-    messages: convertToCoreMessages(messages),
+    messages,
   });
 
-  return result.toDataStreamResponse();
+  return result.toTextStreamResponse();
 }

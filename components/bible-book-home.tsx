@@ -57,21 +57,21 @@ export function BibleBookHome({ language, versions, version, book, curation, boo
                 </SheetContent>
               </Sheet>
 
-              <Button variant="ghost" asChild className="hidden md:inline-flex">
-                <Link href={`/${version}/${bookInfo.previousBook?.slug}`}>
-                  {language == "English" ? <ChevronLeft /> : <ChevronRight />}
-                  {bookInfo.previousBook?.n}
+              <Button variant="ghost" asChild className="hidden md:inline-flex group text-accent hover:bg-accent transition-colors cursor-pointer">
+                <Link href={`/${version}/${bookInfo.previousBook?.slug}`} className="group-hover:text-white cursor-pointer">
+                  {language == "English" ? <ChevronLeft className="text-accent group-hover:text-white transition-colors" /> : <ChevronRight className="text-accent group-hover:text-white transition-colors" />}
+                  <span className="text-accent group-hover:text-white transition-colors">{bookInfo.previousBook?.n}</span>
                 </Link>
               </Button>
 
               <div className="flex">
-                <h1 className={`text-4xl font-bold text-center align-middle ${titleFont.className}`}>{bookInfo.n.replace(/1/g, "I ").replace(/2/g, "II ")}</h1>
+                <h1 className={`text-4xl font-bold text-center align-middle text-accent ${titleFont.className}`}>{bookInfo.n.replace(/1/g, "I ").replace(/2/g, "II ")}</h1>
                 <span className="mx-3">{versionsDropDown(versions, version, book, null, null, false)}</span>
               </div>
-              <Button variant="ghost" asChild className="hidden md:inline-flex">
-                <Link href={`/${version}/${bookInfo.nextBook?.slug}`}>
-                  {bookInfo.nextBook?.n}
-                  {language == "English" ? <ChevronRight /> : <ChevronLeft />}
+              <Button variant="ghost" asChild className="hidden md:inline-flex group text-accent hover:bg-accent transition-colors cursor-pointer">
+                <Link href={`/${version}/${bookInfo.nextBook?.slug}`} className="group-hover:text-white cursor-pointer">
+                  <span className="text-accent group-hover:text-white transition-colors">{bookInfo.nextBook?.n}</span>
+                  {language == "English" ? <ChevronRight className="text-accent group-hover:text-white transition-colors" /> : <ChevronLeft className="text-accent group-hover:text-white transition-colors" />}
                 </Link>
               </Button>
               <Button variant="ghost" size="icon" className="invisible md:hidden">
@@ -88,7 +88,7 @@ export function BibleBookHome({ language, versions, version, book, curation, boo
                 </p>
               ))}
 
-              <h2 className={`${language == "Arabic" ? "text-2xl" : "text-xl"} font-semibold my-6`}>{uiText[language].sections}</h2>
+              <h2 className={`${language == "Arabic" ? "text-2xl" : "text-xl"} font-semibold my-6 text-accent`}>{uiText[language].sections}</h2>
               {curation.sections.map((group) => (
                 <Button key={group.title} variant="outline" className={`${language == "Arabic" ? "text-lg" : "text-base"} mr-2 mb-2 text-wrap h-auto py-2`} asChild>
                   <Link href={`/${version}/${book}/${group.fromChapter}`}>
@@ -97,7 +97,7 @@ export function BibleBookHome({ language, versions, version, book, curation, boo
                 </Button>
               ))}
 
-              <h2 className={`${language == "Arabic" ? "text-2xl" : "text-xl"} font-semibold my-6`}>{uiText[language].chapters}</h2>
+              <h2 className={`${language == "Arabic" ? "text-2xl" : "text-xl"} font-semibold my-6 text-accent`}>{uiText[language].chapters}</h2>
               <div className={`grid grid-cols-5 sm:grid-cols-10 gap-2 ${inter.className}`}>
                 {Array.from({ length: bookInfo.c }, (_, i) => i + 1).map((chapter) => (
                   <Button key={chapter} variant="outline" size="sm" asChild>

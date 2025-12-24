@@ -78,9 +78,9 @@ export function GospelGuide() {
 
         <ul className="space-y-2">
           {essentialChapters.map((chapter, index) => (
-            <li key={index} className="">
+            <li key={index} className="cursor-pointer">
               <div className="mb-1 text-sm">
-                <Link href={`/asv/${chapter.book.toLowerCase()}/${chapter.chapter}`} className="text-blue-500 hover:text-blue-700">
+                <Link href={`/asv/${chapter.book.toLowerCase()}/${chapter.chapter}`} className="text-accent hover:text-accent/80">
                   {chapter.book} {chapter.chapter}&nbsp;
                 </Link>
                 - {chapter.description}

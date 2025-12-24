@@ -5,13 +5,20 @@ import getBooks from "@/lib/getBooks";
 import getBooksCategorized from "@/lib/getBooksCategorized";
 import getVersions from "@/lib/getVersions";
 
-export default async function BookPage({ params }) {
-  const { version, book } = params;
+export default async function BookPage({ params }: { params: Promise<{ version: string; book: string }> }) {
+  const { version, book } = await params;
   const versions = getVersions();
-  const language = versions.filter((v) => v.id === version)[0].lang;
+  const versionInfo = versions.find((v) => v.id === version);
+  if (!versionInfo) {
+    throw new Error(`Version ${version} not found`);
+  }
+  const language = versionInfo.lang;
   const books = getBooks(language);
   const booksCategorized = getBooksCategorized(language);
-  let bookInfo = books.filter((b) => b.slug === book)[0];
+  const bookInfo = books.find((b) => b.slug === book);
+  if (!bookInfo) {
+    throw new Error(`Book ${book} not found`);
+  }
   bookInfo.previousBook = bookInfo.b === 1 ? books[books.length - 1] : books[books.indexOf(bookInfo) - 1];
   bookInfo.nextBook = bookInfo.b === books.length ? books[0] : books[books.indexOf(bookInfo) + 1];
   const curation = await curateBook(language, book);
