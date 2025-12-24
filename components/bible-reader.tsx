@@ -242,6 +242,7 @@ export function BibleReader({
   return (
     <TooltipProvider>
     <div
+      suppressHydrationWarning
       className={`flex h-screen bg-background transition-all overflow-hidden ${
         language == "Arabic"
           ? `[direction:rtl] ${amiri.className}`
