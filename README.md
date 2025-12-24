@@ -1,43 +1,156 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Bible Reader
 
-## Getting Started
+An open-source, modern web application for reading and studying the Bible with multiple translations, study tools, and cross-references. Built with Next.js 16 and React 19.
 
-First, run the development server:
+## 🌟 Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Multiple Bible Translations**: Support for KJV, ASV, and Arabic (AVD) translations
+- **Study Tools**: 
+  - Chapter-by-chapter commentary and important verses
+  - Cross-references between verses
+  - Book introductions and section breakdowns
+- **Reading Experience**:
+  - Side-by-side translation comparison
+  - Verse-by-verse reading mode
+  - Smooth page transitions and animations
+  - Responsive design for mobile and desktop
+- **Accessibility**:
+  - Dark/light theme support
+  - RTL (Right-to-Left) support for Arabic
+  - Screen reader friendly
+  - Keyboard navigation
+- **Modern UI**:
+  - Leather-textured design theme
+  - Smooth animations and transitions
+  - Intuitive navigation
+  - Mobile-optimized sidebar
+
+## 🚀 Tech Stack
+
+- **Framework**: [Next.js 16](https://nextjs.org/) with App Router
+- **UI Library**: React 19
+- **Styling**: Tailwind CSS v4
+- **UI Components**: Radix UI primitives
+- **Icons**: Lucide React
+- **State Management**: React hooks and local storage
+- **Type Safety**: TypeScript
+- **Deployment**: Vercel (recommended)
+
+## 📋 Prerequisites
+
+- Node.js 18+ 
+- npm, yarn, pnpm, or bun
+
+## 🛠️ Getting Started
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/yourusername/next-bible.git
+   cd next-bible
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   # or
+   yarn install
+   # or
+   pnpm install
+   ```
+
+3. **Run the development server**
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   # or
+   pnpm dev
+   ```
+
+4. **Open your browser**
+   Navigate to [http://localhost:3000](http://localhost:3000) to see the application.
+
+## 📁 Project Structure
+
+```
+next-bible/
+├── app/                    # Next.js App Router pages
+│   ├── [version]/         # Dynamic routes for Bible versions
+│   ├── api/               # API routes
+│   └── globals.css        # Global styles
+├── components/            # React components
+│   ├── ui/               # Reusable UI components
+│   ├── bible-reader.tsx  # Main Bible reading component
+│   └── ...
+├── lib/                  # Utility functions and helpers
+├── public/               # Static assets
+│   └── data/            # Bible text data (USFM format)
+└── package.json         # Dependencies and scripts
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🔧 Available Scripts
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run start` - Start production server
+- `npm run lint` - Run ESLint
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## 📖 Data Sources
 
-## Learn More
+This project uses the following open-source data:
 
-To learn more about Next.js, take a look at the following resources:
+- **Strong's Concordance**: [Open Scriptures Strong's](https://github.com/openscriptures/strongs)
+- **Cross References**: [@texttree/bible-crossref](https://github.com/hiscoder-com/bible-crossref)
+- **Bible Text**: USFM (Unified Standard Format Markers) format files
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🤝 Contributing
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Contributions are welcome! This is an open-source project, and we appreciate any help you can provide.
 
-## Deploy on Vercel
+### How to Contribute
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Contribution Guidelines
 
-## References
+- Follow the existing code style and conventions
+- Write meaningful commit messages
+- Add comments for complex logic
+- Test your changes thoroughly
+- Update documentation as needed
 
-The following references are used as a source of data:
+### Areas for Contribution
 
-- Strong Words: https://github.com/openscriptures/strongs
-- Cross References: [@texttree/bible-crossref](https://github.com/hiscoder-com/bible-crossref)
+- Adding new Bible translations
+- Improving accessibility
+- Enhancing mobile experience
+- Adding new study features
+- Bug fixes and performance improvements
+- Documentation improvements
+- Translation/localization support
+
+## 📝 License
+
+This project is open source. Please check the LICENSE file for details.
+
+## 🙏 Acknowledgments
+
+- Open Scriptures for Strong's Concordance data
+- TextTree for cross-reference data
+- All contributors and users of this project
+
+## 📞 Support
+
+For issues, questions, or suggestions, please open an issue on GitHub.
+
+## 🌐 Live Demo
+
+Visit [www.holybiblereader.com](https://www.holybiblereader.com) to see the application in action.
+
+---
+
+Made with ❤️ for the Bible reading community
