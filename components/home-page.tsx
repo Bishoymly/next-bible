@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
-import { BookOpen, Search, Book, Users, Bot, MessageCircleQuestion } from "lucide-react";
+import { BookOpen, Search, Book, Users, MessageCircleQuestion } from "lucide-react";
 import { ChurchGuidanceComponent } from "./church-guidance";
 import { SalvationGuideComponent } from "./salvation-guide";
 import { GospelGuide } from "./gospel-guide";
@@ -49,8 +49,7 @@ export function HomePageComponent() {
               <div className="flex-1 text-center md:text-left">
                 <h1 className="text-4xl font-bold mb-4 text-accent">Discover the Word of God</h1>
                 <p className="text-xl mb-8 text-foreground">
-                  <Bot className="inline mx-2 mb-1 text-accent" />
-                  Explore the Bible with helpful insights and study AI assistant.
+                  Explore the Bible with helpful insights and study tools.
                 </p>
                 <div className="flex flex-wrap justify-center md:justify-start gap-3">
                   <Button asChild>

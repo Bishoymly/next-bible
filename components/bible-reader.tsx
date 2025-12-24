@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
 import {
   BookCopy,
   BookOpen,
@@ -12,13 +12,14 @@ import {
   Menu,
   MessageSquareMore,
   MessageCircleQuestion,
+  FlipHorizontal,
 } from "lucide-react";
 import Link from "next/link";
 import { BibleBooksList } from "./bible-books-list";
 import { Amiri, Inter } from "next/font/google";
 import { uiText } from "@/lib/uiText";
 import SocialShareButtons from "./social-share-buttons";
-import { Drawer, DrawerContent, DrawerTrigger, DrawerTitle } from "@/components/ui/drawer";
+import { Drawer, DrawerContent, DrawerTrigger, DrawerTitle, DrawerHeader } from "@/components/ui/drawer";
 import useStickyState from "@/lib/useStickyState";
 import parseFootnote from "@/lib/parseFootnote";
 import parseWord from "@/lib/parseWord";
@@ -32,6 +33,7 @@ import strongsHebrewDictionary from "@/lib/strongs-hebrew-dictionary.js";
 import strongsGreekDictionary from "@/lib/strongs-greek-dictionary.js";
 import { getByBC } from "@texttree/bible-crossref";
 import { ThemeToggle } from "./theme-toggle";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 const inter = Inter({ subsets: ["latin"] });
 const amiri = Amiri({
@@ -153,12 +155,35 @@ export function BibleReader({
   ) {
     return (
       <ScrollArea
-        className={`h-full pr-3 ${
+        className={`h-full ${
           language == "Arabic"
-            ? `[direction:rtl] ${amiri.className} text-2xl leading-loose`
-            : `text-lg leading-relaxed ${inter.className}`
+            ? `[direction:rtl] ${amiri.className} text-2xl leading-loose pr-3`
+            : `text-lg leading-relaxed ${inter.className} pr-3`
         }`}
       >
+        <div className="px-4 mb-6">
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="w-full justify-start cursor-pointer text-accent hover:bg-accent hover:text-white transition-colors"
+                asChild
+                onClick={() => {
+                  if (setIsSheetOpen) setIsSheetOpen(false);
+                }}
+              >
+                <Link href="/">
+                  <BookOpen className="mr-2 h-4 w-4" />
+                  Home
+                </Link>
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Home</p>
+            </TooltipContent>
+          </Tooltip>
+        </div>
         {commentary && (
           <div className="mb-10 px-4">
             <h2 className="text-xl font-semibold mb-2 text-accent">
@@ -170,7 +195,7 @@ export function BibleReader({
                   <Link
                     className={`${
                       language == "Arabic" ? "text-xl" : "text-sm"
-                    } hover:text-primary transition-colors ${
+                    } hover:text-primary transition-all duration-200 hover:translate-x-1 ${
                       activeId === `s${section.fromVerse}`
                         ? "text-primary font-bold"
                         : "text-muted-foreground"
@@ -215,6 +240,7 @@ export function BibleReader({
   }
 
   return (
+    <TooltipProvider>
     <div
       className={`flex h-screen bg-background transition-all ${
         language == "Arabic"
@@ -226,23 +252,30 @@ export function BibleReader({
       <aside
         className={`hidden md:flex flex-col ${
           language == "Arabic" ? "border-l" : "border-r"
-        } transition-all duration-300 ${sidebarExpanded ? "w-72" : "w-0"} overflow-hidden`}
+        } transition-all duration-300 ease-in-out ${sidebarExpanded ? "w-72 opacity-100" : "w-0 opacity-0"} overflow-hidden`}
       >
         <div className="p-4 flex-shrink-0">
-          <Button
-            variant="ghost"
-            size="icon"
-            className="p-0"
-            onClick={() => setSidebarExpanded(!sidebarExpanded)}
-          >
-            {language == "English" ? (
-              <ChevronLeft className="h-5 text-accent" />
-            ) : (
-              <ChevronRight className="text-accent" />
-            )}
-          </Button>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="p-0 cursor-pointer transition-transform duration-200 hover:scale-110 active:scale-95"
+                onClick={() => setSidebarExpanded(!sidebarExpanded)}
+              >
+                {language == "English" ? (
+                  <ChevronLeft className="h-5 text-accent transition-transform duration-200" />
+                ) : (
+                  <ChevronRight className="text-accent transition-transform duration-200" />
+                )}
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>{sidebarExpanded ? "Collapse sidebar" : "Expand sidebar"}</p>
+            </TooltipContent>
+          </Tooltip>
         </div>
-        <div className="flex-1 min-h-0">
+        <div className="flex-1 min-h-0 overflow-hidden">
           {Sidebar(bookInfo, chapter, book, booksCategorized, null)}
         </div>
       </aside>
@@ -253,51 +286,77 @@ export function BibleReader({
         <header className="flex items-center justify-between p-3 border-b bg-primary text-white leather-texture">
           <div className="flex items-center">
             <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
-              <SheetTrigger asChild>
-                <div
-                  className="flex row md:hidden"
-                  onClick={() => setIsSheetOpen(!isSheetOpen)}
+                <SheetTrigger asChild>
+                  <div
+                    className="flex row"
+                    onClick={() => setIsSheetOpen(!isSheetOpen)}
+                  >
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button variant="ghost" size="icon" className="cursor-pointer transition-all duration-200 hover:scale-110 active:scale-95">
+                          <Menu className="transition-transform duration-200" />
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Menu</p>
+                      </TooltipContent>
+                    </Tooltip>
+                    <h1 className="text-2xl font-bold mx-2 flex flex-row space-x-2 text-white">
+                      {bookInfo.n} {chapter}
+                    </h1>
+                  </div>
+                </SheetTrigger>
+                <SheetContent side={language === "Arabic" ? "right" : "left"} className="flex flex-col p-0 h-full">
+                  <SheetTitle className="sr-only">
+                    Navigation Menu
+                  </SheetTitle>
+                  <div className="flex-1 min-h-0 overflow-hidden pt-4">
+                    {Sidebar(
+                      bookInfo,
+                      chapter,
+                      book,
+                      booksCategorized,
+                      setIsSheetOpen
+                    )}
+                  </div>
+                </SheetContent>
+              </Sheet>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className={`p-0 cursor-pointer transition-all duration-200 hover:scale-110 active:scale-95 ${sidebarExpanded ? "hidden" : ""}`}
+                  onClick={() => setSidebarExpanded(true)}
                 >
-                  <Button variant="ghost" size="icon">
-                    <Menu />
-                  </Button>
-                  <h1 className="text-2xl font-bold mx-2 flex flex-row space-x-2 text-white">
-                    {bookInfo.n} {chapter}
-                  </h1>
-                </div>
-              </SheetTrigger>
-              <SheetContent side={language === "Arabic" ? "right" : "left"}>
-                {Sidebar(
-                  bookInfo,
-                  chapter,
-                  book,
-                  booksCategorized,
-                  setIsSheetOpen
-                )}
-              </SheetContent>
-            </Sheet>
-            <Button
-              variant="ghost"
-              size="icon"
-              className={`p-0 ${sidebarExpanded ? "hidden" : ""}`}
-              onClick={() => setSidebarExpanded(true)}
-            >
-              {language == "Arabic" ? (
-                <ChevronLeft className="h-5 text-white" />
-              ) : (
-                <ChevronRight className="text-white" />
-              )}
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="hidden md:block"
-              asChild
-            >
-              <Link href="/">
-                <BookOpen className="mt-2 mx-1 text-white" />
-              </Link>
-            </Button>
+                  {language == "Arabic" ? (
+                    <ChevronLeft className="h-5 text-white transition-transform duration-200" />
+                  ) : (
+                    <ChevronRight className="text-white transition-transform duration-200" />
+                  )}
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Show sidebar</p>
+              </TooltipContent>
+            </Tooltip>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="hidden md:block cursor-pointer transition-all duration-200 hover:scale-110 active:scale-95"
+                  asChild
+                >
+                  <Link href="/" className="transition-transform duration-200">
+                    <BookOpen className="mt-2 mx-1 text-white transition-transform duration-200" />
+                  </Link>
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Home</p>
+              </TooltipContent>
+            </Tooltip>
             <h1
               className="text-2xl font-bold mx-2 flex-row space-x-2 hidden md:flex text-white"
               onClick={() => setSidebarExpanded(true)}
@@ -307,24 +366,40 @@ export function BibleReader({
           </div>
           <div className="flex items-center space-x-2">
             <ThemeToggle />
-            <Button
-              variant="ghost"
-              size="icon"
-              disabled={parseInt(chapter) === 1}
-            >
-              <Link href={`/${version}/${book}/${parseInt(chapter) - 1}`}>
-                  {language == "English" ? <ChevronLeft className="text-white" /> : <ChevronRight className="text-white" />}
-              </Link>
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              disabled={parseInt(chapter) === bookInfo.c}
-            >
-              <Link href={`/${version}/${book}/${parseInt(chapter) + 1}`}>
-                {language == "English" ? <ChevronRight className="text-white" /> : <ChevronLeft className="text-white" />}
-              </Link>
-            </Button>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  disabled={parseInt(chapter) === 1}
+                  className="cursor-pointer transition-all duration-200 hover:scale-110 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                >
+                  <Link href={`/${version}/${book}/${parseInt(chapter) - 1}`} className="transition-transform duration-200">
+                      {language == "English" ? <ChevronLeft className="text-white transition-transform duration-200" /> : <ChevronRight className="text-white transition-transform duration-200" />}
+                  </Link>
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Previous chapter</p>
+              </TooltipContent>
+            </Tooltip>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  disabled={parseInt(chapter) === bookInfo.c}
+                  className="cursor-pointer transition-all duration-200 hover:scale-110 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                >
+                  <Link href={`/${version}/${book}/${parseInt(chapter) + 1}`} className="transition-transform duration-200">
+                    {language == "English" ? <ChevronRight className="text-white transition-transform duration-200" /> : <ChevronLeft className="text-white transition-transform duration-200" />}
+                  </Link>
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Next chapter</p>
+              </TooltipContent>
+            </Tooltip>
           </div>
         </header>
 
@@ -345,22 +420,38 @@ export function BibleReader({
                     version2,
                     false
                   )}
-                  <Toggle
-                    aria-label="Side by side"
-                    size="sm"
-                    onClick={() => setSideBySide(!sideBySide)}
-                    value={sideBySide}
-                  >
-                    <BookCopy />
-                  </Toggle>
-                  <Toggle
-                    aria-label="Verse by verse"
-                    size="sm"
-                    onClick={() => setVerseByVerse(!verseByVerse)}
-                    value={verseByVerse}
-                  >
-                    <ListOrdered />
-                  </Toggle>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Toggle
+                        aria-label="Side by side"
+                        size="sm"
+                        onClick={() => setSideBySide(!sideBySide)}
+                        value={sideBySide}
+                        className="cursor-pointer transition-all duration-200 hover:scale-110 active:scale-95"
+                      >
+                        <FlipHorizontal className="transition-transform duration-200" />
+                      </Toggle>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Side by side</p>
+                    </TooltipContent>
+                  </Tooltip>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Toggle
+                        aria-label="Verse by verse"
+                        size="sm"
+                        onClick={() => setVerseByVerse(!verseByVerse)}
+                        value={verseByVerse}
+                        className="cursor-pointer transition-all duration-200 hover:scale-110 active:scale-95"
+                      >
+                        <ListOrdered className="transition-transform duration-200" />
+                      </Toggle>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Verse by verse</p>
+                    </TooltipContent>
+                  </Tooltip>
                 </div>
               </div>
               {version == "study"
@@ -451,21 +542,29 @@ export function BibleReader({
               )}
           </div>
         </div>
-        <Link
-          href="https://ask.holybiblereader.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="fixed bottom-5 right-5 z-50"
-        >
-          <Button
-            variant="default"
-            className="w-14 h-14 rounded-full shadow-md flex items-center justify-center hover:shadow-lg hover:shadow-black/30 transition-all duration-300"
-          >
-            <MessageCircleQuestion className="h-6 w-6" />
-          </Button>
-        </Link>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Link
+              href="https://ask.holybiblereader.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="fixed bottom-5 right-5 z-50"
+            >
+              <Button
+                variant="default"
+                className="w-14 h-14 rounded-full shadow-md flex items-center justify-center hover:shadow-lg hover:shadow-black/30 transition-all duration-300"
+              >
+                <MessageCircleQuestion className="h-6 w-6" />
+              </Button>
+            </Link>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>Ask a Bible question</p>
+          </TooltipContent>
+        </Tooltip>
       </main>
     </div>
+    </TooltipProvider>
   );
 }
 
@@ -608,7 +707,7 @@ function renderVerse(
       }[];
     }
   ).verseObjects.map((verseObject, index, array) => (
-    <>
+    <React.Fragment key={`verse-obj-${index}`}>
       {verseObject.strong && singleVerse ? (
         renderWord(verseObject.text, verseObject.strong, index, language)
       ) : verseObject.text == "\n" && !verseByVerse ? (
@@ -680,7 +779,7 @@ function renderVerse(
       ) : (
         verseObject.nextChar
       )}
-    </>
+    </React.Fragment>
   ));
 }
 
@@ -783,7 +882,7 @@ function renderFootnotes(verse: any, language: any) {
         {parseFootnote(verseObject.content).text}
       </p>
     ) : (
-      <></>
+      <React.Fragment key={index}></React.Fragment>
     )
   );
 }

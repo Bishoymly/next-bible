@@ -99,12 +99,12 @@ body {
 /* Leather texture effect using SVG pattern */
 .leather-texture {
   position: relative;
-  background-color: var(--color-primary) !important;
+  background-color: hsl(25 50% 25%) !important; /* Darker brown for light mode */
   overflow: hidden;
 }
 
 .dark .leather-texture {
-  background-color: hsl(25 40% 45%) !important; /* Darker brown for dark mode */
+  background-color: hsl(25 40% 35%) !important; /* Darker brown for dark mode */
 }
 
 .leather-texture::before {
@@ -238,4 +238,82 @@ body {
 .leather-texture-hover:hover > * {
   position: relative;
   z-index: 1;
+}
+
+/* Page transition animations - sliding effect */
+.page-transition-wrapper {
+  animation: slideInFromRight 0.3s ease-in-out;
+  min-height: 100vh;
+}
+
+/* Backward navigation - slide from left */
+.page-transition-wrapper.backward {
+  animation: slideInFromLeft 0.3s ease-in-out;
+}
+
+/* RTL support for Arabic */
+[dir="rtl"] .page-transition-wrapper {
+  animation: slideInFromLeft 0.3s ease-in-out;
+}
+
+[dir="rtl"] .page-transition-wrapper.backward {
+  animation: slideInFromRight 0.3s ease-in-out;
+}
+
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOutToLeft {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOutToRight {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Enhanced Sheet animations for mobile sidebar */
+[data-radix-dialog-content] {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+[data-radix-dialog-overlay] {
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }

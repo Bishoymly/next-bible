@@ -9,6 +9,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Amiri, Inter } from "next/font/google";
 import { uiText } from "@/lib/uiText";
 import versionsDropDown from "./versions-drop-down";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 const titleFont = localFont({
   src: "./../public/game-of-thrones.ttf",
@@ -23,6 +24,7 @@ const amiri = Amiri({
 
 export function BibleBookHome({ language, versions, version, book, curation, bookInfo, booksCategorized }) {
   return (
+    <TooltipProvider>
     <div className={`flex h-screen bg-background ${language == "Arabic" ? `text-2xl leading-loose [direction:rtl] ${amiri.className}` : `text-lg leading-relaxed [direction:ltr] ${inter.className}`}`}>
       {/* Collapsible Sidebar */}
       <aside className={`hidden md:flex flex-col ${language == "Arabic" ? "border-l" : "border-r"} transition-all duration-300 w-64`}>
@@ -40,9 +42,16 @@ export function BibleBookHome({ language, versions, version, book, curation, boo
             <div className="flex justify-between items-center mb-8">
               <Sheet>
                 <SheetTrigger asChild>
-                  <Button variant="ghost" size="icon" className="md:hidden">
-                    <Menu />
-                  </Button>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button variant="ghost" size="icon" className="md:hidden cursor-pointer transition-all duration-200 hover:scale-110 active:scale-95">
+                        <Menu className="transition-transform duration-200" />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Menu</p>
+                    </TooltipContent>
+                  </Tooltip>
                 </SheetTrigger>
                 <SheetContent side={`${language == "English" ? "left" : "right"}`}>
                   <ScrollArea
@@ -57,10 +66,10 @@ export function BibleBookHome({ language, versions, version, book, curation, boo
                 </SheetContent>
               </Sheet>
 
-              <Button variant="ghost" asChild className="hidden md:inline-flex group text-accent hover:bg-accent transition-colors cursor-pointer">
-                <Link href={`/${version}/${bookInfo.previousBook?.slug}`} className="group-hover:text-white cursor-pointer">
-                  {language == "English" ? <ChevronLeft className="text-accent group-hover:text-white transition-colors" /> : <ChevronRight className="text-accent group-hover:text-white transition-colors" />}
-                  <span className="text-accent group-hover:text-white transition-colors">{bookInfo.previousBook?.n}</span>
+              <Button variant="ghost" asChild className="hidden md:inline-flex group text-accent hover:bg-accent transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer">
+                <Link href={`/${version}/${bookInfo.previousBook?.slug}`} className="group-hover:text-white cursor-pointer transition-all duration-200">
+                  {language == "English" ? <ChevronLeft className="text-accent group-hover:text-white transition-all duration-200 group-hover:translate-x-[-2px]" /> : <ChevronRight className="text-accent group-hover:text-white transition-all duration-200 group-hover:translate-x-[2px]" />}
+                  <span className="text-accent group-hover:text-white transition-all duration-200">{bookInfo.previousBook?.n}</span>
                 </Link>
               </Button>
 
@@ -68,13 +77,13 @@ export function BibleBookHome({ language, versions, version, book, curation, boo
                 <h1 className={`text-4xl font-bold text-center align-middle text-accent ${titleFont.className}`}>{bookInfo.n.replace(/1/g, "I ").replace(/2/g, "II ")}</h1>
                 <span className="mx-3">{versionsDropDown(versions, version, book, null, null, false)}</span>
               </div>
-              <Button variant="ghost" asChild className="hidden md:inline-flex group text-accent hover:bg-accent transition-colors cursor-pointer">
-                <Link href={`/${version}/${bookInfo.nextBook?.slug}`} className="group-hover:text-white cursor-pointer">
-                  <span className="text-accent group-hover:text-white transition-colors">{bookInfo.nextBook?.n}</span>
-                  {language == "English" ? <ChevronRight className="text-accent group-hover:text-white transition-colors" /> : <ChevronLeft className="text-accent group-hover:text-white transition-colors" />}
+              <Button variant="ghost" asChild className="hidden md:inline-flex group text-accent hover:bg-accent transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer">
+                <Link href={`/${version}/${bookInfo.nextBook?.slug}`} className="group-hover:text-white cursor-pointer transition-all duration-200">
+                  <span className="text-accent group-hover:text-white transition-all duration-200">{bookInfo.nextBook?.n}</span>
+                  {language == "English" ? <ChevronRight className="text-accent group-hover:text-white transition-all duration-200 group-hover:translate-x-[2px]" /> : <ChevronLeft className="text-accent group-hover:text-white transition-all duration-200 group-hover:translate-x-[-2px]" />}
                 </Link>
               </Button>
-              <Button variant="ghost" size="icon" className="invisible md:hidden">
+              <Button variant="ghost" size="icon" className="invisible md:hidden cursor-pointer">
                 <Link href={`/asv`}>
                   <Search />
                 </Link>
@@ -110,5 +119,6 @@ export function BibleBookHome({ language, versions, version, book, curation, boo
         </ScrollArea>
       </main>
     </div>
+    </TooltipProvider>
   );
 }
