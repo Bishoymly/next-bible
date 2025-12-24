@@ -161,7 +161,7 @@ export function BibleReader({
             : `text-lg leading-relaxed ${inter.className} pr-3`
         }`}
       >
-        <div className="px-4 mb-6">
+        <div className="px-4 mb-6 md:hidden">
           <Tooltip>
             <TooltipTrigger asChild>
               <Button
@@ -242,7 +242,7 @@ export function BibleReader({
   return (
     <TooltipProvider>
     <div
-      className={`flex h-screen bg-background transition-all ${
+      className={`flex h-screen bg-background transition-all overflow-hidden ${
         language == "Arabic"
           ? `[direction:rtl] ${amiri.className}`
           : `[direction:ltr] ${inter.className}`
@@ -252,9 +252,26 @@ export function BibleReader({
       <aside
         className={`hidden md:flex flex-col ${
           language == "Arabic" ? "border-l" : "border-r"
-        } transition-all duration-300 ease-in-out ${sidebarExpanded ? "w-72 opacity-100" : "w-0 opacity-0"} overflow-hidden`}
+        } transition-all duration-300 ease-in-out ${
+          sidebarExpanded 
+            ? "w-72 translate-x-0" 
+            : "w-0 " + (language == "Arabic" 
+              ? "translate-x-full" 
+              : "-translate-x-full")
+        } overflow-hidden`}
       >
-        <div className="p-4 flex-shrink-0">
+        <div className="p-4 flex-shrink-0 flex items-center justify-between">
+          <Button
+            variant="ghost"
+            size="sm"
+            className="cursor-pointer text-accent hover:bg-accent hover:text-white transition-colors"
+            asChild
+          >
+            <Link href="/">
+              <BookOpen className="mr-2 h-4 w-4" />
+              Home
+            </Link>
+          </Button>
           <Tooltip>
             <TooltipTrigger asChild>
               <Button
@@ -285,7 +302,8 @@ export function BibleReader({
         {/* Top Navigation */}
         <header className="flex items-center justify-between p-3 border-b bg-primary text-white leather-texture">
           <div className="flex items-center">
-            <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
+            <div className="md:hidden">
+              <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
                 <SheetTrigger asChild>
                   <div
                     className="flex row"
@@ -321,6 +339,7 @@ export function BibleReader({
                   </div>
                 </SheetContent>
               </Sheet>
+            </div>
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button
@@ -939,7 +958,7 @@ function bibleContent(
                 key={key}
                 className={
                   (selectedVerse?.key == key
-                    ? "bg-yellow-200 dark:bg-yellow-900/30 -my-1 py-1 cursor-pointer shadow-md"
+                    ? "bg-yellow-200 dark:bg-yellow-800/50 text-[var(--color-black)] dark:text-gray-900 -my-1 py-1 cursor-pointer shadow-md"
                     : "") + (verseByVerse && "inline-block")
                 }
                 onClick={handleSelectVerse.bind(this, {
