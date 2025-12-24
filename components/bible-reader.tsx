@@ -250,7 +250,7 @@ export function BibleReader({
       {/* Main Content */}
       <main className="flex-1 flex flex-col overflow-hidden">
         {/* Top Navigation */}
-        <header className="flex items-center justify-between p-3 border-b">
+        <header className="flex items-center justify-between p-3 border-b bg-primary text-white leather-texture">
           <div className="flex items-center">
             <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
               <SheetTrigger asChild>
@@ -261,7 +261,7 @@ export function BibleReader({
                   <Button variant="ghost" size="icon">
                     <Menu />
                   </Button>
-                  <h1 className="text-2xl font-bold mx-2 flex flex-row space-x-2 text-accent">
+                  <h1 className="text-2xl font-bold mx-2 flex flex-row space-x-2 text-white">
                     {bookInfo.n} {chapter}
                   </h1>
                 </div>
@@ -283,9 +283,9 @@ export function BibleReader({
               onClick={() => setSidebarExpanded(true)}
             >
               {language == "Arabic" ? (
-                <ChevronLeft className="h-5 text-accent" />
+                <ChevronLeft className="h-5 text-white" />
               ) : (
-                <ChevronRight className="text-accent" />
+                <ChevronRight className="text-white" />
               )}
             </Button>
             <Button
@@ -295,11 +295,11 @@ export function BibleReader({
               asChild
             >
               <Link href="/">
-                <BookOpen className="mt-2 mx-1 text-accent" />
+                <BookOpen className="mt-2 mx-1 text-white" />
               </Link>
             </Button>
             <h1
-              className="text-2xl font-bold mx-2 flex-row space-x-2 hidden md:flex text-accent"
+              className="text-2xl font-bold mx-2 flex-row space-x-2 hidden md:flex text-white"
               onClick={() => setSidebarExpanded(true)}
             >
               {bookInfo.n} {chapter}
@@ -313,7 +313,7 @@ export function BibleReader({
               disabled={parseInt(chapter) === 1}
             >
               <Link href={`/${version}/${book}/${parseInt(chapter) - 1}`}>
-                  {language == "English" ? <ChevronLeft className="text-accent" /> : <ChevronRight className="text-accent" />}
+                  {language == "English" ? <ChevronLeft className="text-white" /> : <ChevronRight className="text-white" />}
               </Link>
             </Button>
             <Button
@@ -322,7 +322,7 @@ export function BibleReader({
               disabled={parseInt(chapter) === bookInfo.c}
             >
               <Link href={`/${version}/${book}/${parseInt(chapter) + 1}`}>
-                {language == "English" ? <ChevronRight /> : <ChevronLeft />}
+                {language == "English" ? <ChevronRight className="text-white" /> : <ChevronLeft className="text-white" />}
               </Link>
             </Button>
           </div>

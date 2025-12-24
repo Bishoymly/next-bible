@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
-import { BookOpen, Search, Book, Users, Bot } from "lucide-react";
+import { BookOpen, Search, Book, Users, Bot, MessageCircleQuestion } from "lucide-react";
 import { ChurchGuidanceComponent } from "./church-guidance";
 import { SalvationGuideComponent } from "./salvation-guide";
 import { GospelGuide } from "./gospel-guide";
@@ -14,7 +14,7 @@ import { ThemeToggle } from "./theme-toggle";
 export function HomePageComponent() {
   return (
     <div className="flex flex-col min-h-screen">
-      <header className="bg-primary text-primary-foreground">
+      <header className="bg-primary text-white leather-texture">
         <div className="container mx-auto px-4 py-4">
           <nav className="flex items-center justify-between">
             <Link href="/" className="text-2xl font-bold flex items-center">
@@ -44,25 +44,38 @@ export function HomePageComponent() {
 
       <main className="flex-grow">
         <section className="py-20">
-          <div className="container mx-auto px-4 text-center">
-            <h1 className="text-4xl font-bold mb-4 text-accent">Discover the Word of God</h1>
-            <p className="text-xl mb-8 text-foreground">
-              <Bot className="inline mx-2 mb-1 text-accent" />
-              Explore the Bible with helpful insights and study AI assistant.
-            </p>
-            <div className="flex flex-wrap justify-center gap-3">
-              <Button asChild>
-                <Link href={`/asv/genesis`}>Start Reading</Link>
-              </Button>
-              <Button variant="outline" asChild>
-                <Link href={"/kjv"}>KJV</Link>
-              </Button>
-              <Button variant="outline" asChild>
-                <Link href={"/asv"}>ASV</Link>
-              </Button>
-              <Button variant="outline" asChild>
-                <Link href={"/avd"}>الكتاب المقدس</Link>
-              </Button>
+          <div className="container mx-auto px-4">
+            <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
+              <div className="flex-1 text-center md:text-left">
+                <h1 className="text-4xl font-bold mb-4 text-accent">Discover the Word of God</h1>
+                <p className="text-xl mb-8 text-foreground">
+                  <Bot className="inline mx-2 mb-1 text-accent" />
+                  Explore the Bible with helpful insights and study AI assistant.
+                </p>
+                <div className="flex flex-wrap justify-center md:justify-start gap-3">
+                  <Button asChild>
+                    <Link href={`/asv/genesis`}>Start Reading</Link>
+                  </Button>
+                  <Button variant="outline" asChild>
+                    <Link href={"/kjv"}>KJV</Link>
+                  </Button>
+                  <Button variant="outline" asChild>
+                    <Link href={"/asv"}>ASV</Link>
+                  </Button>
+                  <Button variant="outline" asChild>
+                    <Link href={"/avd"}>الكتاب المقدس</Link>
+                  </Button>
+                </div>
+              </div>
+              <div className="w-full md:w-auto p-6 bg-accent/10 rounded-lg border border-accent/20">
+                <p className="text-sm text-muted-foreground mb-3 text-center md:text-left">Have questions about Scripture?</p>
+                <Button size="lg" variant="default" asChild className="shadow-lg hover:shadow-xl transition-shadow w-full md:w-auto">
+                  <Link href="https://ask.holybiblereader.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-lg justify-center">
+                    <MessageCircleQuestion className="h-5 w-5" />
+                    Ask a Bible Question
+                  </Link>
+                </Button>
+              </div>
             </div>
           </div>
         </section>
@@ -173,7 +186,7 @@ export function HomePageComponent() {
         </section>
       </main>
 
-      <footer className="bg-primary text-primary-foreground py-4">
+      <footer className="bg-primary text-white leather-texture py-4">
         <div className="container mx-auto px-8">
           {/*<div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
             <div>
