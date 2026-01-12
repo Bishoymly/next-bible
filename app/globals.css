@@ -107,6 +107,24 @@ body {
 
 .dark .leather-texture {
   background-color: hsl(25 40% 35%) !important; /* Darker brown for dark mode */
+  color: white !important; /* Ensure white foreground in dark theme */
+}
+
+.dark .leather-texture > * {
+  color: white !important; /* Ensure child elements are white in dark theme */
+}
+
+.dark footer.leather-texture,
+.dark footer.leather-texture *,
+.dark footer.leather-texture p,
+.dark footer.leather-texture div {
+  color: white !important; /* Ensure footer and all footer elements are white in dark theme */
+}
+
+/* Override Tailwind text color classes in dark theme footer with leather texture */
+.dark footer.leather-texture [class*="text-primary-foreground"],
+.dark footer.leather-texture [class*="text-"] {
+  color: white !important;
 }
 
 .leather-texture::before {
@@ -245,6 +263,14 @@ body {
 .leather-texture-hover:hover > * {
   position: relative;
   z-index: 1;
+}
+
+.dark .leather-texture-hover:hover {
+  color: white !important; /* Ensure white foreground on hover in dark theme */
+}
+
+.dark .leather-texture-hover:hover > * {
+  color: white !important; /* Ensure child elements are white on hover in dark theme */
 }
 
 /* Page transition animations - sliding effect */

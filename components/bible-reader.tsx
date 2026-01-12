@@ -173,14 +173,14 @@ export function BibleReader({
                   if (setIsSheetOpen) setIsSheetOpen(false);
                 }}
               >
-                <Link href="/">
-                  <BookOpen className="mr-2 h-4 w-4" />
-                  Home
+                <Link href="/" className="flex items-center">
+                  <BookOpen className={language == "Arabic" ? "ml-2 h-4 w-4" : "mr-2 h-4 w-4"} />
+                  {uiText[language].home}
                 </Link>
               </Button>
             </TooltipTrigger>
             <TooltipContent>
-              <p>Home</p>
+              <p>{uiText[language].home}</p>
             </TooltipContent>
           </Tooltip>
         </div>
@@ -268,9 +268,9 @@ export function BibleReader({
             className="cursor-pointer text-accent hover:bg-accent hover:text-white transition-colors"
             asChild
           >
-            <Link href="/">
-              <BookOpen className="mr-2 h-4 w-4" />
-              Home
+            <Link href="/" className="flex items-center">
+              <BookOpen className={language == "Arabic" ? "ml-2 h-4 w-4" : "mr-2 h-4 w-4"} />
+              {uiText[language].home}
             </Link>
           </Button>
           <Tooltip>
@@ -303,29 +303,24 @@ export function BibleReader({
         {/* Top Navigation */}
         <header className="flex items-center justify-between p-3 border-b bg-primary text-white leather-texture">
           <div className="flex items-center">
-            <div className="md:hidden">
+            <div className="md:hidden flex items-center">
               <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
-                <SheetTrigger asChild>
-                  <div
-                    className="flex row"
-                    onClick={() => setIsSheetOpen(!isSheetOpen)}
-                  >
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <Button variant="ghost" size="icon" className="cursor-pointer transition-all duration-200 hover:scale-110 active:scale-95">
-                          <Menu className="transition-transform duration-200" />
-                        </Button>
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>Menu</p>
-                      </TooltipContent>
-                    </Tooltip>
-                    <h1 className="text-2xl font-bold mx-2 flex flex-row space-x-2 text-white">
-                      {bookInfo.n} {chapter}
-                    </h1>
-                  </div>
-                </SheetTrigger>
-                <SheetContent side={language === "Arabic" ? "right" : "left"} className="flex flex-col p-0 h-full">
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <SheetTrigger asChild>
+                      <Button variant="ghost" size="icon" className="cursor-pointer transition-all duration-200 hover:scale-110 active:scale-95">
+                        <Menu className="transition-transform duration-200" />
+                      </Button>
+                    </SheetTrigger>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Menu</p>
+                  </TooltipContent>
+                </Tooltip>
+                <h1 className="text-2xl font-bold mx-2 flex flex-row space-x-2 text-white">
+                  {bookInfo.n} {chapter}
+                </h1>
+                <SheetContent side={language === "Arabic" ? "right" : "left"} className="flex flex-col p-0 h-full" suppressHydrationWarning>
                   <SheetTitle className="sr-only">
                     Navigation Menu
                   </SheetTitle>
@@ -374,7 +369,7 @@ export function BibleReader({
                 </Button>
               </TooltipTrigger>
               <TooltipContent>
-                <p>Home</p>
+                <p>{uiText[language].home}</p>
               </TooltipContent>
             </Tooltip>
             <h1
@@ -671,13 +666,24 @@ function studyContent(
       </h3>
       <ul className={`gap-2`}>
         {commentary?.questions?.map((question) => {
-          // Convert question to URL slug: lowercase, replace spaces with hyphens, remove special chars
-          const questionSlug = question
-            .toLowerCase()
-            .replace(/[^a-z0-9\s-]/g, '')
-            .replace(/\s+/g, '-')
-            .replace(/-+/g, '-')
-            .trim();
+          // Prepend book and chapter to the question
+          const questionPrefix = language === "Arabic" 
+            ? `في ${bookInfo.n} ${chapter}: `
+            : `In ${bookInfo.n} ${chapter}: `;
+          const questionWithContext = `${questionPrefix}${question}`;
+          
+          // For Arabic, use URL encoding; for English, create a slug
+          const questionUrl = language === "Arabic"
+            ? `https://ask.holybiblereader.com/study?q=${encodeURIComponent(questionWithContext)}`
+            : (() => {
+                const questionSlug = questionWithContext
+                  .toLowerCase()
+                  .replace(/[^a-z0-9\s-]/g, '')
+                  .replace(/\s+/g, '-')
+                  .replace(/-+/g, '-')
+                  .trim();
+                return `https://ask.holybiblereader.com/study/${questionSlug}`;
+              })();
           
           return (
             <li key={question} className="cursor-pointer">
@@ -686,7 +692,7 @@ function studyContent(
                 className="block mr-2 mb-2 text-wrap h-auto py-2 text-start text-lg font-normal cursor-pointer whitespace-normal"
                 asChild
               >
-                <Link href={`https://ask.holybiblereader.com/study/${questionSlug}`} target="_blank" rel="noopener noreferrer" className="whitespace-normal break-words">
+                <Link href={questionUrl} target="_blank" rel="noopener noreferrer" className="whitespace-normal break-words">
                   {question}
                 </Link>
               </Button>
