@@ -7,5 +7,9 @@ export async function GET(
 ) {
   const { language, book, chapter } = await params;
   const result = await curateChapter(language, book, chapter);
-  return NextResponse.json(result);
+  return NextResponse.json(result, {
+    headers: {
+      "Vercel-CDN-Cache-Control": "s-maxage=86400, stale-while-revalidate=60",
+    },
+  });
 }
