@@ -8,6 +8,8 @@ import { Button } from "./ui/button";
 import { uiText } from "@/lib/uiText";
 import versionsDropDown from "./versions-drop-down";
 import ChaptersList from "./chapters-list";
+import { ThemeToggle } from "./theme-toggle";
+import { SiteHeader } from "./site-header";
 
 function summarizeDescription(description?: string) {
   if (!description) return "";
@@ -136,6 +138,25 @@ export function BibleBooksList({ language, versions, version, book, chapter, boo
   return (
     <div className={`page-shell px-4 py-8 sm:px-6 lg:px-8 ${language == "Arabic" ? "[direction:rtl]" : ""}`}>
       <div className="mx-auto max-w-7xl space-y-8">
+        <SiteHeader
+          language={language}
+          className="px-0 pt-0 sm:px-0"
+          maxWidthClassName="max-w-7xl"
+          title={
+            <div>
+              <p className="editorial-eyebrow">{text.translationLibrary}</p>
+              <p className="font-display text-2xl leading-none text-foreground">{versionInfo?.name}</p>
+            </div>
+          }
+          rightContent={
+            <>
+              <Button variant="ghost" size="sm" asChild className="hidden md:inline-flex">
+                <Link href={`/${version}`}>{text.library}</Link>
+              </Button>
+              <ThemeToggle />
+            </>
+          }
+        />
         <section className="hero-panel rounded-[2rem] px-6 py-10 sm:px-10">
           <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,1fr)_22rem]">
             <div>

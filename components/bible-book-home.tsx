@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, BookOpen, Menu } from "lucide-react";
+import { ArrowLeft, ArrowRight, Menu } from "lucide-react";
 import { Amiri } from "next/font/google";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -9,6 +9,8 @@ import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/s
 import { BibleBooksList } from "@/components/bible-books-list";
 import { uiText } from "@/lib/uiText";
 import versionsDropDown from "./versions-drop-down";
+import { ThemeToggle } from "./theme-toggle";
+import { SiteHeader } from "./site-header";
 
 const amiri = Amiri({
   weight: ["400", "700"],
@@ -37,9 +39,18 @@ export function BibleBookHome({ language, versions, version, book, curation, boo
         </aside>
 
         <main className="relative min-w-0">
-          <header className="sticky top-0 z-30 border-b border-border/80 bg-background/72 backdrop-blur">
-            <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-4 sm:px-6">
-              <div className="flex items-center gap-2">
+          <SiteHeader
+            language={language}
+            sticky={true}
+            maxWidthClassName="w-full"
+            title={
+              <div>
+                <p className="editorial-eyebrow">{text.bookIntroduction}</p>
+                <p className="font-display text-2xl leading-none text-foreground">{bookInfo.n}</p>
+              </div>
+            }
+            rightContent={
+              <>
                 <Sheet>
                   <SheetTrigger asChild>
                     <Button variant="outline" size="icon" className="lg:hidden">
@@ -47,7 +58,7 @@ export function BibleBookHome({ language, versions, version, book, curation, boo
                     </Button>
                   </SheetTrigger>
                   <SheetContent side={isArabic ? "right" : "left"} className="w-[92vw] max-w-md border-border bg-background p-0">
-                    <SheetTitle className="sr-only">Bible Navigation</SheetTitle>
+                    <SheetTitle className="sr-only">{text.bibleNavigation}</SheetTitle>
                     <ScrollArea className="h-full px-4 py-6 scrollbar-thin">
                       <BibleBooksList
                         language={language}
@@ -61,18 +72,6 @@ export function BibleBookHome({ language, versions, version, book, curation, boo
                     </ScrollArea>
                   </SheetContent>
                 </Sheet>
-                <Button variant="ghost" size="icon" asChild className="hidden sm:inline-flex">
-                  <Link href={`/${version}`}>
-                    <BookOpen className="h-4 w-4" />
-                  </Link>
-                </Button>
-                <div>
-                  <p className="editorial-eyebrow">{text.bookIntroduction}</p>
-                  <h1 className="text-4xl text-foreground sm:text-5xl">{bookInfo.n}</h1>
-                </div>
-              </div>
-
-              <div className="flex flex-wrap items-center gap-2">
                 <Button variant="ghost" asChild className="hidden md:inline-flex">
                   <Link href={`/${version}/${bookInfo.previousBook?.slug}`}>
                     {isArabic ? <ArrowRight className="mr-2 h-4 w-4" /> : <ArrowLeft className="mr-2 h-4 w-4" />}
@@ -86,9 +85,10 @@ export function BibleBookHome({ language, versions, version, book, curation, boo
                     {isArabic ? <ArrowLeft className="ml-2 h-4 w-4" /> : <ArrowRight className="ml-2 h-4 w-4" />}
                   </Link>
                 </Button>
-              </div>
-            </div>
-          </header>
+                <ThemeToggle />
+              </>
+            }
+          />
 
           <div className="px-4 py-6 sm:px-6 lg:px-8">
             <div className="mx-auto max-w-6xl space-y-8">

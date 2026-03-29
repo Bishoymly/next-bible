@@ -3,7 +3,6 @@
 import Link from "next/link";
 import {
   ArrowRight,
-  BookOpen,
   Compass,
   Layers3,
   LibraryBig,
@@ -17,6 +16,7 @@ import { ChurchGuidanceComponent } from "./church-guidance";
 import { SalvationGuideComponent } from "./salvation-guide";
 import { GospelGuide } from "./gospel-guide";
 import { ThemeToggle } from "./theme-toggle";
+import { SiteHeader } from "./site-header";
 const studyFeatureIcons = [LibraryBig, ScrollText, Layers3];
 
 export function HomePageComponent({ language = "English" }) {
@@ -33,15 +33,10 @@ export function HomePageComponent({ language = "English" }) {
 
   return (
     <div className="page-shell overflow-hidden">
-      <header className="relative z-10 px-4 pt-5 sm:px-6 lg:px-8">
-        <div className="mx-auto flex max-w-7xl items-center justify-between rounded-full border border-[rgba(200,150,58,0.18)] bg-background/65 px-4 py-3 backdrop-blur md:px-6">
-          <Link href="/" className="flex items-center gap-3 text-sm text-foreground">
-            <span className="flex h-10 w-10 items-center justify-center rounded-full border border-[rgba(200,150,58,0.28)] bg-[rgba(200,150,58,0.08)] text-accent">
-              <BookOpen className="h-4 w-4" />
-            </span>
-            <span className="font-display text-2xl leading-none text-foreground">{text.holyBibleReader}</span>
-          </Link>
-          <div className="flex items-center gap-2">
+      <SiteHeader
+        language={language}
+        rightContent={
+          <>
             <Button variant="ghost" size="sm" asChild className="hidden md:inline-flex">
               <Link href="/asv">{text.library}</Link>
             </Button>
@@ -51,9 +46,9 @@ export function HomePageComponent({ language = "English" }) {
               </Link>
             </Button>
             <ThemeToggle />
-          </div>
-        </div>
-      </header>
+          </>
+        }
+      />
 
       <main className="relative z-10 px-4 pb-20 pt-6 sm:px-6 lg:px-8">
         <section className="mx-auto max-w-7xl">

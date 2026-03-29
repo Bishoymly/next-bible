@@ -13,6 +13,7 @@ import {
   MessageSquareMore,
   MessageCircleQuestion,
   FlipHorizontal,
+  PanelLeftOpen,
 } from "lucide-react";
 import Link from "next/link";
 import { BibleBooksList } from "./bible-books-list";
@@ -34,6 +35,7 @@ import strongsGreekDictionary from "@/lib/strongs-greek-dictionary.js";
 import { getByBC } from "@texttree/bible-crossref";
 import { ThemeToggle } from "./theme-toggle";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { SiteHeader } from "./site-header";
 
 const inter = Inter({ subsets: ["latin"] });
 const amiri = Amiri({
@@ -316,122 +318,105 @@ export function BibleReader({
       {/* Main Content */}
       <main className="flex-1 flex flex-col overflow-hidden">
         {/* Top Navigation */}
-        <header className="border-b border-border/80 bg-background/72 backdrop-blur">
-          <div className="flex items-center justify-between gap-3 px-3 py-3 sm:px-5">
-          <div className="flex items-center">
-            <div className="md:hidden flex items-center">
-              <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <SheetTrigger asChild>
-                      <Button variant="outline" size="icon" className="cursor-pointer transition-all duration-200 hover:scale-110 active:scale-95">
-                        <Menu className="transition-transform duration-200" />
-                      </Button>
-                    </SheetTrigger>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>{text.menu}</p>
-                  </TooltipContent>
-                </Tooltip>
-                <h1 className="mx-3 flex flex-row space-x-2 font-display text-3xl text-foreground">
-                  {bookInfo.n} {chapter}
-                </h1>
-                <SheetContent side={language === "Arabic" ? "right" : "left"} className="flex h-full flex-col border-border bg-background p-0" suppressHydrationWarning>
-                  <SheetTitle className="sr-only">{text.navigationMenu}</SheetTitle>
-                  <div className="flex-1 min-h-0 overflow-hidden pt-4">
-                    {Sidebar(
-                      bookInfo,
-                      chapter,
-                      book,
-                      booksCategorized,
-                      setIsSheetOpen
-                    )}
-                  </div>
-                </SheetContent>
-              </Sheet>
+        <SiteHeader
+          language={language}
+          sticky={true}
+          maxWidthClassName="w-full"
+          leftContent={
+            !sidebarExpanded ? (
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="hidden md:inline-flex cursor-pointer text-foreground transition-all duration-200 hover:scale-110 hover:text-accent active:scale-95"
+                    onClick={() => setSidebarExpanded(true)}
+                  >
+                    <PanelLeftOpen className="h-4 w-4" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>{text.showSidebar}</p>
+                </TooltipContent>
+              </Tooltip>
+            ) : null
+          }
+          title={
+            <div>
+              <p className="editorial-eyebrow">{text.chapterReading}</p>
+              <p className="font-display text-2xl leading-none text-foreground">
+                {bookInfo.n} {chapter}
+              </p>
             </div>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  className={`cursor-pointer text-foreground transition-all duration-200 hover:scale-110 hover:text-accent active:scale-95 ${sidebarExpanded ? "hidden" : ""}`}
-                  onClick={() => setSidebarExpanded(true)}
-                >
-                  {language == "Arabic" ? (
-                    <ChevronLeft className="h-5 transition-transform duration-200" />
-                  ) : (
-                    <ChevronRight className="transition-transform duration-200" />
-                  )}
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>{text.showSidebar}</p>
-              </TooltipContent>
-            </Tooltip>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="hidden md:block cursor-pointer transition-all duration-200 hover:scale-110 active:scale-95"
-                  asChild
-                >
-                  <Link href="/" className="transition-transform duration-200">
-                    <BookOpen className="mx-1 mt-2 text-accent transition-transform duration-200" />
-                  </Link>
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>{uiText[language].home}</p>
-              </TooltipContent>
-            </Tooltip>
-            <h1
-              className="mx-3 hidden flex-row space-x-2 font-display text-4xl text-foreground md:flex"
-              onClick={() => setSidebarExpanded(true)}
-            >
-              {bookInfo.n} {chapter}
-            </h1>
-          </div>
-          <div className="flex items-center space-x-2">
-            <ThemeToggle />
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  disabled={parseInt(chapter) === 1}
-                  className="cursor-pointer text-foreground transition-all duration-200 hover:scale-110 hover:text-accent active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
-                >
-                  <Link href={`/${version}/${book}/${parseInt(chapter) - 1}`} className="transition-transform duration-200">
-                      {language == "English" ? <ChevronLeft className="transition-transform duration-200" /> : <ChevronRight className="transition-transform duration-200" />}
-                  </Link>
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>{text.previousChapter}</p>
-              </TooltipContent>
-            </Tooltip>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  disabled={parseInt(chapter) === bookInfo.c}
-                  className="cursor-pointer text-foreground transition-all duration-200 hover:scale-110 hover:text-accent active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
-                >
-                  <Link href={`/${version}/${book}/${parseInt(chapter) + 1}`} className="transition-transform duration-200">
-                    {language == "English" ? <ChevronRight className="transition-transform duration-200" /> : <ChevronLeft className="transition-transform duration-200" />}
-                  </Link>
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>{text.nextChapter}</p>
-              </TooltipContent>
-            </Tooltip>
-          </div>
-          </div>
-        </header>
+          }
+          rightContent={
+            <>
+              <div className="md:hidden flex items-center">
+                <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <SheetTrigger asChild>
+                        <Button variant="outline" size="icon" className="cursor-pointer transition-all duration-200 hover:scale-110 active:scale-95">
+                          <Menu className="transition-transform duration-200" />
+                        </Button>
+                      </SheetTrigger>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>{text.menu}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                  <SheetContent side={language === "Arabic" ? "right" : "left"} className="flex h-full flex-col border-border bg-background p-0" suppressHydrationWarning>
+                    <SheetTitle className="sr-only">{text.navigationMenu}</SheetTitle>
+                    <div className="flex-1 min-h-0 overflow-hidden pt-4">
+                      {Sidebar(
+                        bookInfo,
+                        chapter,
+                        book,
+                        booksCategorized,
+                        setIsSheetOpen
+                      )}
+                    </div>
+                  </SheetContent>
+                </Sheet>
+              </div>
+              <ThemeToggle />
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    disabled={parseInt(chapter) === 1}
+                    className="cursor-pointer text-foreground transition-all duration-200 hover:scale-110 hover:text-accent active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                  >
+                    <Link href={`/${version}/${book}/${parseInt(chapter) - 1}`} className="transition-transform duration-200">
+                        {language == "English" ? <ChevronLeft className="transition-transform duration-200" /> : <ChevronRight className="transition-transform duration-200" />}
+                    </Link>
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>{text.previousChapter}</p>
+                </TooltipContent>
+              </Tooltip>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    disabled={parseInt(chapter) === bookInfo.c}
+                    className="cursor-pointer text-foreground transition-all duration-200 hover:scale-110 hover:text-accent active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                  >
+                    <Link href={`/${version}/${book}/${parseInt(chapter) + 1}`} className="transition-transform duration-200">
+                      {language == "English" ? <ChevronRight className="transition-transform duration-200" /> : <ChevronLeft className="transition-transform duration-200" />}
+                    </Link>
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>{text.nextChapter}</p>
+                </TooltipContent>
+              </Tooltip>
+            </>
+          }
+        />
 
         {/* Bible Content */}
         <div
