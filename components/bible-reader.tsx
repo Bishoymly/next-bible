@@ -55,6 +55,7 @@ export function BibleReader({
   booksCategorized,
   books,
 }) {
+  const text = uiText[language];
   const [selectedVerse, setSelectedVerse] = useState(null);
   const [sidebarExpanded, setSidebarExpanded] = useStickyState(
     "sidebarExpanded",
@@ -65,6 +66,8 @@ export function BibleReader({
   const [commentary, setCommentary] = useState(null);
   const [sideBySide, setSideBySide] = useStickyState("sideBySide", false);
   const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const showSplitView = sideBySide;
+  const showStudyCompanion = !sideBySide && version != "study" && commentary?.questions?.length > 0;
 
   // scroll spy
   const [activeId, setActiveId] = useState<string | undefined>();
@@ -157,17 +160,18 @@ export function BibleReader({
       <ScrollArea
         className={`h-full ${
           language == "Arabic"
-            ? `[direction:rtl] ${amiri.className} text-2xl leading-loose pr-3`
-            : `text-lg leading-relaxed ${inter.className} pr-3`
+            ? `[direction:rtl] ${amiri.className} text-2xl leading-loose`
+            : `text-lg leading-relaxed ${inter.className}`
         }`}
       >
-        <div className="px-4 mb-6 md:hidden">
+        <div className="space-y-6 px-4 pb-8">
+        <div className="md:hidden">
           <Tooltip>
             <TooltipTrigger asChild>
               <Button
-                variant="ghost"
+                variant="outline"
                 size="sm"
-                className="w-full justify-start cursor-pointer text-accent hover:bg-accent hover:text-white transition-colors"
+                className="w-full justify-start cursor-pointer rounded-2xl"
                 asChild
                 onClick={() => {
                   if (setIsSheetOpen) setIsSheetOpen(false);
@@ -184,21 +188,29 @@ export function BibleReader({
             </TooltipContent>
           </Tooltip>
         </div>
+        <div className="rounded-[1.35rem] bg-background/28 p-4 ring-1 ring-border/22">
+          <p className="editorial-eyebrow mb-2">{uiText[language].books}</p>
+          <h2 className="text-3xl text-foreground">{bookInfo.n}</h2>
+          <p className="mt-1 text-sm text-muted-foreground">
+            {text.chapterLabel} {chapter} {text.ofLabel} {bookInfo.c}
+          </p>
+        </div>
         {commentary && (
-          <div className="mb-10 px-4">
-            <h2 className="text-xl font-semibold mb-2 text-accent">
+          <div className="rounded-[1.35rem] bg-background/28 p-4 ring-1 ring-border/22">
+            <p className="editorial-eyebrow mb-2">{uiText[language].onThisPage}</p>
+            <h2 className="text-3xl text-foreground">
               {uiText[language].onThisPage}
             </h2>
-            <ul className="space-y-1">
+            <ul className="mt-3 space-y-1">
               {commentary?.sections.map((section, index) => (
                 <li key={index} className="block cursor-pointer">
                   <Link
                     className={`${
-                      language == "Arabic" ? "text-xl" : "text-sm"
-                    } hover:text-primary transition-all duration-200 hover:translate-x-1 ${
+                      language == "Arabic" ? "text-xl" : "text-base"
+                    } block rounded-2xl px-3 py-2 transition-all duration-200 ${
                       activeId === `s${section.fromVerse}`
-                        ? "text-primary font-bold"
-                        : "text-muted-foreground"
+                        ? "bg-accent text-accent-foreground"
+                        : "text-muted-foreground hover:bg-[rgba(200,150,58,0.12)] hover:text-accent"
                     }`}
                     href={`#s${section.fromVerse}`}
                     onClick={() => {
@@ -214,8 +226,8 @@ export function BibleReader({
           </div>
         )}
 
-        <div className="px-4">
-          <h2 className="text-xl font-semibold mb-4 text-accent">{bookInfo.n}</h2>
+        <div className="rounded-[1.35rem] bg-background/28 p-4 ring-1 ring-border/22">
+          <p className="editorial-eyebrow mb-2">{uiText[language].chapters}</p>
           <ChaptersList
             language={language}
             version={version}
@@ -224,7 +236,9 @@ export function BibleReader({
             chapter={chapter}
             aside={true}
           />
-          <h2 className="text-xl font-semibold mt-6 text-accent">{uiText[language].books}</h2>
+        </div>
+        <div className="rounded-[1.35rem] bg-background/28 p-4 ring-1 ring-border/22">
+          <p className="editorial-eyebrow mb-4">{uiText[language].books}</p>
           <BibleBooksList
             language={language}
             versions={versions}
@@ -235,6 +249,7 @@ export function BibleReader({
             aside={true}
           />
         </div>
+        </div>
       </ScrollArea>
     );
   }
@@ -243,7 +258,7 @@ export function BibleReader({
     <TooltipProvider>
     <div
       suppressHydrationWarning
-      className={`flex h-screen bg-background transition-all overflow-hidden ${
+      className={`flex min-h-screen bg-background transition-all overflow-hidden ${
         language == "Arabic"
           ? `[direction:rtl] ${amiri.className}`
           : `[direction:ltr] ${inter.className}`
@@ -253,19 +268,19 @@ export function BibleReader({
       <aside
         className={`hidden md:flex flex-col ${
           language == "Arabic" ? "border-l" : "border-r"
-        } transition-all duration-300 ease-in-out ${
+        } border-border/80 bg-background/60 backdrop-blur transition-all duration-300 ease-in-out ${
           sidebarExpanded 
-            ? "w-72 translate-x-0" 
+            ? "w-80 translate-x-0" 
             : "w-0 " + (language == "Arabic" 
               ? "translate-x-full" 
               : "-translate-x-full")
         } overflow-hidden`}
       >
-        <div className="p-4 flex-shrink-0 flex items-center justify-between">
+        <div className="flex flex-shrink-0 items-center justify-between border-b border-border/70 p-4">
           <Button
-            variant="ghost"
+            variant="outline"
             size="sm"
-            className="cursor-pointer text-accent hover:bg-accent hover:text-white transition-colors"
+            className="cursor-pointer rounded-2xl"
             asChild
           >
             <Link href="/" className="flex items-center">
@@ -289,7 +304,7 @@ export function BibleReader({
               </Button>
             </TooltipTrigger>
             <TooltipContent>
-              <p>{sidebarExpanded ? "Collapse sidebar" : "Expand sidebar"}</p>
+              <p>{sidebarExpanded ? text.collapseSidebar : text.expandSidebar}</p>
             </TooltipContent>
           </Tooltip>
         </div>
@@ -301,29 +316,28 @@ export function BibleReader({
       {/* Main Content */}
       <main className="flex-1 flex flex-col overflow-hidden">
         {/* Top Navigation */}
-        <header className="flex items-center justify-between p-3 border-b bg-primary text-white leather-texture">
+        <header className="border-b border-border/80 bg-background/72 backdrop-blur">
+          <div className="flex items-center justify-between gap-3 px-3 py-3 sm:px-5">
           <div className="flex items-center">
             <div className="md:hidden flex items-center">
               <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <SheetTrigger asChild>
-                      <Button variant="ghost" size="icon" className="cursor-pointer transition-all duration-200 hover:scale-110 active:scale-95">
+                      <Button variant="outline" size="icon" className="cursor-pointer transition-all duration-200 hover:scale-110 active:scale-95">
                         <Menu className="transition-transform duration-200" />
                       </Button>
                     </SheetTrigger>
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p>Menu</p>
+                    <p>{text.menu}</p>
                   </TooltipContent>
                 </Tooltip>
-                <h1 className="text-2xl font-bold mx-2 flex flex-row space-x-2 text-white">
+                <h1 className="mx-3 flex flex-row space-x-2 font-display text-3xl text-foreground">
                   {bookInfo.n} {chapter}
                 </h1>
-                <SheetContent side={language === "Arabic" ? "right" : "left"} className="flex flex-col p-0 h-full" suppressHydrationWarning>
-                  <SheetTitle className="sr-only">
-                    Navigation Menu
-                  </SheetTitle>
+                <SheetContent side={language === "Arabic" ? "right" : "left"} className="flex h-full flex-col border-border bg-background p-0" suppressHydrationWarning>
+                  <SheetTitle className="sr-only">{text.navigationMenu}</SheetTitle>
                   <div className="flex-1 min-h-0 overflow-hidden pt-4">
                     {Sidebar(
                       bookInfo,
@@ -339,20 +353,20 @@ export function BibleReader({
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button
-                  variant="ghost"
+                  variant="outline"
                   size="icon"
-                  className={`p-0 cursor-pointer transition-all duration-200 hover:scale-110 active:scale-95 ${sidebarExpanded ? "hidden" : ""}`}
+                  className={`cursor-pointer text-foreground transition-all duration-200 hover:scale-110 hover:text-accent active:scale-95 ${sidebarExpanded ? "hidden" : ""}`}
                   onClick={() => setSidebarExpanded(true)}
                 >
                   {language == "Arabic" ? (
-                    <ChevronLeft className="h-5 text-white transition-transform duration-200" />
+                    <ChevronLeft className="h-5 transition-transform duration-200" />
                   ) : (
-                    <ChevronRight className="text-white transition-transform duration-200" />
+                    <ChevronRight className="transition-transform duration-200" />
                   )}
                 </Button>
               </TooltipTrigger>
               <TooltipContent>
-                <p>Show sidebar</p>
+                <p>{text.showSidebar}</p>
               </TooltipContent>
             </Tooltip>
             <Tooltip>
@@ -364,7 +378,7 @@ export function BibleReader({
                   asChild
                 >
                   <Link href="/" className="transition-transform duration-200">
-                    <BookOpen className="mt-2 mx-1 text-white transition-transform duration-200" />
+                    <BookOpen className="mx-1 mt-2 text-accent transition-transform duration-200" />
                   </Link>
                 </Button>
               </TooltipTrigger>
@@ -373,7 +387,7 @@ export function BibleReader({
               </TooltipContent>
             </Tooltip>
             <h1
-              className="text-2xl font-bold mx-2 flex-row space-x-2 hidden md:flex text-white"
+              className="mx-3 hidden flex-row space-x-2 font-display text-4xl text-foreground md:flex"
               onClick={() => setSidebarExpanded(true)}
             >
               {bookInfo.n} {chapter}
@@ -384,49 +398,59 @@ export function BibleReader({
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button
-                  variant="ghost"
+                  variant="outline"
                   size="icon"
                   disabled={parseInt(chapter) === 1}
-                  className="cursor-pointer transition-all duration-200 hover:scale-110 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                  className="cursor-pointer text-foreground transition-all duration-200 hover:scale-110 hover:text-accent active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                 >
                   <Link href={`/${version}/${book}/${parseInt(chapter) - 1}`} className="transition-transform duration-200">
-                      {language == "English" ? <ChevronLeft className="text-white transition-transform duration-200" /> : <ChevronRight className="text-white transition-transform duration-200" />}
+                      {language == "English" ? <ChevronLeft className="transition-transform duration-200" /> : <ChevronRight className="transition-transform duration-200" />}
                   </Link>
                 </Button>
               </TooltipTrigger>
               <TooltipContent>
-                <p>Previous chapter</p>
+                <p>{text.previousChapter}</p>
               </TooltipContent>
             </Tooltip>
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button
-                  variant="ghost"
+                  variant="outline"
                   size="icon"
                   disabled={parseInt(chapter) === bookInfo.c}
-                  className="cursor-pointer transition-all duration-200 hover:scale-110 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                  className="cursor-pointer text-foreground transition-all duration-200 hover:scale-110 hover:text-accent active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                 >
                   <Link href={`/${version}/${book}/${parseInt(chapter) + 1}`} className="transition-transform duration-200">
-                    {language == "English" ? <ChevronRight className="text-white transition-transform duration-200" /> : <ChevronLeft className="text-white transition-transform duration-200" />}
+                    {language == "English" ? <ChevronRight className="transition-transform duration-200" /> : <ChevronLeft className="transition-transform duration-200" />}
                   </Link>
                 </Button>
               </TooltipTrigger>
               <TooltipContent>
-                <p>Next chapter</p>
+                <p>{text.nextChapter}</p>
               </TooltipContent>
             </Tooltip>
+          </div>
           </div>
         </header>
 
         {/* Bible Content */}
         <div
-          className="flex-1 scroll-smooth overflow-y-scroll"
+          className="flex-1 scroll-smooth overflow-y-scroll scrollbar-thin"
           ref={scrollContainerRef}
         >
-          <div className="p-6 flex gap-4 md:gap-8">
-            <div className="max-w-3xl mx-auto space-y-4 mb-20 flex-1">
-              <div className={inter.className}>
-                <div className="flex gap-2">
+          <div className="px-4 py-5 sm:px-6 lg:px-8">
+            <section className="hero-panel rounded-[1.8rem] px-5 py-6 sm:px-8">
+              <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+                <div>
+                  <p className="editorial-eyebrow mb-3">{text.chapterReading}</p>
+                  <h2 className="text-5xl leading-[0.95] text-[var(--parchment)] sm:text-6xl">
+                    {bookInfo.n} {chapter}
+                  </h2>
+                  <p className="mt-4 max-w-2xl text-lg italic text-[rgba(245,240,232,0.72)]">
+                    {text.chapterReadingDesc}
+                  </p>
+                </div>
+                <div className="flex flex-wrap gap-2">
                   {versionsDropDown(
                     versions,
                     version,
@@ -438,37 +462,41 @@ export function BibleReader({
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <Toggle
-                        aria-label="Side by side"
+                        aria-label={text.sideBySide}
                         size="sm"
                         onClick={() => setSideBySide(!sideBySide)}
                         value={sideBySide}
-                        className="cursor-pointer transition-all duration-200 hover:scale-110 active:scale-95"
+                        className="cursor-pointer rounded-full border border-[rgba(240,217,138,0.22)] bg-white/6 px-3 text-[var(--parchment)] transition-all duration-200 hover:scale-[1.03] hover:bg-[rgba(240,217,138,0.14)] hover:text-[var(--gold-pale)] active:scale-[0.98] data-[state=on]:border-[var(--gold)] data-[state=on]:bg-[var(--gold-pale)] data-[state=on]:text-[var(--navy-deep)]"
                       >
                         <FlipHorizontal className="transition-transform duration-200" />
                       </Toggle>
                     </TooltipTrigger>
                     <TooltipContent>
-                      <p>Side by side</p>
+                      <p>{text.sideBySide}</p>
                     </TooltipContent>
                   </Tooltip>
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <Toggle
-                        aria-label="Verse by verse"
+                        aria-label={text.verseByVerse}
                         size="sm"
                         onClick={() => setVerseByVerse(!verseByVerse)}
                         value={verseByVerse}
-                        className="cursor-pointer transition-all duration-200 hover:scale-110 active:scale-95"
+                        className="cursor-pointer rounded-full border border-[rgba(240,217,138,0.22)] bg-white/6 px-3 text-[var(--parchment)] transition-all duration-200 hover:scale-[1.03] hover:bg-[rgba(240,217,138,0.14)] hover:text-[var(--gold-pale)] active:scale-[0.98] data-[state=on]:border-[var(--gold)] data-[state=on]:bg-[var(--gold-pale)] data-[state=on]:text-[var(--navy-deep)]"
                       >
                         <ListOrdered className="transition-transform duration-200" />
                       </Toggle>
                     </TooltipTrigger>
                     <TooltipContent>
-                      <p>Verse by verse</p>
+                      <p>{text.verseByVerse}</p>
                     </TooltipContent>
                   </Tooltip>
                 </div>
               </div>
+            </section>
+
+          <div className={`mt-6 ${showSplitView ? "flex gap-4 md:gap-8" : "space-y-6"}`}>
+            <div className={`section-shell rounded-[1.75rem] p-5 sm:p-7 ${showSplitView ? "max-w-3xl flex-1" : "w-full max-w-4xl"}`}>
               {version == "study"
                 ? studyContent(
                     language,
@@ -496,8 +524,8 @@ export function BibleReader({
                   )}
             </div>
 
-            {sideBySide && (
-              <div className={`max-w-3xl mx-auto space-y-4 mb-20 flex-1`}>
+            {showSplitView && (
+              <div className={`section-shell max-w-3xl flex-1 rounded-[1.75rem] p-5 sm:p-7`}>
                 <div className={inter.className}>
                   {versionsDropDown(
                     versions,
@@ -532,29 +560,29 @@ export function BibleReader({
                       books,
                       versions,
                       verseByVerse
-                    )}
+                  )}
+              </div>
+            )}
+            {showStudyCompanion && (
+              <div className="section-shell w-full max-w-4xl rounded-[1.75rem] p-6 sm:p-8">
+                <p className="editorial-eyebrow mb-2">{uiText[language].study}</p>
+                <h2 className="mb-3 text-4xl text-foreground">
+                  {uiText[language].study}
+                </h2>
+                {studyContent(
+                  language,
+                  version,
+                  commentary,
+                  json,
+                  bookInfo,
+                  chapter,
+                  books,
+                  setQuestion
+                )}
               </div>
             )}
           </div>
-          <div className="p-6 mb-16">
-            {(version2 != "study" || !sideBySide) &&
-              commentary?.questions?.length > 0 && (
-                <div className="max-w-3xl mx-auto mt-8">
-                  <h2 className="text-2xl font-semibold mb-2 text-accent">
-                    {uiText[language].study}
-                  </h2>
-                  {studyContent(
-                    language,
-                    version,
-                    commentary,
-                    json,
-                    bookInfo,
-                    chapter,
-                    books,
-                    setQuestion
-                  )}
-                </div>
-              )}
+          <div className="mb-16" />
           </div>
         </div>
         <Tooltip>
@@ -567,14 +595,14 @@ export function BibleReader({
             >
               <Button
                 variant="default"
-                className="w-14 h-14 rounded-full shadow-md flex items-center justify-center hover:shadow-lg hover:shadow-black/30 transition-all duration-300"
+                className="flex h-14 w-14 items-center justify-center rounded-full shadow-md transition-all duration-300 hover:shadow-lg hover:shadow-black/30"
               >
                 <MessageCircleQuestion className="h-6 w-6" />
               </Button>
             </Link>
           </TooltipTrigger>
           <TooltipContent>
-            <p>Ask a Bible question</p>
+            <p>{text.askBibleQuestion}</p>
           </TooltipContent>
         </Tooltip>
       </main>
@@ -593,26 +621,32 @@ function studyContent(
   books: any,
   setQuestion
 ) {
+  const text = uiText[language];
   return commentary ? (
-    <div>
+    <div className="space-y-8">
       {commentary?.sections.map((section) => (
         <div
           id={`ss${section.fromVerse}`}
           key={`ss${section.fromVerse}`}
-          className={`snap-y scroll-my-10 mb-6`}
+          className="snap-y scroll-my-10 rounded-[1.35rem] bg-background/18 p-2"
         >
-          <Link href={`#s${section.fromVerse}`} className="hover:text-primary">
-            <h4
-              className={` font-semibold mb-2 mt-4 cursor-pointer text-accent ${
-                language == "Arabic" ? "text-xl" : "text-lg"
-              }`}
-            >
-              {section.fromVerse} - {section.toVerse} : {section.title}
-            </h4>
-          </Link>
-          {section.commentary.map((l, index) => (
-            <span key={index}>{l}</span>
-          ))}
+          <div className="rounded-[1.15rem] bg-background/26 p-4">
+            <p className="editorial-eyebrow mb-2">{text.sectionLabel} {section.fromVerse}-{section.toVerse}</p>
+            <Link href={`#s${section.fromVerse}`} className="hover:text-primary">
+              <h4
+                className={`mb-4 cursor-pointer font-semibold text-accent ${
+                  language == "Arabic" ? "text-2xl" : "text-3xl"
+                }`}
+              >
+                {section.title}
+              </h4>
+            </Link>
+            <div className="space-y-4 text-base leading-8 text-muted-foreground">
+              {section.commentary.map((l, index) => (
+                <p key={index}>{l}</p>
+              ))}
+            </div>
+          </div>
           {commentary?.importantVerses
             .filter(
               (v) => v.verse >= section.fromVerse && v.verse <= section.toVerse
@@ -620,14 +654,14 @@ function studyContent(
             .map((important, index) => (
               <figure
                 key={index}
-                className="md:flex bg-muted rounded-xl p-8 md:p-0 mt-6 md:ml-20"
+                className="mt-4 rounded-[1.2rem] bg-background/24 p-5 md:ml-8"
               >
-                <div className="pt-6 md:p-8 text-center md:text-start space-y-4">
+                <div className="space-y-4 text-center md:text-start">
                   <Link
                     href={`#${important.verse}`}
                     className="hover:text-primary transition-colors"
                   >
-                    <span className="text-lg font-medium text-foreground">
+                    <span className="text-xl font-medium text-foreground">
                       {language == "Arabic" ? <>&rdquo;</> : <>&ldquo;</>}
                       {renderVerse(json[important.verse], language, true, true)}
                       {language == "Arabic" ? <>&ldquo;</> : <>&rdquo;</>}
@@ -638,13 +672,13 @@ function studyContent(
                     </span>
                   </Link>
                   <div>
-                    <span className="pb-2 block text-muted-foreground text-start">
+                    <span className="block pb-2 text-start text-muted-foreground">
                       {important.commentary}
                     </span>
                   </div>
-                  <div className="flex gap-2">
+                  <div className="flex flex-wrap gap-2">
                     {important.crossReferences?.map((ref, index) => (
-                      <Button key={index} variant="outline">
+                      <Button key={index} variant="outline" size="sm" className="rounded-full">
                         <Link
                           href={`/${version}/${getBookSlug(
                             books,
@@ -661,10 +695,12 @@ function studyContent(
         </div>
       ))}
 
-      <h3 className="text-xl font-semibold mt-10 mb-2 text-accent">
+      <div>
+      <p className="editorial-eyebrow mb-2">{uiText[language].questions}</p>
+      <h3 className="mb-4 text-4xl text-foreground">
         {uiText[language].questions}
       </h3>
-      <ul className={`gap-2`}>
+      <ul className="grid gap-2">
         {commentary?.questions?.map((question) => {
           // Prepend book and chapter to the question
           const questionPrefix = language === "Arabic" 
@@ -689,7 +725,7 @@ function studyContent(
             <li key={question} className="cursor-pointer">
               <Button
                 variant="outline"
-                className="block mr-2 mb-2 text-wrap h-auto py-2 text-start text-lg font-normal cursor-pointer whitespace-normal"
+                className="block h-auto whitespace-normal rounded-[1.15rem] border-none bg-background/24 px-4 py-3 text-start text-lg font-normal cursor-pointer shadow-none ring-1 ring-border/22"
                 asChild
               >
                 <Link href={questionUrl} target="_blank" rel="noopener noreferrer" className="whitespace-normal break-words">
@@ -700,6 +736,7 @@ function studyContent(
           );
         })}
       </ul>
+      </div>
     </div>
   ) : (
     <div className="flex flex-col space-y-3">
@@ -930,7 +967,7 @@ function bibleContent(
 
   return (
     <div
-      className={` ${
+      className={`space-y-3 ${
         language == "Arabic"
           ? `text-2xl leading-loose [direction:rtl] ${amiri.className}`
           : `text-lg leading-relaxed [direction:ltr] ${inter.className}`
@@ -950,8 +987,8 @@ function bibleContent(
               >
                 <Link href={`#ss${section.fromVerse}`}>
                   <h3
-                    className={` font-semibold mb-2 mt-4 cursor-pointer text-accent hover:text-accent/80 transition-colors ${
-                      language == "Arabic" ? "text-2xl" : "text-xl"
+                    className={`mb-3 ${section.fromVerse == 1 ? "mt-0 pb-1" : "mt-6 border-b border-border/60 pb-3"} cursor-pointer font-semibold text-accent hover:text-accent/80 transition-colors ${
+                      language == "Arabic" ? "text-3xl" : "text-4xl"
                     }`}
                   >
                     {section.title}
@@ -965,8 +1002,8 @@ function bibleContent(
                 key={key}
                 className={
                   (selectedVerse?.key == key
-                    ? "bg-yellow-200 dark:bg-yellow-800/50 text-[var(--color-black)] dark:text-gray-900 -my-1 py-1 cursor-pointer shadow-md"
-                    : "") + (verseByVerse && "inline-block")
+                    ? "rounded-lg bg-[rgba(200,150,58,0.18)] text-[var(--color-black)] dark:text-[var(--parchment)] -my-1 py-1 cursor-pointer shadow-md"
+                    : "") + (verseByVerse ? "mb-3 block border-b border-border/35 pb-3" : "")
                 }
                 onClick={handleSelectVerse.bind(this, {
                   key: key,
@@ -983,21 +1020,12 @@ function bibleContent(
                     .join(" "),
                 })}
               >
-                {key == "1" && (
-                  <span
-                    className={`text-7xl font-bold text-accent ${
-                      language == "Arabic" ? "ml-4" : "mr-4"
-                    } float-start`}
-                  >
-                    {chapter}
-                  </span>
-                )}
                 {key != "0" && (
                   <sup
                     id={key}
                     className={`scroll-my-4 ${
-                      language == "Arabic" ? "text-lg" : "text-xs"
-                    } font-semibold text-primary mr-1`}
+                      language == "Arabic" ? "text-xl" : "text-sm"
+                    } mr-1 font-label font-semibold uppercase tracking-[0.14em] text-primary`}
                   >
                     {key}
                   </sup>
@@ -1006,15 +1034,15 @@ function bibleContent(
               </span>
             </DrawerTrigger>
             <DrawerContent
-              className={`md:flex bg-muted rounded-xl p-8 ${
+              className={`md:flex border-border bg-background p-8 ${
                 language == "Arabic" && `[direction:rtl] ${amiri.className}`
               }`}
             >
               <DrawerTitle className="sr-only">
                 {bookInfo.n} {chapter}:{key}
               </DrawerTitle>
-              <div className="pt-6 text-center md:text-start space-y-4 mb-2">
-                <span className="text-lg font-medium text-foreground">
+              <div className="mb-2 space-y-4 pt-6 text-center md:text-start">
+                <span className="text-xl font-medium text-foreground">
                   {language == "Arabic" ? <>&rdquo;</> : <>&ldquo;</>}
                   {renderVerse(verse, language, true, verseByVerse)}
                   {language == "Arabic" ? <>&ldquo;</> : <>&rdquo;</>}
@@ -1028,16 +1056,16 @@ function bibleContent(
               {commentary?.importantVerses
                 .filter((v) => v.verse == key)
                 .map((important, index) => (
-                  <div key={index}>
-                    <h3 className="font-semibold mb-2 mt-2 text-accent">
+                  <div key={index} className="rounded-[1.15rem] border border-border/70 bg-background/45 p-4">
+                    <h3 className="mb-2 mt-2 font-semibold text-accent">
                       {uiText[language].commentary}
                     </h3>
                     <span className="pb-4 block">{important.commentary}</span>
                   </div>
                 ))}
-              <div className="flex flex-wrap gap-1 mt-4">
+              <div className="mt-4 flex flex-wrap gap-1">
                 {crossRef[key]?.map((ref, index) => (
-                  <Button key={index} variant="outline" size="sm">
+                  <Button key={index} variant="outline" size="sm" className="rounded-full">
                     <Link
                       href={`/${version}/${getBookSlug(
                         books,
@@ -1064,7 +1092,7 @@ function bibleContent(
           </Drawer>
         </React.Fragment>
       ))}
-      <p className="text-left mt-8 text-sm italic">
+      <p className="mt-8 pt-2 text-left text-sm italic text-muted-foreground">
         {versions.find((v) => v.id === version).copyright}
       </p>
     </div>

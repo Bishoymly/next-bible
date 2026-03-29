@@ -1,45 +1,44 @@
 "use client";
 
-import { AlertTriangle, Church, Users } from "lucide-react";
+import { AlertTriangle, Church } from "lucide-react";
 import Link from "next/link";
 
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { uiText } from "@/lib/uiText";
 
-export function ChurchGuidanceComponent() {
+export function ChurchGuidanceComponent({ language = "English" }) {
+  const text = uiText[language];
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="text-2xl font-bold">Find Guidance in a Faithful Church</CardTitle>
-        <CardDescription>This app is a tool, not a substitute for church community</CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <Alert>
-          <AlertTriangle className="h-4 w-4" />
-          <AlertTitle>Important Reminder</AlertTitle>
-          <AlertDescription>This Bible study app is not a replacement for the growth and guidance you need in a discipling relationship within a healthy church context.</AlertDescription>
-        </Alert>
-        <p className="text-muted-foreground">While this app can aid your personal study, true spiritual growth happens in community. We strongly encourage you to:</p>
-        <ul className="list-disc list-inside space-y-2 text-muted-foreground">
-          <li>Regularly attend a Bible-believing church</li>
-          <li>Seek mentorship from mature believers</li>
-          <li>Participate in small groups or Bible studies</li>
-          <li>Engage in corporate worship and prayer</li>
-        </ul>
-      </CardContent>
-      <CardFooter className="flex flex-col space-y-4">
+    <div className="h-full px-1 py-1 text-foreground sm:px-0 sm:py-0">
+      <p className="editorial-eyebrow mb-3">{text.community}</p>
+      <h3 className="text-4xl text-foreground">{text.churchGuidanceTitle}</h3>
+      <p className="mt-3 text-base text-muted-foreground">{text.churchGuidanceIntro}</p>
+
+      <div className="mt-6 rounded-[1.2rem] bg-background/35 p-4 ring-1 ring-border/35">
+        <div className="flex items-start gap-3">
+          <AlertTriangle className="mt-1 h-4 w-4 text-accent" />
+          <div>
+            <h4 className="font-semibold text-foreground">{text.importantReminder}</h4>
+            <p className="mt-1 text-sm text-muted-foreground">{text.churchReminderText}</p>
+          </div>
+        </div>
+      </div>
+
+      <p className="mt-5 text-muted-foreground">{text.churchCommunityText}</p>
+      <ul className="mt-4 space-y-3 text-muted-foreground">
+        <li className="rounded-[1.05rem] bg-background/28 px-4 py-3 ring-1 ring-border/30">{text.attendChurch}</li>
+        <li className="rounded-[1.05rem] bg-background/28 px-4 py-3 ring-1 ring-border/30">{text.seekMentorship}</li>
+        <li className="rounded-[1.05rem] bg-background/28 px-4 py-3 ring-1 ring-border/30">{text.participateGroups}</li>
+        <li className="rounded-[1.05rem] bg-background/28 px-4 py-3 ring-1 ring-border/30">{text.worshipPrayer}</li>
+      </ul>
+
+      <div className="mt-6">
         <Button className="w-full" asChild>
-          <Link href="https://churches.sbc.net/" target="_blank">
-            <Church className="mr-2 h-4 w-4" /> Find a Church Near You
+          <Link href="https://www.google.com/maps/search/Reformed+Church+near+me" target="_blank">
+            <Church className="mr-2 h-4 w-4" /> {text.findChurchNearYou}
           </Link>
         </Button>
-        {/*<Button variant="outline" className="w-full" asChild>
-            <Link href="/community">
-              <Users className="mr-2 h-4 w-4" /> Connect with Other Believers
-            </Link>
-          </Button>*/}
-      </CardFooter>
-    </Card>
+      </div>
+    </div>
   );
 }

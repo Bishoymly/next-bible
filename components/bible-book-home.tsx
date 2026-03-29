@@ -1,119 +1,178 @@
 "use client";
-import localFont from "next/font/local";
-import { Button } from "@/components/ui/button";
-import { BookOpen, ChevronLeft, ChevronRight, Home, Menu, Search } from "lucide-react";
+
 import Link from "next/link";
-import { BibleBooksList } from "@/components/bible-books-list";
+import { ArrowLeft, ArrowRight, BookOpen, Menu } from "lucide-react";
+import { Amiri } from "next/font/google";
+import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Amiri, Inter } from "next/font/google";
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { BibleBooksList } from "@/components/bible-books-list";
 import { uiText } from "@/lib/uiText";
 import versionsDropDown from "./versions-drop-down";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
-const titleFont = localFont({
-  src: "./../public/game-of-thrones.ttf",
-  display: "swap",
-});
-
-const inter = Inter({ subsets: ["latin"] });
 const amiri = Amiri({
   weight: ["400", "700"],
   subsets: ["arabic"],
 });
 
 export function BibleBookHome({ language, versions, version, book, curation, bookInfo, booksCategorized }) {
+  const isArabic = language === "Arabic";
+  const text = uiText[language];
+
   return (
-    <TooltipProvider>
-    <div className={`flex h-screen bg-background ${language == "Arabic" ? `text-2xl leading-loose [direction:rtl] ${amiri.className}` : `text-lg leading-relaxed [direction:ltr] ${inter.className}`}`}>
-      {/* Collapsible Sidebar */}
-      <aside className={`hidden md:flex flex-col ${language == "Arabic" ? "border-l" : "border-r"} transition-all duration-300 w-64`}>
-        <ScrollArea className={`flex-1 ${language == "Arabic" ? `text-2xl leading-loose [direction:rtl] ${amiri.className}` : `text-lg leading-relaxed [direction:ltr] ${inter.className}`}`}>
-          <div className="p-4 space-y-2">
-            <BibleBooksList language={language} versions={versions} version={version} book={book} chapter={null} booksCategorized={booksCategorized} aside={true} />
-          </div>
-        </ScrollArea>
-      </aside>
+    <div className={`page-shell min-h-screen ${isArabic ? `[direction:rtl] ${amiri.className}` : "[direction:ltr]"}`}>
+      <div className="grid min-h-screen lg:grid-cols-[20rem_minmax(0,1fr)]">
+        <aside className={`hidden border-border/80 bg-background/55 backdrop-blur lg:block ${isArabic ? "border-l" : "border-r"}`}>
+          <ScrollArea className="h-screen scrollbar-thin px-4 py-6">
+            <BibleBooksList
+              language={language}
+              versions={versions}
+              version={version}
+              book={book}
+              chapter={null}
+              booksCategorized={booksCategorized}
+              aside={true}
+            />
+          </ScrollArea>
+        </aside>
 
-      {/* Main Content */}
-      <main className="flex-1 flex flex-col overflow-hidden">
-        <ScrollArea className={`flex-1 ${language == "Arabic" ? `text-2xl leading-loose [direction:rtl] ${amiri.className}` : `text-lg leading-relaxed [direction:ltr] ${inter.className}`}`}>
-          <div className="container mx-auto px-4 py-8">
-            <div className="flex justify-between items-center mb-8 flex-wrap gap-2">
-              <Sheet>
-                <SheetTrigger asChild>
-                  <Button variant="ghost" size="icon" className="md:hidden cursor-pointer transition-all duration-200 hover:scale-110 active:scale-95 z-10 flex-shrink-0">
-                    <Menu className="transition-transform duration-200" />
-                  </Button>
-                </SheetTrigger>
-                <SheetContent side={`${language == "English" ? "left" : "right"}`}>
-                  <ScrollArea
-                    className={`flex-1  h-full mt-4 ${
-                      language == "Arabic" ? `text-2xl leading-loose [direction:rtl] ${amiri.className}` : `text-lg leading-relaxed [direction:ltr] ${inter.className}`
-                    }`}
-                  >
-                    <div className="space-y-2">
-                      <BibleBooksList language={language} versions={versions} version={version} book={book} chapter={null} booksCategorized={booksCategorized} aside={true} />
+        <main className="relative min-w-0">
+          <header className="sticky top-0 z-30 border-b border-border/80 bg-background/72 backdrop-blur">
+            <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-4 sm:px-6">
+              <div className="flex items-center gap-2">
+                <Sheet>
+                  <SheetTrigger asChild>
+                    <Button variant="outline" size="icon" className="lg:hidden">
+                      <Menu className="h-4 w-4" />
+                    </Button>
+                  </SheetTrigger>
+                  <SheetContent side={isArabic ? "right" : "left"} className="w-[92vw] max-w-md border-border bg-background p-0">
+                    <SheetTitle className="sr-only">Bible Navigation</SheetTitle>
+                    <ScrollArea className="h-full px-4 py-6 scrollbar-thin">
+                      <BibleBooksList
+                        language={language}
+                        versions={versions}
+                        version={version}
+                        book={book}
+                        chapter={null}
+                        booksCategorized={booksCategorized}
+                        aside={true}
+                      />
+                    </ScrollArea>
+                  </SheetContent>
+                </Sheet>
+                <Button variant="ghost" size="icon" asChild className="hidden sm:inline-flex">
+                  <Link href={`/${version}`}>
+                    <BookOpen className="h-4 w-4" />
+                  </Link>
+                </Button>
+                <div>
+                  <p className="editorial-eyebrow">{text.bookIntroduction}</p>
+                  <h1 className="text-4xl text-foreground sm:text-5xl">{bookInfo.n}</h1>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-2">
+                <Button variant="ghost" asChild className="hidden md:inline-flex">
+                  <Link href={`/${version}/${bookInfo.previousBook?.slug}`}>
+                    {isArabic ? <ArrowRight className="mr-2 h-4 w-4" /> : <ArrowLeft className="mr-2 h-4 w-4" />}
+                    {bookInfo.previousBook?.n}
+                  </Link>
+                </Button>
+                {versionsDropDown(versions, version, book, null, null, false)}
+                <Button variant="ghost" asChild className="hidden md:inline-flex">
+                  <Link href={`/${version}/${bookInfo.nextBook?.slug}`}>
+                    {bookInfo.nextBook?.n}
+                    {isArabic ? <ArrowLeft className="ml-2 h-4 w-4" /> : <ArrowRight className="ml-2 h-4 w-4" />}
+                  </Link>
+                </Button>
+              </div>
+            </div>
+          </header>
+
+          <div className="px-4 py-6 sm:px-6 lg:px-8">
+            <div className="mx-auto max-w-6xl space-y-8">
+              <section className="hero-panel rounded-[2rem] px-6 py-10 sm:px-10">
+                <div className="grid gap-8 lg:grid-cols-[minmax(0,1.15fr)_20rem]">
+                  <div>
+                    <p className="editorial-eyebrow mb-4">{text.overview}</p>
+                    <h2 className="text-5xl leading-[0.95] text-[var(--parchment)] sm:text-6xl">{bookInfo.n}</h2>
+                    <div className="editorial-divider my-6" />
+                    <div className="space-y-5 text-lg text-[rgba(245,240,232,0.76)]">
+                      {curation.overviewParagraphs.map((text, i) => (
+                        <p key={i} className={i === 0 ? "scripture-dropcap" : ""}>
+                          {text}
+                        </p>
+                      ))}
                     </div>
-                  </ScrollArea>
-                </SheetContent>
-              </Sheet>
+                  </div>
+                  <div className="rounded-[1.6rem] bg-white/8 p-6 text-[var(--parchment)] ring-1 ring-[rgba(240,217,138,0.14)]">
+                    <p className="editorial-eyebrow mb-4">{text.chapters}</p>
+                    <h3 className="text-4xl text-[var(--parchment)]">{bookInfo.c} {text.chapters}</h3>
+                    <p className="mt-3 text-lg text-[rgba(245,240,232,0.82)]">
+                      {text.startWithIntroduction}
+                    </p>
+                    <div className="mt-6 grid grid-cols-4 gap-2">
+                      {Array.from({ length: Math.min(bookInfo.c, 12) }, (_, i) => i + 1).map((chapterNumber) => (
+                        <Button
+                          key={chapterNumber}
+                          variant="outline"
+                          size="sm"
+                          className="border-none bg-[rgba(255,255,255,0.9)] text-[var(--navy-deep)] shadow-none ring-1 ring-[rgba(255,255,255,0.12)] hover:bg-[var(--gold-pale)] hover:text-[var(--navy-deep)]"
+                          asChild
+                        >
+                          <Link href={`/${version}/${book}/${chapterNumber}`}>{chapterNumber}</Link>
+                        </Button>
+                      ))}
+                    </div>
+                    {bookInfo.c > 12 ? (
+                      <p className="mt-4 text-base text-[rgba(245,240,232,0.72)]">{text.fullChapterGridContinues}</p>
+                    ) : null}
+                  </div>
+                </div>
+              </section>
 
-              <Button variant="ghost" asChild className="hidden md:inline-flex group text-accent hover:bg-accent transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer flex-shrink-0">
-                <Link href={`/${version}/${bookInfo.previousBook?.slug}`} className="group-hover:text-white cursor-pointer transition-all duration-200">
-                  {language == "English" ? <ChevronLeft className="text-accent group-hover:text-white transition-all duration-200 group-hover:translate-x-[-2px]" /> : <ChevronRight className="text-accent group-hover:text-white transition-all duration-200 group-hover:translate-x-[2px]" />}
-                  <span className="text-accent group-hover:text-white transition-all duration-200">{bookInfo.previousBook?.n}</span>
-                </Link>
-              </Button>
-
-              <div className="flex items-center flex-1 min-w-0 justify-center">
-                <h1 className={`text-2xl md:text-4xl font-bold text-center align-middle text-accent ${titleFont.className} truncate`}>{bookInfo.n.replace(/1/g, "I ").replace(/2/g, "II ")}</h1>
-                <span className="mx-2 md:mx-3 flex-shrink-0">{versionsDropDown(versions, version, book, null, null, false)}</span>
-              </div>
-              <Button variant="ghost" asChild className="hidden md:inline-flex group text-accent hover:bg-accent transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer flex-shrink-0">
-                <Link href={`/${version}/${bookInfo.nextBook?.slug}`} className="group-hover:text-white cursor-pointer transition-all duration-200">
-                  <span className="text-accent group-hover:text-white transition-all duration-200">{bookInfo.nextBook?.n}</span>
-                  {language == "English" ? <ChevronRight className="text-accent group-hover:text-white transition-all duration-200 group-hover:translate-x-[2px]" /> : <ChevronLeft className="text-accent group-hover:text-white transition-all duration-200 group-hover:translate-x-[-2px]" />}
-                </Link>
-              </Button>
-              <Button variant="ghost" size="icon" className="invisible md:hidden cursor-pointer flex-shrink-0">
-                <Link href={`/asv`}>
-                  <Search />
-                </Link>
-              </Button>
-            </div>
-
-            <div className="max-w-5xl mx-auto p-4 overflow-x-hidden">
-              {curation.overviewParagraphs.map((text, i) => (
-                <p key={i} className={`${language == "Arabic" ? "text-xl" : "text-lg"} sub leading-relaxed mb-6`}>
-                  {text}
-                </p>
-              ))}
-
-              <h2 className={`${language == "Arabic" ? "text-2xl" : "text-xl"} font-semibold my-6 text-accent`}>{uiText[language].sections}</h2>
-              <div className="flex flex-wrap gap-2">
-                {curation.sections.map((group) => (
-                  <Button key={group.title} variant="outline" className={`${language == "Arabic" ? "text-lg" : "text-base"} h-auto py-2 whitespace-normal text-wrap break-words`} asChild>
-                    <Link href={`/${version}/${book}/${group.fromChapter}`}>
-                      {group.fromChapter ? (group.fromChapter === group.toChapter ? `${group.title} (${group.fromChapter})` : `${group.title} (${group.fromChapter}-${group.toChapter})`) : group.title}
+              <section className="section-shell section-light rounded-[1.75rem] p-6 sm:p-8">
+                <p className="editorial-eyebrow mb-3">{text.sections}</p>
+                <h2 className="text-4xl text-[var(--ink)] sm:text-5xl">{text.majorMovementsIn} {bookInfo.n}</h2>
+                <div className="editorial-divider my-6" />
+                <div className="grid gap-4 md:grid-cols-2">
+                  {curation.sections.map((group) => (
+                    <Link
+                      key={group.title}
+                      href={`/${version}/${book}/${group.fromChapter}`}
+                      className="rounded-[1.3rem] bg-white/56 p-5 ring-1 ring-[rgba(122,110,90,0.16)] transition-all duration-200 hover:scale-[1.01] hover:bg-[rgba(240,217,138,0.14)] hover:ring-[var(--gold)]"
+                    >
+                      <p className="font-display text-3xl leading-none text-[var(--ink)]">{group.title}</p>
+                      <p className="mt-2 text-base uppercase tracking-[0.16em] text-[var(--text-muted)]">
+                        {group.fromChapter === group.toChapter ? `${text.chapterLabel} ${group.fromChapter}` : `${text.chapters} ${group.fromChapter}-${group.toChapter}`}
+                      </p>
                     </Link>
-                  </Button>
-                ))}
-              </div>
+                  ))}
+                </div>
+              </section>
 
-              <h2 className={`${language == "Arabic" ? "text-2xl" : "text-xl"} font-semibold my-6 text-accent`}>{uiText[language].chapters}</h2>
-              <div className={`grid grid-cols-5 md:grid-cols-10 gap-2 ${inter.className}`}>
-                {Array.from({ length: bookInfo.c }, (_, i) => i + 1).map((chapter) => (
-                  <Button key={chapter} variant="outline" size="sm" asChild>
-                    <Link href={`/${version}/${book}/${chapter}`}>{chapter}</Link>
-                  </Button>
-                ))}
-              </div>
+              <section className="section-shell rounded-[1.75rem] p-6 sm:p-8">
+                <p className="editorial-eyebrow mb-3">{text.chapters}</p>
+                <h2 className="text-4xl text-foreground sm:text-5xl">{text.enterTheText}</h2>
+                <div className="editorial-divider my-6" />
+                <div className="grid grid-cols-4 gap-3 sm:grid-cols-6 lg:grid-cols-8">
+                  {Array.from({ length: bookInfo.c }, (_, i) => i + 1).map((chapterNumber) => (
+                    <Button
+                      key={chapterNumber}
+                      variant="outline"
+                      className="h-12 rounded-[1.1rem] border-none bg-background/26 text-base shadow-none ring-1 ring-border/26 hover:bg-[rgba(200,150,58,0.14)] hover:text-accent"
+                      asChild
+                    >
+                      <Link href={`/${version}/${book}/${chapterNumber}`}>{chapterNumber}</Link>
+                    </Button>
+                  ))}
+                </div>
+              </section>
             </div>
           </div>
-        </ScrollArea>
-      </main>
+        </main>
+      </div>
     </div>
-    </TooltipProvider>
   );
 }

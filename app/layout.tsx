@@ -1,28 +1,46 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Cormorant_Garamond, EB_Garamond, Cinzel } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Analytics } from '@vercel/analytics/next';
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const displayFont = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["300", "400", "600", "700"],
+  style: ["normal", "italic"],
+  variable: "--font-display",
+});
+
+const bodyFont = EB_Garamond({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  style: ["normal", "italic"],
+  variable: "--font-body",
+});
+
+const labelFont = Cinzel({
+  subsets: ["latin"],
+  weight: ["400", "600", "700"],
+  variable: "--font-label",
+});
 
 export const metadata: Metadata = {
   title: {
-    default: "Bible Reader",
-    template: "%s | Bible Reader"
+    default: "Holy Bible Reader",
+    template: "%s | Holy Bible Reader"
   },
-  description: "Your comprehensive Bible reader with multiple translations, study tools, and cross-references. Read, study, and explore the Bible in different languages.",
+  description: "A modern Bible study experience with immersive reading, introductions, study notes, and multilingual access.",
   keywords: ["bible", "study", "scripture", "religious text", "bible reader", "bible translations"],
-  authors: [{ name: "Bible Reader" }],
+  authors: [{ name: "Holy Bible Reader" }],
   metadataBase: new URL('https://www.holybiblereader.com'),
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "https://www.holybiblereader.com",
-    siteName: "Bible Reader",
-    title: "Bible Reader",
-    description: "Your comprehensive Bible reader with multiple translations, study tools, and cross-references.",
+    siteName: "Holy Bible Reader",
+    title: "Holy Bible Reader",
+    description: "A modern Bible study experience with immersive reading, introductions, study notes, and multilingual access.",
     images: [
       {
         url: "/og-image.png",
@@ -34,8 +52,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Bible Reader",
-    description: "Your comprehensive Bible reader with multiple translations, study tools, and cross-references.",
+    title: "Holy Bible Reader",
+    description: "A modern Bible study experience with immersive reading, introductions, study notes, and multilingual access.",
     images: ["/og-image.png"]
   },
   robots: {
@@ -63,10 +81,10 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
       <link rel="icon" type="image/png" href="/favicon.png" />
-      <body className={inter.className}>
+      <body className={`${displayFont.variable} ${bodyFont.variable} ${labelFont.variable}`}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >

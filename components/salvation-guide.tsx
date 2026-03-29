@@ -1,68 +1,63 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { ChevronRight } from "lucide-react";
 import Link from "next/link";
+import { uiText } from "@/lib/uiText";
 
-export function SalvationGuideComponent() {
-  const version = "asv";
+export function SalvationGuideComponent({ language = "English" }) {
+  const version = language === "Arabic" ? "avd" : "asv";
+  const text = uiText[language];
+  const verseText = text.salvationVerses ?? uiText.English.salvationVerses;
+  const verseReferences = text.salvationReferences ?? uiText.English.salvationReferences;
+
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="text-2xl font-bold">The Path to Salvation</CardTitle>
-        <CardDescription>God loves you and has a plan for your life. Follow these steps to begin your journey of faith.</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <div className="pr-4">
-          <ol className="space-y-4">
-            <li>
-              <h3 className="font-semibold text-accent">Recognize your need for salvation</h3>
-              <p className="text-sm text-muted-foreground mt-1">
-                &quot;For all have sinned and fall short of the glory of God.&quot; -{" "}
-                <Link className="text-accent hover:text-accent/80 hover:underline" href={`/${version}/romans/3#23`}>
-                  Romans 3:23
-                </Link>
-              </p>
-            </li>
-            <li>
-              <h3 className="font-semibold text-accent">Believe in Jesus Christ</h3>
-              <p className="text-sm text-muted-foreground mt-1">
-                &quot;For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life.&quot; -
-                <Link className="text-accent hover:text-accent/80 hover:underline" href={`/${version}/john/3#16`}>
-                  John 3:16
-                </Link>
-              </p>
-            </li>
-            <li>
-              <h3 className="font-semibold text-accent">Confess and repent of your sins</h3>
-              <p className="text-sm text-muted-foreground mt-1">
-                &quot;If we confess our sins, he is faithful and just and will forgive us our sins and purify us from all unrighteousness.&quot; -
-                <Link className="text-accent hover:text-accent/80 hover:underline" href={`/${version}/1-john/1#9`}>
-                  1 John 1:9
-                </Link>
-              </p>
-            </li>
-            <li>
-              <h3 className="font-semibold text-accent">Accept Jesus as your Lord and Savior</h3>
-              <p className="text-sm text-muted-foreground mt-1">
-                &quot;If you declare with your mouth, &apos;Jesus is Lord,&apos; and believe in your heart that God raised him from the dead, you will be saved.&quot; -
-                <Link className="text-accent hover:text-accent/80 hover:underline" href={`/${version}/romans/10#9`}>
-                  Romans 10:9
-                </Link>
-              </p>
-            </li>
-          </ol>
-          <div className="mt-6">
-            <h3 className="font-semibold mb-2 text-accent">Prayer for Salvation</h3>
-            <p className="text-sm text-muted-foreground">
-              Dear God, I know that I am a sinner and need Your forgiveness. I believe that Jesus Christ died for my sins. I want to turn from my sins and follow You. I now invite Jesus to come into
-              my heart and life as my personal Savior. I want to trust and follow You as my Lord. In Jesus&apos; name, Amen.
-            </p>
-          </div>
+    <div className="h-full px-1 py-1 sm:px-0 sm:py-0">
+      <p className="editorial-eyebrow mb-3">{text.hope}</p>
+      <h3 className="text-4xl text-[var(--ink)]">{text.pathToSalvation}</h3>
+      <p className="mt-3 text-base text-[var(--text-muted)]">{text.salvationIntro}</p>
+
+      <div className="mt-6 space-y-4">
+        <div className="rounded-[1.15rem] bg-white/45 p-4 ring-1 ring-[rgba(122,110,90,0.12)]">
+          <h4 className="font-semibold text-accent">{text.recognizeNeed}</h4>
+          <p className="mt-1 text-sm text-[var(--text-muted)]">
+            {verseText[0]} -
+            <Link className="ml-1 text-accent hover:text-accent/80 hover:underline" href={`/${version}/romans/3#23`}>
+              {verseReferences[0]}
+            </Link>
+          </p>
         </div>
-      </CardContent>
-    </Card>
+        <div className="rounded-[1.15rem] bg-white/45 p-4 ring-1 ring-[rgba(122,110,90,0.12)]">
+          <h4 className="font-semibold text-accent">{text.believeInJesus}</h4>
+          <p className="mt-1 text-sm text-[var(--text-muted)]">
+            {verseText[1]} -
+            <Link className="ml-1 text-accent hover:text-accent/80 hover:underline" href={`/${version}/john/3#16`}>
+              {verseReferences[1]}
+            </Link>
+          </p>
+        </div>
+        <div className="rounded-[1.15rem] bg-white/45 p-4 ring-1 ring-[rgba(122,110,90,0.12)]">
+          <h4 className="font-semibold text-accent">{text.confessRepent}</h4>
+          <p className="mt-1 text-sm text-[var(--text-muted)]">
+            {verseText[2]} -
+            <Link className="ml-1 text-accent hover:text-accent/80 hover:underline" href={`/${version}/1-john/1#9`}>
+              {verseReferences[2]}
+            </Link>
+          </p>
+        </div>
+        <div className="rounded-[1.15rem] bg-white/45 p-4 ring-1 ring-[rgba(122,110,90,0.12)]">
+          <h4 className="font-semibold text-accent">{text.acceptJesus}</h4>
+          <p className="mt-1 text-sm text-[var(--text-muted)]">
+            {verseText[3]} -
+            <Link className="ml-1 text-accent hover:text-accent/80 hover:underline" href={`/${version}/romans/10#9`}>
+              {verseReferences[3]}
+            </Link>
+          </p>
+        </div>
+      </div>
+
+      <div className="mt-6 rounded-[1.2rem] bg-white/45 p-4 ring-1 ring-[rgba(122,110,90,0.12)]">
+        <h4 className="mb-2 font-semibold text-accent">{text.prayerForSalvation}</h4>
+        <p className="text-sm text-[var(--text-muted)]">{text.prayerText}</p>
+      </div>
+    </div>
   );
 }

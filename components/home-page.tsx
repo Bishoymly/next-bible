@@ -1,279 +1,207 @@
 "use client";
 
 import Link from "next/link";
+import {
+  ArrowRight,
+  BookOpen,
+  Compass,
+  Layers3,
+  LibraryBig,
+  MessageCircleQuestion,
+  ScrollText,
+  Sparkles,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Select } from "@/components/ui/select";
-import { BookOpen, Search, Book, Users, MessageCircleQuestion } from "lucide-react";
+import { uiText } from "@/lib/uiText";
 import { ChurchGuidanceComponent } from "./church-guidance";
 import { SalvationGuideComponent } from "./salvation-guide";
 import { GospelGuide } from "./gospel-guide";
-import { ImagePreview } from "./image-preview";
 import { ThemeToggle } from "./theme-toggle";
+const studyFeatureIcons = [LibraryBig, ScrollText, Layers3];
 
-export function HomePageComponent() {
+export function HomePageComponent({ language = "English" }) {
+  const text = uiText[language];
+  const readingPaths = text.readingPaths ?? uiText.English.readingPaths;
+  const studyFeatures = (text.studyFeatures ?? uiText.English.studyFeatures).map((feature, index) => ({
+    ...feature,
+    icon: studyFeatureIcons[index],
+  }));
+  const shelfLinks = text.shelfLinks ?? uiText.English.shelfLinks;
+  const readerHighlights = text.readerHighlights ?? uiText.English.readerHighlights;
+  const primaryChapterHref = language === "Arabic" ? "/avd/genesis/1" : "/asv/genesis/1";
+  const bookIntroductionHref = language === "Arabic" ? "/avd/john" : "/kjv/john";
+
   return (
-    <div className="flex flex-col min-h-screen">
-      <header className="bg-primary text-white leather-texture">
-        <div className="container mx-auto px-4 py-4">
-          <nav className="flex items-center justify-between">
-            <Link href="/" className="text-2xl font-bold flex items-center">
-              <BookOpen className="mt-1 mr-3" />
-              Bible Reader
-            </Link>
-            <div className="flex items-center gap-4">
-              <ThemeToggle />
-              {/*<div className="flex items-center space-x-4">
-                <Link href="/about" className="hover:underline">
-                  About
-                </Link>
-                <Link href="/translations" className="hover:underline">
-                  Translations
-                </Link>
-                <Link href="/commentary" className="hover:underline">
-                  Commentary
-                </Link>
-                <Link href="/tools" className="hover:underline">
-                  Study Tools
-                </Link>
-              </div>*/}
-            </div>
-          </nav>
+    <div className="page-shell overflow-hidden">
+      <header className="relative z-10 px-4 pt-5 sm:px-6 lg:px-8">
+        <div className="mx-auto flex max-w-7xl items-center justify-between rounded-full border border-[rgba(200,150,58,0.18)] bg-background/65 px-4 py-3 backdrop-blur md:px-6">
+          <Link href="/" className="flex items-center gap-3 text-sm text-foreground">
+            <span className="flex h-10 w-10 items-center justify-center rounded-full border border-[rgba(200,150,58,0.28)] bg-[rgba(200,150,58,0.08)] text-accent">
+              <BookOpen className="h-4 w-4" />
+            </span>
+            <span className="font-display text-2xl leading-none text-foreground">{text.holyBibleReader}</span>
+          </Link>
+          <div className="flex items-center gap-2">
+            <Button variant="ghost" size="sm" asChild className="hidden md:inline-flex">
+              <Link href="/asv">{text.library}</Link>
+            </Button>
+            <Button variant="ghost" size="sm" asChild className="hidden md:inline-flex">
+              <Link href="https://ask.holybiblereader.com" target="_blank" rel="noopener noreferrer">
+                {text.ask}
+              </Link>
+            </Button>
+            <ThemeToggle />
+          </div>
         </div>
       </header>
 
-      <main className="flex-grow">
-        <section className="py-20">
-          <div className="container mx-auto px-4">
-            <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
-              <div className="flex-1 text-center md:text-left">
-                <h1 className="text-4xl font-bold mb-4 text-accent">Discover the Word of God</h1>
-                <p className="text-xl mb-8 text-foreground">
-                  Explore the Bible with helpful insights and study tools.
+      <main className="relative z-10 px-4 pb-20 pt-6 sm:px-6 lg:px-8">
+        <section className="mx-auto max-w-7xl">
+          <div className="hero-panel rounded-[2rem] px-6 py-10 sm:px-10 sm:py-14 lg:px-14 lg:py-16">
+            <div className="grid items-end gap-10 lg:grid-cols-[minmax(0,1.15fr)_22rem]">
+              <div className="max-w-4xl">
+                <p className="editorial-eyebrow mb-5">{text.scriptureContextReverence}</p>
+                <h1 className="max-w-4xl text-5xl leading-[0.95] text-[var(--parchment)] sm:text-6xl lg:text-[5.5rem]">
+                  {text.homeHeroTitleStart} <em className="text-[var(--gold-pale)] not-italic">{text.homeHeroTitleAccent}</em> {text.homeHeroTitleEnd}
+                </h1>
+                <div className="editorial-divider my-8" />
+                <p className="max-w-2xl text-xl italic text-[rgba(245,240,232,0.72)]">
+                  {text.homeHeroBody}
                 </p>
-                <div className="flex flex-wrap justify-center md:justify-start gap-3">
-                  <Button asChild>
-                    <Link href={`/asv/genesis`}>Start Reading</Link>
+                <div className="mt-10 flex flex-wrap gap-3">
+                  <Button size="lg" asChild>
+                    <Link href={readingPaths[0].href}>
+                      {text.openStudyLibrary}
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
                   </Button>
-                  <Button variant="outline" asChild>
-                    <Link href={"/kjv"}>KJV</Link>
-                  </Button>
-                  <Button variant="outline" asChild>
-                    <Link href={"/asv"}>ASV</Link>
-                  </Button>
-                  <Button variant="outline" asChild>
-                    <Link href={"/avd"}>الكتاب المقدس</Link>
+                  <Button size="lg" variant="outline" asChild className="border-[rgba(240,217,138,0.28)] bg-white/5 text-[var(--parchment)] hover:text-[var(--navy-deep)]">
+                    <Link href="https://ask.holybiblereader.com" target="_blank" rel="noopener noreferrer">
+                      <MessageCircleQuestion className="mr-2 h-4 w-4" />
+                      {text.askBibleQuestion}
+                    </Link>
                   </Button>
                 </div>
               </div>
-              <div className="w-full md:w-auto p-6 bg-accent/10 rounded-lg border border-accent/20">
-                <p className="text-sm text-muted-foreground mb-3 text-center md:text-left">Have questions about Scripture?</p>
-                <Button size="lg" variant="default" asChild className="shadow-lg hover:shadow-xl transition-shadow w-full md:w-auto">
-                  <Link href="https://ask.holybiblereader.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-lg justify-center">
-                    <MessageCircleQuestion className="h-5 w-5" />
-                    Ask a Bible Question
-                  </Link>
-                </Button>
+
+              <div className="rounded-[1.75rem] bg-white/5 p-6 text-[var(--parchment)]">
+                <p className="editorial-eyebrow mb-4">{text.readingPathsTitle}</p>
+                <div className="space-y-4">
+                  {readingPaths.map((path) => (
+                    <Link
+                      key={path.title}
+                      href={path.href}
+                      className="group block rounded-[1.25rem] bg-white/6 px-4 py-4 ring-1 ring-white/8 transition-all duration-200 hover:scale-[1.01] hover:bg-[rgba(240,217,138,0.08)] hover:ring-[rgba(240,217,138,0.3)]"
+                    >
+                      <div className="flex items-center justify-between gap-3">
+                        <h2 className="text-2xl text-[var(--parchment)]">{path.title}</h2>
+                        <ArrowRight className="h-4 w-4 text-[var(--gold)] group-hover:translate-x-0.5" />
+                      </div>
+                      <p className="mt-2 text-base text-[rgba(245,240,232,0.66)]">{path.description}</p>
+                    </Link>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
         </section>
 
-        <section className="py-16 hidden">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold mb-8 text-center text-accent">Quick Access</h2>
-            <div className="flex justify-center space-x-4 mb-8">
-              <Select>
-                <option>Select Translation</option>
-                <option>KJV</option>
-                <option>ESV</option>
-                <option>NASB</option>
-                <option>NIV</option>
-              </Select>
-              <Select>
-                <option>Select Book</option>
-                <option>Genesis</option>
-                <option>Exodus</option>
-                <option>Matthew</option>
-                <option>Romans</option>
-              </Select>
-              <Input type="number" placeholder="Chapter" className="w-24" />
-              <Button>
-                <Search className="mr-2 text-primary-foreground" /> Go
+        <section className="mx-auto mt-8 grid max-w-7xl gap-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
+          <div className="section-shell rounded-[1.75rem] p-6 sm:p-8">
+            <p className="editorial-eyebrow mb-3">{text.whyThisFeelsDifferent}</p>
+            <h2 className="text-4xl text-foreground sm:text-5xl">{text.slowerDeeperStudy}</h2>
+            <div className="editorial-divider my-6" />
+            <div className="grid gap-4 md:grid-cols-3">
+              {studyFeatures.map((feature) => (
+                <article key={feature.title} className="rounded-[1.35rem] bg-background/35 p-5 ring-1 ring-border/40">
+                  <feature.icon className="h-5 w-5 text-accent" />
+                  <h3 className="mt-4 text-2xl text-foreground">{feature.title}</h3>
+                  <p className="mt-2 text-base text-muted-foreground">{feature.description}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+
+          <div className="section-shell section-light rounded-[1.75rem] p-6 sm:p-8">
+            <p className="editorial-eyebrow mb-3">{text.translationShelf}</p>
+            <h2 className="text-4xl text-[var(--ink)] sm:text-5xl">{text.chooseReadingTradition}</h2>
+            <div className="editorial-divider my-6" />
+            <div className="space-y-3">
+              {shelfLinks.map((link) => (
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  className="flex items-center justify-between rounded-[1.2rem] bg-white/45 px-4 py-4 ring-1 ring-[rgba(122,110,90,0.14)] transition-all duration-200 hover:scale-[1.01] hover:bg-[rgba(240,217,138,0.16)] hover:ring-[var(--gold)]"
+                >
+                  <div>
+                    <p className="font-display text-2xl leading-none text-[var(--ink)]">{link.label}</p>
+                    <p className="mt-1 text-sm text-[var(--text-muted)]">{link.note}</p>
+                  </div>
+                  <Compass className="h-4 w-4 text-[var(--gold)]" />
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="mx-auto mt-8 grid max-w-7xl gap-6 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
+          <div className="section-shell section-light rounded-[1.75rem] p-6 sm:p-8">
+            <p className="editorial-eyebrow mb-3">{text.beginHere}</p>
+            <h2 className="text-4xl text-[var(--ink)] sm:text-5xl">{text.gentlePath}</h2>
+            <div className="editorial-divider my-6" />
+            <p className="text-lg text-[var(--text-body)]">
+              {text.gentlePathBody}
+            </p>
+            <div className="cross-separator my-7">
+              <span>✦</span>
+            </div>
+            <GospelGuide language={language} />
+          </div>
+
+          <div className="section-shell rounded-[1.75rem] p-6 sm:p-8">
+            <div className="flex items-center justify-between gap-4">
+              <div>
+                <p className="editorial-eyebrow mb-3">{text.insideTheReader}</p>
+                <h2 className="text-4xl text-foreground sm:text-5xl">{text.redesignedChapterExperience}</h2>
+              </div>
+              <Sparkles className="hidden h-5 w-5 text-accent md:block" />
+            </div>
+            <div className="editorial-divider my-6" />
+            <p className="max-w-2xl text-lg text-muted-foreground">
+              {text.chapterReadingDesc}
+            </p>
+            <div className="mt-6 grid gap-3">
+              {readerHighlights.map((highlight) => (
+                <div key={highlight} className="rounded-[1.15rem] bg-background/28 px-4 py-4 ring-1 ring-border/30">
+                  <p className="text-base text-muted-foreground">{highlight}</p>
+                </div>
+              ))}
+            </div>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Button asChild>
+                <Link href={primaryChapterHref}>
+                  {text.readAChapter}
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+              <Button variant="outline" asChild>
+                <Link href={bookIntroductionHref}>
+                  {text.openBookIntroduction}
+                </Link>
               </Button>
             </div>
-            <div className="text-center">
-              <Link href="/random" className="text-primary hover:underline">
-                Open a Random Passage
-              </Link>
-            </div>
           </div>
         </section>
 
-        <section className="py-16 hidden">
-          <div className="container mx-auto px-8">
-            <h2 className="text-3xl font-bold mb-8 text-center text-accent">Study Resources</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="bg-muted p-6 rounded-lg shadow-md">
-                <Book className="w-12 h-12 mb-4 text-primary" />
-                <h3 className="text-xl font-semibold mb-2 text-accent">Commentaries</h3>
-                <p className="text-foreground">Access in-depth commentaries from renowned Reformed Baptist scholars.</p>
-              </div>
-              <div className="bg-muted p-6 rounded-lg shadow-md">
-                <Users className="w-12 h-12 mb-4 text-primary" />
-                <h3 className="text-xl font-semibold mb-2 text-accent">Study Groups</h3>
-                <p className="text-foreground">Join virtual study groups to discuss and learn with fellow believers.</p>
-              </div>
-              <div className="bg-muted p-6 rounded-lg shadow-md">
-                <BookOpen className="w-12 h-12 mb-4 text-primary" />
-                <h3 className="text-xl font-semibold mb-2 text-accent">Reading Plans</h3>
-                <p className="text-foreground">Follow structured reading plans to guide your Bible study journey.</p>
-              </div>
-            </div>
+        <section className="mx-auto mt-8 grid max-w-7xl gap-6 lg:grid-cols-2">
+          <div className="section-shell section-light rounded-[1.75rem] p-5 sm:p-6">
+            <SalvationGuideComponent language={language} />
           </div>
-        </section>
-
-        <section className="bg-muted py-8">
-          <div className="container mx-auto px-8">
-            <div className="flex flex-col md:flex-row items-center">
-              <div className="md:w-1/3 md:pr-8 mb-8 md:mb-0">
-                <h2 className="text-3xl font-bold mb-4 text-accent">New to the Bible?</h2>
-                <div className="my-6 pb-6">
-                  <h2 className="text-xl font-semibold mb-2 text-accent">Start from here</h2>
-                  <ol className="list-decimal pl-5 space-y-1 text-sm">
-                    <li>Start from the top and read through in order.</li>
-                    <li>Take time to understand each passage.</li>
-                    <li>Reflect on how each chapter contributes to the Gospel message.</li>
-                    <li>Consider journaling your thoughts and questions.</li>
-                    <li>Discuss what you&apos;re learning with others.</li>
-                  </ol>
-                </div>
-              </div>
-              <div className="md:w-2/3">
-                <GospelGuide />
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="py-16">
-          <div className="container mx-auto px-8">
-            <div className="flex flex-col md:flex-row items-center">
-              <div className="md:w-1/3 md:pr-8 mb-8 md:mb-0">
-                <h2 className="text-3xl font-bold mb-4 text-accent">For Bible Students and Scholars</h2>
-                <p className="mb-6 text-foreground">Dive deeper into the Scriptures with our advanced study tools.</p>
-                <ol className="list-decimal pl-5 space-y-1 text-sm">
-                  <li>Book introductions and sections</li>
-                  <li>Chapter main sections commentary and important verses</li>
-                  <li>Parallel side by side translations</li>
-                </ol>
-              </div>
-              <div className="w-full md:w-2/3 h-40 md:h-80 flex items-center justify-center">
-                <ImagePreview />
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="bg-muted py-16">
-          <div className="container mx-auto px-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 items-stretch md:space-x-6 space-y-6 md:space-y-0">
-              <SalvationGuideComponent />
-              <ChurchGuidanceComponent />
-            </div>
+          <div className="section-shell rounded-[1.75rem] p-5 sm:p-6">
+            <ChurchGuidanceComponent language={language} />
           </div>
         </section>
       </main>
-
-      <footer className="bg-primary text-white leather-texture py-4">
-        <div className="container mx-auto px-8">
-          {/*<div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-            <div>
-              <h3 className="text-lg font-semibold mb-4 text-accent">About Us</h3>
-              <ul className="space-y-2">
-                <li>
-                  <Link href="/mission" className="hover:underline">
-                    Our Mission
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/beliefs" className="hover:underline">
-                    Statement of Faith
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/team" className="hover:underline">
-                    Our Team
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold mb-4 text-accent">Resources</h3>
-              <ul className="space-y-2">
-                <li>
-                  <Link href="/blog" className="hover:underline">
-                    Blog
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/podcasts" className="hover:underline">
-                    Podcasts
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/videos" className="hover:underline">
-                    Video Teachings
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold mb-4 text-accent">Community</h3>
-              <ul className="space-y-2">
-                <li>
-                  <Link href="/groups" className="hover:underline">
-                    Study Groups
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/forums" className="hover:underline">
-                    Discussion Forums
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/events" className="hover:underline">
-                    Events
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold mb-4 text-accent">Connect</h3>
-              <ul className="space-y-2">
-                <li>
-                  <Link href="/contact" className="hover:underline">
-                    Contact Us
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/newsletter" className="hover:underline">
-                    Newsletter
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/donate" className="hover:underline">
-                    Support Our Ministry
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </div>*/}
-          <div className="text-center text-sm text-primary-foreground/80 mt-8">
-            <p>&copy; {new Date().getFullYear()} Bible Reader. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }
