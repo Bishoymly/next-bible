@@ -1,28 +1,12 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, EB_Garamond, Cinzel } from "next/font/google";
-import { GoogleAnalytics } from "@next/third-parties/google";
-import { Analytics } from '@vercel/analytics/next';
+import { Inter } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 
-const displayFont = Cormorant_Garamond({
+const sans = Inter({
   subsets: ["latin"],
-  weight: ["300", "400", "600", "700"],
-  style: ["normal", "italic"],
-  variable: "--font-display",
-});
-
-const bodyFont = EB_Garamond({
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  style: ["normal", "italic"],
-  variable: "--font-body",
-});
-
-const labelFont = Cinzel({
-  subsets: ["latin"],
-  weight: ["400", "600", "700"],
-  variable: "--font-label",
+  variable: "--font-sans",
 });
 
 export const metadata: Metadata = {
@@ -70,6 +54,12 @@ export const metadata: Metadata = {
   verification: {
     google: "G-YEJ5GJ8FSH",
   },
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon.png", type: "image/png" },
+    ],
+  },
 };
 
 export default function RootLayout({
@@ -78,20 +68,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-      <link rel="icon" type="image/png" href="/favicon.png" />
-      <body className={`${displayFont.variable} ${bodyFont.variable} ${labelFont.variable}`}>
+    <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
+      <body className={sans.variable} suppressHydrationWarning>
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
+          defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
           {children}
         </ThemeProvider>
         <Analytics />
-        <GoogleAnalytics gaId="G-YEJ5GJ8FSH" />
       </body>
     </html>
   );

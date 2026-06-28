@@ -8,7 +8,7 @@ export default function ChaptersList({ language, version, book, chaptersCount, c
       <Button
         variant="outline"
         size="sm"
-        className={`${language == "Arabic" ? "text-lg" : "text-base"} col-span-5 ${!aside ? "lg:col-span-10" : ""} rounded-2xl ${aside ? "border-none bg-background/24 shadow-none ring-1 ring-border/20" : ""}`}
+        className={`${language == "Arabic" ? "text-base" : "text-sm"} col-span-5 ${!aside ? "lg:col-span-10" : ""} rounded-2xl ${aside ? "border-none bg-background/24 shadow-none ring-1 ring-border/20" : ""}`}
         asChild
       >
         <Link href={`/${version}/${book}`}>{uiText[language].introduction}</Link>
@@ -18,7 +18,7 @@ export default function ChaptersList({ language, version, book, chaptersCount, c
           key={c}
           variant={chapter == c ? "default" : "outline"}
           size="sm"
-          className={`${language == "Arabic" ? "text-lg" : "text-base"} rounded-2xl ${aside && chapter != c ? "border-none bg-background/24 shadow-none ring-1 ring-border/20" : ""}`}
+          className={`${language == "Arabic" ? "text-base" : "text-sm"} rounded-2xl ${aside && chapter != c ? "border-none bg-background/24 shadow-none ring-1 ring-border/20" : ""}`}
           asChild
         >
           <Link href={`/${version}/${book}/${c}`}>{c}</Link>

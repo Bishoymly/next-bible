@@ -9,7 +9,8 @@ export async function GET(
   const result = await curateChapter(language, book, chapter);
   return NextResponse.json(result, {
     headers: {
-      "Vercel-CDN-Cache-Control": "s-maxage=86400, stale-while-revalidate=60",
+      "Vercel-CDN-Cache-Control": "s-maxage=604800, stale-while-revalidate=3600",
+      "CDN-Cache-Control": "s-maxage=604800, stale-while-revalidate=3600",
     },
   });
 }

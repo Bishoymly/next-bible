@@ -9,6 +9,9 @@ import { findBookBySlug } from "@/lib/findBookBySlug";
 import Script from 'next/script';
 import { notFound } from 'next/navigation';
 
+// Cache chapter pages at the CDN for 24 hours — reduces serverless invocations
+export const revalidate = 86400;
+
 type Props = {
   params: Promise<{ version: string; book: string; chapter: string }>;
   searchParams: Promise<{ side?: string }>;

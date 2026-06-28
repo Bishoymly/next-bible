@@ -1,10 +1,9 @@
-"use client";
-
 import { AlertTriangle, Church } from "lucide-react";
 import Link from "next/link";
 
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { uiText } from "@/lib/uiText";
+import { cn } from "@/lib/utils";
 
 export function ChurchGuidanceComponent({ language = "English" }) {
   const text = uiText[language];
@@ -16,7 +15,7 @@ export function ChurchGuidanceComponent({ language = "English" }) {
 
       <div className="mt-6 rounded-[1.2rem] bg-background/35 p-4 ring-1 ring-border/35">
         <div className="flex items-start gap-3">
-          <AlertTriangle className="mt-1 h-4 w-4 text-accent" />
+          <AlertTriangle className="mt-1 h-4 w-4 text-muted-foreground" />
           <div>
             <h4 className="font-semibold text-foreground">{text.importantReminder}</h4>
             <p className="mt-1 text-sm text-muted-foreground">{text.churchReminderText}</p>
@@ -33,11 +32,14 @@ export function ChurchGuidanceComponent({ language = "English" }) {
       </ul>
 
       <div className="mt-6">
-        <Button className="w-full" asChild>
-          <Link href="https://www.google.com/maps/search/Reformed+Church+near+me" target="_blank">
-            <Church className="mr-2 h-4 w-4" /> {text.findChurchNearYou}
-          </Link>
-        </Button>
+        <Link
+          href="https://www.google.com/maps/search/Reformed+Church+near+me"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={cn(buttonVariants(), "w-full")}
+        >
+          <Church className="mr-2 h-4 w-4" /> {text.findChurchNearYou}
+        </Link>
       </div>
     </div>
   );

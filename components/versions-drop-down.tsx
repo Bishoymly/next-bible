@@ -6,7 +6,7 @@ export default function versionsDropDown(versions: any, version: any, book: any,
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="sm" className="rounded-full px-4 font-label text-[0.9rem] tracking-[0.22em] uppercase">
+        <Button variant="outline" size="sm" className="rounded-full px-4 font-label text-[0.9rem] tracking-[0.22em] uppercase text-foreground">
           {side ? version2.toUpperCase() : version.toUpperCase()}
         </Button>
       </DropdownMenuTrigger>

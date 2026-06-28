@@ -1,7 +1,8 @@
-"use server";
 import { BibleBooksList } from "@/components/bible-books-list";
 import getBooksCategorized from "@/lib/getBooksCategorized";
 import getVersions from "@/lib/getVersions";
+
+export const revalidate = 86400;
 
 export default async function VersionPage({ params }: { params: Promise<{ version: string }> }) {
   const { version } = await params;

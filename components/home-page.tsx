@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import {
   ArrowRight,
@@ -8,18 +6,20 @@ import {
   LibraryBig,
   MessageCircleQuestion,
   ScrollText,
-  Sparkles,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { uiText } from "@/lib/uiText";
 import { ChurchGuidanceComponent } from "./church-guidance";
 import { SalvationGuideComponent } from "./salvation-guide";
 import { GospelGuide } from "./gospel-guide";
-import { ThemeToggle } from "./theme-toggle";
 import { SiteHeader } from "./site-header";
+import { cn } from "@/lib/utils";
+
 const studyFeatureIcons = [LibraryBig, ScrollText, Layers3];
 
-export function HomePageComponent({ language = "English" }) {
+type HomeLanguage = keyof typeof uiText;
+
+export function HomePageComponent({ language = "English" }: { language?: HomeLanguage }) {
   const text = uiText[language];
   const readingPaths = text.readingPaths ?? uiText.English.readingPaths;
   const studyFeatures = (text.studyFeatures ?? uiText.English.studyFeatures).map((feature, index) => ({
@@ -28,71 +28,75 @@ export function HomePageComponent({ language = "English" }) {
   }));
   const shelfLinks = text.shelfLinks ?? uiText.English.shelfLinks;
   const readerHighlights = text.readerHighlights ?? uiText.English.readerHighlights;
-  const primaryChapterHref = language === "Arabic" ? "/avd/genesis/1" : "/asv/genesis/1";
-  const bookIntroductionHref = language === "Arabic" ? "/avd/john" : "/kjv/john";
+  const primaryChapterHref = language === "Arabic" ? "/avd/genesis/1" : "/bsb/genesis/1";
+  const bookIntroductionHref = language === "Arabic" ? "/avd/john" : "/bsb/john";
 
   return (
-    <div className="page-shell overflow-hidden">
+    <div className="page-shell">
       <SiteHeader
         language={language}
-        rightContent={
-          <>
-            <Button variant="ghost" size="sm" asChild className="hidden md:inline-flex">
-              <Link href="/asv">{text.library}</Link>
-            </Button>
-            <Button variant="ghost" size="sm" asChild className="hidden md:inline-flex">
-              <Link href="https://ask.holybiblereader.com" target="_blank" rel="noopener noreferrer">
-                {text.ask}
-              </Link>
-            </Button>
-            <ThemeToggle />
-          </>
-        }
+        libraryHref="/bsb"
+        libraryLabel={text.library}
+        askLabel={text.ask}
       />
 
       <main className="relative z-10 px-4 pb-20 pt-6 sm:px-6 lg:px-8">
-        <section className="mx-auto max-w-7xl">
-          <div className="hero-panel rounded-[2rem] px-6 py-10 sm:px-10 sm:py-14 lg:px-14 lg:py-16">
-            <div className="grid items-end gap-10 lg:grid-cols-[minmax(0,1.15fr)_22rem]">
-              <div className="max-w-4xl">
-                <p className="editorial-eyebrow mb-5">{text.scriptureContextReverence}</p>
-                <h1 className="max-w-4xl text-5xl leading-[0.95] text-[var(--parchment)] sm:text-6xl lg:text-[5.5rem]">
-                  {text.homeHeroTitleStart} <em className="text-[var(--gold-pale)] not-italic">{text.homeHeroTitleAccent}</em> {text.homeHeroTitleEnd}
+        <section className="mx-auto max-w-5xl">
+          <div className="hero-panel rounded-xl px-6 py-12 sm:px-10 sm:py-16">
+            <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,1.15fr)_20rem]">
+              <div className="max-w-2xl">
+                <p className="editorial-eyebrow mb-4">{text.scriptureContextReverence}</p>
+                <h1 className="max-w-2xl text-4xl font-semibold leading-tight sm:text-5xl lg:text-6xl">
+                  {text.homeHeroTitleStart}{" "}
+                  <span className="opacity-70">{text.homeHeroTitleAccent}</span>{" "}
+                  {text.homeHeroTitleEnd}
                 </h1>
-                <div className="editorial-divider my-8" />
-                <p className="max-w-2xl text-xl italic text-[rgba(245,240,232,0.72)]">
+                <div className="editorial-divider my-6" />
+                <p className="max-w-xl text-lg" style={{ color: "var(--hero-muted)" }}>
                   {text.homeHeroBody}
                 </p>
-                <div className="mt-10 flex flex-wrap gap-3">
-                  <Button size="lg" asChild>
-                    <Link href={readingPaths[0].href}>
-                      {text.openStudyLibrary}
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Link>
-                  </Button>
-                  <Button size="lg" variant="outline" asChild className="border-[rgba(240,217,138,0.28)] bg-white/5 text-[var(--parchment)] hover:text-[var(--navy-deep)]">
-                    <Link href="https://ask.holybiblereader.com" target="_blank" rel="noopener noreferrer">
-                      <MessageCircleQuestion className="mr-2 h-4 w-4" />
-                      {text.askBibleQuestion}
-                    </Link>
-                  </Button>
+                <div className="mt-8 flex flex-wrap gap-3">
+                  <Link
+                    href={readingPaths[0].href}
+                    className={cn(
+                      buttonVariants({ size: "lg" }),
+                      "bg-[var(--hero-fg)] text-[var(--hero-bg)] hover:bg-[var(--hero-fg)]/90"
+                    )}
+                  >
+                    {text.openStudyLibrary}
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                  <Link
+                    href="https://ask.holybiblereader.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={cn(
+                      buttonVariants({ size: "lg", variant: "outline" }),
+                      "border-[var(--hero-muted)] bg-transparent text-[var(--hero-fg)] hover:bg-[var(--hero-fg)]/10"
+                    )}
+                  >
+                    <MessageCircleQuestion className="mr-2 h-4 w-4" />
+                    {text.askBibleQuestion}
+                  </Link>
                 </div>
               </div>
 
-              <div className="rounded-[1.75rem] bg-white/5 p-6 text-[var(--parchment)]">
+              <div className="rounded-lg border border-[var(--hero-muted)]/30 p-5">
                 <p className="editorial-eyebrow mb-4">{text.readingPathsTitle}</p>
-                <div className="space-y-4">
+                <div className="space-y-3">
                   {readingPaths.map((path) => (
                     <Link
                       key={path.title}
                       href={path.href}
-                      className="group block rounded-[1.25rem] bg-white/6 px-4 py-4 ring-1 ring-white/8 transition-all duration-200 hover:scale-[1.01] hover:bg-[rgba(240,217,138,0.08)] hover:ring-[rgba(240,217,138,0.3)]"
+                      className="group block rounded-md border border-[var(--hero-muted)]/20 px-4 py-3 transition-colors hover:bg-[var(--hero-fg)]/5"
                     >
                       <div className="flex items-center justify-between gap-3">
-                        <h2 className="text-2xl text-[var(--parchment)]">{path.title}</h2>
-                        <ArrowRight className="h-4 w-4 text-[var(--gold)] group-hover:translate-x-0.5" />
+                        <h2 className="text-lg font-medium">{path.title}</h2>
+                        <ArrowRight className="h-4 w-4 opacity-50 group-hover:translate-x-0.5 group-hover:opacity-100" />
                       </div>
-                      <p className="mt-2 text-base text-[rgba(245,240,232,0.66)]">{path.description}</p>
+                      <p className="mt-1 text-sm" style={{ color: "var(--hero-muted)" }}>
+                        {path.description}
+                      </p>
                     </Link>
                   ))}
                 </div>
@@ -101,98 +105,83 @@ export function HomePageComponent({ language = "English" }) {
           </div>
         </section>
 
-        <section className="mx-auto mt-8 grid max-w-7xl gap-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
-          <div className="section-shell rounded-[1.75rem] p-6 sm:p-8">
-            <p className="editorial-eyebrow mb-3">{text.whyThisFeelsDifferent}</p>
-            <h2 className="text-4xl text-foreground sm:text-5xl">{text.slowerDeeperStudy}</h2>
-            <div className="editorial-divider my-6" />
-            <div className="grid gap-4 md:grid-cols-3">
+        <section className="mx-auto mt-10 grid max-w-5xl gap-6 lg:grid-cols-2">
+          <div className="section-shell rounded-xl p-6 sm:p-8">
+            <p className="editorial-eyebrow mb-2">{text.whyThisFeelsDifferent}</p>
+            <h2 className="text-2xl font-semibold sm:text-3xl">{text.slowerDeeperStudy}</h2>
+            <div className="editorial-divider my-5" />
+            <div className="grid gap-4">
               {studyFeatures.map((feature) => (
-                <article key={feature.title} className="rounded-[1.35rem] bg-background/35 p-5 ring-1 ring-border/40">
-                  <feature.icon className="h-5 w-5 text-accent" />
-                  <h3 className="mt-4 text-2xl text-foreground">{feature.title}</h3>
-                  <p className="mt-2 text-base text-muted-foreground">{feature.description}</p>
+                <article key={feature.title} className="rounded-lg border border-border p-4">
+                  <feature.icon className="h-4 w-4 text-muted-foreground" />
+                  <h3 className="mt-3 text-lg font-medium">{feature.title}</h3>
+                  <p className="mt-1 text-sm text-muted-foreground">{feature.description}</p>
                 </article>
               ))}
             </div>
           </div>
 
-          <div className="section-shell section-light rounded-[1.75rem] p-6 sm:p-8">
-            <p className="editorial-eyebrow mb-3">{text.translationShelf}</p>
-            <h2 className="text-4xl text-[var(--ink)] sm:text-5xl">{text.chooseReadingTradition}</h2>
-            <div className="editorial-divider my-6" />
-            <div className="space-y-3">
+          <div className="section-shell section-light rounded-xl p-6 sm:p-8">
+            <p className="editorial-eyebrow mb-2">{text.translationShelf}</p>
+            <h2 className="text-2xl font-semibold sm:text-3xl">{text.chooseReadingTradition}</h2>
+            <div className="editorial-divider my-5" />
+            <div className="space-y-2">
               {shelfLinks.map((link) => (
                 <Link
                   key={link.label}
                   href={link.href}
-                  className="flex items-center justify-between rounded-[1.2rem] bg-white/45 px-4 py-4 ring-1 ring-[rgba(122,110,90,0.14)] transition-all duration-200 hover:scale-[1.01] hover:bg-[rgba(240,217,138,0.16)] hover:ring-[var(--gold)]"
+                  className="flex items-center justify-between rounded-lg border border-border px-4 py-3 transition-colors hover:bg-muted"
                 >
                   <div>
-                    <p className="font-display text-2xl leading-none text-[var(--ink)]">{link.label}</p>
-                    <p className="mt-1 text-sm text-[var(--text-muted)]">{link.note}</p>
+                    <p className="font-medium">{link.label}</p>
+                    <p className="mt-0.5 text-sm text-muted-foreground">{link.note}</p>
                   </div>
-                  <Compass className="h-4 w-4 text-[var(--gold)]" />
+                  <Compass className="h-4 w-4 text-muted-foreground" />
                 </Link>
               ))}
             </div>
           </div>
         </section>
 
-        <section className="mx-auto mt-8 grid max-w-7xl gap-6 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
-          <div className="section-shell section-light rounded-[1.75rem] p-6 sm:p-8">
-            <p className="editorial-eyebrow mb-3">{text.beginHere}</p>
-            <h2 className="text-4xl text-[var(--ink)] sm:text-5xl">{text.gentlePath}</h2>
-            <div className="editorial-divider my-6" />
-            <p className="text-lg text-[var(--text-body)]">
-              {text.gentlePathBody}
-            </p>
-            <div className="cross-separator my-7">
-              <span>✦</span>
-            </div>
+        <section className="mx-auto mt-10 grid max-w-5xl gap-6 lg:grid-cols-2">
+          <div className="section-shell section-light rounded-xl p-6 sm:p-8">
+            <p className="editorial-eyebrow mb-2">{text.beginHere}</p>
+            <h2 className="text-2xl font-semibold sm:text-3xl">{text.gentlePath}</h2>
+            <div className="editorial-divider my-5" />
+            <p className="text-muted-foreground">{text.gentlePathBody}</p>
+            <div className="my-6 border-t border-border" />
             <GospelGuide language={language} />
           </div>
 
-          <div className="section-shell rounded-[1.75rem] p-6 sm:p-8">
-            <div className="flex items-center justify-between gap-4">
-              <div>
-                <p className="editorial-eyebrow mb-3">{text.insideTheReader}</p>
-                <h2 className="text-4xl text-foreground sm:text-5xl">{text.redesignedChapterExperience}</h2>
-              </div>
-              <Sparkles className="hidden h-5 w-5 text-accent md:block" />
-            </div>
-            <div className="editorial-divider my-6" />
-            <p className="max-w-2xl text-lg text-muted-foreground">
-              {text.chapterReadingDesc}
-            </p>
-            <div className="mt-6 grid gap-3">
+          <div className="section-shell rounded-xl p-6 sm:p-8">
+            <p className="editorial-eyebrow mb-2">{text.insideTheReader}</p>
+            <h2 className="text-2xl font-semibold sm:text-3xl">{text.redesignedChapterExperience}</h2>
+            <div className="editorial-divider my-5" />
+            <p className="text-muted-foreground">{text.chapterReadingDesc}</p>
+            <div className="mt-5 space-y-2">
               {readerHighlights.map((highlight) => (
-                <div key={highlight} className="rounded-[1.15rem] bg-background/28 px-4 py-4 ring-1 ring-border/30">
-                  <p className="text-base text-muted-foreground">{highlight}</p>
+                <div key={highlight} className="rounded-lg border border-border px-4 py-3">
+                  <p className="text-sm text-muted-foreground">{highlight}</p>
                 </div>
               ))}
             </div>
             <div className="mt-6 flex flex-wrap gap-3">
-              <Button asChild>
-                <Link href={primaryChapterHref}>
-                  {text.readAChapter}
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-              <Button variant="outline" asChild>
-                <Link href={bookIntroductionHref}>
-                  {text.openBookIntroduction}
-                </Link>
-              </Button>
+              <Link href={primaryChapterHref} className={cn(buttonVariants())}>
+                {text.readAChapter}
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+              <Link href={bookIntroductionHref} className={cn(buttonVariants({ variant: "outline" }))}>
+                {text.openBookIntroduction}
+              </Link>
             </div>
           </div>
         </section>
 
-        <section className="mx-auto mt-8 grid max-w-7xl gap-6 lg:grid-cols-2">
-          <div className="section-shell section-light rounded-[1.75rem] p-5 sm:p-6">
+        <section className="mx-auto mt-10 grid max-w-5xl gap-6 lg:grid-cols-2">
+          <div className="section-shell section-light rounded-xl p-5 sm:p-6">
             <SalvationGuideComponent language={language} />
           </div>
-          <div className="section-shell rounded-[1.75rem] p-5 sm:p-6">
+          <div className="section-shell rounded-xl p-5 sm:p-6">
             <ChurchGuidanceComponent language={language} />
           </div>
         </section>

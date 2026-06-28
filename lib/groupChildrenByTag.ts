@@ -9,9 +9,18 @@ export default function groupChildrenByTags(verses, openingTag = "wj", closingTa
       const currentObject = verseObjects[i];
 
       // Check if we're starting a grouping with the opening tag
+      // Self-contained markers (e.g. BSB \wj ...\wj* on one object) should not group.
       if (currentObject.tag === openingTag) {
+        if (currentObject.text && currentObject.endTag === closingTag) {
+          newVerseObjects.push(currentObject);
+          continue;
+        }
+
         isGrouping = true;
-        groupedObject = currentObject;
+        groupedObject = {
+          ...currentObject,
+          children: Array.isArray(currentObject.children) ? currentObject.children : [],
+        };
         continue;
       }
 

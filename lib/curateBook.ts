@@ -1,24 +1,35 @@
 "use server";
-import { openai } from "@ai-sdk/openai";
-import { generateObject } from "ai";
+import { generateText, Output } from "ai";
 import { kv } from "@vercel/kv";
 import { z } from "zod";
+
+const KV_TTL_SECONDS = 60 * 60 * 24 * 30;
+
+const bookSchema = z.object({
+  overviewParagraphs: z.array(z.string()),
+  sections: z.array(
+    z.object({
+      title: z.string(),
+      fromChapter: z.number(),
+      toChapter: z.number(),
+    })
+  ),
+});
 
 export default async function curateBook(language, book) {
   const key = `${language}/${book}`;
 
-  // Check if we have a cached response
-  const cached = (await kv.get(key)) as { overviewParagraphs?: string[]; sections?: { title: string; fromChapter: number; toChapter: number }[] };
+  const cached = (await kv.get(key)) as {
+    overviewParagraphs?: string[];
+    sections?: { title: string; fromChapter: number; toChapter: number }[];
+  };
   if (cached && cached.overviewParagraphs && cached.sections && cached.sections[0].fromChapter) {
     return cached;
   }
 
-  const { object } = await generateObject({
-    model: openai("gpt-4o-mini"),
-    schema: z.object({
-      overviewParagraphs: z.array(z.string()),
-      sections: z.array(z.object({ title: z.string(), fromChapter: z.number(), toChapter: z.number() })),
-    }),
+  const { output } = await generateText({
+    model: "openai/gpt-4o-mini",
+    output: Output.object({ schema: bookSchema }),
     messages: [
       {
         role: "user",
@@ -30,6 +41,6 @@ export default async function curateBook(language, book) {
     ],
   });
 
-  await kv.set(key, object);
-  return object;
+  await kv.set(key, output, { ex: KV_TTL_SECONDS });
+  return output;
 }

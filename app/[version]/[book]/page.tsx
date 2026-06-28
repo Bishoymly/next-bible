@@ -1,10 +1,12 @@
-"use server";
 import { BibleBookHome } from "@/components/bible-book-home";
 import curateBook from "@/lib/curateBook";
 import getBooks from "@/lib/getBooks";
 import getBooksCategorized from "@/lib/getBooksCategorized";
 import getVersions from "@/lib/getVersions";
 import { findBookBySlug } from "@/lib/findBookBySlug";
+
+// Cache book intro pages at the CDN for 24 hours
+export const revalidate = 86400;
 
 export default async function BookPage({ params }: { params: Promise<{ version: string; book: string }> }) {
   const { version, book } = await params;

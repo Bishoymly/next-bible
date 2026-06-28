@@ -162,8 +162,8 @@ export function BibleReader({
       <ScrollArea
         className={`h-full ${
           language == "Arabic"
-            ? `[direction:rtl] ${amiri.className} text-2xl leading-loose`
-            : `text-lg leading-relaxed ${inter.className}`
+            ? `${amiri.className} text-xl leading-loose`
+            : `text-base leading-relaxed ${inter.className}`
         }`}
       >
         <div className="space-y-6 px-4 pb-8">
@@ -192,7 +192,7 @@ export function BibleReader({
         </div>
         <div className="rounded-[1.35rem] bg-background/28 p-4 ring-1 ring-border/22">
           <p className="editorial-eyebrow mb-2">{uiText[language].books}</p>
-          <h2 className="text-3xl text-foreground">{bookInfo.n}</h2>
+          <h2 className="text-xl text-foreground">{bookInfo.n}</h2>
           <p className="mt-1 text-sm text-muted-foreground">
             {text.chapterLabel} {chapter} {text.ofLabel} {bookInfo.c}
           </p>
@@ -200,7 +200,7 @@ export function BibleReader({
         {commentary && (
           <div className="rounded-[1.35rem] bg-background/28 p-4 ring-1 ring-border/22">
             <p className="editorial-eyebrow mb-2">{uiText[language].onThisPage}</p>
-            <h2 className="text-3xl text-foreground">
+            <h2 className="text-xl text-foreground">
               {uiText[language].onThisPage}
             </h2>
             <ul className="mt-3 space-y-1">
@@ -208,11 +208,11 @@ export function BibleReader({
                 <li key={index} className="block cursor-pointer">
                   <Link
                     className={`${
-                      language == "Arabic" ? "text-xl" : "text-base"
+                      language == "Arabic" ? "text-lg" : "text-sm"
                     } block rounded-2xl px-3 py-2 transition-all duration-200 ${
                       activeId === `s${section.fromVerse}`
-                        ? "bg-accent text-accent-foreground"
-                        : "text-muted-foreground hover:bg-[rgba(200,150,58,0.12)] hover:text-accent"
+                        ? "bg-primary text-primary-foreground"
+                        : "text-muted-foreground hover:bg-muted hover:text-foreground"
                     }`}
                     href={`#s${section.fromVerse}`}
                     onClick={() => {
@@ -260,10 +260,9 @@ export function BibleReader({
     <TooltipProvider>
     <div
       suppressHydrationWarning
+      dir={language == "Arabic" ? "rtl" : "ltr"}
       className={`flex min-h-screen bg-background transition-all overflow-hidden ${
-        language == "Arabic"
-          ? `[direction:rtl] ${amiri.className}`
-          : `[direction:ltr] ${inter.className}`
+        language == "Arabic" ? amiri.className : inter.className
       }`}
     >
       {/* Collapsible Sidebar */}
@@ -299,9 +298,9 @@ export function BibleReader({
                 onClick={() => setSidebarExpanded(!sidebarExpanded)}
               >
                 {language == "English" ? (
-                  <ChevronLeft className="h-5 text-accent transition-transform duration-200" />
+                  <ChevronLeft className="h-5 text-muted-foreground transition-transform duration-200" />
                 ) : (
-                  <ChevronRight className="text-accent transition-transform duration-200" />
+                  <ChevronRight className="text-muted-foreground transition-transform duration-200" />
                 )}
               </Button>
             </TooltipTrigger>
@@ -329,7 +328,7 @@ export function BibleReader({
                   <Button
                     variant="outline"
                     size="icon"
-                    className="hidden md:inline-flex cursor-pointer text-foreground transition-all duration-200 hover:scale-110 hover:text-accent active:scale-95"
+                    className="hidden md:inline-flex cursor-pointer text-foreground transition-colors hover:text-muted-foreground"
                     onClick={() => setSidebarExpanded(true)}
                   >
                     <PanelLeftOpen className="h-4 w-4" />
@@ -344,7 +343,7 @@ export function BibleReader({
           title={
             <div>
               <p className="editorial-eyebrow">{text.chapterReading}</p>
-              <p className="font-display text-2xl leading-none text-foreground">
+              <p className="font-display text-lg leading-none text-foreground">
                 {bookInfo.n} {chapter}
               </p>
             </div>
@@ -386,7 +385,7 @@ export function BibleReader({
                     variant="outline"
                     size="icon"
                     disabled={parseInt(chapter) === 1}
-                    className="cursor-pointer text-foreground transition-all duration-200 hover:scale-110 hover:text-accent active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                    className="cursor-pointer text-foreground transition-colors hover:text-muted-foreground disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <Link href={`/${version}/${book}/${parseInt(chapter) - 1}`} className="transition-transform duration-200">
                         {language == "English" ? <ChevronLeft className="transition-transform duration-200" /> : <ChevronRight className="transition-transform duration-200" />}
@@ -403,7 +402,7 @@ export function BibleReader({
                     variant="outline"
                     size="icon"
                     disabled={parseInt(chapter) === bookInfo.c}
-                    className="cursor-pointer text-foreground transition-all duration-200 hover:scale-110 hover:text-accent active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                    className="cursor-pointer text-foreground transition-colors hover:text-muted-foreground disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <Link href={`/${version}/${book}/${parseInt(chapter) + 1}`} className="transition-transform duration-200">
                       {language == "English" ? <ChevronRight className="transition-transform duration-200" /> : <ChevronLeft className="transition-transform duration-200" />}
@@ -424,14 +423,14 @@ export function BibleReader({
           ref={scrollContainerRef}
         >
           <div className="px-4 py-5 sm:px-6 lg:px-8">
-            <section className="hero-panel rounded-[1.8rem] px-5 py-6 sm:px-8">
+            <section className="hero-panel rounded-xl px-5 py-6 sm:px-8">
               <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
                 <div>
-                  <p className="editorial-eyebrow mb-3">{text.chapterReading}</p>
-                  <h2 className="text-5xl leading-[0.95] text-[var(--parchment)] sm:text-6xl">
+                  <p className="editorial-eyebrow mb-2">{text.chapterReading}</p>
+                  <h2 className="text-2xl font-semibold leading-tight sm:text-3xl">
                     {bookInfo.n} {chapter}
                   </h2>
-                  <p className="mt-4 max-w-2xl text-lg italic text-[rgba(245,240,232,0.72)]">
+                  <p className="mt-3 max-w-2xl text-base" style={{ color: "var(--hero-muted)" }}>
                     {text.chapterReadingDesc}
                   </p>
                 </div>
@@ -451,7 +450,7 @@ export function BibleReader({
                         size="sm"
                         onClick={() => setSideBySide(!sideBySide)}
                         value={sideBySide}
-                        className="cursor-pointer rounded-full border border-[rgba(240,217,138,0.22)] bg-white/6 px-3 text-[var(--parchment)] transition-all duration-200 hover:scale-[1.03] hover:bg-[rgba(240,217,138,0.14)] hover:text-[var(--gold-pale)] active:scale-[0.98] data-[state=on]:border-[var(--gold)] data-[state=on]:bg-[var(--gold-pale)] data-[state=on]:text-[var(--navy-deep)]"
+                        className="cursor-pointer border-[var(--hero-muted)]/30 bg-transparent text-[var(--hero-fg)] hover:bg-[var(--hero-fg)]/10 data-[state=on]:bg-[var(--hero-fg)] data-[state=on]:text-[var(--hero-bg)]"
                       >
                         <FlipHorizontal className="transition-transform duration-200" />
                       </Toggle>
@@ -467,7 +466,7 @@ export function BibleReader({
                         size="sm"
                         onClick={() => setVerseByVerse(!verseByVerse)}
                         value={verseByVerse}
-                        className="cursor-pointer rounded-full border border-[rgba(240,217,138,0.22)] bg-white/6 px-3 text-[var(--parchment)] transition-all duration-200 hover:scale-[1.03] hover:bg-[rgba(240,217,138,0.14)] hover:text-[var(--gold-pale)] active:scale-[0.98] data-[state=on]:border-[var(--gold)] data-[state=on]:bg-[var(--gold-pale)] data-[state=on]:text-[var(--navy-deep)]"
+                        className="cursor-pointer border-[var(--hero-muted)]/30 bg-transparent text-[var(--hero-fg)] hover:bg-[var(--hero-fg)]/10 data-[state=on]:bg-[var(--hero-fg)] data-[state=on]:text-[var(--hero-bg)]"
                       >
                         <ListOrdered className="transition-transform duration-200" />
                       </Toggle>
@@ -481,7 +480,7 @@ export function BibleReader({
             </section>
 
           <div className={`mt-6 ${showSplitView ? "flex gap-4 md:gap-8" : "space-y-6"}`}>
-            <div className={`section-shell rounded-[1.75rem] p-5 sm:p-7 ${showSplitView ? "max-w-3xl flex-1" : "w-full max-w-4xl"}`}>
+            <div className={`section-shell rounded-xl p-5 sm:p-7 ${showSplitView ? "max-w-3xl flex-1" : "w-full max-w-7xl"}`}>
               {version == "study"
                 ? studyContent(
                     language,
@@ -549,9 +548,9 @@ export function BibleReader({
               </div>
             )}
             {showStudyCompanion && (
-              <div className="section-shell w-full max-w-4xl rounded-[1.75rem] p-6 sm:p-8">
+              <div className="section-shell w-full max-w-7xl rounded-[1.75rem] p-6 sm:p-8">
                 <p className="editorial-eyebrow mb-2">{uiText[language].study}</p>
-                <h2 className="mb-3 text-4xl text-foreground">
+                <h2 className="mb-3 text-2xl text-foreground">
                   {uiText[language].study}
                 </h2>
                 {studyContent(
@@ -620,7 +619,7 @@ function studyContent(
             <Link href={`#s${section.fromVerse}`} className="hover:text-primary">
               <h4
                 className={`mb-4 cursor-pointer font-semibold text-accent ${
-                  language == "Arabic" ? "text-2xl" : "text-3xl"
+                  language == "Arabic" ? "text-xl" : "text-2xl"
                 }`}
               >
                 {section.title}
@@ -682,7 +681,7 @@ function studyContent(
 
       <div>
       <p className="editorial-eyebrow mb-2">{uiText[language].questions}</p>
-      <h3 className="mb-4 text-4xl text-foreground">
+      <h3 className="mb-4 text-2xl text-foreground">
         {uiText[language].questions}
       </h3>
       <ul className="grid gap-2">
@@ -736,6 +735,15 @@ function studyContent(
   );
 }
 
+const FOOTNOTE_INLINE_TAGS = new Set(["f*", "fr", "ft", "fqa", "fv", "fv*"]);
+const VISIBLE_SECTION_TAGS = new Set(["s2", "s3", "s4", "ms", "mr"]);
+
+function formatRefDisplay(content: string | undefined): string {
+  if (!content) return "";
+  const pipeIndex = content.indexOf("|");
+  return pipeIndex >= 0 ? content.slice(0, pipeIndex) : content;
+}
+
 function renderVerse(
   verse: any,
   language: any,
@@ -770,12 +778,13 @@ function renderVerse(
         <>{parseWord(verseObject.content).text}</>
       ) : verseObject.tag == "wj" ? (
         <span className="text-red-600">
-          {renderVerse(
-            { verseObjects: verseObject.children },
-            language,
-            singleVerse,
-            verseByVerse
-          )}
+          {verseObject.text ??
+            renderVerse(
+              { verseObjects: verseObject.children },
+              language,
+              singleVerse,
+              verseByVerse
+            )}
         </span>
       ) : verseObject.tag == "nd" ? (
         <span className="font-bold">
@@ -806,12 +815,52 @@ function renderVerse(
         <>
           {/*<h3 className="text-3xl font-semibold mt-2 mb-4">{verseObject.content}</h3>*/}
         </>
+      ) : VISIBLE_SECTION_TAGS.has(verseObject.tag) ? (
+        <>
+          {!verseByVerse && <br />}
+          <span className="block font-semibold italic text-muted-foreground">
+            {verseObject.content?.replace(/\n/g, "").trim()}
+          </span>
+        </>
+      ) : verseObject.tag == "r" ? (
+        <span className="text-sm italic text-muted-foreground">
+          {verseObject.content}
+          {verseObject.children
+            ? renderVerse(
+                { verseObjects: verseObject.children },
+                language,
+                singleVerse,
+                verseByVerse
+              )
+            : null}
+        </span>
+      ) : verseObject.tag == "ref" ? (
+        <span className="text-sm text-muted-foreground">{formatRefDisplay(verseObject.content)}</span>
+      ) : verseObject.tag == "ref*" ? (
+        <>{verseObject.content}</>
+      ) : FOOTNOTE_INLINE_TAGS.has(verseObject.tag) ? (
+        <></>
+      ) : verseObject.tag == "li1" || verseObject.tag == "li2" ? (
+        verseByVerse ? (
+          <></>
+        ) : (
+          <>
+            <br />
+            {verseObject.content}
+          </>
+        )
+      ) : verseObject.tag == "b" ? (
+        !verseByVerse ? <br /> : <></>
+      ) : verseObject.tag == "qa" || verseObject.tag == "qr" ? (
+        <br />
       ) : verseObject.tag == "f" ? (
         singleVerse ? (
           <></>
         ) : (
           <MessageSquareMore className="text-accent text-sm w-4 inline" />
         )
+      ) : verseObject.tag == "wj*" ? (
+        <></>
       ) : verseObject.tag == "q1" || verseObject.tag == "q2" ? (
         <br />
       ) : verseObject.tag == "qs" && !verseByVerse ? (
@@ -820,7 +869,7 @@ function renderVerse(
           <br />
         </>
       ) : (
-        <>{JSON.stringify(verseObject)}</>
+        <></>
       )}
       {verseObject.nextChar == "\n" && !verseByVerse ? (
         <br />
@@ -954,8 +1003,8 @@ function bibleContent(
     <div
       className={`space-y-3 ${
         language == "Arabic"
-          ? `text-2xl leading-loose [direction:rtl] ${amiri.className}`
-          : `text-lg leading-relaxed [direction:ltr] ${inter.className}`
+          ? `text-2xl leading-loose ${amiri.className}`
+          : `text-lg leading-relaxed ${inter.className}`
       }`}
     >
       {Object.entries(json).map(([key, verse]) => (
@@ -973,7 +1022,7 @@ function bibleContent(
                 <Link href={`#ss${section.fromVerse}`}>
                   <h3
                     className={`mb-3 ${section.fromVerse == 1 ? "mt-0 pb-1" : "mt-6 border-b border-border/60 pb-3"} cursor-pointer font-semibold text-accent hover:text-accent/80 transition-colors ${
-                      language == "Arabic" ? "text-3xl" : "text-4xl"
+                      language == "Arabic" ? "text-2xl" : "text-2xl"
                     }`}
                   >
                     {section.title}
@@ -987,7 +1036,7 @@ function bibleContent(
                 key={key}
                 className={
                   (selectedVerse?.key == key
-                    ? "rounded-lg bg-[rgba(200,150,58,0.18)] text-[var(--color-black)] dark:text-[var(--parchment)] -my-1 py-1 cursor-pointer shadow-md"
+                    ? "rounded-md bg-muted text-foreground -my-1 py-1 cursor-pointer"
                     : "") + (verseByVerse ? "mb-3 block border-b border-border/35 pb-3" : "")
                 }
                 onClick={handleSelectVerse.bind(this, {
@@ -1020,7 +1069,7 @@ function bibleContent(
             </DrawerTrigger>
             <DrawerContent
               className={`md:flex border-border bg-background p-8 ${
-                language == "Arabic" && `[direction:rtl] ${amiri.className}`
+                language == "Arabic" ? amiri.className : ""
               }`}
             >
               <DrawerTitle className="sr-only">

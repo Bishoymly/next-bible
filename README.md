@@ -4,7 +4,7 @@ An open-source, modern web application for reading and studying the Bible with m
 
 ## 🌟 Features
 
-- **Multiple Bible Translations**: Support for KJV, ASV, and Arabic (AVD) translations
+- **Multiple Bible Translations**: Support for BSB, KJV, ASV, and Arabic (AVD) translations
 - **Study Tools**: 
   - Chapter-by-chapter commentary and important verses
   - Cross-references between verses
@@ -102,6 +102,7 @@ This project uses the following open-source data:
 - **Strong's Concordance**: [Open Scriptures Strong's](https://github.com/openscriptures/strongs)
 - **Cross References**: [@texttree/bible-crossref](https://github.com/hiscoder-com/bible-crossref)
 - **Bible Text**: USFM (Unified Standard Format Markers) format files
+- **Berean Standard Bible (BSB)**: [BSB-publishing/bsb2usfm](https://github.com/BSB-publishing/bsb2usfm) (public domain)
 
 ## 🤝 Contributing
 
