@@ -8,7 +8,7 @@ import getBooksCategorized from "@/lib/getBooksCategorized";
 import getVersions from "@/lib/getVersions";
 import groupChildrenByTags from "@/lib/groupChildrenByTag";
 import { findBookBySlug } from "@/lib/findBookBySlug";
-import curateChapter from "@/lib/curateChapter";
+import curateChapter, { getChapterTitles } from "@/lib/curateChapter";
 import { getByBC } from "@texttree/bible-crossref";
 
 export const dynamicParams = false;
@@ -45,6 +45,7 @@ export default async function Read({ params }: { params: Promise<Params> }) {
   const chapterCrossReferences = getByBC({ book: bookInfo.short, chapter });
   const verseNumbers = Object.keys(json).map(Number).filter((value) => Number.isFinite(value) && value > 0);
   const initialCommentary = await curateChapter(version, language, bookInfo.slug, chapter, Math.max(...verseNumbers));
+  const chapterTitles = getChapterTitles(language, bookInfo.slug);
   const canonical = `https://bible.bishoy.io/${version}/${bookInfo.slug}/${chapter}`;
   const jsonLd = { "@context": "https://schema.org", "@type": "Article", headline: `${bookInfo.n} ${chapter} | ${versionInfo.name}`, url: canonical, inLanguage: language, isPartOf: { "@type": "Book", name: bookInfo.n, bookFormat: "https://schema.org/EBook" } };
   return <>
@@ -67,6 +68,7 @@ export default async function Read({ params }: { params: Promise<Params> }) {
       booksCategorized={getBooksCategorized(language)}
       books={books}
       initialCommentary={initialCommentary}
+      chapterTitles={chapterTitles}
     />
   </>;
 }

@@ -26,15 +26,12 @@ export default function versionsDropDown(versions: any, version: any, book: any,
             {versions.map((v) => {
               const nextComparison = v.id === version2 ? version : version2;
               return (
-              <Link
-                href={book === null ? `/${v.id}` : chapter === null ? `/${v.id}/${bookSlugs[v.id] ?? book}` : side ? `/${version}/${book}/${chapter}?side=${v.id}` : `/${v.id}/${bookSlugs[v.id] ?? book}/${chapter}?side=${nextComparison}`}
-                key={v.id}
-              >
-                <DropdownMenuItem className="rounded-xl px-3 py-3">
+              <DropdownMenuItem key={v.id} asChild className="rounded-xl px-3 py-3">
+                <Link href={book === null ? `/${v.id}` : chapter === null ? `/${v.id}/${bookSlugs[v.id] ?? book}` : side ? `/${version}/${book}/${chapter}?side=${v.id}` : `/${v.id}/${bookSlugs[v.id] ?? book}/${chapter}?side=${nextComparison}`}>
                   <span className="mr-2 font-label text-[0.82rem] tracking-[0.18em] uppercase text-accent">{v.id}</span>
                   <span className="text-base">{v.name}</span>
-                </DropdownMenuItem>
-              </Link>
+                </Link>
+              </DropdownMenuItem>
               );
             })}
           </DropdownMenuGroup>

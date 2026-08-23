@@ -559,6 +559,12 @@ h6 {
   line-height: 1.72;
 }
 
+.reader-text-layout { display: grid; grid-template-columns: minmax(0, 1fr) 155px; gap: 24px; align-items: start; }
+.reader-section-spy { position: sticky; top: 26px; display: grid; gap: 3px; padding-top: 4px; }
+.reader-section-spy a { display: grid; grid-template-columns: 20px 1fr; gap: 7px; padding: 7px 6px; border-inline-start: 1px solid transparent; color: var(--reader-muted); font-size: 12px; line-height: 1.3; text-decoration: none; }
+.reader-section-spy a span { font-size: 11px; }
+.reader-section-spy a[data-active="true"] { border-color: var(--reader-text); color: var(--reader-text); }
+
 .reader-scripture-arabic {
   font-family: "Noto Naskh Arabic", "Geeza Pro", Tahoma, serif;
   font-size: 23px;
@@ -576,6 +582,7 @@ h6 {
 }
 
 .reader-scripture h2:first-child { margin-top: 0; }
+.reader-section-anchor { display: block; scroll-margin-top: 24px; }
 
 .reader-verse {
   display: inline;
@@ -621,10 +628,26 @@ h6 {
 .reader-panel-heading svg { width: 20px; height: 20px; }
 .reader-study-panel h3 { display: flex; align-items: center; gap: 10px; margin: 0 0 13px; font-size: 14px; font-weight: 520; }
 .reader-study-panel h3 svg { width: 18px; height: 18px; }
+.reader-study-outline { display: grid; gap: 2px; margin: -10px 0 24px; padding-bottom: 20px; border-bottom: 1px solid var(--reader-line); }
+.reader-study-outline a { display: grid; grid-template-columns: 24px 1fr; gap: 8px; padding: 9px 7px; border-inline-start: 1px solid transparent; color: var(--reader-muted); font-size: 15px; line-height: 1.45; text-decoration: none; }
+.reader-study-outline-verse { padding-top: 2px; font-size: 12px; }
+.reader-study-outline-title { min-width: 0; }
+.reader-study-outline a[data-active="true"] { border-color: var(--reader-text); color: var(--reader-text); }
 
 .reader-insight-section { padding-bottom: 30px; border-bottom: 1px solid var(--reader-line); }
 .reader-insight-section p { margin: 0 0 9px; font-size: 15px; line-height: 1.78; }
 .reader-insight-section strong { font-weight: 600; }
+
+.reader-study-section { padding: 0 0 28px; border-bottom: 1px solid var(--reader-line); }
+.reader-study-section + .reader-study-section { padding-top: 28px; }
+.reader-study-section p { margin: 0 0 11px; font-size: 15px; line-height: 1.78; }
+.reader-study-range { margin-bottom: 15px !important; color: var(--reader-muted); font-size: 13px !important; }
+.reader-important-verse { margin: 20px 0 0; padding: 16px; border-radius: 10px; background: var(--reader-soft); }
+.reader-important-verse > a { color: inherit; font-size: 13px; text-decoration: none; }
+.reader-important-verse blockquote { margin: 10px 0; font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif; font-size: 17px; line-height: 1.58; }
+.reader-important-verse figcaption { color: var(--reader-muted); font-size: 13px; line-height: 1.6; }
+.reader-important-references { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.reader-important-references a { padding: 5px 7px; border: 1px solid var(--reader-line); border-radius: 7px; color: inherit; font-size: 12px; text-decoration: none; }
 
 .reader-references-section { display: grid; gap: 8px; padding: 30px 0 21px; border-bottom: 1px solid var(--reader-line); }
 .reader-references-section h3 { margin-bottom: 10px; }
@@ -635,6 +658,10 @@ h6 {
 
 .reader-questions-section { padding: 28px 0; border-bottom: 1px solid var(--reader-line); }
 .reader-questions-section p { margin: 0 0 14px; color: var(--reader-muted); font-size: 14px; line-height: 1.6; }
+.reader-alternate-views { padding: 28px 0; border-bottom: 1px solid var(--reader-line); }
+.reader-alternate-views > p { margin: -4px 0 16px; color: var(--reader-muted); font-size: 13px; line-height: 1.55; }
+.reader-alternate-views > div + div { margin-top: 16px; }
+.reader-alternate-views > div > p { margin: 0; font-size: 14px; line-height: 1.65; }
 
 .reader-explore-form { display: grid; gap: 10px; margin-top: auto; padding-top: 30px; }
 .reader-explore-form label { font-size: 13px; }
@@ -663,6 +690,8 @@ h6 {
   .reader-primary-nav { padding-inline: 9px; }
   .reader-main { padding-inline: 30px; }
   .reader-study-panel { padding-inline: 25px; }
+  .reader-text-layout { grid-template-columns: minmax(0, 630px); }
+  .reader-section-spy { display: none; }
 }
 
 @media (max-width: 1080px) {
