@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Button } from "./ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "./ui/dropdown-menu";
 
-export default function versionsDropDown(versions: any, version: any, book: any, chapter: any, version2: any, side: boolean = false) {
+export default function versionsDropDown(versions: any, version: any, book: any, chapter: any, version2: any, side: boolean = false, bookSlugs: Record<string, string> = {}) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -13,7 +13,7 @@ export default function versionsDropDown(versions: any, version: any, book: any,
       <DropdownMenuContent className="w-80 rounded-[1.25rem] border border-border bg-popover/95 p-2 backdrop-blur">
         {Object.entries(
           versions
-            .filter((v) => (!side ? v.id != "study" : true))
+            .filter((v) => (!side ? v.id != "study" : v.id !== "study" && v.id !== version))
             .reduce((acc, version) => {
               const lang = version.lang || "Other";
               if (!acc[lang]) acc[lang] = [];
@@ -23,9 +23,11 @@ export default function versionsDropDown(versions: any, version: any, book: any,
         ).map(([lang, versions]: [string, any[]]) => (
           <DropdownMenuGroup key={lang}>
             <DropdownMenuLabel className="font-label text-[0.8rem] font-normal tracking-[0.22em] text-muted-foreground uppercase">{lang}</DropdownMenuLabel>
-            {versions.map((v) => (
+            {versions.map((v) => {
+              const nextComparison = v.id === version2 ? version : version2;
+              return (
               <Link
-                href={book === null ? `/${v.id}` : chapter === null ? `/${v.id}/${book}` : side ? `/${version}/${book}/${chapter}?side=${v.id}` : `/${v.id}/${book}/${chapter}?side=${version2}`}
+                href={book === null ? `/${v.id}` : chapter === null ? `/${v.id}/${bookSlugs[v.id] ?? book}` : side ? `/${version}/${book}/${chapter}?side=${v.id}` : `/${v.id}/${bookSlugs[v.id] ?? book}/${chapter}?side=${nextComparison}`}
                 key={v.id}
               >
                 <DropdownMenuItem className="rounded-xl px-3 py-3">
@@ -33,7 +35,8 @@ export default function versionsDropDown(versions: any, version: any, book: any,
                   <span className="text-base">{v.name}</span>
                 </DropdownMenuItem>
               </Link>
-            ))}
+              );
+            })}
           </DropdownMenuGroup>
         ))}
       </DropdownMenuContent>

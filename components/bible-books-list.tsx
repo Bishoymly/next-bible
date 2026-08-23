@@ -78,14 +78,16 @@ function TestamentColumn({
                       )}
                     </button>
                     <div className={`overflow-hidden transition-all duration-300 ${isOpen ? "max-h-[1400px] opacity-100" : "max-h-0 opacity-0"}`}>
-                      <ChaptersList
-                        language={language}
-                        version={version}
-                        book={bookInfo.slug}
-                        chaptersCount={bookInfo.c}
-                        chapter={bookInfo.slug === book ? chapter : null}
-                        aside={aside}
-                      />
+                      {isOpen ? (
+                        <ChaptersList
+                          language={language}
+                          version={version}
+                          book={bookInfo.slug}
+                          chaptersCount={bookInfo.c}
+                          chapter={bookInfo.slug === book ? chapter : null}
+                          aside={aside}
+                        />
+                      ) : null}
                     </div>
                   </div>
                 );

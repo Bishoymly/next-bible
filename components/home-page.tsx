@@ -4,7 +4,7 @@ import {
   Compass,
   Layers3,
   LibraryBig,
-  MessageCircleQuestion,
+  Search,
   ScrollText,
 } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
@@ -67,15 +67,13 @@ export function HomePageComponent({ language = "English" }: { language?: HomeLan
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                   <Link
-                    href="https://ask.holybiblereader.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href="/search"
                     className={cn(
                       buttonVariants({ size: "lg", variant: "outline" }),
                       "border-[var(--hero-muted)] bg-transparent text-[var(--hero-fg)] hover:bg-[var(--hero-fg)]/10"
                     )}
                   >
-                    <MessageCircleQuestion className="mr-2 h-4 w-4" />
+                    <Search className="mr-2 h-4 w-4" />
                     {text.askBibleQuestion}
                   </Link>
                 </div>

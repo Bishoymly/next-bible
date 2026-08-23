@@ -81,7 +81,7 @@ export function BibleBookHome({ language, versions, version, book, curation, boo
                     {bookInfo.previousBook?.n}
                   </Link>
                 </Button>
-                {versionsDropDown(versions, version, book, null, null, false)}
+                {versionsDropDown(versions, version, book, null, null, false, Object.fromEntries(versions.map((item) => [item.id, bookInfo.translationSlugs?.[item.id] ?? book])))}
                 <Button variant="ghost" asChild className="hidden md:inline-flex">
                   <Link href={`/${version}/${bookInfo.nextBook?.slug}`}>
                     {bookInfo.nextBook?.n}

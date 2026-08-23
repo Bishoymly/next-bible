@@ -25,14 +25,13 @@ export function SiteHeaderActions({
       </Link>
       {askLabel ? (
         <Link
-          href="https://ask.holybiblereader.com"
-          target="_blank"
-          rel="noopener noreferrer"
+          href="/study"
           className={cn(buttonVariants({ variant: "ghost", size: "sm" }), "hidden md:inline-flex")}
         >
           {askLabel}
         </Link>
       ) : null}
+      <Link href="/library" className={cn(buttonVariants({ variant: "ghost", size: "sm" }), "hidden md:inline-flex")}>Saved</Link>
       <ThemeToggle />
     </>
   );

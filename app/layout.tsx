@@ -11,34 +11,26 @@ const sans = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "Holy Bible Reader",
-    template: "%s | Holy Bible Reader"
+    default: "Bible Reader",
+    template: "%s | Bible Reader"
   },
   description: "A modern Bible study experience with immersive reading, introductions, study notes, and multilingual access.",
   keywords: ["bible", "study", "scripture", "religious text", "bible reader", "bible translations"],
-  authors: [{ name: "Holy Bible Reader" }],
-  metadataBase: new URL('https://www.holybiblereader.com'),
+  authors: [{ name: "Bible Reader" }],
+  metadataBase: new URL('https://bible.bishoy.io'),
+  alternates: { canonical: '/' },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://www.holybiblereader.com",
-    siteName: "Holy Bible Reader",
-    title: "Holy Bible Reader",
+    url: "https://bible.bishoy.io",
+    siteName: "Bible Reader",
+    title: "Bible Reader",
     description: "A modern Bible study experience with immersive reading, introductions, study notes, and multilingual access.",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Bible Reader"
-      }
-    ]
   },
   twitter: {
-    card: "summary_large_image",
-    title: "Holy Bible Reader",
+    card: "summary",
+    title: "Bible Reader",
     description: "A modern Bible study experience with immersive reading, introductions, study notes, and multilingual access.",
-    images: ["/og-image.png"]
   },
   robots: {
     index: true,

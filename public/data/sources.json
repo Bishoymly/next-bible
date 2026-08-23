@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "versions": {
+    "bsb": { "license": "Public domain, dedicated by Berean Bible", "urls": ["https://berean.bible/licensing.htm", "https://berean.bible/downloads.htm"] },
+    "asv": { "license": "Public domain", "urls": ["https://ebible.org/eng-asv"] },
+    "kjv": { "license": "Public domain in many jurisdictions. UK printing rights may apply as described in the bundled KJV copyright notice.", "urls": ["https://ebible.org/eng-kjv2006"] },
+    "avd": { "license": "Public domain", "urls": ["https://ebible.org/find/details.php?id=arb-vd"] }
+  }
+}

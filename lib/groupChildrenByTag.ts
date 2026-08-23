@@ -42,6 +42,12 @@ export default function groupChildrenByTags(verses, openingTag = "wj", closingTa
       }
     }
 
+    // A character span may stay open through the end of a verse.
+    // Keep its collected text instead of dropping the whole group.
+    if (isGrouping && groupedObject) {
+      newVerseObjects.push(groupedObject);
+    }
+
     // Replace the verseObjects with the modified structure
     verses[verseKey].verseObjects = newVerseObjects;
   }

@@ -10,11 +10,9 @@ export async function generateSitemapEntries() {
 
   console.log(`Processing ${versions.length} versions:`, versions.map(v => v.id).join(', '));
 
-  // Add home page
-  entries.push({
-    url: '/',
-    lastModified: new Date(),
-  });
+  for (const url of ['/', '/translations', '/search', '/start', '/salvation', '/find-a-church', '/study', '/topics']) {
+    entries.push({ url, lastModified: new Date() });
+  }
 
   // Add entries for each version, book, and chapter
   for (const version of versions) {
@@ -30,6 +28,7 @@ export async function generateSitemapEntries() {
     try {
       const books = getBooks(version.lang);
       console.log(`  Found ${books.length} books for ${version.id}`);
+      entries.push({ url: `/${version.id}`, lastModified: new Date() });
       
       for (const book of books) {
         if (!book || !book.b || !book.slug || !book.n) {
@@ -54,7 +53,11 @@ export async function generateSitemapEntries() {
 
             const chapterCount = Object.keys(bibleData.chapters).length;
             console.log(`  Adding ${chapterCount} chapters for ${book.n} (${version.id})`);
-            
+            entries.push({
+              url: `/${version.id}/${book.slug}`,
+              lastModified: new Date(),
+            });
+
             for (let chapter = 1; chapter <= chapterCount; chapter++) {
               entries.push({
                 url: `/${version.id}/${book.slug}/${chapter}`,
@@ -78,4 +81,4 @@ export async function generateSitemapEntries() {
 
   console.log(`\nGenerated sitemap with ${entries.length} entries`);
   return entries;
-} 
+}

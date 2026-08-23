@@ -1,13 +1,5 @@
 [
     {
-        "id": "study",
-        "name": "AI Generated Study Content",
-        "desc": "",
-        "year": 2024,
-        "lang": "",
-        "direction": "ltr"
-    },
-    {
         "id": "bsb",
         "name": "Berean Standard Bible",
         "desc": "The Berean Standard Bible (BSB) is a modern English translation of the Holy Bible. It is translated from the original languages and dedicated to the public domain as of April 30, 2023.",

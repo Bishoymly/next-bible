@@ -1,46 +1,7 @@
-"use server";
-import { generateText, Output } from "ai";
-import { kv } from "@vercel/kv";
-import { z } from "zod";
-
-const KV_TTL_SECONDS = 60 * 60 * 24 * 30;
-
-const bookSchema = z.object({
-  overviewParagraphs: z.array(z.string()),
-  sections: z.array(
-    z.object({
-      title: z.string(),
-      fromChapter: z.number(),
-      toChapter: z.number(),
-    })
-  ),
-});
-
-export default async function curateBook(language, book) {
-  const key = `${language}/${book}`;
-
-  const cached = (await kv.get(key)) as {
-    overviewParagraphs?: string[];
-    sections?: { title: string; fromChapter: number; toChapter: number }[];
+export default async function curateBook(language: string, book: string) {
+  const Arabic = language === "Arabic";
+  return {
+    overviewParagraphs: [Arabic ? `تتوفر الدراسة الإرشادية لفصل من ${book} في صفحة الدراسة.` : `Guided study for each chapter of ${book} is available on the study page.`],
+    sections: [],
   };
-  if (cached && cached.overviewParagraphs && cached.sections && cached.sections[0].fromChapter) {
-    return cached;
-  }
-
-  const { output } = await generateText({
-    model: "openai/gpt-4o-mini",
-    output: Output.object({ schema: bookSchema }),
-    messages: [
-      {
-        role: "user",
-        content:
-          language === "Arabic"
-            ? `كعالم دين معمداني إصلاحي يتحدث إلى طالب الكتاب المقدس المتوسط. أعطني مقدمة لكتاب ${book} تساعدني على فهم الكتاب، الكاتب، السياق وكيفية تقسيم الفصول إلى أقسام مفيدة. لا تتضمن أرقام الفصول في عناوين الأقسام.`
-            : `As a reformed baptist scholar talking to an average bible student. Give me an introduction to the book of ${book} that will help me understand the book, the writer, the setting and how to split its chapters into useful sections. Don't included chapter numbers in section titles.`,
-      },
-    ],
-  });
-
-  await kv.set(key, output, { ex: KV_TTL_SECONDS });
-  return output;
 }

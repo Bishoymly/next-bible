@@ -1,13 +1,19 @@
 import { MetadataRoute } from 'next';
 import { generateSitemapEntries } from '@/lib/sitemap';
+import legacy from '@/public/generated/legacy/manifest.json';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const entries = await generateSitemapEntries();
   
-  return entries.map(({ url, lastModified }) => ({
-    url: `https://www.holybiblereader.com${url}`,
+  const legacyEntries = (legacy.records as { pathname: string }[])
+    .filter((entry) => entry.pathname === '/study' || entry.pathname === '/topics' || entry.pathname.startsWith('/study/') || entry.pathname.startsWith('/topics/'))
+    .map((entry) => ({ url: entry.pathname, lastModified: new Date(0) }));
+  const uniqueEntries = [...new Map([...entries, ...legacyEntries].map((entry) => [entry.url, entry])).values()];
+
+  return uniqueEntries.map(({ url, lastModified }) => ({
+    url: `https://bible.bishoy.io${url}`,
     lastModified,
     changeFrequency: 'monthly',
     priority: url === '/' ? 1 : 0.8,
   }));
-} 
+}

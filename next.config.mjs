@@ -2,6 +2,31 @@
 const nextConfig = {
   async redirects() {
     return [
+      // These redirects work only after the legacy domains are attached to this deployment.
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'ask.holybiblereader.com' }],
+        destination: 'https://bible.bishoy.io/:path*',
+        permanent: true,
+      },
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'www.ask.holybiblereader.com' }],
+        destination: 'https://bible.bishoy.io/:path*',
+        permanent: true,
+      },
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'holybiblereader.com' }],
+        destination: 'https://bible.bishoy.io/:path*',
+        permanent: true,
+      },
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'www.holybiblereader.com' }],
+        destination: 'https://bible.bishoy.io/:path*',
+        permanent: true,
+      },
       // Map old language codes to new ones
       {
         source: '/arabic/:path*',

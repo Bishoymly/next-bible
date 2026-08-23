@@ -4,14 +4,12 @@ import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
 import {
-  BookCopy,
   BookOpen,
   ChevronLeft,
   ChevronRight,
   ListOrdered,
   Menu,
   MessageSquareMore,
-  MessageCircleQuestion,
   FlipHorizontal,
   PanelLeftOpen,
 } from "lucide-react";
@@ -20,22 +18,19 @@ import { BibleBooksList } from "./bible-books-list";
 import { Amiri, Inter } from "next/font/google";
 import { uiText } from "@/lib/uiText";
 import SocialShareButtons from "./social-share-buttons";
-import { Drawer, DrawerContent, DrawerTrigger, DrawerTitle, DrawerHeader } from "@/components/ui/drawer";
+import { Drawer, DrawerContent, DrawerTrigger, DrawerTitle, DrawerDescription } from "@/components/ui/drawer";
 import useStickyState from "@/lib/useStickyState";
 import parseFootnote from "@/lib/parseFootnote";
 import parseWord from "@/lib/parseWord";
-import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { Toggle } from "./ui/toggle";
 import { getBookSlug } from "@/lib/getBookSlug";
 import { Skeleton } from "./ui/skeleton";
 import versionsDropDown from "./versions-drop-down";
 import ChaptersList from "./chapters-list";
-import strongsHebrewDictionary from "@/lib/strongs-hebrew-dictionary.js";
-import strongsGreekDictionary from "@/lib/strongs-greek-dictionary.js";
-import { getByBC } from "@texttree/bible-crossref";
 import { ThemeToggle } from "./theme-toggle";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { SiteHeader } from "./site-header";
+import { LocalVerseTools } from "./local-verse-tools";
 
 const inter = Inter({ subsets: ["latin"] });
 const amiri = Amiri({
@@ -54,22 +49,49 @@ export function BibleReader({
   json,
   json2,
   language2,
+  comparisonBookSlugs,
+  comparisonBooksByVersion,
+  comparisonBookInfoByVersion,
+  chapterCrossReferences,
   booksCategorized,
   books,
+  initialCommentary,
 }) {
   const text = uiText[language];
+  const currentChapter = Number(chapter);
+  const [requestedComparison, setRequestedComparison] = useState<string | null>(null);
+  useEffect(() => setRequestedComparison(new URLSearchParams(window.location.search).get("side")), []);
+  const comparisonVersion = versions.some((item) => item.id === requestedComparison) ? requestedComparison! : version2;
+  const comparisonLanguage = versions.find((item) => item.id === comparisonVersion)?.lang ?? language2;
+  const comparisonBooks = comparisonBooksByVersion?.[comparisonVersion] ?? books;
+  const comparisonBookInfo = comparisonBookInfoByVersion?.[comparisonVersion] ?? bookInfo;
+  const [comparisonJson, setComparisonJson] = useState(json2);
+  const [comparisonState, setComparisonState] = useState<"idle" | "loading" | "ready" | "error" | "same">("idle");
   const [selectedVerse, setSelectedVerse] = useState(null);
   const [sidebarExpanded, setSidebarExpanded] = useStickyState(
     "sidebarExpanded",
     true
   );
   const [verseByVerse, setVerseByVerse] = useStickyState("verseByVerse", false);
-  const [question, setQuestion] = useState(null);
-  const [commentary, setCommentary] = useState(null);
+  const commentary = initialCommentary;
   const [sideBySide, setSideBySide] = useStickyState("sideBySide", false);
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const showSplitView = sideBySide;
   const showStudyCompanion = !sideBySide && version != "study" && commentary?.questions?.length > 0;
+
+  useEffect(() => {
+    if (!comparisonVersion || comparisonVersion === version) { setComparisonJson(null); setComparisonState("same"); return; }
+    const controller = new AbortController(); setComparisonJson(null); setComparisonState("loading");
+    fetch(`/generated/scripture/${comparisonVersion}/${comparisonBookSlugs?.[comparisonVersion] ?? book}.json`, { signal: controller.signal })
+      .then((response) => response.ok ? response.json() : Promise.reject(new Error("Comparison translation unavailable")))
+      .then((artifact) => {
+        const verses = artifact?.chapters?.[chapter] ?? [];
+        const normalized = Object.fromEntries(verses.map((item) => [String(item.verse), { verseObjects: [{ type: "text", text: item.text }] }]));
+        if (!controller.signal.aborted) { setComparisonJson(normalized); setComparisonState("ready"); }
+      })
+      .catch(() => { if (!controller.signal.aborted) setComparisonState("error"); });
+    return () => controller.abort();
+  }, [book, chapter, comparisonBookSlugs, comparisonVersion, version]);
 
   // scroll spy
   const [activeId, setActiveId] = useState<string | undefined>();
@@ -118,27 +140,13 @@ export function BibleReader({
       setSelectedVerse({
         key: hash,
         text: json[hash]?.verseObjects.map((vo) => vo.text).join(" "),
+        version,
       });
     }
-  }, [json]);
-
-  useEffect(() => {
-    const fetchCommentary = async () => {
-      try {
-        const response = await fetch(
-          `/api/${language}/${book}/${chapter}/commentary`
-        );
-        const data = await response.json();
-        setCommentary(data);
-      } catch (error) {
-        console.error("Error fetching commentary:", error);
-      }
-    };
-    fetchCommentary();
-  }, [book, chapter]);
+  }, [json, version]);
 
   const handleSelectVerse = (verse) => {
-    if (selectedVerse?.key != verse.key) {
+    if (selectedVerse?.key != verse.key || selectedVerse?.version != verse.version) {
       setSelectedVerse(verse);
       history.replaceState(
         {},
@@ -381,16 +389,17 @@ export function BibleReader({
               <ThemeToggle />
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    disabled={parseInt(chapter) === 1}
-                    className="cursor-pointer text-foreground transition-colors hover:text-muted-foreground disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    <Link href={`/${version}/${book}/${parseInt(chapter) - 1}`} className="transition-transform duration-200">
+                  {currentChapter > 1 ? (
+                    <Button variant="outline" size="icon" asChild className="cursor-pointer text-foreground transition-colors hover:text-muted-foreground">
+                      <Link href={`/${version}/${book}/${currentChapter - 1}`} className="transition-transform duration-200">
                         {language == "English" ? <ChevronLeft className="transition-transform duration-200" /> : <ChevronRight className="transition-transform duration-200" />}
-                    </Link>
-                  </Button>
+                      </Link>
+                    </Button>
+                  ) : (
+                    <Button variant="outline" size="icon" disabled className="text-foreground disabled:cursor-not-allowed disabled:opacity-50">
+                      {language == "English" ? <ChevronLeft /> : <ChevronRight />}
+                    </Button>
+                  )}
                 </TooltipTrigger>
                 <TooltipContent>
                   <p>{text.previousChapter}</p>
@@ -398,16 +407,17 @@ export function BibleReader({
               </Tooltip>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    disabled={parseInt(chapter) === bookInfo.c}
-                    className="cursor-pointer text-foreground transition-colors hover:text-muted-foreground disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    <Link href={`/${version}/${book}/${parseInt(chapter) + 1}`} className="transition-transform duration-200">
-                      {language == "English" ? <ChevronRight className="transition-transform duration-200" /> : <ChevronLeft className="transition-transform duration-200" />}
-                    </Link>
-                  </Button>
+                  {currentChapter < bookInfo.c ? (
+                    <Button variant="outline" size="icon" asChild className="cursor-pointer text-foreground transition-colors hover:text-muted-foreground">
+                      <Link href={`/${version}/${book}/${currentChapter + 1}`} className="transition-transform duration-200">
+                        {language == "English" ? <ChevronRight className="transition-transform duration-200" /> : <ChevronLeft className="transition-transform duration-200" />}
+                      </Link>
+                    </Button>
+                  ) : (
+                    <Button variant="outline" size="icon" disabled className="text-foreground disabled:cursor-not-allowed disabled:opacity-50">
+                      {language == "English" ? <ChevronRight /> : <ChevronLeft />}
+                    </Button>
+                  )}
                 </TooltipTrigger>
                 <TooltipContent>
                   <p>{text.nextChapter}</p>
@@ -440,8 +450,9 @@ export function BibleReader({
                     version,
                     book,
                     chapter,
-                    version2,
-                    false
+                    comparisonVersion,
+                    false,
+                    comparisonBookSlugs
                   )}
                   <Tooltip>
                     <TooltipTrigger asChild>
@@ -479,8 +490,8 @@ export function BibleReader({
               </div>
             </section>
 
-          <div className={`mt-6 ${showSplitView ? "flex gap-4 md:gap-8" : "space-y-6"}`}>
-            <div className={`section-shell rounded-xl p-5 sm:p-7 ${showSplitView ? "max-w-3xl flex-1" : "w-full max-w-7xl"}`}>
+          <div className={`mt-6 ${showSplitView ? "flex flex-col gap-4 lg:flex-row lg:gap-8" : "space-y-6"}`}>
+            <div className={`section-shell rounded-xl p-5 sm:p-7 ${showSplitView ? "w-full max-w-3xl flex-1" : "w-full max-w-7xl"}`}>
               {version == "study"
                 ? studyContent(
                     language,
@@ -489,8 +500,7 @@ export function BibleReader({
                     json,
                     bookInfo,
                     chapter,
-                    books,
-                    setQuestion
+                    books
                   )
                 : bibleContent.call(
                     this,
@@ -504,46 +514,39 @@ export function BibleReader({
                     version,
                     books,
                     versions,
-                    verseByVerse
+                    verseByVerse,
+                    chapterCrossReferences
                   )}
             </div>
 
             {showSplitView && (
-              <div className={`section-shell max-w-3xl flex-1 rounded-[1.75rem] p-5 sm:p-7`}>
-                <div className={inter.className}>
+              <div dir={comparisonLanguage === "Arabic" ? "rtl" : "ltr"} className={`section-shell w-full max-w-3xl flex-1 rounded-[1.75rem] p-5 sm:p-7 ${comparisonLanguage === "Arabic" ? amiri.className : inter.className}`}>
+                <div>
                   {versionsDropDown(
                     versions,
                     version,
                     book,
                     chapter,
-                    version2,
-                    true
+                    comparisonVersion,
+                    true,
+                    comparisonBookSlugs
                   )}
                 </div>
-                {version2 == "study"
-                  ? studyContent(
-                      language,
-                      version,
-                      commentary,
-                      json,
-                      bookInfo,
-                      chapter,
-                      books,
-                      setQuestion
-                    )
+                {comparisonState === "same" ? <p className="mt-5 text-sm text-muted-foreground">Choose a different translation to compare.</p> : comparisonState === "error" ? <p className="mt-5 text-sm text-muted-foreground">Comparison could not load. Choose another translation or try again.</p> : !comparisonJson ? <p className="mt-5 text-sm text-muted-foreground">Loading comparison translation...</p>
                   : bibleContent.call(
                       this,
-                      language2,
-                      json2,
+                      comparisonLanguage,
+                      comparisonJson,
                       commentary,
                       selectedVerse,
                       handleSelectVerse,
-                      bookInfo,
+                      comparisonBookInfo,
                       chapter,
-                      version2,
-                      books,
+                      comparisonVersion,
+                      comparisonBooks,
                       versions,
-                      verseByVerse
+                      verseByVerse,
+                      chapterCrossReferences
                   )}
               </div>
             )}
@@ -560,8 +563,7 @@ export function BibleReader({
                   json,
                   bookInfo,
                   chapter,
-                  books,
-                  setQuestion
+                  books
                 )}
               </div>
             )}
@@ -569,26 +571,6 @@ export function BibleReader({
           <div className="mb-16" />
           </div>
         </div>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Link
-              href="https://ask.holybiblereader.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="fixed bottom-5 right-5 z-50"
-            >
-              <Button
-                variant="default"
-                className="flex h-14 w-14 items-center justify-center rounded-full shadow-md transition-all duration-300 hover:shadow-lg hover:shadow-black/30"
-              >
-                <MessageCircleQuestion className="h-6 w-6" />
-              </Button>
-            </Link>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>{text.askBibleQuestion}</p>
-          </TooltipContent>
-        </Tooltip>
       </main>
     </div>
     </TooltipProvider>
@@ -602,12 +584,12 @@ function studyContent(
   json: any,
   bookInfo: any,
   chapter: any,
-  books: any,
-  setQuestion
+  books: any
 ) {
   const text = uiText[language];
   return commentary ? (
     <div className="space-y-8">
+      <p className="rounded-md border border-border px-3 py-2 text-sm text-muted-foreground">{commentary.provenance?.method?.includes("Offline") ? "Offline Terra study artifact" : "Deterministic local study outline"}</p>
       {commentary?.sections.map((section) => (
         <div
           id={`ss${section.fromVerse}`}
@@ -626,7 +608,7 @@ function studyContent(
               </h4>
             </Link>
             <div className="space-y-4 text-base leading-8 text-muted-foreground">
-              {section.commentary.map((l, index) => (
+              {(section.commentary ?? section.observations ?? []).map((l, index) => (
                 <p key={index}>{l}</p>
               ))}
             </div>
@@ -685,42 +667,14 @@ function studyContent(
         {uiText[language].questions}
       </h3>
       <ul className="grid gap-2">
-        {commentary?.questions?.map((question) => {
-          // Prepend book and chapter to the question
-          const questionPrefix = language === "Arabic" 
-            ? `في ${bookInfo.n} ${chapter}: `
-            : `In ${bookInfo.n} ${chapter}: `;
-          const questionWithContext = `${questionPrefix}${question}`;
-          
-          // For Arabic, use URL encoding; for English, create a slug
-          const questionUrl = language === "Arabic"
-            ? `https://ask.holybiblereader.com/study?q=${encodeURIComponent(questionWithContext)}`
-            : (() => {
-                const questionSlug = questionWithContext
-                  .toLowerCase()
-                  .replace(/[^a-z0-9\s-]/g, '')
-                  .replace(/\s+/g, '-')
-                  .replace(/-+/g, '-')
-                  .trim();
-                return `https://ask.holybiblereader.com/study/${questionSlug}`;
-              })();
-          
-          return (
-            <li key={question} className="cursor-pointer">
-              <Button
-                variant="outline"
-                className="block h-auto whitespace-normal rounded-[1.15rem] border-none bg-background/24 px-4 py-3 text-start text-lg font-normal cursor-pointer shadow-none ring-1 ring-border/22"
-                asChild
-              >
-                <Link href={questionUrl} target="_blank" rel="noopener noreferrer" className="whitespace-normal break-words">
-                  {question}
-                </Link>
-              </Button>
-            </li>
-          );
-        })}
+        {commentary?.questions?.map((question) => (
+          <li key={question} className="rounded-[1.15rem] bg-background/24 px-4 py-3 text-start text-lg ring-1 ring-border/22">
+            {question}
+          </li>
+        ))}
       </ul>
       </div>
+      {commentary.alternateViews?.length ? <section className="rounded-[1.15rem] border border-border p-4"><h3 className="font-semibold">Alternate Christian views</h3><p className="mt-1 text-sm text-muted-foreground">Where Christians differ, these summaries are presented fairly.</p><ul className="mt-3 space-y-3">{commentary.alternateViews.map((view, index) => <li key={index}><p>{view.summary}</p><div className="mt-2 flex flex-wrap gap-2">{view.citedVerses.map((verse) => <Link key={verse} href={`#${verse}`} className="rounded border border-border px-2 py-1 text-sm">{bookInfo.n} {chapter}:{verse}</Link>)}</div></li>)}</ul></section> : null}
     </div>
   ) : (
     <div className="flex flex-col space-y-3">
@@ -750,9 +704,8 @@ function renderVerse(
   singleVerse: boolean = false,
   verseByVerse: boolean
 ) {
-  return (
-    verse as {
-      verseObjects: {
+  const verseObjects = Array.isArray(verse?.verseObjects)
+    ? (verse.verseObjects as {
         text: string;
         tag: string;
         type: string;
@@ -760,16 +713,17 @@ function renderVerse(
         strong: string;
         nextChar: string;
         children: any[];
-      }[];
-    }
-  ).verseObjects.map((verseObject, index, array) => (
+      }[])
+    : [];
+
+  return verseObjects.map((verseObject, index) => (
     <React.Fragment key={`verse-obj-${index}`}>
       {verseObject.strong && singleVerse ? (
         renderWord(verseObject.text, verseObject.strong, index, language)
       ) : verseObject.text == "\n" && !verseByVerse ? (
         <br />
       ) : verseObject.type == "text" || verseObject.tag == "d" ? (
-        <>{verseObject.text.replace("¶ ", "")}</>
+        <>{String(verseObject.text ?? verseObject.content ?? "").replace("¶ ", "")}</>
       ) : verseObject.type == "word" ? (
         <>{verseObject.text}</>
       ) : verseObject.tag == "cl" || verseObject.tag == "ms1" ? (
@@ -778,13 +732,15 @@ function renderVerse(
         <>{parseWord(verseObject.content).text}</>
       ) : verseObject.tag == "wj" ? (
         <span className="text-red-600">
-          {verseObject.text ??
-            renderVerse(
-              { verseObjects: verseObject.children },
-              language,
-              singleVerse,
-              verseByVerse
-            )}
+          {verseObject.text}
+          {Array.isArray(verseObject.children) && verseObject.children.length
+            ? renderVerse(
+                { verseObjects: verseObject.children },
+                language,
+                singleVerse,
+                verseByVerse
+              )
+            : null}
         </span>
       ) : verseObject.tag == "nd" ? (
         <span className="font-bold">
@@ -880,109 +836,55 @@ function renderVerse(
   ));
 }
 
-function renderWord(word: any, strongNumber: any, index: any, language: any) {
-  if (!strongNumber) return word;
-  if (strongNumber.startsWith("H")) {
-    const strongWord = strongsHebrewDictionary[strongNumber];
-    if (strongWord == undefined) return word;
-    return (
-      <Popover key={index}>
-        <PopoverTrigger asChild>
-          <span className="cursor-pointer border-b border-dotted border-primary">
-            {word}
-          </span>
-        </PopoverTrigger>
-        <PopoverContent className="w-80">
-          <div className="grid gap-4">
-            <div className="space-y-2">
-              <div className="flex">
-                <h4 className="flex-1 font-medium leading-none">{word}</h4>
-                <p className="flex-1 text-sm text-muted-foreground leading-none text-center">
-                  {strongNumber}
-                </p>
-                <p className="flex-1 text-sm text-muted-foreground leading-none text-end">
-                  {strongWord.lemma}
-                </p>
-              </div>
-            </div>
-            <div className="grid gap-2">
-              <div className="grid gap-1">
-                <div className="text-sm">
-                  <span className="text-muted-foreground">Pronounced: </span>
-                  {strongWord.pron}
-                </div>
-                <div className="text-sm">
-                  <span className="text-muted-foreground">Definition: </span>
-                  {strongWord.strongs_def}
-                </div>
-              </div>
-            </div>
-          </div>
-        </PopoverContent>
-      </Popover>
-    );
-  }
-  if (strongNumber.startsWith("G")) {
-    const strongWord = strongsGreekDictionary[strongNumber];
-    if (strongWord == undefined) return word;
-    return (
-      <Popover key={index}>
-        <PopoverTrigger asChild>
-          <span className="cursor-pointer border-b border-dotted border-primary">
-            {word}
-          </span>
-        </PopoverTrigger>
-        <PopoverContent className="w-80">
-          <div className="grid gap-4">
-            <div className="space-y-2">
-              <div className="flex">
-                <h4 className="flex-1 font-medium leading-none">{word}</h4>
-                <p className="flex-1 text-sm text-muted-foreground leading-none text-center">
-                  {strongNumber}
-                </p>
-                <p className="flex-1 text-sm text-muted-foreground leading-none text-end">
-                  {strongWord.lemma}
-                </p>
-              </div>
-            </div>
-            <div className="grid gap-2">
-              <div className="grid gap-1">
-                <div className="text-sm">
-                  <span className="text-muted-foreground">Definition: </span>
-                  {strongWord.strongs_def}
-                </div>
-              </div>
-            </div>
-          </div>
-        </PopoverContent>
-      </Popover>
-    );
-  }
-}
+function renderWord(word: any, _strongNumber?: any, _index?: any, _language?: any) { return word; }
 
 function renderFootnotes(verse: any, language: any) {
-  return (
-    verse as {
-      verseObjects: {
-        text: string;
-        tag: string;
-        type: string;
-        content: string;
-        nextChar: string;
-        children: any[];
-      }[];
+  const notes: string[] = [];
+  const flat: any[] = [];
+  const collect = (objects: any[]) => objects?.forEach((object) => {
+    flat.push(object);
+    if (Array.isArray(object?.children)) collect(object.children);
+  });
+  collect((verse as any)?.verseObjects);
+  for (let index = 0; index < flat.length; index += 1) {
+    const object = flat[index];
+    if (object?.tag !== "f" && object?.type !== "footnote") continue;
+    if (object?.endTag === "f*" || String(object?.content ?? "").includes("\\ft")) {
+      const parsed = parseFootnote(object.content ?? "");
+      const text = [parsed.reference, parsed.text, parsed.quote].filter(Boolean).join(" ");
+      if (text) notes.push(text);
+      continue;
     }
-  ).verseObjects.map((verseObject, index, array) =>
-    verseObject.tag == "f" ? (
+    const details: string[] = [];
+    for (let next = index + 1; next < flat.length && flat[next]?.tag !== "f*"; next += 1) {
+      if (["fr", "ft", "fqa", "fv", "fq", "fta"].includes(flat[next]?.tag) && flat[next]?.content) details.push(flat[next].content);
+    }
+    const text = details.join(" ").replace(/\s+/g, " ").trim();
+    if (text) notes.push(text);
+  }
+  return (
+    notes.map((note, index) =>
+    (
       <p key={index} className="italic text-muted-foreground text-sm">
         <MessageSquareMore className="w-4 inline mx-1 text-accent" />
-        {parseFootnote(verseObject.content).text}
+        {note}
       </p>
-    ) : (
-      <React.Fragment key={index}></React.Fragment>
-    )
+    ))
   );
 }
+
+function plainVerseText(verse: any): string {
+  const readObject = (object: any): string => {
+    if (object?.type === "footnote" || ["f", "fr", "ft", "fqa", "fv"].includes(object?.tag)) return "";
+    const ownText = typeof object?.text === "string" ? object.text : "";
+    const childText = Array.isArray(object?.children) ? object.children.map(readObject).join(" ") : "";
+    if (ownText || childText) return `${ownText} ${childText}`;
+    if (typeof object?.content === "string" && ["word", "wj", "wj*", "nd", "nd*"].includes(object?.type ?? object?.tag)) return parseWord(object.content).text;
+    return "";
+  };
+  return (verse?.verseObjects ?? []).map(readObject).join(" ").replace(/\s+/g, " ").trim();
+}
+
 function bibleContent(
   this,
   language: any,
@@ -995,10 +897,9 @@ function bibleContent(
   version: any,
   books: any,
   versions: any,
-  verseByVerse: boolean
+  verseByVerse: boolean,
+  chapterCrossReferences: Record<string, string[]> = {}
 ) {
-  const crossRef = getByBC({ book: bookInfo.short, chapter });
-
   return (
     <div
       className={`space-y-3 ${
@@ -1007,7 +908,7 @@ function bibleContent(
           : `text-lg leading-relaxed ${inter.className}`
       }`}
     >
-      {Object.entries(json).map(([key, verse]) => (
+      {Object.entries(json).filter(([key]) => /^\d+$/.test(key)).map(([key, verse]) => (
         <React.Fragment key={key}>
           {commentary?.sections
             .filter((s) => s.fromVerse == key)
@@ -1030,28 +931,19 @@ function bibleContent(
                 </Link>
               </div>
             ))}
-          <Drawer key={key}>
+          <Drawer key={key} open={selectedVerse?.key === key && selectedVerse?.version === version} onOpenChange={(open) => { if (!open && selectedVerse?.key === key && selectedVerse?.version === version) handleSelectVerse(selectedVerse); }}>
             <DrawerTrigger asChild>
               <span
                 key={key}
                 className={
-                  (selectedVerse?.key == key
+                  (selectedVerse?.key == key && selectedVerse?.version === version
                     ? "rounded-md bg-muted text-foreground -my-1 py-1 cursor-pointer"
                     : "") + (verseByVerse ? "mb-3 block border-b border-border/35 pb-3" : "")
                 }
                 onClick={handleSelectVerse.bind(this, {
                   key: key,
-                  text: (
-                    verse as {
-                      verseObjects: {
-                        text: string;
-                        tag: string;
-                        type: string;
-                      }[];
-                    }
-                  ).verseObjects
-                    .map((vo) => vo.text)
-                    .join(" "),
+                  version,
+                  text: plainVerseText(verse),
                 })}
               >
                 {key != "0" && (
@@ -1075,6 +967,9 @@ function bibleContent(
               <DrawerTitle className="sr-only">
                 {bookInfo.n} {chapter}:{key}
               </DrawerTitle>
+              <DrawerDescription className="sr-only">
+                Verse details, footnotes, cross references, bookmark, and private note.
+              </DrawerDescription>
               <div className="mb-2 space-y-4 pt-6 text-center md:text-start">
                 <span className="text-xl font-medium text-foreground">
                   {language == "Arabic" ? <>&rdquo;</> : <>&ldquo;</>}
@@ -1087,6 +982,7 @@ function bibleContent(
                 </span>
               </div>
               {renderFootnotes(verse, language)}
+              <LocalVerseTools reference={`${version}:${bookInfo.slug}:${chapter}:${key}`} label={`${bookInfo.n} ${chapter}:${key}`} text={plainVerseText(verse)} />
               {commentary?.importantVerses
                 .filter((v) => v.verse == key)
                 .map((important, index) => (
@@ -1098,7 +994,7 @@ function bibleContent(
                   </div>
                 ))}
               <div className="mt-4 flex flex-wrap gap-1">
-                {crossRef[key]?.map((ref, index) => (
+                {chapterCrossReferences[key]?.map((ref, index) => (
                   <Button key={index} variant="outline" size="sm" className="rounded-full">
                     <Link
                       href={`/${version}/${getBookSlug(

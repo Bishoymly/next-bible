@@ -1,57 +1,31 @@
-"use server";
-import { generateText, Output } from "ai";
-import { kv } from "@vercel/kv";
-import { z } from "zod";
+import fs from "node:fs";
+import path from "node:path";
 
-const KV_TTL_SECONDS = 60 * 60 * 24 * 30;
+export type StudyChapter = {
+  schemaVersion: 1;
+  provenance: { method: string; translation: string; passage: string };
+  sections: { title: string; fromVerse: number; toVerse: number; observations: string[] }[];
+  importantVerses: { verse: number; commentary: string; crossReferences: { book: string; chapter: number; verse: number }[] }[];
+  questions: string[];
+  alternateViews?: { summary: string; citedVerses: number[] }[];
+};
 
-const chapterSchema = z.object({
-  sections: z.array(
-    z.object({
-      title: z.string(),
-      commentary: z.array(z.string()),
-      fromVerse: z.number(),
-      toVerse: z.number(),
-    })
-  ),
-  importantVerses: z.array(
-    z.object({
-      verse: z.number(),
-      commentary: z.string(),
-      crossReferences: z.array(
-        z.object({
-          book: z.string(),
-          chapter: z.number(),
-          verse: z.number(),
-        })
-      ),
-    })
-  ),
-  questions: z.array(z.string()),
-});
+function fallback(version: string, language: string, book: string, chapter: string, lastVerse: number): StudyChapter {
+  const isArabic = language === "Arabic";
+  return {
+    schemaVersion: 1,
+    provenance: { method: "Deterministic local study outline. Full offline study has not been generated for this passage.", translation: version.toUpperCase(), passage: `${book} ${chapter}` },
+    sections: [{ title: isArabic ? "دراسة هذا الفصل" : "Study this chapter", fromVerse: 1, toVerse: lastVerse, observations: [isArabic ? "اقرأ الفصل كله. لاحظ الكلمات المتكررة، المتكلم، والاستجابة المطلوبة." : "Read the whole chapter. Notice repeated words, the speaker, and the response the passage calls for."] }],
+    importantVerses: [],
+    questions: [isArabic ? "ماذا يكشف هذا الفصل عن الله؟" : "What does this chapter reveal about God?", isArabic ? "ما الذي يحتاج إلى استجابة بالإيمان والطاعة؟" : "What calls for faith and obedience today?"],
+  };
+}
 
-export default async function curateChapter(language, book, chapter) {
-  const key = `${language}/${book}/${chapter}`;
-
-  const cached = await kv.get(key);
-  if (cached) {
-    return cached;
-  }
-
-  const { output } = await generateText({
-    model: "openai/gpt-4o-mini",
-    output: Output.object({ schema: chapterSchema }),
-    messages: [
-      {
-        role: "user",
-        content:
-          language === "English"
-            ? `As a reformed baptist scholar talking to an average bible student. Give me a curated commentary for book ${book} chapter ${chapter}, splitting it into sections with commentaries and don't include verse numbers in section titles. Also highlight the important verses and important questions that arise from the chapter.`
-            : `كعالم دين معمداني إصلاحي يتحدث إلى طالب الكتاب المقدس المتوسط. أعطني تعليقًا مرتبًا لكتاب ${book} الفصل ${chapter}، مقسمًا إلى أقسام مع التعليقات ولا تتضمن أرقام الآيات في عناوين الأقسام. كما أبرز الآيات المهمة والأسئلة المهمة التي تنشأ من الفصل.`,
-      },
-    ],
-  });
-
-  await kv.set(key, output, { ex: KV_TTL_SECONDS });
-  return output;
+export default async function curateChapter(version: string, language: string, book: string, chapter: string, lastVerse: number): Promise<StudyChapter> {
+  const file = path.join(process.cwd(), "public", "generated", "study", version, book, `${chapter}.json`);
+  try {
+    const parsed = JSON.parse(fs.readFileSync(file, "utf8"));
+    if (parsed?.schemaVersion === 1 && Array.isArray(parsed.sections) && Array.isArray(parsed.questions)) return parsed;
+  } catch { /* The static fallback is intentional when no artifact exists. */ }
+  return fallback(version, language, book, chapter, lastVerse);
 }
