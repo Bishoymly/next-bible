@@ -9,7 +9,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 export function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
   const isDark = resolvedTheme === "dark";
-  const label = isDark ? "Switch to light theme" : "Switch to dark theme";
+  const label = "Toggle color theme";
 
   return (
     <TooltipProvider delayDuration={350}>

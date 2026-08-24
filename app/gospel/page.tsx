@@ -5,7 +5,7 @@ import { ReaderPage } from "@/components/reader-page";
 import { SalvationGuideComponent } from "@/components/salvation-guide";
 
 const description =
-  "Read a concise, Scripture-grounded guide to the good news of Jesus Christ.";
+  "Read a concise, Scripture-grounded explanation of our need, Christ's death and resurrection, and salvation by grace through faith.";
 
 export const metadata: Metadata = {
   title: "The Gospel",
@@ -30,8 +30,9 @@ export default function GospelPage() {
     <ReaderPage
       label="The Christian message"
       title="The Gospel of Jesus Christ"
-      description="A concise guide to sin, grace, faith, repentance, and the hope Christians confess in Christ."
+      description="The good news of what God has done in Christ, and his call to repent and believe."
       actions={<GospelShareButton />}
+      wide
     >
       <SalvationGuideComponent />
     </ReaderPage>
