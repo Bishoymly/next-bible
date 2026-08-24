@@ -17,11 +17,13 @@ import {
   Square,
   StickyNote,
   Volume2,
+  X,
 } from "lucide-react";
 
-import { Drawer, DrawerContent, DrawerDescription, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
+import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerTitle } from "@/components/ui/drawer";
 import { LocalVerseTools } from "@/components/local-verse-tools";
 import SocialShareButtons from "@/components/social-share-buttons";
+import { VerseSelectionBar } from "@/components/verse-selection-bar";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { RecentReadingMenu, RecentReadingTracker } from "@/components/recent-reading";
 import versionsDropDown from "@/components/versions-drop-down";
@@ -29,6 +31,7 @@ import { getBookSlug } from "@/lib/getBookSlug";
 import parseWord from "@/lib/parseWord";
 
 type ReaderMode = "read" | "compare" | "study";
+type SelectedVerse = { key: string; version: string; text: string };
 
 function ComparisonParamSync({ onChange }: { onChange: (value: string | null) => void }) {
   const searchParams = useSearchParams();
@@ -157,13 +160,9 @@ function ScriptureColumn({
   language,
   json,
   selectedVerse,
-  setSelectedVerse,
-  bookInfo,
-  chapter,
+  onSelectVerse,
   version,
-  books,
   versions,
-  chapterCrossReferences,
   verseByVerse,
   commentary,
 }: any) {
@@ -199,44 +198,78 @@ function ScriptureColumn({
             {cachedSection && nativeSections.length ? <span id={cachedSection.id} data-section-verse={cachedSection.verse} className="reader-section-anchor" aria-hidden="true" /> : null}
             {cachedSection && !nativeSections.length ? <h2 id={cachedSection.id} data-section-verse={cachedSection.verse}>{cachedSection.title}</h2> : null}
             {verseHeadings(verse).map((heading, index) => <h2 id={`native-section-${key}-${index}`} key={heading}>{heading}</h2>)}
-            <Drawer open={open} onOpenChange={(nextOpen) => { if (!nextOpen && open) setSelectedVerse(null); }}>
-              <DrawerTrigger asChild>
-                <span
-                  role="button"
-                  tabIndex={0}
-                  id={`verse-${key}`}
-                  className={`reader-verse ${verseByVerse ? "reader-verse-block" : ""}`}
-                  data-selected={open}
-                  onClick={() => setSelectedVerse(open ? null : { key, version, text })}
-                  onKeyDown={(event) => {
-                    if (event.key === "Enter" || event.key === " ") {
-                      event.preventDefault();
-                      setSelectedVerse(open ? null : { key, version, text });
-                    }
-                  }}
-                >
-                  <sup id={key}>{key}</sup>{text}{" "}
-                </span>
-              </DrawerTrigger>
-              <DrawerContent className="border-border bg-background p-6 sm:p-8">
-                <DrawerTitle className="reader-drawer-title">{bookInfo.n} {chapter}:{key}</DrawerTitle>
-                <DrawerDescription className="reader-drawer-description">Verse details, references, bookmark, and a private note saved in this browser.</DrawerDescription>
-                <blockquote className="reader-drawer-verse">“{text}”</blockquote>
-                <LocalVerseTools reference={`${version}:${bookInfo.slug}:${chapter}:${key}`} label={`${bookInfo.n} ${chapter}:${key}`} text={text} />
-                {chapterCrossReferences?.[key]?.length ? (
-                  <div className="reader-drawer-references">
-                    {chapterCrossReferences[key].slice(0, 8).map((ref: string) => <Link key={ref} href={crossReferenceHref(ref, version, books, language)}>{crossReferenceLabel(ref, books)}</Link>)}
-                  </div>
-                ) : null}
-                <SocialShareButtons language={language} version={version} book={bookInfo.n} chapter={chapter} verse={key} verseText={text} />
-              </DrawerContent>
-            </Drawer>
+            <span
+              role="button"
+              tabIndex={0}
+              id={key}
+              className={`reader-verse ${verseByVerse ? "reader-verse-block" : ""}`}
+              data-selected={open}
+              aria-pressed={open}
+              onClick={() => onSelectVerse({ key, version, text })}
+              onKeyDown={(event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                  event.preventDefault();
+                  onSelectVerse({ key, version, text });
+                }
+              }}
+            >
+              <sup>{key}</sup>{text}{" "}
+            </span>
           </React.Fragment>
         );
       })}
       <p className="reader-copyright">{versions.find((item: any) => item.id === version)?.copyright}</p>
       </div>
     </div>
+  );
+}
+
+function VerseDetailsDrawer({
+  selectedVerse,
+  open,
+  onOpenChange,
+  language,
+  version,
+  bookInfo,
+  chapter,
+  chapterCrossReferences,
+  books,
+}: {
+  selectedVerse: SelectedVerse | null;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  language: string;
+  version: string;
+  bookInfo: any;
+  chapter: string;
+  chapterCrossReferences: Record<string, string[]>;
+  books: any[];
+}) {
+  if (!selectedVerse) return null;
+  const { key, text } = selectedVerse;
+
+  return (
+    <Drawer open={open} onOpenChange={onOpenChange} shouldScaleBackground={false}>
+      <DrawerContent className="reader-details-drawer border-border bg-background p-6 sm:p-8">
+        <div className="reader-drawer-heading">
+          <div>
+            <DrawerTitle className="reader-drawer-title">{bookInfo.n} {chapter}:{key}</DrawerTitle>
+            <DrawerDescription className="reader-drawer-description">Footnotes, references, bookmark, note, and sharing.</DrawerDescription>
+          </div>
+          <DrawerClose asChild>
+            <button type="button" className="reader-drawer-close" aria-label="Close verse details"><X aria-hidden="true" /></button>
+          </DrawerClose>
+        </div>
+        <blockquote className="reader-drawer-verse">“{text}”</blockquote>
+        <LocalVerseTools reference={`${version}:${bookInfo.slug}:${chapter}:${key}`} label={`${bookInfo.n} ${chapter}:${key}`} text={text} />
+        {chapterCrossReferences?.[key]?.length ? (
+          <div className="reader-drawer-references">
+            {chapterCrossReferences[key].slice(0, 8).map((ref: string) => <Link key={ref} href={crossReferenceHref(ref, version, books, language)}>{crossReferenceLabel(ref, books)}</Link>)}
+          </div>
+        ) : null}
+        <SocialShareButtons language={language} version={version} book={bookInfo.n} chapter={chapter} verse={key} verseText={text} />
+      </DrawerContent>
+    </Drawer>
   );
 }
 
@@ -349,7 +382,8 @@ export function BibleReaderWorkspace({
   const [requestedComparison, setRequestedComparison] = useState<string | null>(null);
   const [comparisonJson, setComparisonJson] = useState<any>(null);
   const [comparisonState, setComparisonState] = useState<"idle" | "loading" | "ready" | "error" | "same">("idle");
-  const [selectedVerse, setSelectedVerse] = useState<any>(null);
+  const [selectedVerse, setSelectedVerse] = useState<SelectedVerse | null>(null);
+  const [detailsOpen, setDetailsOpen] = useState(false);
   const [verseByVerse, setVerseByVerse] = useState(false);
   const [isReading, setIsReading] = useState(false);
   const searchRef = useRef<HTMLInputElement>(null);
@@ -386,9 +420,55 @@ export function BibleReaderWorkspace({
   }, []);
 
   useEffect(() => {
-    const hash = window.location.hash.slice(1);
-    if (hash && json?.[hash]) setSelectedVerse({ key: hash, version, text: verseText(json[hash]) });
+    function selectFromLocation() {
+      const url = new URL(window.location.href);
+      const hash = url.hash.slice(1);
+      const numericHash = /^\d+$/.test(hash) ? hash : null;
+      const requestedVerse = numericHash ?? (!hash ? url.searchParams.get("verse") : null);
+
+      if (!requestedVerse || !json?.[requestedVerse]) {
+        setSelectedVerse(null);
+        setDetailsOpen(false);
+        if (hash && !numericHash && url.searchParams.has("verse")) {
+          url.searchParams.delete("verse");
+          window.history.replaceState(window.history.state, "", `${url.pathname}${url.search}${url.hash}`);
+        }
+        return;
+      }
+
+      setSelectedVerse({ key: requestedVerse, version, text: verseText(json[requestedVerse]) });
+      setDetailsOpen(false);
+      if (url.searchParams.get("verse") !== requestedVerse || url.hash !== `#${requestedVerse}`) {
+        url.searchParams.set("verse", requestedVerse);
+        url.hash = requestedVerse;
+        window.history.replaceState(window.history.state, "", `${url.pathname}${url.search}${url.hash}`);
+      }
+
+      window.requestAnimationFrame(() => {
+        const target = document.getElementById(requestedVerse);
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        target?.scrollIntoView({ block: "center", behavior: reduceMotion ? "auto" : "smooth" });
+      });
+    }
+
+    selectFromLocation();
+    window.addEventListener("hashchange", selectFromLocation);
+    window.addEventListener("popstate", selectFromLocation);
+    return () => {
+      window.removeEventListener("hashchange", selectFromLocation);
+      window.removeEventListener("popstate", selectFromLocation);
+    };
   }, [json, version]);
+
+  useEffect(() => {
+    if (!selectedVerse) return;
+    const handler = (event: KeyboardEvent) => {
+      if (event.key !== "Escape" || detailsOpen) return;
+      clearVerseSelection();
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [detailsOpen, selectedVerse]);
 
   useEffect(() => () => {
     if (utteranceRef.current) {
@@ -420,6 +500,32 @@ export function BibleReaderWorkspace({
     utteranceRef.current = utterance;
     setIsReading(true);
     window.speechSynthesis.speak(utterance);
+  }
+
+  function updateVerseLocation(key: string) {
+    const url = new URL(window.location.href);
+    url.searchParams.set("verse", key);
+    url.hash = key;
+    window.history.replaceState(window.history.state, "", `${url.pathname}${url.search}${url.hash}`);
+  }
+
+  function clearVerseSelection() {
+    setSelectedVerse(null);
+    setDetailsOpen(false);
+    const url = new URL(window.location.href);
+    url.searchParams.delete("verse");
+    if (/^#\d+$/.test(url.hash)) url.hash = "";
+    window.history.replaceState(window.history.state, "", `${url.pathname}${url.search}${url.hash}`);
+  }
+
+  function handleSelectVerse(verse: SelectedVerse) {
+    if (selectedVerse?.key === verse.key && selectedVerse.version === verse.version) {
+      clearVerseSelection();
+      return;
+    }
+    setSelectedVerse(verse);
+    setDetailsOpen(false);
+    updateVerseLocation(verse.key);
   }
 
   const subtitle = initialCommentary?.sections?.[0]?.title;
@@ -464,7 +570,17 @@ export function BibleReaderWorkspace({
               <button type="button" aria-label="Toggle verse by verse layout" aria-pressed={verseByVerse} onClick={() => setVerseByVerse((value) => !value)}><ListOrdered aria-hidden="true" /></button>
             </div>
           </div>
-          <ScriptureColumn language={language} json={json} selectedVerse={selectedVerse} setSelectedVerse={setSelectedVerse} bookInfo={bookInfo} chapter={chapter} version={version} books={books} versions={versions} chapterCrossReferences={chapterCrossReferences} verseByVerse={verseByVerse} commentary={initialCommentary} />
+          <ScriptureColumn language={language} json={json} selectedVerse={selectedVerse} onSelectVerse={handleSelectVerse} version={version} versions={versions} verseByVerse={verseByVerse} commentary={initialCommentary} />
+          {selectedVerse ? (
+            <VerseSelectionBar
+              reference={`${bookInfo.n} ${chapter}:${selectedVerse.key}`}
+              version={version}
+              verse={selectedVerse.key}
+              verseText={selectedVerse.text}
+              onDetails={() => setDetailsOpen(true)}
+              onClose={clearVerseSelection}
+            />
+          ) : null}
           <nav className="reader-chapter-pagination" aria-label="Adjacent chapters">
             {currentChapter > 1 ? <Link href={`/${version}/${book}/${currentChapter - 1}`}><ChevronLeft aria-hidden="true" /> Previous</Link> : <span />}
             {currentChapter < bookInfo.c ? <Link href={`/${version}/${book}/${currentChapter + 1}`}>Next <ChevronRight aria-hidden="true" /></Link> : null}
@@ -472,6 +588,7 @@ export function BibleReaderWorkspace({
         </main>
         <StudyPanel mode={mode} language={mode === "compare" ? comparisonLanguage : language} version={version} bookInfo={mode === "compare" ? comparisonBookInfo : bookInfo} chapter={chapter} commentary={initialCommentary} json={json} chapterCrossReferences={chapterCrossReferences} books={mode === "compare" ? comparisonBooks : books} comparisonVersion={comparisonVersion} comparisonState={comparisonState} comparisonJson={comparisonJson} versions={versions} comparisonBookSlugs={comparisonBookSlugs} />
       </div>
+      <VerseDetailsDrawer selectedVerse={selectedVerse} open={detailsOpen} onOpenChange={setDetailsOpen} language={language} version={version} bookInfo={bookInfo} chapter={chapter} chapterCrossReferences={chapterCrossReferences} books={books} />
     </div>
   );
 }
