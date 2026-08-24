@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     default: "Bible Reader",
     template: "%s | Bible Reader"
   },
-  description: "A modern Bible study experience with immersive reading, introductions, study notes, and multilingual access.",
+  description: "Read and search Scripture across English and Arabic translations, with book introductions, study notes, and private bookmarks.",
   keywords: ["bible", "study", "scripture", "religious text", "bible reader", "bible translations"],
   authors: [{ name: "Bible Reader" }],
   metadataBase: new URL('https://bible.bishoy.io'),
@@ -25,12 +25,12 @@ export const metadata: Metadata = {
     url: "https://bible.bishoy.io",
     siteName: "Bible Reader",
     title: "Bible Reader",
-    description: "A modern Bible study experience with immersive reading, introductions, study notes, and multilingual access.",
+    description: "Read and search Scripture across English and Arabic translations, with book introductions, study notes, and private bookmarks.",
   },
   twitter: {
     card: "summary",
     title: "Bible Reader",
-    description: "A modern Bible study experience with immersive reading, introductions, study notes, and multilingual access.",
+    description: "Read and search Scripture across English and Arabic translations, with book introductions, study notes, and private bookmarks.",
   },
   robots: {
     index: true,
@@ -42,9 +42,6 @@ export const metadata: Metadata = {
       'max-image-preview': 'large',
       'max-snippet': -1,
     },
-  },
-  verification: {
-    google: "G-YEJ5GJ8FSH",
   },
   icons: {
     icon: [

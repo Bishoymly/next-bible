@@ -45,17 +45,17 @@ export function ScriptureSearch() {
   // The URL is read once when the static search page hydrates.
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  return <section className="mx-auto max-w-4xl space-y-4 rounded-xl border border-border bg-card p-5 sm:p-7">
-    <form onSubmit={(event) => { event.preventDefault(); void search(); }} className="flex flex-col gap-3 sm:flex-row">
+  return <section className="reader-search">
+    <form onSubmit={(event) => { event.preventDefault(); void search(); }}>
       <label className="sr-only" htmlFor="translation">Translation</label>
-      <select id="translation" value={version} onChange={(event) => { setVersion(event.target.value); setResults([]); setStatus("Ready to search this translation."); }} className="h-11 rounded-md border border-input bg-background px-3 text-foreground focus-visible:outline-2 focus-visible:outline-offset-2">
+      <select id="translation" value={version} onChange={(event) => { setVersion(event.target.value); setResults([]); setStatus("Ready to search this translation."); }}>
         <option value="bsb">Berean Standard Bible</option><option value="asv">American Standard Version</option><option value="kjv">King James Version</option><option value="avd">Arabic Van Dyck</option>
       </select>
       <label className="sr-only" htmlFor="scripture-search">Search Scripture</label>
-      <input id="scripture-search" dir="auto" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search exact words or a phrase" className="h-11 min-w-0 flex-1 rounded-md border border-input bg-background px-3 py-2.5 text-foreground placeholder:text-muted-foreground focus-visible:outline-2 focus-visible:outline-offset-2" />
-      <button type="submit" className="h-11 shrink-0 whitespace-nowrap rounded-md bg-primary px-4 text-primary-foreground focus-visible:outline-2 focus-visible:outline-offset-2">Search</button>
+      <input id="scripture-search" dir="auto" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search exact words or a phrase" />
+      <button type="submit">Search</button>
     </form>
-    <p aria-live="polite" className="text-sm text-muted-foreground">{status}</p>
-    <ol className="space-y-3">{results.map((entry) => <li key={`${entry.version}-${entry.bookSlug}-${entry.chapter}-${entry.verse}`}><Link dir={entry.version === "avd" ? "rtl" : "ltr"} className="block rounded-md border border-border p-3 text-start text-foreground transition-colors hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2" href={`/${entry.version}/${entry.bookSlug}/${entry.chapter}#${entry.verse}`}><span className="font-semibold">{entry.book} {entry.chapter}:{entry.verse}</span><span className="block pt-1 text-muted-foreground">{entry.text}</span></Link></li>)}</ol>
+    <p aria-live="polite" className="reader-search-status">{status}</p>
+    <ol className="reader-search-results">{results.map((entry) => <li key={`${entry.version}-${entry.bookSlug}-${entry.chapter}-${entry.verse}`}><Link dir={entry.version === "avd" ? "rtl" : "ltr"} href={`/${entry.version}/${entry.bookSlug}/${entry.chapter}#${entry.verse}`}><strong>{entry.book} {entry.chapter}:{entry.verse}</strong><span>{entry.text}</span></Link></li>)}</ol>
   </section>;
 }

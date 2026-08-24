@@ -3,8 +3,8 @@ import Link from "next/link";
 import fs from "node:fs";
 import path from "node:path";
 import legacy from "@/public/generated/legacy/manifest.json";
-import { ScriptureSearch } from "@/components/scripture-search";
-import { UtilityHeader } from "@/components/utility-header";
+import { ArrowLeft, BookOpenText } from "lucide-react";
+import { ReaderPage } from "@/components/reader-page";
 
 type Params = { slug: string };
 const studies = legacy.studies as { slug: string; title: string; topic: string; updatedAt: string | null }[];
@@ -13,4 +13,53 @@ function title(slug: string) { return slug.split("-").map((word) => word[0]?.toU
 export const dynamicParams = false;
 export function generateStaticParams(): Params[] { return slugs.map((slug) => ({ slug })); }
 export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> { const { slug } = await params; const study = studies.find((item) => item.slug === slug); const label = study?.title || title(slug); return { title: label, description: `Guided Scripture study for ${label}.`, alternates: { canonical: `/study/${slug}` } }; }
-export default async function LegacyStudy({ params }: { params: Promise<Params> }) { const { slug } = await params; const study = studies.find((item) => item.slug === slug); const label = study?.title || title(slug); let paragraphs: string[] = []; try { paragraphs = JSON.parse(fs.readFileSync(path.join(process.cwd(), "public", "generated", "legacy", "studies", `${slug}.json`), "utf8")).paragraphs || []; } catch {} return <><UtilityHeader /><main className="min-h-screen px-4 py-8 sm:px-6"><article className="mx-auto max-w-4xl"><p className="text-sm font-medium text-muted-foreground">GUIDED STUDY</p><h1 className="mt-2 text-3xl font-semibold">{label}</h1>{paragraphs.length ? paragraphs.map((paragraph) => <p key={paragraph} className="mt-4 text-muted-foreground">{paragraph}</p>) : <p className="mt-4 text-muted-foreground">This published study path has moved here. Search Scripture to continue with local guided study.</p>}<div className="mt-5"><Link href="/study" className="rounded-md border border-border px-4 py-2 focus-visible:outline-2 focus-visible:outline-offset-2">Open guided study</Link></div><h2 className="mt-10 text-xl font-semibold">Search Scripture</h2><div className="mt-3"><ScriptureSearch /></div></article></main></>; }
+function isStudyHeading(paragraph: string) {
+  return paragraph.length < 90 && !/[.!?:;]$/.test(paragraph);
+}
+
+function cleanTypography(value: string) {
+  return value.replace(/[—–]/g, "-");
+}
+
+export default async function LegacyStudy({ params }: { params: Promise<Params> }) {
+  const { slug } = await params;
+  const study = studies.find((item) => item.slug === slug);
+  const label = study?.title || title(slug);
+  let paragraphs: string[] = [];
+  try {
+    paragraphs = JSON.parse(fs.readFileSync(path.join(process.cwd(), "public", "generated", "legacy", "studies", `${slug}.json`), "utf8")).paragraphs || [];
+  } catch {}
+
+  return (
+    <ReaderPage
+      title={label}
+      description="A published study from the original library. Read its references in context before drawing conclusions."
+      compactTitle
+      actions={
+        <Link className="reader-button reader-button-secondary" href="/study">
+          <ArrowLeft aria-hidden="true" />
+          All study tools
+        </Link>
+      }
+    >
+      {paragraphs.length ? (
+        <article className="reader-prose">
+          {paragraphs.map((paragraph, index) =>
+            isStudyHeading(paragraph) ? (
+              <h2 key={`${index}-${paragraph}`}>{cleanTypography(paragraph)}</h2>
+            ) : (
+              <p key={`${index}-${paragraph}`}>{cleanTypography(paragraph)}</p>
+            )
+          )}
+        </article>
+      ) : (
+        <div className="reader-empty-state">
+          <BookOpenText aria-hidden="true" />
+          <h2>This study is not available</h2>
+          <p>Open guided study and begin with a passage.</p>
+          <Link className="reader-button reader-button-primary" href="/study">Open guided study</Link>
+        </div>
+      )}
+    </ReaderPage>
+  );
+}

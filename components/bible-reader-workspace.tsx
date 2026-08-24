@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import {
@@ -23,11 +23,23 @@ import { Drawer, DrawerContent, DrawerDescription, DrawerTitle, DrawerTrigger } 
 import { LocalVerseTools } from "@/components/local-verse-tools";
 import SocialShareButtons from "@/components/social-share-buttons";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { RecentReadingMenu, RecentReadingTracker } from "@/components/recent-reading";
 import versionsDropDown from "@/components/versions-drop-down";
 import { getBookSlug } from "@/lib/getBookSlug";
 import parseWord from "@/lib/parseWord";
 
 type ReaderMode = "read" | "compare" | "study";
+
+function ComparisonParamSync({ onChange }: { onChange: (value: string | null) => void }) {
+  const searchParams = useSearchParams();
+  const requestedComparison = searchParams.get("side");
+
+  useEffect(() => {
+    onChange(requestedComparison);
+  }, [onChange, requestedComparison]);
+
+  return null;
+}
 
 const hiddenTags = new Set(["f", "f*", "fr", "ft", "fqa", "fv", "fv*", "fq", "fta"]);
 const sectionTags = new Set(["s1", "s2", "s3", "s4", "ms", "ms1", "mr", "d"]);
@@ -334,6 +346,7 @@ export function BibleReaderWorkspace({
 }: any) {
   const currentChapter = Number(chapter);
   const [mode, setMode] = useState<ReaderMode>("read");
+  const [requestedComparison, setRequestedComparison] = useState<string | null>(null);
   const [comparisonJson, setComparisonJson] = useState<any>(null);
   const [comparisonState, setComparisonState] = useState<"idle" | "loading" | "ready" | "error" | "same">("idle");
   const [selectedVerse, setSelectedVerse] = useState<any>(null);
@@ -342,8 +355,6 @@ export function BibleReaderWorkspace({
   const searchRef = useRef<HTMLInputElement>(null);
   const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
 
-  const searchParams = useSearchParams();
-  const requestedComparison = searchParams.get("side");
   const comparisonVersion = versions.some((item: any) => item.id === requestedComparison) ? requestedComparison! : version2;
   const comparisonLanguage = versions.find((item: any) => item.id === comparisonVersion)?.lang ?? language2;
   const comparisonBooks = comparisonBooksByVersion?.[comparisonVersion] ?? books;
@@ -415,8 +426,21 @@ export function BibleReaderWorkspace({
 
   return (
     <div className="bible-reader-app" dir={language === "Arabic" ? "rtl" : "ltr"}>
+      <RecentReadingTracker
+        version={version}
+        book={book}
+        bookId={String(bookInfo.b)}
+        bookName={bookInfo.n}
+        chapter={currentChapter}
+      />
+      <Suspense fallback={null}>
+        <ComparisonParamSync onChange={setRequestedComparison} />
+      </Suspense>
       <header className="reader-topbar">
-        <Link className="reader-wordmark" href="/" aria-label="Bible home">Bible</Link>
+        <div className="reader-topbar-brand">
+          <Link className="reader-wordmark" href="/" aria-label="Bible home">Bible</Link>
+          <Link className="reader-topbar-books" href={`/${version}`}>Books</Link>
+        </div>
         <form className="reader-global-search" action="/search" method="get">
           <Search aria-hidden="true" />
           <input ref={searchRef} name="q" placeholder="Go to a passage, search Scripture, or explore a question" aria-label="Search Scripture" />
@@ -424,6 +448,7 @@ export function BibleReaderWorkspace({
         </form>
         <div className="reader-topbar-actions">
           {versionsDropDown(versions, version, book, chapter, comparisonVersion, false, comparisonBookSlugs)}
+          <RecentReadingMenu />
           <ThemeToggle />
         </div>
       </header>

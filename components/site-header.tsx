@@ -56,7 +56,7 @@ export function SiteHeader({
             <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-border bg-muted">
               <BookOpen className="h-4 w-4" />
             </span>
-            <span className="truncate text-base font-semibold leading-none">{text.holyBibleReader}</span>
+            <span className="truncate text-base font-semibold leading-none">Bible</span>
           </Link>
           {title ? <div className="hidden h-6 w-px bg-border/60 md:block" /> : null}
           {title ? <div className="hidden min-w-0 md:block">{title}</div> : null}

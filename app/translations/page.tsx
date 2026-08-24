@@ -1,4 +1,50 @@
 import sources from "@/public/data/sources.json";
-import { UtilityHeader } from "@/components/utility-header";
+import Link from "next/link";
+import { ArrowRight, ExternalLink } from "lucide-react";
+import { ReaderPage } from "@/components/reader-page";
+
+const translationNames: Record<string, { name: string; note: string }> = {
+  bsb: { name: "Berean Standard Bible", note: "Modern English" },
+  asv: { name: "American Standard Version", note: "Formal English" },
+  kjv: { name: "King James Version", note: "Historic English" },
+  avd: { name: "Arabic Van Dyck", note: "Classic Arabic" },
+};
+
 export const metadata = { title: "Translations and sources", alternates: { canonical: "/translations" } };
-export default function TranslationsPage() { return <><UtilityHeader /><main className="min-h-screen px-4 py-8 sm:px-6"><div className="mx-auto max-w-3xl"><h1 className="text-3xl font-semibold">Translations and sources</h1><div className="mt-6 space-y-4">{Object.entries(sources.versions).map(([id, source]) => <article key={id} className="rounded-md border border-border p-4"><h2 className="font-semibold uppercase">{id}</h2><p className="mt-2 text-muted-foreground">{source.license}</p><ul className="mt-2">{source.urls.map((url, index) => <li key={url}><a className="underline" href={url} target="_blank" rel="noopener noreferrer">{index === 0 ? "Source and license details" : "Download and source details"}</a></li>)}</ul></article>)}</div></div></main></>; }
+export default function TranslationsPage() {
+  return (
+    <ReaderPage
+      title="Translations and text sources"
+      description="Every translation is bundled from a documented source, so reading and search do not depend on a third-party API."
+      wide
+    >
+      <div className="reader-source-grid">
+        {Object.entries(sources.versions).map(([id, source]) => {
+          const translation = translationNames[id];
+          return (
+            <article key={id} className="reader-source-entry">
+              <div>
+                <p>{id.toUpperCase()}</p>
+                <h2>{translation?.name ?? id.toUpperCase()}</h2>
+                <span>{translation?.note}</span>
+              </div>
+              <p>{source.license}</p>
+              <div className="reader-source-actions">
+                <Link href={`/${id}`}>
+                  Read this translation
+                  <ArrowRight aria-hidden="true" />
+                </Link>
+                {source.urls.map((url, index) => (
+                  <a key={url} href={url} target="_blank" rel="noopener noreferrer">
+                    {index === 0 ? "Source details" : "Download details"}
+                    <ExternalLink aria-hidden="true" />
+                  </a>
+                ))}
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </ReaderPage>
+  );
+}

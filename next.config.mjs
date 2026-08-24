@@ -27,6 +27,12 @@ const nextConfig = {
         destination: 'https://bible.bishoy.io/:path*',
         permanent: true,
       },
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'new.holybiblereader.com' }],
+        destination: 'https://bible.bishoy.io/:path*',
+        permanent: true,
+      },
       // Map old language codes to new ones
       {
         source: '/arabic/:path*',

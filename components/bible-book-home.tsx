@@ -3,32 +3,46 @@
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Menu } from "lucide-react";
 import { Amiri } from "next/font/google";
-import { Button } from "@/components/ui/button";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+
 import { BibleBooksList } from "@/components/bible-books-list";
+import { ReaderPageFooter } from "@/components/reader-page";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import {
+  Sheet,
+  SheetContent,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { UtilityHeader } from "@/components/utility-header";
+import versionsDropDown from "@/components/versions-drop-down";
 import { uiText } from "@/lib/uiText";
-import versionsDropDown from "./versions-drop-down";
-import { ThemeToggle } from "./theme-toggle";
-import { SiteHeader } from "./site-header";
 
 const amiri = Amiri({
   weight: ["400", "700"],
   subsets: ["arabic"],
 });
 
-export function BibleBookHome({ language, versions, version, book, curation, bookInfo, booksCategorized }) {
+export function BibleBookHome({
+  language,
+  versions,
+  version,
+  book,
+  curation,
+  bookInfo,
+  booksCategorized,
+}) {
   const isArabic = language === "Arabic";
   const text = uiText[language];
 
   return (
     <div
-      className={`page-shell min-h-screen ${isArabic ? amiri.className : ""}`}
+      className={`bible-reader-app reader-site-page reader-book-page ${isArabic ? amiri.className : ""}`}
       dir={isArabic ? "rtl" : "ltr"}
     >
-      <div className="grid min-h-screen lg:grid-cols-[20rem_minmax(0,1fr)]">
-        <aside className={`hidden border-border/80 bg-background/55 backdrop-blur lg:block ${isArabic ? "border-l" : "border-r"}`}>
-          <ScrollArea className="h-screen scrollbar-thin px-4 py-6">
+      <UtilityHeader />
+      <div className="reader-book-layout">
+        <aside className="reader-book-sidebar">
+          <ScrollArea className="reader-book-sidebar-scroll">
             <BibleBooksList
               language={language}
               versions={versions}
@@ -36,33 +50,32 @@ export function BibleBookHome({ language, versions, version, book, curation, boo
               book={book}
               chapter={null}
               booksCategorized={booksCategorized}
-              aside={true}
+              aside
             />
           </ScrollArea>
         </aside>
 
-        <main className="relative min-w-0">
-          <SiteHeader
-            language={language}
-            sticky={true}
-            maxWidthClassName="w-full"
-            title={
+        <main className="reader-book-main">
+          <header className="reader-book-intro">
+            <div className="reader-book-context">
               <div>
-                <p className="editorial-eyebrow">{text.bookIntroduction}</p>
-                <p className="font-display text-lg leading-none text-foreground">{bookInfo.n}</p>
+                <span>{text.bookIntroduction}</span>
+                <strong>{versions.find((item) => item.id === version)?.name}</strong>
               </div>
-            }
-            rightContent={
-              <>
+              <div className="reader-book-context-actions">
                 <Sheet>
                   <SheetTrigger asChild>
-                    <Button variant="outline" size="icon" className="lg:hidden">
-                      <Menu className="h-4 w-4" />
-                    </Button>
+                    <button type="button" className="reader-book-menu-button">
+                      <Menu aria-hidden="true" />
+                      Books
+                    </button>
                   </SheetTrigger>
-                  <SheetContent side={isArabic ? "right" : "left"} className="w-[92vw] max-w-md border-border bg-background p-0">
+                  <SheetContent
+                    side={isArabic ? "right" : "left"}
+                    className="w-[92vw] max-w-md border-border bg-background p-0"
+                  >
                     <SheetTitle className="sr-only">{text.bibleNavigation}</SheetTitle>
-                    <ScrollArea className="h-full px-4 py-6 scrollbar-thin">
+                    <ScrollArea className="h-full px-5 py-7">
                       <BibleBooksList
                         language={language}
                         versions={versions}
@@ -70,112 +83,129 @@ export function BibleBookHome({ language, versions, version, book, curation, boo
                         book={book}
                         chapter={null}
                         booksCategorized={booksCategorized}
-                        aside={true}
+                        aside
                       />
                     </ScrollArea>
                   </SheetContent>
                 </Sheet>
-                <Button variant="ghost" asChild className="hidden md:inline-flex">
-                  <Link href={`/${version}/${bookInfo.previousBook?.slug}`}>
-                    {isArabic ? <ArrowRight className="mr-2 h-4 w-4" /> : <ArrowLeft className="mr-2 h-4 w-4" />}
-                    {bookInfo.previousBook?.n}
-                  </Link>
-                </Button>
-                {versionsDropDown(versions, version, book, null, null, false, Object.fromEntries(versions.map((item) => [item.id, bookInfo.translationSlugs?.[item.id] ?? book])))}
-                <Button variant="ghost" asChild className="hidden md:inline-flex">
-                  <Link href={`/${version}/${bookInfo.nextBook?.slug}`}>
-                    {bookInfo.nextBook?.n}
-                    {isArabic ? <ArrowLeft className="ml-2 h-4 w-4" /> : <ArrowRight className="ml-2 h-4 w-4" />}
-                  </Link>
-                </Button>
-                <ThemeToggle />
-              </>
-            }
-          />
-
-          <div className="px-4 py-6 sm:px-6 lg:px-8">
-            <div className="mx-auto max-w-6xl space-y-8">
-              <section className="hero-panel rounded-xl px-6 py-10 sm:px-10">
-                <div className="grid gap-8 lg:grid-cols-[minmax(0,1.15fr)_20rem]">
-                  <div>
-                    <p className="editorial-eyebrow mb-3">{text.overview}</p>
-                    <h2 className="text-2xl font-semibold leading-tight sm:text-3xl">{bookInfo.n}</h2>
-                    <div className="editorial-divider my-5" />
-                    <div className="space-y-4 text-base" style={{ color: "var(--hero-muted)" }}>
-                      {curation.overviewParagraphs.map((text, i) => (
-                        <p key={i} className={i === 0 ? "scripture-dropcap" : ""}>
-                          {text}
-                        </p>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="rounded-lg border border-[var(--hero-muted)]/30 p-5">
-                    <p className="editorial-eyebrow mb-3">{text.chapters}</p>
-                    <h3 className="text-2xl font-semibold">{bookInfo.c} {text.chapters}</h3>
-                    <p className="mt-2 text-sm" style={{ color: "var(--hero-muted)" }}>
-                      {text.startWithIntroduction}
-                    </p>
-                    <div className="mt-5 grid grid-cols-4 gap-2">
-                      {Array.from({ length: Math.min(bookInfo.c, 12) }, (_, i) => i + 1).map((chapterNumber) => (
-                        <Button
-                          key={chapterNumber}
-                          variant="outline"
-                          size="sm"
-                          className="border-[var(--hero-muted)]/30 bg-[var(--hero-fg)] text-[var(--hero-bg)] hover:bg-[var(--hero-fg)]/90"
-                          asChild
-                        >
-                          <Link href={`/${version}/${book}/${chapterNumber}`}>{chapterNumber}</Link>
-                        </Button>
-                      ))}
-                    </div>
-                    {bookInfo.c > 12 ? (
-                      <p className="mt-3 text-sm" style={{ color: "var(--hero-muted)" }}>{text.fullChapterGridContinues}</p>
-                    ) : null}
-                  </div>
-                </div>
-              </section>
-
-              <section className="section-shell section-light rounded-xl p-6 sm:p-8">
-                <p className="editorial-eyebrow mb-2">{text.sections}</p>
-                <h2 className="text-xl font-semibold sm:text-2xl">{text.majorMovementsIn} {bookInfo.n}</h2>
-                <div className="editorial-divider my-5" />
-                <div className="grid gap-3 md:grid-cols-2">
-                  {curation.sections.map((group) => (
-                    <Link
-                      key={group.title}
-                      href={`/${version}/${book}/${group.fromChapter}`}
-                      className="rounded-lg border border-border p-4 transition-colors hover:bg-muted"
-                    >
-                      <p className="text-lg font-medium">{group.title}</p>
-                      <p className="mt-1 text-xs uppercase tracking-wide text-muted-foreground">
-                        {group.fromChapter === group.toChapter ? `${text.chapterLabel} ${group.fromChapter}` : `${text.chapters} ${group.fromChapter}-${group.toChapter}`}
-                      </p>
-                    </Link>
-                  ))}
-                </div>
-              </section>
-
-              <section className="section-shell rounded-xl p-6 sm:p-8">
-                <p className="editorial-eyebrow mb-2">{text.chapters}</p>
-                <h2 className="text-xl font-semibold sm:text-2xl">{text.enterTheText}</h2>
-                <div className="editorial-divider my-5" />
-                <div className="grid grid-cols-4 gap-2 sm:grid-cols-6 lg:grid-cols-8">
-                  {Array.from({ length: bookInfo.c }, (_, i) => i + 1).map((chapterNumber) => (
-                    <Button
-                      key={chapterNumber}
-                      variant="outline"
-                      className="h-10"
-                      asChild
-                    >
-                      <Link href={`/${version}/${book}/${chapterNumber}`}>{chapterNumber}</Link>
-                    </Button>
-                  ))}
-                </div>
-              </section>
+                {versionsDropDown(
+                  versions,
+                  version,
+                  book,
+                  null,
+                  null,
+                  false,
+                  Object.fromEntries(
+                    versions.map((item) => [
+                      item.id,
+                      bookInfo.translationSlugs?.[item.id] ?? book,
+                    ])
+                  )
+                )}
+              </div>
             </div>
-          </div>
+
+            <h1>{bookInfo.n}</h1>
+            <div className="reader-book-overview">
+              {curation.overviewParagraphs.slice(0, 1).map((paragraph, index) => (
+                <p key={index}>{paragraph}</p>
+              ))}
+            </div>
+            <div className="reader-page-actions">
+              <Link
+                className="reader-button reader-button-primary"
+                href={`/${version}/${book}/1`}
+              >
+                Read chapter 1
+                <ArrowRight aria-hidden="true" />
+              </Link>
+            </div>
+          </header>
+
+          {curation.overviewParagraphs.length > 1 ? (
+            <section className="reader-book-section" aria-labelledby="book-context-title">
+              <div className="reader-page-section-heading">
+                <h2 id="book-context-title">Context for reading</h2>
+              </div>
+              <div className="reader-book-overview reader-book-context-copy">
+                {curation.overviewParagraphs.slice(1).map((paragraph, index) => (
+                  <p key={index}>{paragraph}</p>
+                ))}
+              </div>
+            </section>
+          ) : null}
+
+          <section className="reader-book-section" aria-labelledby="movements-title">
+            <div className="reader-page-section-heading">
+              <h2 id="movements-title">Major movements</h2>
+              <p>Follow the structure of {bookInfo.n} from beginning to end.</p>
+            </div>
+            <div className="reader-book-movements">
+              {curation.sections.map((group) => (
+                <Link
+                  key={group.title}
+                  href={`/${version}/${book}/${group.fromChapter}`}
+                >
+                  <span>
+                    <strong>{group.title}</strong>
+                    <small>
+                      {group.fromChapter === group.toChapter
+                        ? `${text.chapterLabel} ${group.fromChapter}`
+                        : `${text.chapters} ${group.fromChapter}-${group.toChapter}`}
+                    </small>
+                  </span>
+                  <ArrowRight aria-hidden="true" />
+                </Link>
+              ))}
+            </div>
+          </section>
+
+          <section className="reader-book-section" aria-labelledby="chapters-title">
+            <div className="reader-page-section-heading">
+              <h2 id="chapters-title">Choose a chapter</h2>
+              <p>Open the biblical text with study and comparison tools close by.</p>
+            </div>
+            <div className="reader-book-chapters">
+              {Array.from({ length: bookInfo.c }, (_, index) => index + 1).map(
+                (chapterNumber) => (
+                  <Link
+                    key={chapterNumber}
+                    href={`/${version}/${book}/${chapterNumber}`}
+                  >
+                    {chapterNumber}
+                  </Link>
+                )
+              )}
+            </div>
+          </section>
+
+          <nav className="reader-book-neighbors" aria-label="Adjacent books">
+            <Link href={`/${version}/${bookInfo.previousBook?.slug}`}>
+              {isArabic ? (
+                <ArrowRight aria-hidden="true" />
+              ) : (
+                <ArrowLeft aria-hidden="true" />
+              )}
+              <span>
+                <small>Previous book</small>
+                <strong>{bookInfo.previousBook?.n}</strong>
+              </span>
+            </Link>
+            <Link href={`/${version}/${bookInfo.nextBook?.slug}`}>
+              <span>
+                <small>Next book</small>
+                <strong>{bookInfo.nextBook?.n}</strong>
+              </span>
+              {isArabic ? (
+                <ArrowLeft aria-hidden="true" />
+              ) : (
+                <ArrowRight aria-hidden="true" />
+              )}
+            </Link>
+          </nav>
         </main>
       </div>
+      <ReaderPageFooter />
     </div>
   );
 }

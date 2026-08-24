@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { uiText } from "@/lib/uiText";
 
 type GospelGuideProps = {
@@ -14,15 +15,18 @@ export function GospelGuide({ language = "English" }: GospelGuideProps) {
   }));
 
   return (
-    <ul className="space-y-2">
+    <ol className="reader-start-path">
       {items.map((item) => (
-        <li key={item.href} className="rounded-lg border border-border px-4 py-3 text-sm leading-6">
-          <Link href={item.href} prefetch={false} className="font-medium underline-offset-4 hover:underline">
-            {item.label}
+        <li key={item.href}>
+          <div>
+            <h2>{item.label}</h2>
+            <p>{item.description}</p>
+          </div>
+          <Link href={item.href} prefetch={false} aria-label={`Read ${item.label}`}>
+            <ArrowRight aria-hidden="true" />
           </Link>
-          <span className="ml-2 text-muted-foreground">{item.description}</span>
         </li>
       ))}
-    </ul>
+    </ol>
   );
 }

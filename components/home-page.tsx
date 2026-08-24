@@ -1,189 +1,262 @@
 import Link from "next/link";
 import {
   ArrowRight,
-  Compass,
-  Layers3,
-  LibraryBig,
+  BookOpenText,
+  Columns2,
+  NotebookPen,
   Search,
-  ScrollText,
 } from "lucide-react";
-import { buttonVariants } from "@/components/ui/button";
-import { uiText } from "@/lib/uiText";
-import { ChurchGuidanceComponent } from "./church-guidance";
-import { SalvationGuideComponent } from "./salvation-guide";
-import { GospelGuide } from "./gospel-guide";
-import { SiteHeader } from "./site-header";
-import { cn } from "@/lib/utils";
 
-const studyFeatureIcons = [LibraryBig, ScrollText, Layers3];
+import { RecentReadingList } from "@/components/recent-reading";
+import { UtilityHeader } from "@/components/utility-header";
 
-type HomeLanguage = keyof typeof uiText;
+type HomeLanguage = "English" | "Spanish" | "Arabic";
 
-export function HomePageComponent({ language = "English" }: { language?: HomeLanguage }) {
-  const text = uiText[language];
-  const readingPaths = text.readingPaths ?? uiText.English.readingPaths;
-  const studyFeatures = (text.studyFeatures ?? uiText.English.studyFeatures).map((feature, index) => ({
-    ...feature,
-    icon: studyFeatureIcons[index],
-  }));
-  const shelfLinks = text.shelfLinks ?? uiText.English.shelfLinks;
-  const readerHighlights = text.readerHighlights ?? uiText.English.readerHighlights;
-  const primaryChapterHref = language === "Arabic" ? "/avd/genesis/1" : "/bsb/genesis/1";
-  const bookIntroductionHref = language === "Arabic" ? "/avd/john" : "/bsb/john";
+const mainBooks = [
+  {
+    reference: "John",
+    title: "Meet Jesus through his signs, teaching, death, and resurrection",
+    href: "/bsb/john/1",
+  },
+  {
+    reference: "Genesis",
+    title: "Begin with creation, promise, covenant, and the family of Abraham",
+    href: "/bsb/genesis/1",
+  },
+  {
+    reference: "Psalms",
+    title: "Pray through praise, grief, trust, repentance, and hope",
+    href: "/bsb/psalms/1",
+  },
+  {
+    reference: "Romans",
+    title: "Follow Paul's explanation of sin, grace, faith, and new life",
+    href: "/bsb/romans/1",
+  },
+];
+
+const studyFeatures = [
+  {
+    title: "Compare translations",
+    description: "Keep another translation beside the chapter.",
+    icon: Columns2,
+  },
+  {
+    title: "Follow the passage",
+    description: "Use section headings and study notes as a guide.",
+    icon: BookOpenText,
+  },
+  {
+    title: "Keep it private",
+    description: "Bookmarks and notes stay in this browser.",
+    icon: NotebookPen,
+  },
+];
+
+const translations = [
+  {
+    label: "Berean Standard Bible",
+    note: "Modern English",
+    href: "/bsb",
+  },
+  {
+    label: "American Standard Version",
+    note: "Formal English",
+    href: "/asv",
+  },
+  {
+    label: "King James Version",
+    note: "Historic English",
+    href: "/kjv",
+  },
+  {
+    label: "Arabic Van Dyck",
+    note: "Classic Arabic",
+    href: "/avd",
+  },
+];
+
+export function HomePageComponent({
+  language = "English",
+}: {
+  language?: HomeLanguage;
+}) {
+  const primaryTranslation = language === "Arabic" ? "avd" : "bsb";
+  const primaryChapterHref = `/${primaryTranslation}/john/1`;
 
   return (
-    <div className="page-shell">
-      <SiteHeader
-        language={language}
-        libraryHref="/bsb"
-        libraryLabel={text.library}
-        askLabel={text.ask}
-      />
+    <div
+      className="bible-reader-app home-reader-app"
+      dir={language === "Arabic" ? "rtl" : "ltr"}
+    >
+      <UtilityHeader />
 
-      <main className="relative z-10 px-4 pb-20 pt-6 sm:px-6 lg:px-8">
-        <section className="mx-auto max-w-5xl">
-          <div className="hero-panel rounded-xl px-6 py-12 sm:px-10 sm:py-16">
-            <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,1.15fr)_20rem]">
-              <div className="max-w-2xl">
-                <p className="editorial-eyebrow mb-4">{text.scriptureContextReverence}</p>
-                <h1 className="max-w-2xl text-4xl font-semibold leading-tight sm:text-5xl lg:text-6xl">
-                  {text.homeHeroTitleStart}{" "}
-                  <span className="opacity-70">{text.homeHeroTitleAccent}</span>{" "}
-                  {text.homeHeroTitleEnd}
-                </h1>
-                <div className="editorial-divider my-6" />
-                <p className="max-w-xl text-lg" style={{ color: "var(--hero-muted)" }}>
-                  {text.homeHeroBody}
-                </p>
-                <div className="mt-8 flex flex-wrap gap-3">
-                  <Link
-                    href={readingPaths[0].href}
-                    className={cn(
-                      buttonVariants({ size: "lg" }),
-                      "bg-[var(--hero-fg)] text-[var(--hero-bg)] hover:bg-[var(--hero-fg)]/90"
-                    )}
-                  >
-                    {text.openStudyLibrary}
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                  <Link
-                    href="/search"
-                    className={cn(
-                      buttonVariants({ size: "lg", variant: "outline" }),
-                      "border-[var(--hero-muted)] bg-transparent text-[var(--hero-fg)] hover:bg-[var(--hero-fg)]/10"
-                    )}
-                  >
-                    <Search className="mr-2 h-4 w-4" />
-                    {text.askBibleQuestion}
-                  </Link>
-                </div>
-              </div>
-
-              <div className="rounded-lg border border-[var(--hero-muted)]/30 p-5">
-                <p className="editorial-eyebrow mb-4">{text.readingPathsTitle}</p>
-                <div className="space-y-3">
-                  {readingPaths.map((path) => (
-                    <Link
-                      key={path.title}
-                      href={path.href}
-                      className="group block rounded-md border border-[var(--hero-muted)]/20 px-4 py-3 transition-colors hover:bg-[var(--hero-fg)]/5"
-                    >
-                      <div className="flex items-center justify-between gap-3">
-                        <h2 className="text-lg font-medium">{path.title}</h2>
-                        <ArrowRight className="h-4 w-4 opacity-50 group-hover:translate-x-0.5 group-hover:opacity-100" />
-                      </div>
-                      <p className="mt-1 text-sm" style={{ color: "var(--hero-muted)" }}>
-                        {path.description}
-                      </p>
-                    </Link>
-                  ))}
-                </div>
-              </div>
+      <main className="home-reader-main">
+        <section className="home-reader-hero" aria-labelledby="home-title">
+          <div className="home-reader-hero-copy">
+            <h1 id="home-title">The Bible, with room to read.</h1>
+            <p>
+              Read Scripture first. Bring translations, context, and study
+              notes alongside only when you need them.
+            </p>
+            <div className="home-reader-actions">
+              <Link href={`/${primaryTranslation}`} className="home-reader-primary">
+                Browse all books
+                <ArrowRight aria-hidden="true" />
+              </Link>
+              <Link href={primaryChapterHref} className="home-reader-secondary">
+                Start with John
+              </Link>
             </div>
           </div>
+
+          <Link className="home-reader-passage-preview" href="/bsb/john/1">
+            <span className="home-reader-passage-label">John 1:1</span>
+            <blockquote>
+              In the beginning was the Word, and the Word was with God, and the
+              Word was God.
+            </blockquote>
+            <span className="home-reader-passage-link">
+              Read John 1
+              <ArrowRight aria-hidden="true" />
+            </span>
+          </Link>
         </section>
 
-        <section className="mx-auto mt-10 grid max-w-5xl gap-6 lg:grid-cols-2">
-          <div className="section-shell rounded-xl p-6 sm:p-8">
-            <p className="editorial-eyebrow mb-2">{text.whyThisFeelsDifferent}</p>
-            <h2 className="text-2xl font-semibold sm:text-3xl">{text.slowerDeeperStudy}</h2>
-            <div className="editorial-divider my-5" />
-            <div className="grid gap-4">
-              {studyFeatures.map((feature) => (
-                <article key={feature.title} className="rounded-lg border border-border p-4">
-                  <feature.icon className="h-4 w-4 text-muted-foreground" />
-                  <h3 className="mt-3 text-lg font-medium">{feature.title}</h3>
-                  <p className="mt-1 text-sm text-muted-foreground">{feature.description}</p>
-                </article>
-              ))}
-            </div>
+        <section className="home-reader-search" aria-labelledby="search-title">
+          <div>
+            <h2 id="search-title">Search Scripture</h2>
+            <p>Find a word, phrase, or passage in the biblical text.</p>
           </div>
+          <form action="/search" method="get">
+            <Search aria-hidden="true" />
+            <label className="sr-only" htmlFor="home-scripture-search">
+              Search Scripture
+            </label>
+            <input
+              id="home-scripture-search"
+              name="q"
+              dir="auto"
+              type="search"
+              placeholder="Try “grace and truth”"
+            />
+            <button type="submit" aria-label="Search Scripture">
+              <ArrowRight aria-hidden="true" />
+            </button>
+          </form>
+        </section>
 
-          <div className="section-shell section-light rounded-xl p-6 sm:p-8">
-            <p className="editorial-eyebrow mb-2">{text.translationShelf}</p>
-            <h2 className="text-2xl font-semibold sm:text-3xl">{text.chooseReadingTradition}</h2>
-            <div className="editorial-divider my-5" />
-            <div className="space-y-2">
-              {shelfLinks.map((link) => (
+        <RecentReadingList />
+
+        <section className="home-reader-guide" aria-label="Reading and study">
+          <div className="home-reader-section">
+            <div className="home-reader-section-heading">
+              <p>Choose a starting point</p>
+              <h2>Begin with a main book</h2>
+            </div>
+            <div className="home-reader-list">
+              {mainBooks.map((passage) => (
                 <Link
-                  key={link.label}
-                  href={link.href}
-                  className="flex items-center justify-between rounded-lg border border-border px-4 py-3 transition-colors hover:bg-muted"
+                  key={passage.reference}
+                  href={passage.href}
+                  className="home-reader-row"
                 >
-                  <div>
-                    <p className="font-medium">{link.label}</p>
-                    <p className="mt-0.5 text-sm text-muted-foreground">{link.note}</p>
-                  </div>
-                  <Compass className="h-4 w-4 text-muted-foreground" />
+                  <span>
+                    <strong>{passage.reference}</strong>
+                    <small>{passage.title}</small>
+                  </span>
+                  <ArrowRight aria-hidden="true" />
                 </Link>
               ))}
             </div>
-          </div>
-        </section>
-
-        <section className="mx-auto mt-10 grid max-w-5xl gap-6 lg:grid-cols-2">
-          <div className="section-shell section-light rounded-xl p-6 sm:p-8">
-            <p className="editorial-eyebrow mb-2">{text.beginHere}</p>
-            <h2 className="text-2xl font-semibold sm:text-3xl">{text.gentlePath}</h2>
-            <div className="editorial-divider my-5" />
-            <p className="text-muted-foreground">{text.gentlePathBody}</p>
-            <div className="my-6 border-t border-border" />
-            <GospelGuide language={language} />
+            <Link className="home-reader-inline-link" href={`/${primaryTranslation}`}>
+              Browse all 66 books
+              <ArrowRight aria-hidden="true" />
+            </Link>
           </div>
 
-          <div className="section-shell rounded-xl p-6 sm:p-8">
-            <p className="editorial-eyebrow mb-2">{text.insideTheReader}</p>
-            <h2 className="text-2xl font-semibold sm:text-3xl">{text.redesignedChapterExperience}</h2>
-            <div className="editorial-divider my-5" />
-            <p className="text-muted-foreground">{text.chapterReadingDesc}</p>
-            <div className="mt-5 space-y-2">
-              {readerHighlights.map((highlight) => (
-                <div key={highlight} className="rounded-lg border border-border px-4 py-3">
-                  <p className="text-sm text-muted-foreground">{highlight}</p>
-                </div>
-              ))}
+          <div className="home-reader-section">
+            <div className="home-reader-section-heading">
+              <p>When you want context</p>
+              <h2>Study without leaving the text</h2>
             </div>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Link href={primaryChapterHref} className={cn(buttonVariants())}>
-                {text.readAChapter}
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-              <Link href={bookIntroductionHref} className={cn(buttonVariants({ variant: "outline" }))}>
-                {text.openBookIntroduction}
-              </Link>
+            <div className="home-reader-list">
+              {studyFeatures.map((feature) => {
+                const Icon = feature.icon;
+                return (
+                  <div className="home-reader-feature" key={feature.title}>
+                    <Icon aria-hidden="true" />
+                    <span>
+                      <strong>{feature.title}</strong>
+                      <small>{feature.description}</small>
+                    </span>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </section>
 
-        <section className="mx-auto mt-10 grid max-w-5xl gap-6 lg:grid-cols-2">
-          <div className="section-shell section-light rounded-xl p-5 sm:p-6">
-            <SalvationGuideComponent language={language} />
+        <section className="home-reader-gospel" aria-labelledby="gospel-title">
+          <div className="home-reader-section-heading">
+            <p>The heart of the Christian message</p>
+            <h2 id="gospel-title">The Gospel</h2>
           </div>
-          <div className="section-shell rounded-xl p-5 sm:p-6">
-            <ChurchGuidanceComponent language={language} />
+          <div>
+            <p>
+              God made us for himself, but sin separates us from him. Jesus
+              Christ lived without sin, died for sinners, and rose again. God
+              freely forgives and gives new life to everyone who turns to
+              Christ and trusts in him.
+            </p>
+            <div className="home-reader-gospel-actions">
+              <Link href="/gospel">
+                Read the Gospel guide
+                <ArrowRight aria-hidden="true" />
+              </Link>
+              <Link href="/bsb/john/3">Read John 3</Link>
+            </div>
           </div>
+        </section>
+
+        <section
+          className="home-reader-translations"
+          aria-labelledby="translations-title"
+        >
+          <div className="home-reader-section-heading">
+            <p>Read in your language</p>
+            <h2 id="translations-title">Choose a translation</h2>
+          </div>
+          <div className="home-reader-translation-grid">
+            {translations.map((translation) => (
+              <Link
+                key={translation.label}
+                href={translation.href}
+                className="home-reader-translation"
+              >
+                <span>
+                  <strong>{translation.label}</strong>
+                  <small>{translation.note}</small>
+                </span>
+                <ArrowRight aria-hidden="true" />
+              </Link>
+            ))}
+          </div>
+          <Link className="home-reader-source-link" href="/translations">
+            View text sources and licenses
+            <ArrowRight aria-hidden="true" />
+          </Link>
         </section>
       </main>
+
+      <footer className="home-reader-footer">
+        <p>Bible reading and study, without an account.</p>
+        <nav aria-label="Footer navigation">
+          <Link href="/start">Start here</Link>
+          <Link href="/topics">Topics</Link>
+          <Link href="/gospel">The gospel</Link>
+        </nav>
+      </footer>
     </div>
   );
 }

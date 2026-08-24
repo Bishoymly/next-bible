@@ -4,6 +4,3 @@ Allow: /
 
 # Sitemap location
 Sitemap: https://bible.bishoy.io/sitemap.xml
-
-# Crawl-delay for all bots
-Crawl-delay: 1

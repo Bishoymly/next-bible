@@ -1,4 +1,5 @@
 import { GospelGuide } from "@/components/gospel-guide";
+import { ReaderPage } from "@/components/reader-page";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -8,5 +9,12 @@ export const metadata: Metadata = {
 };
 
 export default function StartPage() {
-  return <GospelGuide />;
+  return (
+    <ReaderPage
+      title="A simple place to begin"
+      description="Read a few foundational passages slowly. You do not need to understand everything at once."
+    >
+      <GospelGuide />
+    </ReaderPage>
+  );
 }
