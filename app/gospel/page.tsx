@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     url: "/gospel",
     title: "The Gospel of Jesus Christ",
     description,
-    siteName: "Bible Reader",
+    siteName: "Bible",
   },
   twitter: {
     card: "summary_large_image",

@@ -2,9 +2,9 @@ import { MetadataRoute } from 'next'
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Bible Reader",
-    short_name: "Bible Reader",
-    description: "Your Bible Reader Companion",
+    name: "Bible",
+    short_name: "Bible",
+    description: "Your Bible companion",
     start_url: "/",
     display: "standalone",
     background_color: "#ffffff",

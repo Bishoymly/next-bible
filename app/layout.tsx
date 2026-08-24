@@ -11,25 +11,25 @@ const sans = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "Bible Reader",
-    template: "%s | Bible Reader"
+    default: "Bible",
+    template: "%s | Bible"
   },
   description: "Read and search Scripture across English and Arabic translations, with book introductions, study notes, and private bookmarks.",
-  keywords: ["bible", "study", "scripture", "religious text", "bible reader", "bible translations"],
-  authors: [{ name: "Bible Reader" }],
+  keywords: ["bible", "study", "scripture", "religious text", "bible translations"],
+  authors: [{ name: "Bible" }],
   metadataBase: new URL('https://bible.bishoy.io'),
   alternates: { canonical: '/' },
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "https://bible.bishoy.io",
-    siteName: "Bible Reader",
-    title: "Bible Reader",
+    siteName: "Bible",
+    title: "Bible",
     description: "Read and search Scripture across English and Arabic translations, with book introductions, study notes, and private bookmarks.",
   },
   twitter: {
     card: "summary",
-    title: "Bible Reader",
+    title: "Bible",
     description: "Read and search Scripture across English and Arabic translations, with book introductions, study notes, and private bookmarks.",
   },
   robots: {

@@ -1,4 +1,4 @@
-# Bible Reader
+# Bible
 
 An open-source, modern web application for reading and studying the Bible with multiple translations, study tools, and cross-references. Built with Next.js 16 and React 19.
 

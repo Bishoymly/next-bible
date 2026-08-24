@@ -35,10 +35,10 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.562.0",
-    "next": "^16.2.9",
+    "next": "16.3.2",
     "next-themes": "^0.4.6",
-    "react": "^19",
-    "react-dom": "^19",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
     "tailwind-merge": "^3.4.0",
     "tailwindcss-animate": "^1.0.7",
     "usfm-js": "^3.4.3",
@@ -48,13 +48,17 @@
   "devDependencies": {
     "@ai-sdk/openai": "^3.0.99",
     "@types/node": "^25",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.5",
     "ai": "^6.0.264",
-    "eslint": "^9",
-    "eslint-config-next": "^16.2.9",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "16.3.2",
     "postcss": "^8",
     "tailwindcss": "^4.1.18",
     "typescript": "^5"
+  },
+  "overrides": {
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.5"
   }
 }
