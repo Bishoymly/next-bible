@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 
@@ -68,6 +69,7 @@ export default function RootLayout({
           {children}
         </ThemeProvider>
         <Analytics />
+        <GoogleAnalytics gaId="G-YEJ5GJ8FSH" />
       </body>
     </html>
   );
